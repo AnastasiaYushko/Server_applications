@@ -8,14 +8,17 @@ import org.example.dto_request.studentGroup.get.GetStudentGroupByIdRequest;
 import org.example.dto_response.studentGroup.AddStudentGroupResponse;
 import org.example.dto_response.studentGroup.EditStudentGroupResponse;
 import org.example.dto_response.studentGroup.GetStudentGroupByIdResponse;
+import org.example.dto_response.studentGroup.GetStudentGroupsResponse;
 
 public interface GroupStudentsService {
 
     GetStudentGroupByIdResponse getStudentGroupById(GetStudentGroupByIdRequest request) throws JsonProcessingException;
 
+    GetStudentGroupsResponse getStudentGroups() throws JsonProcessingException;
+
     EditStudentGroupResponse editStudentGroup(EditStudentGroupRequest request) throws JsonProcessingException;
 
     AddStudentGroupResponse addStudentGroup(AddStudentGroupRequest request) throws JsonProcessingException;
 
-    void deleteStudentGroup(DeleteStudentGroupRequest request) throws JsonProcessingException;
+    String deleteStudentGroup(DeleteStudentGroupRequest request) throws JsonProcessingException;
 }

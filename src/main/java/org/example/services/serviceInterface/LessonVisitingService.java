@@ -7,7 +7,7 @@ import org.example.dto_request.lessonVisiting.get.GetLessonVisitingRequest;
 import org.example.dto_response.lessonVisiting.GetLessonVisitingResponse;
 
 public interface LessonVisitingService {
-    void addLessonVisiting(AddLessonVisitingRequest request) throws JsonProcessingException;
-    void deleteLessonVisiting(DeleteLessonVisitingRequest request) throws JsonProcessingException;
+    String addLessonVisiting(AddLessonVisitingRequest request) throws JsonProcessingException;
+    String deleteLessonVisiting(DeleteLessonVisitingRequest request) throws JsonProcessingException;
     GetLessonVisitingResponse getLessonVisiting(GetLessonVisitingRequest request) throws JsonProcessingException;
 }

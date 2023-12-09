@@ -21,5 +21,5 @@ public interface StudentService {
 
     AddStudentResponse addStudent(AddStudentRequest request) throws JsonProcessingException;
 
-    void deleteStudent(DeleteStudentRequest request) throws JsonProcessingException;
+    String deleteStudent(DeleteStudentRequest request) throws JsonProcessingException;
 }

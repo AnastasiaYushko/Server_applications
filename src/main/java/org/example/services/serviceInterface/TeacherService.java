@@ -13,7 +13,7 @@ import org.example.dto_response.teacher.GetTeachersResponse;
 public interface TeacherService {
 
     AddTeacherResponse addTeacher(AddTeacherRequest request) throws JsonProcessingException;
-    void deleteTeacher(DeleteTeacherRequest request) throws JsonProcessingException;
+    String deleteTeacher(DeleteTeacherRequest request) throws JsonProcessingException;
     EditTeacherResponse editTeacher(EditTeacherRequest request) throws JsonProcessingException;
     GetTeacherByIdResponse getTeacherById(GetTeacherByIdRequest request) throws JsonProcessingException;
     GetTeachersResponse getTeachers() throws JsonProcessingException;

@@ -114,7 +114,7 @@ public class StudentController {
         return new ResponseEntity<>(addStudentResponse, HttpStatus.SC_CREATED);
     }
 
-    public static ResponseEntity<Void> deleteStudent(@RequestBody DeleteStudentRequest request) throws JsonProcessingException{
+    public static ResponseEntity<String> deleteStudent(@RequestBody DeleteStudentRequest request) throws JsonProcessingException{
 
         DeleteStudentValidator validator = new DeleteStudentValidator();
         List<String> errors = new ArrayList<>();
@@ -128,7 +128,7 @@ public class StudentController {
 
         StudentServiceImpl studentService = new StudentServiceImpl();
 
-        studentService.deleteStudent(request);
-        return new ResponseEntity<>(null, HttpStatus.SC_OK);
+        String data = studentService.deleteStudent(request);
+        return new ResponseEntity<>(data,HttpStatus.SC_OK);
     }
 }

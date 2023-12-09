@@ -13,7 +13,7 @@ import org.example.dto_response.subject.GetSubjectsResponse;
 public interface SubjectService{
 
     AddSubjectResponse addSubject(AddSubjectRequest request) throws JsonProcessingException;
-    void deleteSubject(DeleteSubjectRequest request) throws JsonProcessingException;
+    String deleteSubject(DeleteSubjectRequest request) throws JsonProcessingException;
     EditSubjectResponse editSubject(EditSubjectRequest request) throws JsonProcessingException;
     GetSubjectByIdResponse getSubjectById(GetSubjectByIdRequest request) throws JsonProcessingException;
     GetSubjectsResponse getSubjects() throws JsonProcessingException;

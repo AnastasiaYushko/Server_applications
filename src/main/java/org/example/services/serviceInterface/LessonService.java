@@ -14,9 +14,9 @@ import org.example.dto_response.lesson.*;
 public interface LessonService {
 
     AddLessonResponse addLesson(AddLessonRequest request) throws JsonProcessingException;
-    void deleteLessonsByGroup(DeleteLessonsByGroupRequest request) throws JsonProcessingException;
-    void deleteLessonById(DeleteLessonByIdRequest request) throws JsonProcessingException;
-    void deleteLessonsByTeacher(DeleteLessonsByTeacherRequest request) throws JsonProcessingException;
+    String deleteLessonsByGroup(DeleteLessonsByGroupRequest request) throws JsonProcessingException;
+    String deleteLessonById(DeleteLessonByIdRequest request) throws JsonProcessingException;
+    String deleteLessonsByTeacher(DeleteLessonsByTeacherRequest request) throws JsonProcessingException;
     EditLessonResponse editLesson(EditLessonRequest request) throws JsonProcessingException;
     GetLessonsByGroupResponse getLessonsByGroup(GetLessonsByGroupRequest request) throws JsonProcessingException;
     GetLessonByIdResponse getLessonById(GetLessonByIdRequest request) throws JsonProcessingException;

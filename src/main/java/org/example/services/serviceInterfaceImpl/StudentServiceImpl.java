@@ -24,7 +24,7 @@ public class StudentServiceImpl implements StudentService {
         // вызов метода на сервера
         //
 
-        String jsonResponse = "ответ сервера";
+        String jsonResponse = "Ответ сервера на метод getStudentById";
         ObjectMapper objectMapper = new ObjectMapper();
 
         return objectMapper.readValue(jsonResponse, GetStudentByIdResponse.class);
@@ -32,21 +32,54 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public GetStudentsByGroupResponse getStudentsByGroup(GetStudentsByGroupRequest request)throws JsonProcessingException {
-        return null;
+        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+        String jsonRequest = ow.writeValueAsString(request);
+
+        // вызов метода на сервера
+        //
+
+        String jsonResponse = "Ответ сервера на метод getStudentsByGroup";
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        return objectMapper.readValue(jsonResponse, GetStudentsByGroupResponse.class);
     }
 
     @Override
     public EditStudentResponse editStudent(EditStudentRequest request) throws JsonProcessingException {
-        return null;
+        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+        String jsonRequest = ow.writeValueAsString(request);
+
+        // вызов метода на сервера
+        //
+
+        String jsonResponse = "Ответ сервера на метод editStudent";
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        return objectMapper.readValue(jsonResponse, EditStudentResponse.class);
     }
 
     @Override
     public AddStudentResponse addStudent(AddStudentRequest request) throws JsonProcessingException {
-        return null;
+        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+        String jsonRequest = ow.writeValueAsString(request);
+
+        // вызов метода на сервера
+        //
+
+        String jsonResponse = "Ответ сервера на метод editStudent";
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        return objectMapper.readValue(jsonResponse, AddStudentResponse.class);
     }
 
     @Override
-    public void deleteStudent(DeleteStudentRequest request) throws JsonProcessingException {
+    public String deleteStudent(DeleteStudentRequest request) throws JsonProcessingException {
+        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+        String jsonRequest = ow.writeValueAsString(request);
 
+        // вызов метода на сервера
+        //
+
+        return "Ответ сервера на метод deleteStudent";
     }
 }

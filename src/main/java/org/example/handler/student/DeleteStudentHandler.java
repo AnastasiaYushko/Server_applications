@@ -15,7 +15,7 @@ public class DeleteStudentHandler implements IHandler {
 
         DeleteStudentRequest deleteStudentRequest = objectMapper.readValue(jsonRequest, DeleteStudentRequest.class);
 
-        ResponseEntity<Void> deleteStudentResponse = StudentController.deleteStudent(deleteStudentRequest);
+        ResponseEntity<String> deleteStudentResponse = StudentController.deleteStudent(deleteStudentRequest);
 
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 

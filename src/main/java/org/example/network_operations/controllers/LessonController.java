@@ -71,7 +71,7 @@ public class LessonController {
         return new ResponseEntity<>(lessonResponse, HttpStatus.SC_ACCEPTED);
     };
 
-    public static ResponseEntity<Void> deleteLessonsByGroup(@RequestBody DeleteLessonsByGroupRequest request) throws JsonProcessingException{
+    public static ResponseEntity<String> deleteLessonsByGroup(@RequestBody DeleteLessonsByGroupRequest request) throws JsonProcessingException{
         DeleteLessonsByGroupValidator validator = new DeleteLessonsByGroupValidator();
         List<String> errors = new ArrayList<>();
         validator.validate(request,errors);
@@ -87,12 +87,12 @@ public class LessonController {
 
         LessonServiceImpl lessonService = new LessonServiceImpl();
 
-        lessonService.deleteLessonsByGroup(request);
+        String dataResponse =  lessonService.deleteLessonsByGroup(request);
 
-        return new ResponseEntity<>(null, HttpStatus.SC_OK);
+        return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
     }
 
-    public static ResponseEntity<Void> deleteLessonById(@RequestBody DeleteLessonByIdRequest request) throws JsonProcessingException{
+    public static ResponseEntity<String> deleteLessonById(@RequestBody DeleteLessonByIdRequest request) throws JsonProcessingException{
         DeleteLessonByIdValidator validator = new DeleteLessonByIdValidator();
         List<String> errors = new ArrayList<>();
         validator.validate(request,errors);
@@ -108,12 +108,12 @@ public class LessonController {
 
         LessonServiceImpl lessonService = new LessonServiceImpl();
 
-        lessonService.deleteLessonById(request);
+        String dataResponse = lessonService.deleteLessonById(request);
 
-        return new ResponseEntity<>(null, HttpStatus.SC_OK);
+        return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
     }
 
-    public static ResponseEntity<Void> deleteLessonsByTeacher(@RequestBody DeleteLessonsByTeacherRequest request) throws JsonProcessingException{
+    public static ResponseEntity<String> deleteLessonsByTeacher(@RequestBody DeleteLessonsByTeacherRequest request) throws JsonProcessingException{
         DeleteLessonsByTeacherValidator validator = new DeleteLessonsByTeacherValidator();
         List<String> errors = new ArrayList<>();
         validator.validate(request,errors);
@@ -129,9 +129,9 @@ public class LessonController {
 
         LessonServiceImpl lessonService = new LessonServiceImpl();
 
-        lessonService.deleteLessonsByTeacher(request);
+        String dataResponse = lessonService.deleteLessonsByTeacher(request);
 
-        return new ResponseEntity<>(null, HttpStatus.SC_OK);
+        return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
     }
 
     public static ResponseEntity<GetLessonsByGroupResponse> getLessonsByGroup(@RequestBody GetLessonsByGroupRequest request) throws JsonProcessingException{
