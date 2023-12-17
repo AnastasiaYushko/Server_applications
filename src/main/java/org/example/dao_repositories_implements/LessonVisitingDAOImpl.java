@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class LessonVisitingDAOImpl implements LessonVisitingDAO {
 
     DataBase dataBase = DataBase.getDataBase();
+
     @Override
     public LessonVisiting GetLessonVisiting(int lessonId) {
         return dataBase.getLessonVisiting(lessonId);
@@ -17,7 +18,7 @@ public class LessonVisitingDAOImpl implements LessonVisitingDAO {
     @Override
     public String AddLessonVisiting(int lessonId, ArrayList<String> students) {
 
-        LessonVisiting lessonVisiting = new LessonVisiting(0,lessonId,students);
+        LessonVisiting lessonVisiting = new LessonVisiting(0, lessonId, students);
         dataBase.addLessonVisiting(lessonVisiting);
         return "Посещаемость урока добавлена!";
     }

@@ -5,13 +5,13 @@ public class GetTeacherByIdResponse {
     private String lastName;
     private String middleName;
 
-    public GetTeacherByIdResponse(String firstName,String lastName,String middleName){
+    public GetTeacherByIdResponse(String firstName, String lastName, String middleName) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;
     }
 
-    public GetTeacherByIdResponse(){
+    public GetTeacherByIdResponse() {
         super();
     }
 

@@ -6,11 +6,11 @@ import java.util.Objects;
 public class GetLessonsByTeacherResponse {
     private ArrayList<String> listLessons;
 
-    public GetLessonsByTeacherResponse(ArrayList<String> listLessons){
+    public GetLessonsByTeacherResponse(ArrayList<String> listLessons) {
         this.listLessons = new ArrayList<>(listLessons);
     }
 
-    public GetLessonsByTeacherResponse(){
+    public GetLessonsByTeacherResponse() {
         super();
     }
 

@@ -25,7 +25,7 @@ public class SubjectDAOImpl implements SubjectDAO {
     //+!
     @Override
     public int addSubject(String name) {
-        Subject subject = new Subject(0,name);
+        Subject subject = new Subject(0, name);
         return dataBase.addSubject(subject);
     }
 

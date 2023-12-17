@@ -5,13 +5,13 @@ public class GetLessonsByGroupRequest {
     private String endDate;
     private int groupId;
 
-    public GetLessonsByGroupRequest(String startDate,String endDate,int groupId){
+    public GetLessonsByGroupRequest(String startDate, String endDate, int groupId) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.groupId = groupId;
     }
 
-    public GetLessonsByGroupRequest(){
+    public GetLessonsByGroupRequest() {
         super();
     }
 

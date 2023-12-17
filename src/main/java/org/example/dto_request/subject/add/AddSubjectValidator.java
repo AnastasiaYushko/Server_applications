@@ -7,9 +7,9 @@ import java.util.List;
 
 public class AddSubjectValidator implements RequestValidator<AddSubjectRequest> {
     @Override
-    public List<String> validate(AddSubjectRequest request,List<String> errors) {
+    public List<String> validate(AddSubjectRequest request, List<String> errors) {
 
-        ValidatorString.validateNull(request.getName(),errors,"name");
+        ValidatorString.validateNull(request.getName(), errors, "name");
         return errors;
     }
 }

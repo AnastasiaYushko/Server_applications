@@ -6,11 +6,11 @@ import java.util.Objects;
 public class GetStudentsByGroupResponse {
     private ArrayList<String> listStudents;
 
-    public GetStudentsByGroupResponse(ArrayList<String> listStudents){
+    public GetStudentsByGroupResponse(ArrayList<String> listStudents) {
         this.listStudents = new ArrayList<>(listStudents);
     }
 
-    public GetStudentsByGroupResponse(){
+    public GetStudentsByGroupResponse() {
         super();
     }
 

@@ -3,11 +3,11 @@ package org.example.dto_request.studentGroup.add;
 public class AddStudentGroupRequest {
     private String name;
 
-    public AddStudentGroupRequest(String name){
+    public AddStudentGroupRequest(String name) {
         this.name = name;
     }
 
-    public AddStudentGroupRequest(){
+    public AddStudentGroupRequest() {
         super();
     }
 

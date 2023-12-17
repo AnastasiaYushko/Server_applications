@@ -7,7 +7,7 @@ public class LessonVisiting {
     private int lessonId;
     private ArrayList<String> listStudent;
 
-    public LessonVisiting(int id, int lessonId,ArrayList<String> listStudent){
+    public LessonVisiting(int id, int lessonId, ArrayList<String> listStudent) {
         this.id = id;
         this.lessonId = lessonId;
         this.listStudent = new ArrayList<>(listStudent);

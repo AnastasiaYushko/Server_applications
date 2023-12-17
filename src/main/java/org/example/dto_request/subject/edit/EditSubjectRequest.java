@@ -4,11 +4,11 @@ public class EditSubjectRequest {
     private int id;
     private String name;
 
-    public EditSubjectRequest(int id,String name){
+    public EditSubjectRequest(int id, String name) {
         this.name = name;
     }
 
-    public EditSubjectRequest(){
+    public EditSubjectRequest() {
         super();
     }
 

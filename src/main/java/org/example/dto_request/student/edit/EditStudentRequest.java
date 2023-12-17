@@ -8,7 +8,7 @@ public class EditStudentRequest {
     private String status;
     private String group;
 
-    public EditStudentRequest(int id,String lastName,String firstName,String middleName,String status,String groupId){
+    public EditStudentRequest(int id, String lastName, String firstName, String middleName, String status, String groupId) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -17,7 +17,7 @@ public class EditStudentRequest {
         this.group = groupId;
     }
 
-    public EditStudentRequest(){
+    public EditStudentRequest() {
         super();
     }
 

@@ -12,7 +12,7 @@ public interface StudentGroupDAO {
 
     int addStudentGroup(String name);
 
-    String editStudentGroup(int id,String name);
+    String editStudentGroup(int id, String name);
 
     String deleteStudentGroup(int id);
 }

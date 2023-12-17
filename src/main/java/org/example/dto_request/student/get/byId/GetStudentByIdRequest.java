@@ -3,11 +3,11 @@ package org.example.dto_request.student.get.byId;
 public class GetStudentByIdRequest {
     private int studentId;
 
-    public GetStudentByIdRequest(int studentId){
+    public GetStudentByIdRequest(int studentId) {
         this.studentId = studentId;
     }
 
-    public GetStudentByIdRequest(){
+    public GetStudentByIdRequest() {
         super();
     }
 

@@ -8,6 +8,7 @@ import java.text.ParseException;
 public class GroupStudentMethodsTest {
 
     Server server = new Server();
+
     @Test
     public void deleteStudentGroup() throws JsonProcessingException, ParseException {
 //        DeleteStudentGroupRequest object = new DeleteStudentGroupRequest(1);

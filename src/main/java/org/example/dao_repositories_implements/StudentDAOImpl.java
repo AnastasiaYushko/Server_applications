@@ -27,17 +27,17 @@ public class StudentDAOImpl implements StudentDAO {
 
     //+!
     @Override
-    public int addStudent(String lastName, String firstName,String middleName,String groupId,String status) {
+    public int addStudent(String lastName, String firstName, String middleName, String groupId, String status) {
         StudentGroup group = dataBase.getStudentGroupById(Integer.parseInt(groupId));
-        Student student = new Student(0,lastName,firstName,middleName,getStatus(status),group);
+        Student student = new Student(0, lastName, firstName, middleName, getStatus(status), group);
         return dataBase.addStudent(student);
     }
 
     //+!
     @Override
-    public String editStudent(int id,String lastName, String firstName,String middleName,String groupId,String status) {
+    public String editStudent(int id, String lastName, String firstName, String middleName, String groupId, String status) {
         StudentGroup group = dataBase.getStudentGroupById(Integer.parseInt(groupId));
-        Student student = new Student(0,lastName,firstName,middleName,getStatus(status),group);
+        Student student = new Student(0, lastName, firstName, middleName, getStatus(status), group);
         dataBase.editStudent(student);
         return "Данные студента изменены";
     }
@@ -49,16 +49,14 @@ public class StudentDAOImpl implements StudentDAO {
         return "Студент удален";
     }
 
-    private StatusStudent getStatus(String status){
+    private StatusStudent getStatus(String status) {
         StatusStudent newStatus = null;
 
-        if (Objects.equals(StatusStudent.STUDIES.toString(), status)){
+        if (Objects.equals(StatusStudent.STUDIES.toString(), status)) {
             newStatus = StatusStudent.STUDIES;
-        }
-        else if (Objects.equals(StatusStudent.EXPELLED.toString(), status)){
+        } else if (Objects.equals(StatusStudent.EXPELLED.toString(), status)) {
             newStatus = StatusStudent.EXPELLED;
-        }
-        else if (Objects.equals(StatusStudent.ACADEMIC_LEAVE.toString(), status)){
+        } else if (Objects.equals(StatusStudent.ACADEMIC_LEAVE.toString(), status)) {
             newStatus = StatusStudent.ACADEMIC_LEAVE;
         }
 

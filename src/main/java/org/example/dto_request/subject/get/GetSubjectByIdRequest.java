@@ -3,11 +3,11 @@ package org.example.dto_request.subject.get;
 public class GetSubjectByIdRequest {
     private int id;
 
-    public GetSubjectByIdRequest(int id){
+    public GetSubjectByIdRequest(int id) {
         this.id = id;
     }
 
-    public GetSubjectByIdRequest(){
+    public GetSubjectByIdRequest() {
         super();
     }
 

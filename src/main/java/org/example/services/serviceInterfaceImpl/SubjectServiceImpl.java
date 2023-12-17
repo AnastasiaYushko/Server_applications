@@ -16,39 +16,35 @@ import java.util.ArrayList;
 public class SubjectServiceImpl implements SubjectService {
 
     private final SubjectDAOImpl subjectDAO = new SubjectDAOImpl();
-    //+!
+
     @Override
     public AddSubjectResponse addSubject(AddSubjectRequest request) {
         int result = subjectDAO.addSubject(request.getName());
         return new AddSubjectResponse(result);
     }
 
-    //+!
     @Override
     public String deleteSubject(DeleteSubjectRequest request) {
         return subjectDAO.deleteSubject(request.getId());
     }
 
-    //+!
     @Override
     public String editSubject(EditSubjectRequest request) {
-        return subjectDAO.editSubject(request.getId(),request.getName());
+        return subjectDAO.editSubject(request.getId(), request.getName());
     }
 
-    //+!
     @Override
     public GetSubjectByIdResponse getSubjectById(GetSubjectByIdRequest request) {
         Subject subject = subjectDAO.getSubjectById(request.getId());
         return new GetSubjectByIdResponse(subject.getName());
     }
 
-    //+!
     @Override
     public GetSubjectsResponse getSubjects() {
         ArrayList<Subject> listSubject = subjectDAO.getSubjects();
         ArrayList<String> newListSubject = new ArrayList<>();
 
-        for ( Subject subject : listSubject){
+        for (Subject subject : listSubject) {
             newListSubject.add(subject.toString());
         }
 

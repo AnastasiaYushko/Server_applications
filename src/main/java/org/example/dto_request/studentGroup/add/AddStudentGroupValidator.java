@@ -7,13 +7,13 @@ import java.util.List;
 
 public class AddStudentGroupValidator implements RequestValidator<AddStudentGroupRequest> {
     @Override
-    public List<String> validate(AddStudentGroupRequest request,List<String> errors) {
+    public List<String> validate(AddStudentGroupRequest request, List<String> errors) {
 
-        int maxLength =30;
+        int maxLength = 30;
 
-        ValidatorString.validateNull(request.getName(),errors,"name");
-        ValidatorString.validateEmpty(request.getName(),errors,"name");
-        ValidatorString.validateLength(request.getName(),errors,"name",maxLength);
+        ValidatorString.validateNull(request.getName(), errors, "name");
+        ValidatorString.validateEmpty(request.getName(), errors, "name");
+        ValidatorString.validateLength(request.getName(), errors, "name", maxLength);
 
         return errors;
     }

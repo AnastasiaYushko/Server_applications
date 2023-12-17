@@ -9,7 +9,7 @@ public class GetStudentByIdResponse {
     private String status;
     private String group;
 
-    public GetStudentByIdResponse(String lastName,String firstName,String middleName,String status,String group){
+    public GetStudentByIdResponse(String lastName, String firstName, String middleName, String status, String group) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;
@@ -17,7 +17,7 @@ public class GetStudentByIdResponse {
         this.group = group;
     }
 
-    public GetStudentByIdResponse(){
+    public GetStudentByIdResponse() {
         super();
     }
 

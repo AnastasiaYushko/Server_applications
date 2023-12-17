@@ -5,11 +5,11 @@ import java.util.Objects;
 public class AddLessonResponse {
     private int id;
 
-    public AddLessonResponse(int id){
+    public AddLessonResponse(int id) {
         this.id = id;
     }
 
-    public AddLessonResponse(){
+    public AddLessonResponse() {
         super();
     }
 

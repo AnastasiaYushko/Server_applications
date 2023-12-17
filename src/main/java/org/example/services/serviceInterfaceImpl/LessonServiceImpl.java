@@ -22,45 +22,40 @@ import java.util.ArrayList;
 public class LessonServiceImpl implements LessonService {
 
     private final LessonDAOImpl lessonDAO = new LessonDAOImpl();
-    //+!
+
     @Override
     public AddLessonResponse addLesson(AddLessonRequest request) throws ParseException {
         int result = lessonDAO.AddLesson(request.getDate(), request.getNumber(), request.getTeacherId(), request.getGroupId());
         return new AddLessonResponse(result);
     }
 
-    //+!
     @Override
-    public String deleteLessonsByGroup(DeleteLessonsByGroupRequest request){
+    public String deleteLessonsByGroup(DeleteLessonsByGroupRequest request) {
         return lessonDAO.DeleteLessonsByGroup(request.getGroupId());
     }
 
-    //+!
     @Override
-    public String deleteLessonById(DeleteLessonByIdRequest request){
+    public String deleteLessonById(DeleteLessonByIdRequest request) {
         return lessonDAO.DeleteLessonById(request.getLessonId());
     }
 
-    //+!
     @Override
-    public String deleteLessonsByTeacher(DeleteLessonsByTeacherRequest request){
+    public String deleteLessonsByTeacher(DeleteLessonsByTeacherRequest request) {
         return lessonDAO.DeleteLessonsByTeacher(request.getTeacherId());
     }
 
-    //+!
     @Override
     public String editLesson(EditLessonRequest request) throws ParseException {
-        return lessonDAO.EditLesson(request.getId(),request.getDate(),request.getNumber(),request.getTeacherId(),request.getGroupId());
+        return lessonDAO.EditLesson(request.getId(), request.getDate(), request.getNumber(), request.getTeacherId(), request.getGroupId());
     }
 
-    //+!
     @Override
     public GetLessonsByGroupResponse getLessonsByGroup(GetLessonsByGroupRequest request) throws ParseException {
 
-        ArrayList<Lesson> lessons = lessonDAO.getLessonsByGroup(request.getStartDate(),request.getEndDate(),request.getGroupId());
+        ArrayList<Lesson> lessons = lessonDAO.getLessonsByGroup(request.getStartDate(), request.getEndDate(), request.getGroupId());
         ArrayList<String> newList = new ArrayList<>();
 
-        for (Lesson lesson : lessons){
+        for (Lesson lesson : lessons) {
             newList.add(lesson.toString());
         }
         return new GetLessonsByGroupResponse(newList);
@@ -69,17 +64,16 @@ public class LessonServiceImpl implements LessonService {
     @Override
     public GetLessonByIdResponse getLessonById(GetLessonByIdRequest request) {
         Lesson lesson = lessonDAO.getLessonById(request.getLessonId());
-        return new GetLessonByIdResponse(lesson.getDate().toString(), lesson.getNumber(),lesson.getTeacher().getId(),lesson.getGroup().getId());
+        return new GetLessonByIdResponse(lesson.getDate().toString(), lesson.getNumber(), lesson.getTeacher().getId(), lesson.getGroup().getId());
     }
 
-    //+!
     @Override
     public GetLessonsByTeacherResponse getLessonsByTeacher(GetLessonsByTeacherRequest request) throws ParseException {
 
-        ArrayList<Lesson> listLessons = lessonDAO.getLessonsByTeacher(request.getStartDate(),request.getEndDate(),request.getTeacherId());
+        ArrayList<Lesson> listLessons = lessonDAO.getLessonsByTeacher(request.getStartDate(), request.getEndDate(), request.getTeacherId());
         ArrayList<String> newListLessons = new ArrayList<>();
 
-        for (Lesson lesson : listLessons){
+        for (Lesson lesson : listLessons) {
             newListLessons.add(lesson.toString());
         }
 

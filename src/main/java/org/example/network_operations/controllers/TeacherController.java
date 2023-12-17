@@ -23,7 +23,7 @@ public class TeacherController {
     public static ResponseEntity<String> deleteTeacher(@RequestBody DeleteTeacherRequest request) {
         DeleteTeacherValidator validator = new DeleteTeacherValidator();
         List<String> errors = new ArrayList<>();
-        validator.validate(request,errors);
+        validator.validate(request, errors);
 
         if (!errors.isEmpty()) {
             for (String error : errors) {
@@ -42,7 +42,7 @@ public class TeacherController {
     public static ResponseEntity<AddTeacherResponse> addTeacher(@RequestBody AddTeacherRequest request) {
         AddTeacherValidator validator = new AddTeacherValidator();
         List<String> errors = new ArrayList<>();
-        validator.validate(request,errors);
+        validator.validate(request, errors);
 
         if (!errors.isEmpty()) {
             for (String error : errors) {
@@ -61,7 +61,7 @@ public class TeacherController {
     public static ResponseEntity<String> editTeacher(@RequestBody EditTeacherRequest request) {
         EditTeacherValidator validator = new EditTeacherValidator();
         List<String> errors = new ArrayList<>();
-        validator.validate(request,errors);
+        validator.validate(request, errors);
 
         if (!errors.isEmpty()) {
             for (String error : errors) {
@@ -80,7 +80,7 @@ public class TeacherController {
     public static ResponseEntity<GetTeacherByIdResponse> getTeacherById(@RequestBody GetTeacherByIdRequest request) {
         GetTeacherByIdValidator validator = new GetTeacherByIdValidator();
         List<String> errors = new ArrayList<>();
-        validator.validate(request,errors);
+        validator.validate(request, errors);
 
         if (!errors.isEmpty()) {
             for (String error : errors) {

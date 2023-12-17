@@ -23,13 +23,13 @@ public class StudentGroupDAOImpl implements StudentGroupDAO {
 
     @Override
     public int addStudentGroup(String name) {
-        StudentGroup group = new StudentGroup(0,name);
+        StudentGroup group = new StudentGroup(0, name);
         return dataBase.addStudentGroup(group);
     }
 
     @Override
     public String editStudentGroup(int id, String name) {
-        dataBase.editStudentGroup(new StudentGroup(id,name));
+        dataBase.editStudentGroup(new StudentGroup(id, name));
         return "Группа изменена";
     }
 

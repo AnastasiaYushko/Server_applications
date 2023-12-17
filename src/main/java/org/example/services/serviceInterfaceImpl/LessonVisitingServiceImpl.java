@@ -7,12 +7,13 @@ import org.example.dto_request.lessonVisiting.get.GetLessonVisitingRequest;
 import org.example.dto_response.lessonVisiting.GetLessonVisitingResponse;
 import org.example.services.serviceInterface.LessonVisitingService;
 
-public class LessonVisitingServiceImpl implements LessonVisitingService{
+public class LessonVisitingServiceImpl implements LessonVisitingService {
 
     private final LessonVisitingDAOImpl lessonVisitingDAO = new LessonVisitingDAOImpl();
+
     @Override
-    public String addLessonVisiting(AddLessonVisitingRequest request)  {
-        return lessonVisitingDAO.AddLessonVisiting(request.getLessonId(),request.getListStudent());
+    public String addLessonVisiting(AddLessonVisitingRequest request) {
+        return lessonVisitingDAO.AddLessonVisiting(request.getLessonId(), request.getListStudent());
     }
 
     @Override

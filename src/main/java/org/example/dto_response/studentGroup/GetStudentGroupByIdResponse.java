@@ -9,7 +9,7 @@ public class GetStudentGroupByIdResponse {
         this.name = name;
     }
 
-    public GetStudentGroupByIdResponse(){
+    public GetStudentGroupByIdResponse() {
         super();
     }
 

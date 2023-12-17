@@ -31,11 +31,11 @@ import java.util.List;
 
 public class LessonController {
 
-    public static ResponseEntity<AddLessonResponse> addLesson (@RequestBody AddLessonRequest request) throws ParseException {
+    public static ResponseEntity<AddLessonResponse> addLesson(@RequestBody AddLessonRequest request) throws ParseException {
         // валидация запроса
         AddLessonValidator validator = new AddLessonValidator();
         List<String> errors = new ArrayList<>();
-        validator.validate(request,errors);
+        validator.validate(request, errors);
 
         //Обработка ошибок валидации
         if (!errors.isEmpty()) {
@@ -56,7 +56,7 @@ public class LessonController {
     public static ResponseEntity<String> editLesson(@RequestBody EditLessonRequest request) throws ParseException {
         EditLessonValidator validator = new EditLessonValidator();
         List<String> errors = new ArrayList<>();
-        validator.validate(request,errors);
+        validator.validate(request, errors);
 
         //Обработка ошибок валидации
         if (!errors.isEmpty()) {
@@ -77,7 +77,7 @@ public class LessonController {
     public static ResponseEntity<String> deleteLessonsByGroup(@RequestBody DeleteLessonsByGroupRequest request) {
         DeleteLessonsByGroupValidator validator = new DeleteLessonsByGroupValidator();
         List<String> errors = new ArrayList<>();
-        validator.validate(request,errors);
+        validator.validate(request, errors);
 
         //Обработка ошибок валидации
         if (!errors.isEmpty()) {
@@ -90,7 +90,7 @@ public class LessonController {
 
         LessonServiceImpl lessonService = new LessonServiceImpl();
 
-        String dataResponse =  lessonService.deleteLessonsByGroup(request);
+        String dataResponse = lessonService.deleteLessonsByGroup(request);
 
         return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
     }
@@ -98,7 +98,7 @@ public class LessonController {
     public static ResponseEntity<String> deleteLessonById(@RequestBody DeleteLessonByIdRequest request) {
         DeleteLessonByIdValidator validator = new DeleteLessonByIdValidator();
         List<String> errors = new ArrayList<>();
-        validator.validate(request,errors);
+        validator.validate(request, errors);
 
         //Обработка ошибок валидации
         if (!errors.isEmpty()) {
@@ -119,7 +119,7 @@ public class LessonController {
     public static ResponseEntity<String> deleteLessonsByTeacher(@RequestBody DeleteLessonsByTeacherRequest request) {
         DeleteLessonsByTeacherValidator validator = new DeleteLessonsByTeacherValidator();
         List<String> errors = new ArrayList<>();
-        validator.validate(request,errors);
+        validator.validate(request, errors);
 
         //Обработка ошибок валидации
         if (!errors.isEmpty()) {
@@ -140,7 +140,7 @@ public class LessonController {
     public static ResponseEntity<GetLessonsByGroupResponse> getLessonsByGroup(@RequestBody GetLessonsByGroupRequest request) throws ParseException {
         GetLessonsByGroupValidator validator = new GetLessonsByGroupValidator();
         List<String> errors = new ArrayList<>();
-        validator.validate(request,errors);
+        validator.validate(request, errors);
 
         //Обработка ошибок валидации
         if (!errors.isEmpty()) {
@@ -161,7 +161,7 @@ public class LessonController {
     public static ResponseEntity<GetLessonByIdResponse> getLessonById(@RequestBody GetLessonByIdRequest request) {
         GetLessonByIdValidator validator = new GetLessonByIdValidator();
         List<String> errors = new ArrayList<>();
-        validator.validate(request,errors);
+        validator.validate(request, errors);
 
         //Обработка ошибок валидации
         if (!errors.isEmpty()) {
@@ -182,7 +182,7 @@ public class LessonController {
     public static ResponseEntity<GetLessonsByTeacherResponse> getLessonsByTeacher(@RequestBody GetLessonsByTeacherRequest request) throws ParseException {
         GetLessonsByTeacherValidator validator = new GetLessonsByTeacherValidator();
         List<String> errors = new ArrayList<>();
-        validator.validate(request,errors);
+        validator.validate(request, errors);
 
         //Обработка ошибок валидации
         if (!errors.isEmpty()) {

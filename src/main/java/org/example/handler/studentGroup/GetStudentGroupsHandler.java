@@ -12,7 +12,7 @@ public class GetStudentGroupsHandler implements IHandler {
     @Override
     public String handler(String str) throws JsonProcessingException {
 
-        ResponseEntity<GetStudentGroupsResponse> getStudentGroupsResponse= GroupController.getStudentGroups();
+        ResponseEntity<GetStudentGroupsResponse> getStudentGroupsResponse = GroupController.getStudentGroups();
 
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 

@@ -9,7 +9,7 @@ public class GetLessonByIdResponse {
     private int groupId;
     //private ArrayList<String> students;
 
-    public GetLessonByIdResponse(String date,int number,int teacherId,int groupId) {
+    public GetLessonByIdResponse(String date, int number, int teacherId, int groupId) {
         this.date = date;
         this.number = number;
         this.teacherId = teacherId;
@@ -17,7 +17,7 @@ public class GetLessonByIdResponse {
         //this.students = new ArrayList<>(students);
     }
 
-    public GetLessonByIdResponse(){
+    public GetLessonByIdResponse() {
         super();
     }
 

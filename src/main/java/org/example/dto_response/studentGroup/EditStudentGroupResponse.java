@@ -1,4 +1,4 @@
-package org.example.dto_response.studentGroup;
+/*package org.example.dto_response.studentGroup;
 
 import java.util.Objects;
 
@@ -9,7 +9,7 @@ public class EditStudentGroupResponse {
         this.newName = newName;
     }
 
-    public EditStudentGroupResponse(){
+    public EditStudentGroupResponse() {
         super();
     }
 
@@ -32,4 +32,4 @@ public class EditStudentGroupResponse {
     public int hashCode() {
         return Objects.hash(getNewName());
     }
-}
+}*/

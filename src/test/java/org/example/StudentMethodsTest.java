@@ -8,6 +8,7 @@ import java.text.ParseException;
 public class StudentMethodsTest {
 
     Server server = new Server();
+
     @Test
     public void addStudent() throws JsonProcessingException, ParseException {
 

@@ -9,7 +9,7 @@ public class DeleteLessonsByGroupValidator implements RequestValidator<DeleteLes
     @Override
     public List<String> validate(DeleteLessonsByGroupRequest request, List<String> errors) {
 
-        ValidatorNumber.validateNumber(request.getGroupId(),errors,"groupId");
+        ValidatorNumber.validateNumber(request.getGroupId(), errors, "groupId");
         return errors;
     }
 }

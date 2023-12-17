@@ -20,7 +20,7 @@ public class LessonVisitingController {
 
         AddLessonVisitingValidator validator = new AddLessonVisitingValidator();
         List<String> errors = new ArrayList<>();
-        validator.validate(request,errors);
+        validator.validate(request, errors);
 
         if (!errors.isEmpty()) {
             for (String error : errors) {
@@ -34,11 +34,12 @@ public class LessonVisitingController {
 
         return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
     }
+
     public static ResponseEntity<String> deleteLessonVisiting(@RequestBody DeleteLessonVisitingRequest request) {
 
         DeleteLessonVisitingValidator validator = new DeleteLessonVisitingValidator();
         List<String> errors = new ArrayList<>();
-        validator.validate(request,errors);
+        validator.validate(request, errors);
 
         if (!errors.isEmpty()) {
             for (String error : errors) {
@@ -57,7 +58,7 @@ public class LessonVisitingController {
 
         GetLessonVisitingValidator validator = new GetLessonVisitingValidator();
         List<String> errors = new ArrayList<>();
-        validator.validate(request,errors);
+        validator.validate(request, errors);
 
         if (!errors.isEmpty()) {
             for (String error : errors) {

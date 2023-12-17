@@ -3,11 +3,11 @@ package org.example.dto_response.subject;
 public class AddSubjectResponse {
     private int id;
 
-    public AddSubjectResponse(int id){
+    public AddSubjectResponse(int id) {
         this.id = id;
     }
 
-    public AddSubjectResponse(){
+    public AddSubjectResponse() {
         super();
     }
 

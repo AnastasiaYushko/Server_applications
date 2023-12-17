@@ -25,7 +25,7 @@ public class TeacherDAOImpl implements TeacherDAO {
     //+!
     @Override
     public int addTeacher(String firstName, String middleName, String lastName) {
-        Teacher teacher = new Teacher(0,firstName,middleName,lastName);
+        Teacher teacher = new Teacher(0, firstName, middleName, lastName);
         return dataBase.addTeacher(teacher);
     }
 

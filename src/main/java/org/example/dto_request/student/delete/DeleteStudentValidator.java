@@ -7,9 +7,9 @@ import java.util.List;
 
 public class DeleteStudentValidator implements RequestValidator<DeleteStudentRequest> {
     @Override
-    public List<String> validate(DeleteStudentRequest request,List<String> errors) {
+    public List<String> validate(DeleteStudentRequest request, List<String> errors) {
 
-        ValidatorNumber.validateNumber(request.getStudentId(),errors,"number");
+        ValidatorNumber.validateNumber(request.getStudentId(), errors, "number");
 
         return errors;
     }

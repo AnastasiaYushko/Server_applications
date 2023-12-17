@@ -5,7 +5,6 @@ import org.example.model.Lesson;
 import java.text.ParseException;
 import java.util.ArrayList;
 
-//без посещаемости
 public interface LessonDAO {
 
     Lesson getLessonById(int id);

@@ -18,7 +18,7 @@ public class Student {
     @NotNull
     private StudentGroup group;
 
-    public Student(int id, @NotNull String lastName, @NotNull String firstName, String middleName, StatusStudent status, @NotNull StudentGroup group){
+    public Student(int id, @NotNull String lastName, @NotNull String firstName, String middleName, StatusStudent status, @NotNull StudentGroup group) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -26,6 +26,7 @@ public class Student {
         this.group = group;
         this.status = status;
     }
+
     public void setId(int id) {
         this.id = id;
     }

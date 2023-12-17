@@ -7,9 +7,9 @@ import java.util.List;
 
 public class DeleteLessonsByTeacherValidator implements RequestValidator<DeleteLessonsByTeacherRequest> {
     @Override
-    public List<String> validate(DeleteLessonsByTeacherRequest request,List<String> errors) {
+    public List<String> validate(DeleteLessonsByTeacherRequest request, List<String> errors) {
 
-        ValidatorNumber.validateNumber(request.getTeacherId(),errors,"teacherId");
+        ValidatorNumber.validateNumber(request.getTeacherId(), errors, "teacherId");
         return errors;
     }
 }

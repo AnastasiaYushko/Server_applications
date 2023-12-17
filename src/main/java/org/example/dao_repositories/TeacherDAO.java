@@ -12,7 +12,7 @@ public interface TeacherDAO {
 
     int addTeacher(String firstName, String middleName, String lastName);
 
-    String editTeacher(int id,String firstName, String middleName, String lastName);
+    String editTeacher(int id, String firstName, String middleName, String lastName);
 
     String deleteTeacher(int id);
 }

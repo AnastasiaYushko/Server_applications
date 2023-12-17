@@ -10,9 +10,9 @@ public interface StudentDAO {
 
     Student getStudentById(int id);
 
-    int addStudent(String lastName, String firstName,String middleName,String groupId,String status);
+    int addStudent(String lastName, String firstName, String middleName, String groupId, String status);
 
-    String editStudent(int id,String lastName, String firstName,String middleName,String groupId,String status);
+    String editStudent(int id, String lastName, String firstName, String middleName, String groupId, String status);
 
     String deleteStudent(int id);
 }

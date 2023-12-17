@@ -27,16 +27,16 @@ public class LessonDAOImpl implements LessonDAO {
         Date date1 = new SimpleDateFormat("dd-MM-yyyy").parse(startDate);
         Date date2 = new SimpleDateFormat("dd-MM-yyyy").parse(endDate);
         StudentGroup group = dataBase.getStudentGroupById(groupId);
-        return dataBase.getLessonsByGroup(date1,date2,group);
+        return dataBase.getLessonsByGroup(date1, date2, group);
     }
 
     //+!
     @Override
-    public ArrayList<Lesson> getLessonsByTeacher(String startDate, String endDate, int teacherId) throws ParseException{
+    public ArrayList<Lesson> getLessonsByTeacher(String startDate, String endDate, int teacherId) throws ParseException {
         Date date1 = new SimpleDateFormat("dd-MM-yyyy").parse(startDate);
         Date date2 = new SimpleDateFormat("dd-MM-yyyy").parse(endDate);
         Teacher teacher = dataBase.getTeacherById(teacherId);
-        return dataBase.getLessonsByTeacher(date1,date2,teacher);
+        return dataBase.getLessonsByTeacher(date1, date2, teacher);
     }
 
     //+!
@@ -45,7 +45,7 @@ public class LessonDAOImpl implements LessonDAO {
         Date date1 = new SimpleDateFormat("dd-MM-yyyy").parse(date);
         Teacher teacher = dataBase.getTeacherById(teacherId);
         StudentGroup group = dataBase.getStudentGroupById(groupId);
-        dataBase.EditLesson(new Lesson(id,date1,number,teacher,group));
+        dataBase.EditLesson(new Lesson(id, date1, number, teacher, group));
         return "Данные урока изменены!";
     }
 
@@ -76,7 +76,7 @@ public class LessonDAOImpl implements LessonDAO {
         Date date1 = new SimpleDateFormat("dd-MM-yyyy").parse(date);
         Teacher teacher = dataBase.getTeacherById(teacherId);
         StudentGroup group = dataBase.getStudentGroupById(groupId);
-        Lesson lesson = new Lesson(0,date1,number,teacher,group);
+        Lesson lesson = new Lesson(0, date1, number, teacher, group);
 
         return dataBase.AddLesson(lesson);
     }

@@ -9,7 +9,7 @@ public class GetSubjectByIdValidator implements RequestValidator<GetSubjectByIdR
     @Override
     public List<String> validate(GetSubjectByIdRequest request, List<String> errors) {
 
-        ValidatorNumber.validateNumber(request.getId(),errors,"id");
+        ValidatorNumber.validateNumber(request.getId(), errors, "id");
 
         return errors;
     }

@@ -9,7 +9,7 @@ public class ResponseEntity<T> {
         this.responseStatus = responseStatus;
     }
 
-    public ResponseEntity(){
+    public ResponseEntity() {
         super();
     }
 

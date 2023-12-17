@@ -8,14 +8,14 @@ public class AddLessonRequest {
     private int groupId;
 
 
-    public AddLessonRequest(String date, int number, int teacherId, int groupId){
+    public AddLessonRequest(String date, int number, int teacherId, int groupId) {
         this.date = date;
         this.number = number;
         this.teacherId = teacherId;
         this.groupId = groupId;
     }
 
-    public AddLessonRequest(){
+    public AddLessonRequest() {
         super();
     }
 

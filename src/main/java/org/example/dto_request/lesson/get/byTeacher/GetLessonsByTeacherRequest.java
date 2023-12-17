@@ -5,13 +5,13 @@ public class GetLessonsByTeacherRequest {
     private String endDate;
     private int teacherId;
 
-    public GetLessonsByTeacherRequest(String startDate,String endDate,int teacherId){
+    public GetLessonsByTeacherRequest(String startDate, String endDate, int teacherId) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.teacherId = teacherId;
     }
 
-    public GetLessonsByTeacherRequest(){
+    public GetLessonsByTeacherRequest() {
         super();
     }
 

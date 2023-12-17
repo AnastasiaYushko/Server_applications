@@ -24,7 +24,7 @@ public class SubjectController {
     public static ResponseEntity<AddSubjectResponse> addSubject(@RequestBody AddSubjectRequest request) {
         AddSubjectValidator validator = new AddSubjectValidator();
         List<String> errors = new ArrayList<>();
-        validator.validate(request,errors);
+        validator.validate(request, errors);
 
         if (!errors.isEmpty()) {
             for (String error : errors) {
@@ -43,7 +43,7 @@ public class SubjectController {
     public static ResponseEntity<String> editSubject(@RequestBody EditSubjectRequest request) {
         EditSubjectValidator validator = new EditSubjectValidator();
         List<String> errors = new ArrayList<>();
-        validator.validate(request,errors);
+        validator.validate(request, errors);
 
         if (!errors.isEmpty()) {
             for (String error : errors) {
@@ -61,7 +61,7 @@ public class SubjectController {
     public static ResponseEntity<GetSubjectByIdResponse> getSubjectById(@RequestBody GetSubjectByIdRequest request) {
         GetSubjectByIdValidator validator = new GetSubjectByIdValidator();
         List<String> errors = new ArrayList<>();
-        validator.validate(request,errors);
+        validator.validate(request, errors);
 
         if (!errors.isEmpty()) {
             for (String error : errors) {
@@ -79,7 +79,7 @@ public class SubjectController {
     public static ResponseEntity<String> deleteSubject(@RequestBody DeleteSubjectRequest request) {
         DeleteSubjectValidator validator = new DeleteSubjectValidator();
         List<String> errors = new ArrayList<>();
-        validator.validate(request,errors);
+        validator.validate(request, errors);
 
         if (!errors.isEmpty()) {
             for (String error : errors) {
@@ -94,7 +94,7 @@ public class SubjectController {
         return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
     }
 
-    public static ResponseEntity<GetSubjectsResponse> getSubjects () {
+    public static ResponseEntity<GetSubjectsResponse> getSubjects() {
 
         SubjectServiceImpl subjectService = new SubjectServiceImpl();
 

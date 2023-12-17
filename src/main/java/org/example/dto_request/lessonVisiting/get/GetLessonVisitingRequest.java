@@ -1,14 +1,13 @@
 package org.example.dto_request.lessonVisiting.get;
 
-//getLessonByID
 public class GetLessonVisitingRequest {
     private int lessonId;
 
-    public GetLessonVisitingRequest(int lessonId){
+    public GetLessonVisitingRequest(int lessonId) {
         this.lessonId = lessonId;
     }
 
-    public GetLessonVisitingRequest(){
+    public GetLessonVisitingRequest() {
         super();
     }
 

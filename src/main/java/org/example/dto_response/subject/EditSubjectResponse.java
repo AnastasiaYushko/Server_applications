@@ -1,13 +1,14 @@
+/*
 package org.example.dto_response.subject;
 
 public class EditSubjectResponse {
     private String name;
 
-    public EditSubjectResponse(String name){
+    public EditSubjectResponse(String name) {
         this.name = name;
     }
 
-    public EditSubjectResponse(){
+    public EditSubjectResponse() {
         super();
     }
 
@@ -19,3 +20,4 @@ public class EditSubjectResponse {
         this.name = name;
     }
 }
+*/

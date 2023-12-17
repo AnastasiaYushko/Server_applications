@@ -6,11 +6,11 @@ import java.util.Objects;
 public class GetLessonsByGroupResponse {
     private ArrayList<String> listLessons;
 
-    public GetLessonsByGroupResponse(ArrayList<String> listLessons){
+    public GetLessonsByGroupResponse(ArrayList<String> listLessons) {
         this.listLessons = new ArrayList<>(listLessons);
     }
 
-    public GetLessonsByGroupResponse(){
+    public GetLessonsByGroupResponse() {
         super();
     }
 

@@ -16,12 +16,19 @@ import java.text.ParseException;
 public interface LessonService {
 
     AddLessonResponse addLesson(AddLessonRequest request) throws JsonProcessingException, ParseException;
+
     String deleteLessonsByGroup(DeleteLessonsByGroupRequest request) throws JsonProcessingException;
+
     String deleteLessonById(DeleteLessonByIdRequest request) throws JsonProcessingException;
+
     String deleteLessonsByTeacher(DeleteLessonsByTeacherRequest request) throws JsonProcessingException;
+
     String editLesson(EditLessonRequest request) throws JsonProcessingException, ParseException;
+
     GetLessonsByGroupResponse getLessonsByGroup(GetLessonsByGroupRequest request) throws JsonProcessingException, ParseException;
+
     GetLessonByIdResponse getLessonById(GetLessonByIdRequest request) throws JsonProcessingException;
+
     GetLessonsByTeacherResponse getLessonsByTeacher(GetLessonsByTeacherRequest request) throws JsonProcessingException, ParseException;
 
 }

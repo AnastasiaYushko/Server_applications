@@ -12,7 +12,7 @@ public interface SubjectDAO {
 
     int addSubject(String name);
 
-    String editSubject(int id,String name);
+    String editSubject(int id, String name);
 
     String deleteSubject(int id);
 }

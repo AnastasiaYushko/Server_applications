@@ -4,12 +4,12 @@ public class EditStudentGroupRequest {
     private int id;
     private String name;
 
-    public EditStudentGroupRequest(int id,String name){
+    public EditStudentGroupRequest(int id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public EditStudentGroupRequest(){
+    public EditStudentGroupRequest() {
         super();
     }
 

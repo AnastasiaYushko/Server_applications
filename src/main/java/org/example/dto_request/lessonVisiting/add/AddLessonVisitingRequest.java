@@ -8,12 +8,12 @@ public class AddLessonVisitingRequest {
     private int lessonId;
     private ArrayList<String> listStudent;
 
-    public AddLessonVisitingRequest(@Positive int lessonId,ArrayList<String> listStudent){
+    public AddLessonVisitingRequest(@Positive int lessonId, ArrayList<String> listStudent) {
         this.lessonId = lessonId;
         this.listStudent = new ArrayList<>(listStudent);
     }
 
-    public AddLessonVisitingRequest(){
+    public AddLessonVisitingRequest() {
         super();
     }
 

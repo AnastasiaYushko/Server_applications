@@ -7,9 +7,9 @@ import java.util.List;
 
 public class GetLessonVisitingValidator implements RequestValidator<GetLessonVisitingRequest> {
     @Override
-    public List<String> validate(GetLessonVisitingRequest request,List<String> errors) {
+    public List<String> validate(GetLessonVisitingRequest request, List<String> errors) {
 
-        ValidatorNumber.validateNumber(request.getLessonId(),errors,"number");
+        ValidatorNumber.validateNumber(request.getLessonId(), errors, "number");
         return errors;
     }
 }

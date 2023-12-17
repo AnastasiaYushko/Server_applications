@@ -26,7 +26,7 @@ public class GroupController {
 
         GetStudentGroupByIdValidator validator = new GetStudentGroupByIdValidator();
         List<String> errors = new ArrayList<>();
-        validator.validate(request,errors);
+        validator.validate(request, errors);
 
         if (!errors.isEmpty()) {
             for (String error : errors) {
@@ -45,7 +45,7 @@ public class GroupController {
     public static ResponseEntity<String> editStudentGroup(@RequestBody EditStudentGroupRequest request) {
         EditStudentGroupValidator validator = new EditStudentGroupValidator();
         List<String> errors = new ArrayList<>();
-        validator.validate(request,errors);
+        validator.validate(request, errors);
 
         if (!errors.isEmpty()) {
             for (String error : errors) {
@@ -64,7 +64,7 @@ public class GroupController {
     public static ResponseEntity<AddStudentGroupResponse> addStudentGroup(@RequestBody AddStudentGroupRequest request) {
         AddStudentGroupValidator validator = new AddStudentGroupValidator();
         List<String> errors = new ArrayList<>();
-        validator.validate(request,errors);
+        validator.validate(request, errors);
 
         if (!errors.isEmpty()) {
             for (String error : errors) {
@@ -83,7 +83,7 @@ public class GroupController {
     public static ResponseEntity<String> deleteStudentGroup(@RequestBody DeleteStudentGroupRequest request) {
         DeleteStudentGroupValidator validator = new DeleteStudentGroupValidator();
         List<String> errors = new ArrayList<>();
-        validator.validate(request,errors);
+        validator.validate(request, errors);
 
         if (!errors.isEmpty()) {
             for (String error : errors) {

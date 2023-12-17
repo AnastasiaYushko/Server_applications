@@ -3,11 +3,11 @@ package org.example.dto_request.subject.delete;
 public class DeleteSubjectRequest {
     private int id;
 
-    public DeleteSubjectRequest(int id){
+    public DeleteSubjectRequest(int id) {
         this.id = id;
     }
 
-    public DeleteSubjectRequest(){
+    public DeleteSubjectRequest() {
         super();
     }
 

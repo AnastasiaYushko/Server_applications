@@ -6,11 +6,11 @@ public class DeleteLessonVisitingRequest {
     @Positive
     private int lessonId;
 
-    public DeleteLessonVisitingRequest(@Positive int lessonId){
+    public DeleteLessonVisitingRequest(@Positive int lessonId) {
         this.lessonId = lessonId;
     }
 
-    public DeleteLessonVisitingRequest(){
+    public DeleteLessonVisitingRequest() {
         super();
     }
 
@@ -18,7 +18,7 @@ public class DeleteLessonVisitingRequest {
         return lessonId;
     }
 
-    public void setLessonId( @Positive int lessonId) {
+    public void setLessonId(@Positive int lessonId) {
         this.lessonId = lessonId;
     }
 }

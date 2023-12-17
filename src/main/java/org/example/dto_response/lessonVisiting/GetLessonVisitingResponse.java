@@ -5,11 +5,11 @@ import java.util.Objects;
 public class GetLessonVisitingResponse {
     private String lessonVisiting;
 
-    public GetLessonVisitingResponse(String listLessonVisiting){
+    public GetLessonVisitingResponse(String listLessonVisiting) {
         this.lessonVisiting = listLessonVisiting;
     }
 
-    public GetLessonVisitingResponse(){
+    public GetLessonVisitingResponse() {
         super();
     }
 

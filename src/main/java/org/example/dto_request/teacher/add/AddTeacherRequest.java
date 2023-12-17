@@ -5,13 +5,13 @@ public class AddTeacherRequest {
     private String firstName;
     private String middleName;
 
-    public AddTeacherRequest(String lastName,String firstName,String middleName){
+    public AddTeacherRequest(String lastName, String firstName, String middleName) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;
     }
 
-    public AddTeacherRequest(){
+    public AddTeacherRequest() {
         super();
     }
 

@@ -7,7 +7,7 @@ public class EditLessonRequest {
     private int teacherId;
     private int groupId;
 
-    public EditLessonRequest(int id, String date, int number, int teacherId, int groupId){
+    public EditLessonRequest(int id, String date, int number, int teacherId, int groupId) {
         this.id = id;
         this.date = date;
         this.number = number;
@@ -15,7 +15,7 @@ public class EditLessonRequest {
         this.groupId = groupId;
     }
 
-    public EditLessonRequest(){
+    public EditLessonRequest() {
         super();
     }
 

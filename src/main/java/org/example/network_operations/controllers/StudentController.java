@@ -30,7 +30,7 @@ public class StudentController {
         // валидация запроса
         GetStudentByIdValidator validator = new GetStudentByIdValidator();
         List<String> errors = new ArrayList<>();
-        validator.validate(request,errors);
+        validator.validate(request, errors);
 
         //Обработка ошибок валидации
         if (!errors.isEmpty()) {
@@ -59,7 +59,7 @@ public class StudentController {
 
         GetStudentsByGroupValidator validator = new GetStudentsByGroupValidator();
         List<String> errors = new ArrayList<>();
-        validator.validate(request,errors);
+        validator.validate(request, errors);
 
         if (!errors.isEmpty()) {
             for (String error : errors) {
@@ -78,7 +78,7 @@ public class StudentController {
     public static ResponseEntity<String> editStudent(@RequestBody EditStudentRequest request) {
         EditStudentValidator validator = new EditStudentValidator();
         List<String> errors = new ArrayList<>();
-        validator.validate(request,errors);
+        validator.validate(request, errors);
 
         if (!errors.isEmpty()) {
             for (String error : errors) {
@@ -97,7 +97,7 @@ public class StudentController {
 
         AddStudentValidator validator = new AddStudentValidator();
         List<String> errors = new ArrayList<>();
-        validator.validate(request,errors);
+        validator.validate(request, errors);
 
         if (!errors.isEmpty()) {
             for (String error : errors) {
@@ -116,7 +116,7 @@ public class StudentController {
 
         DeleteStudentValidator validator = new DeleteStudentValidator();
         List<String> errors = new ArrayList<>();
-        validator.validate(request,errors);
+        validator.validate(request, errors);
 
         if (!errors.isEmpty()) {
             for (String error : errors) {
@@ -127,6 +127,6 @@ public class StudentController {
         StudentServiceImpl studentService = new StudentServiceImpl();
 
         String data = studentService.deleteStudent(request);
-        return new ResponseEntity<>(data,HttpStatus.SC_OK);
+        return new ResponseEntity<>(data, HttpStatus.SC_OK);
     }
 }

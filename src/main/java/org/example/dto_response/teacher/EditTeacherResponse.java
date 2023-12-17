@@ -1,3 +1,4 @@
+/*
 package org.example.dto_response.teacher;
 
 public class EditTeacherResponse {
@@ -5,13 +6,13 @@ public class EditTeacherResponse {
     private String lastName;
     private String middleName;
 
-    public EditTeacherResponse(String firstName,String lastName,String middleName){
+    public EditTeacherResponse(String firstName, String lastName, String middleName) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;
     }
 
-    public EditTeacherResponse(){
+    public EditTeacherResponse() {
         super();
     }
 
@@ -39,3 +40,4 @@ public class EditTeacherResponse {
         this.firstName = firstName;
     }
 }
+*/

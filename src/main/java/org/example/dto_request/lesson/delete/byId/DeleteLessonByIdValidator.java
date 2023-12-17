@@ -9,7 +9,7 @@ public class DeleteLessonByIdValidator implements RequestValidator<DeleteLessonB
     @Override
     public List<String> validate(DeleteLessonByIdRequest request, List<String> errors) {
 
-        ValidatorNumber.validateNumber(request.getLessonId(),errors,"lessonId");
+        ValidatorNumber.validateNumber(request.getLessonId(), errors, "lessonId");
         return errors;
     }
 }

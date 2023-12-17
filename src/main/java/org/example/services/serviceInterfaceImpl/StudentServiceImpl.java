@@ -18,43 +18,38 @@ public class StudentServiceImpl implements StudentService {
 
     private final StudentDAOImpl studentDAO = new StudentDAOImpl();
 
-    //+!
     @Override
     public GetStudentByIdResponse getStudentById(GetStudentByIdRequest request) {
         Student student = studentDAO.getStudentById(request.getId());
-        return new GetStudentByIdResponse(student.getLastName(),student.getFirstName(),student.getMiddleName(),student.getStatus().name(),student.getGroup().getName());
+        return new GetStudentByIdResponse(student.getLastName(), student.getFirstName(), student.getMiddleName(), student.getStatus().name(), student.getGroup().getName());
     }
 
-    //+!
     @Override
-    public GetStudentsByGroupResponse getStudentsByGroup(GetStudentsByGroupRequest request){
+    public GetStudentsByGroupResponse getStudentsByGroup(GetStudentsByGroupRequest request) {
 
         ArrayList<Student> listStudents = studentDAO.getStudentsByGroup(request.getGroupId());
         ArrayList<String> newListStudents = new ArrayList<>();
-        
-        for (Student student : listStudents){
+
+        for (Student student : listStudents) {
             newListStudents.add(student.toString());
         }
-        
+
         return new GetStudentsByGroupResponse(newListStudents);
     }
 
-    //+!
     @Override
-    public String editStudent(EditStudentRequest request){
-       return studentDAO.editStudent(request.getId(),request.getLastName(), request.getFirstName(), request.getMiddleName(), request.getGroup(), request.getStatus());
+    public String editStudent(EditStudentRequest request) {
+        return studentDAO.editStudent(request.getId(), request.getLastName(), request.getFirstName(), request.getMiddleName(), request.getGroup(), request.getStatus());
     }
 
-    //+!
     @Override
-    public AddStudentResponse addStudent(AddStudentRequest request){
-        int result = studentDAO.addStudent(request.getLastName(),request.getFirstName(),request.getMiddleName(),request.getGroup(),request.getStatus());
+    public AddStudentResponse addStudent(AddStudentRequest request) {
+        int result = studentDAO.addStudent(request.getLastName(), request.getFirstName(), request.getMiddleName(), request.getGroup(), request.getStatus());
         return new AddStudentResponse(result);
     }
 
-    //+!
     @Override
-    public String deleteStudent(DeleteStudentRequest request){
+    public String deleteStudent(DeleteStudentRequest request) {
         StudentDAOImpl studentDAO = new StudentDAOImpl();
         return studentDAO.deleteStudent(request.getStudentId());
     }

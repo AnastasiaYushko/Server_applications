@@ -1,3 +1,4 @@
+/*
 package org.example.dto_response.student;
 
 import java.util.Objects;
@@ -73,3 +74,4 @@ public class EditStudentResponse {
         return Objects.hash(getLastName(), getFirstName(), getMiddleName(), getStatus(), getGroup());
     }
 }
+*/

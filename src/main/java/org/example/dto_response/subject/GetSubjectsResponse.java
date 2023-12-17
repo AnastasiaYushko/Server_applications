@@ -5,11 +5,11 @@ import java.util.ArrayList;
 public class GetSubjectsResponse {
     private ArrayList<String> listSubjects;
 
-    public GetSubjectsResponse(ArrayList<String> listSubjects){
+    public GetSubjectsResponse(ArrayList<String> listSubjects) {
         this.listSubjects = new ArrayList<>(listSubjects);
     }
 
-    public GetSubjectsResponse(){
+    public GetSubjectsResponse() {
         super();
     }
 

@@ -6,14 +6,14 @@ public class EditTeacherRequest {
     private String firstName;
     private String middleName;
 
-    public EditTeacherRequest(int id,String lastName,String firstName,String middleName){
+    public EditTeacherRequest(int id, String lastName, String firstName, String middleName) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;
     }
 
-    public EditTeacherRequest(){
+    public EditTeacherRequest() {
         super();
     }
 

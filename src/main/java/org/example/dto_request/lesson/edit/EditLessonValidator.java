@@ -8,17 +8,17 @@ import java.util.List;
 
 public class EditLessonValidator implements RequestValidator<EditLessonRequest> {
     @Override
-    public List<String> validate(EditLessonRequest request,List<String> errors) {
+    public List<String> validate(EditLessonRequest request, List<String> errors) {
 
-        ValidatorNumber.validateNumber(request.getId(),errors,"id");
+        ValidatorNumber.validateNumber(request.getId(), errors, "id");
 
-        ValidatorNumber.validateNumber(request.getNumber(),errors,"number");
+        ValidatorNumber.validateNumber(request.getNumber(), errors, "number");
 
-        ValidatorDate.validateDate(request.getDate(),errors,"date");
+        ValidatorDate.validateDate(request.getDate(), errors, "date");
 
-        ValidatorNumber.validateNumber(request.getGroupId(),errors,"groupId");
+        ValidatorNumber.validateNumber(request.getGroupId(), errors, "groupId");
 
-        ValidatorNumber.validateNumber(request.getTeacherId(),errors,"teacherId");
+        ValidatorNumber.validateNumber(request.getTeacherId(), errors, "teacherId");
 
         return errors;
     }

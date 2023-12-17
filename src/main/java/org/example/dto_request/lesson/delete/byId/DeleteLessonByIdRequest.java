@@ -6,15 +6,15 @@ public class DeleteLessonByIdRequest {
     @Positive
     private int lessonId;
 
-    public DeleteLessonByIdRequest(@Positive int lessonId){
+    public DeleteLessonByIdRequest(@Positive int lessonId) {
         this.lessonId = lessonId;
     }
 
-    public DeleteLessonByIdRequest(){
+    public DeleteLessonByIdRequest() {
         super();
     }
 
-    public void setLessonId( @Positive int lessonId) {
+    public void setLessonId(@Positive int lessonId) {
         this.lessonId = lessonId;
     }
 
