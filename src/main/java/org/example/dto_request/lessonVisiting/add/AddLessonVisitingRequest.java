@@ -13,6 +13,10 @@ public class AddLessonVisitingRequest {
         this.listStudent = new ArrayList<>(listStudent);
     }
 
+    public AddLessonVisitingRequest(){
+        super();
+    }
+
     public ArrayList<String> getListStudent() {
         return listStudent;
     }

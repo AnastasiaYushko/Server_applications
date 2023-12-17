@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import org.example.dto_request.student.edit.EditStudentRequest;
-import org.example.dto_response.student.EditStudentResponse;
 import org.example.handler.IHandler;
 import org.example.network_operations.ResponseEntity;
 import org.example.network_operations.controllers.StudentController;
@@ -16,7 +15,7 @@ public class EditStudentHandler implements IHandler {
 
         EditStudentRequest editStudentRequest = objectMapper.readValue(jsonRequest, EditStudentRequest.class);
 
-        ResponseEntity<EditStudentResponse> editStudentResponse = StudentController.editStudent(editStudentRequest);
+        ResponseEntity<String> editStudentResponse = StudentController.editStudent(editStudentRequest);
 
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 

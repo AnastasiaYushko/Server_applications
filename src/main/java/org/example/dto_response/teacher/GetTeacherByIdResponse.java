@@ -11,6 +11,10 @@ public class GetTeacherByIdResponse {
         this.middleName = middleName;
     }
 
+    public GetTeacherByIdResponse(){
+        super();
+    }
+
     public String getLastName() {
         return lastName;
     }

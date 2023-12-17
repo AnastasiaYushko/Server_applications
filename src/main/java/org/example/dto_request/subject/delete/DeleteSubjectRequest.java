@@ -7,6 +7,10 @@ public class DeleteSubjectRequest {
         this.id = id;
     }
 
+    public DeleteSubjectRequest(){
+        super();
+    }
+
     public void setId(int id) {
         this.id = id;
     }

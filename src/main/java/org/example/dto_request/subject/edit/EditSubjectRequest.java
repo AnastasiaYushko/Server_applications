@@ -8,6 +8,10 @@ public class EditSubjectRequest {
         this.name = name;
     }
 
+    public EditSubjectRequest(){
+        super();
+    }
+
     public void setName(String name) {
         this.name = name;
     }

@@ -15,6 +15,10 @@ public class EditLessonRequest {
         this.groupId = groupId;
     }
 
+    public EditLessonRequest(){
+        super();
+    }
+
     public void setTeacherId(int teacherId) {
         this.teacherId = teacherId;
     }

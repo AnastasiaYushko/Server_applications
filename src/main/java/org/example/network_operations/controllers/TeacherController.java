@@ -1,6 +1,5 @@
 package org.example.network_operations.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.apache.http.HttpStatus;
 import org.example.dto_request.teacher.add.AddTeacherRequest;
 import org.example.dto_request.teacher.add.AddTeacherValidator;
@@ -11,7 +10,6 @@ import org.example.dto_request.teacher.edit.EditTeacherValidator;
 import org.example.dto_request.teacher.get.GetTeacherByIdRequest;
 import org.example.dto_request.teacher.get.GetTeacherByIdValidator;
 import org.example.dto_response.teacher.AddTeacherResponse;
-import org.example.dto_response.teacher.EditTeacherResponse;
 import org.example.dto_response.teacher.GetTeacherByIdResponse;
 import org.example.dto_response.teacher.GetTeachersResponse;
 import org.example.network_operations.ResponseEntity;
@@ -22,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TeacherController {
-    public static ResponseEntity<String> deleteTeacher(@RequestBody DeleteTeacherRequest request) throws JsonProcessingException {
+    public static ResponseEntity<String> deleteTeacher(@RequestBody DeleteTeacherRequest request) {
         DeleteTeacherValidator validator = new DeleteTeacherValidator();
         List<String> errors = new ArrayList<>();
         validator.validate(request,errors);
@@ -41,7 +39,7 @@ public class TeacherController {
         return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
     }
 
-    public static ResponseEntity<AddTeacherResponse> addTeacher(@RequestBody AddTeacherRequest request) throws JsonProcessingException{
+    public static ResponseEntity<AddTeacherResponse> addTeacher(@RequestBody AddTeacherRequest request) {
         AddTeacherValidator validator = new AddTeacherValidator();
         List<String> errors = new ArrayList<>();
         validator.validate(request,errors);
@@ -60,7 +58,7 @@ public class TeacherController {
         return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
     }
 
-    public static ResponseEntity<EditTeacherResponse> editTeacher(@RequestBody EditTeacherRequest request) throws JsonProcessingException{
+    public static ResponseEntity<String> editTeacher(@RequestBody EditTeacherRequest request) {
         EditTeacherValidator validator = new EditTeacherValidator();
         List<String> errors = new ArrayList<>();
         validator.validate(request,errors);
@@ -74,12 +72,12 @@ public class TeacherController {
 
         TeacherServiceImpl teacherService = new TeacherServiceImpl();
 
-        EditTeacherResponse dataResponse = teacherService.editTeacher(request);
+        String dataResponse = teacherService.editTeacher(request);
 
         return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
     }
 
-    public static ResponseEntity<GetTeacherByIdResponse> getTeacherById(@RequestBody GetTeacherByIdRequest request) throws JsonProcessingException{
+    public static ResponseEntity<GetTeacherByIdResponse> getTeacherById(@RequestBody GetTeacherByIdRequest request) {
         GetTeacherByIdValidator validator = new GetTeacherByIdValidator();
         List<String> errors = new ArrayList<>();
         validator.validate(request,errors);
@@ -98,7 +96,7 @@ public class TeacherController {
         return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
     }
 
-    public static ResponseEntity<GetTeachersResponse> getTeachers() throws JsonProcessingException{
+    public static ResponseEntity<GetTeachersResponse> getTeachers() {
 
         TeacherServiceImpl teacherService = new TeacherServiceImpl();
 

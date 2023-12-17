@@ -1,20 +1,24 @@
 package org.example.dto_response.lesson;
 
-import java.util.ArrayList;
+import java.util.Objects;
 
 public class GetLessonByIdResponse {
     private String date;
     private int number;
     private int teacherId;
     private int groupId;
-    private ArrayList<String> students;
+    //private ArrayList<String> students;
 
-    public GetLessonByIdResponse(String date,int number,int teacherId,int groupId,ArrayList<String> students) {
+    public GetLessonByIdResponse(String date,int number,int teacherId,int groupId) {
         this.date = date;
         this.number = number;
         this.teacherId = teacherId;
         this.groupId = groupId;
-        this.students = new ArrayList<>(students);
+        //this.students = new ArrayList<>(students);
+    }
+
+    public GetLessonByIdResponse(){
+        super();
     }
 
     public int getTeacherId() {
@@ -29,9 +33,9 @@ public class GetLessonByIdResponse {
         return date;
     }
 
-    public ArrayList<String> getStudents() {
-        return students;
-    }
+    //public ArrayList<String> getStudents() {
+    //     return students;
+    //}
 
     public int getNameGroup() {
         return groupId;
@@ -53,7 +57,20 @@ public class GetLessonByIdResponse {
         this.teacherId = teacherId;
     }
 
-    public void setStudents(ArrayList<String> students) {
-        this.students = new ArrayList<>(students);
+    // public void setStudents(ArrayList<String> students) {
+    //    this.students = new ArrayList<>(students);
+    // }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof GetLessonByIdResponse that)) return false;
+        return getNumber() == that.getNumber() && getTeacherId() == that.getTeacherId() && groupId == that.groupId && Objects.equals(getDate(), that.getDate());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getDate(), getNumber(), getTeacherId(), groupId);
     }
 }

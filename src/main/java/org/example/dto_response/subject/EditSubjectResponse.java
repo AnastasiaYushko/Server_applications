@@ -7,6 +7,10 @@ public class EditSubjectResponse {
         this.name = name;
     }
 
+    public EditSubjectResponse(){
+        super();
+    }
+
     public String getName() {
         return name;
     }

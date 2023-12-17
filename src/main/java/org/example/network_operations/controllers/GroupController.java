@@ -11,7 +11,6 @@ import org.example.dto_request.studentGroup.edit.EditStudentGroupValidator;
 import org.example.dto_request.studentGroup.get.GetStudentGroupByIdRequest;
 import org.example.dto_request.studentGroup.get.GetStudentGroupByIdValidator;
 import org.example.dto_response.studentGroup.AddStudentGroupResponse;
-import org.example.dto_response.studentGroup.EditStudentGroupResponse;
 import org.example.dto_response.studentGroup.GetStudentGroupByIdResponse;
 import org.example.dto_response.studentGroup.GetStudentGroupsResponse;
 import org.example.network_operations.ResponseEntity;
@@ -43,7 +42,7 @@ public class GroupController {
         return new ResponseEntity<>(getStudentGroupByIdResponse, HttpStatus.SC_OK);
     }
 
-    public static ResponseEntity<EditStudentGroupResponse> editStudentGroup(@RequestBody EditStudentGroupRequest request) throws JsonProcessingException {
+    public static ResponseEntity<String> editStudentGroup(@RequestBody EditStudentGroupRequest request) {
         EditStudentGroupValidator validator = new EditStudentGroupValidator();
         List<String> errors = new ArrayList<>();
         validator.validate(request,errors);
@@ -57,12 +56,12 @@ public class GroupController {
 
         GroupStudentServiceImpl groupStudentService = new GroupStudentServiceImpl();
 
-        EditStudentGroupResponse editStudentGroupResponse = groupStudentService.editStudentGroup(request);
+        String editStudentGroupResponse = groupStudentService.editStudentGroup(request);
 
         return new ResponseEntity<>(editStudentGroupResponse, HttpStatus.SC_OK);
     }
 
-    public static ResponseEntity<AddStudentGroupResponse> addStudentGroup(@RequestBody AddStudentGroupRequest request) throws JsonProcessingException {
+    public static ResponseEntity<AddStudentGroupResponse> addStudentGroup(@RequestBody AddStudentGroupRequest request) {
         AddStudentGroupValidator validator = new AddStudentGroupValidator();
         List<String> errors = new ArrayList<>();
         validator.validate(request,errors);
@@ -81,7 +80,7 @@ public class GroupController {
         return new ResponseEntity<>(addStudentGroupResponse, HttpStatus.SC_OK);
     }
 
-    public static ResponseEntity<String> deleteStudentGroup(@RequestBody DeleteStudentGroupRequest request) throws JsonProcessingException {
+    public static ResponseEntity<String> deleteStudentGroup(@RequestBody DeleteStudentGroupRequest request) {
         DeleteStudentGroupValidator validator = new DeleteStudentGroupValidator();
         List<String> errors = new ArrayList<>();
         validator.validate(request,errors);
@@ -99,7 +98,7 @@ public class GroupController {
         return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
     }
 
-    public static ResponseEntity<GetStudentGroupsResponse> getStudentGroups() throws JsonProcessingException{
+    public static ResponseEntity<GetStudentGroupsResponse> getStudentGroups() {
         GroupStudentServiceImpl groupStudentService = new GroupStudentServiceImpl();
         GetStudentGroupsResponse getStudentGroupsResponse = groupStudentService.getStudentGroups();
         return new ResponseEntity<>(getStudentGroupsResponse, HttpStatus.SC_OK);

@@ -8,6 +8,10 @@ public class GetLessonVisitingRequest {
         this.lessonId = lessonId;
     }
 
+    public GetLessonVisitingRequest(){
+        super();
+    }
+
     public int getLessonId() {
         return lessonId;
     }

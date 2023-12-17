@@ -1,46 +1,41 @@
 package org.example.dao_repositories_implements;
 
+import org.example.DataBase;
 import org.example.dao_repositories.StudentGroupDAO;
 import org.example.model.StudentGroup;
 
 import java.util.ArrayList;
 
 public class StudentGroupDAOImpl implements StudentGroupDAO {
+
+    private final DataBase dataBase = DataBase.getDataBase();
+
+    //+
     @Override
     public ArrayList<StudentGroup> getStudentGroups() {
-        //Возвращает массив конкретных объектов StudentGroup
-        StudentGroup group1 = new StudentGroup(0, "ММБ-104-01");
-        StudentGroup group2 = new StudentGroup(1, "ММБ-104-02");
-        ArrayList<StudentGroup> arrayList = new ArrayList<>();
-        arrayList.add(group1);
-        arrayList.add(group2);
-        //
-        return arrayList;
+        return dataBase.getStudentGroups();
     }
 
     @Override
     public StudentGroup getStudentGroupById(int id) {
-        //Возвращает конкретный объект StudentGroup
-        StudentGroup group = new StudentGroup(id,"ММБ-103-01");
-        //
-        return group;
+        return dataBase.getStudentGroupById(id);
     }
 
     @Override
-    public void addStudentGroup(String name) {
-        //Ничего не делает (выводит сообщение на консоль)
-        System.out.println("Группа добавлена");
+    public int addStudentGroup(String name) {
+        StudentGroup group = new StudentGroup(0,name);
+        return dataBase.addStudentGroup(group);
     }
 
     @Override
-    public void editStudentGroup(int id, String name) {
-        //Ничего не делает (выводит сообщение на консоль)
-        System.out.println("Группа изменена");
+    public String editStudentGroup(int id, String name) {
+        dataBase.editStudentGroup(new StudentGroup(id,name));
+        return "Группа изменена";
     }
 
     @Override
-    public void deleteStudentGroup(int id) {
-        //Ничего не делает (выводит сообщение на консоль)
-        System.out.println("Группа удалена");
+    public String deleteStudentGroup(int id) {
+        dataBase.deleteStudentGroup(id);
+        return "Группа удалена";
     }
 }

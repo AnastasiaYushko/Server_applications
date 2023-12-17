@@ -10,6 +10,10 @@ public class DeleteLessonVisitingRequest {
         this.lessonId = lessonId;
     }
 
+    public DeleteLessonVisitingRequest(){
+        super();
+    }
+
     public int getLessonId() {
         return lessonId;
     }

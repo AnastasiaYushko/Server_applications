@@ -1,81 +1,57 @@
 package org.example.services.serviceInterfaceImpl;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
+import org.example.dao_repositories_implements.SubjectDAOImpl;
 import org.example.dto_request.subject.add.AddSubjectRequest;
 import org.example.dto_request.subject.delete.DeleteSubjectRequest;
 import org.example.dto_request.subject.edit.EditSubjectRequest;
 import org.example.dto_request.subject.get.GetSubjectByIdRequest;
 import org.example.dto_response.subject.AddSubjectResponse;
-import org.example.dto_response.subject.EditSubjectResponse;
 import org.example.dto_response.subject.GetSubjectByIdResponse;
 import org.example.dto_response.subject.GetSubjectsResponse;
+import org.example.model.Subject;
 import org.example.services.serviceInterface.SubjectService;
 
+import java.util.ArrayList;
+
 public class SubjectServiceImpl implements SubjectService {
+
+    private final SubjectDAOImpl subjectDAO = new SubjectDAOImpl();
+    //+!
     @Override
-    public AddSubjectResponse addSubject(AddSubjectRequest request) throws JsonProcessingException {
-        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-        String jsonRequest = ow.writeValueAsString(request);
-
-        // вызов метода на сервера
-        //
-
-        String jsonResponse = "Ответ сервера на метод addSubject";
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        return objectMapper.readValue(jsonResponse, AddSubjectResponse.class);
+    public AddSubjectResponse addSubject(AddSubjectRequest request) {
+        int result = subjectDAO.addSubject(request.getName());
+        return new AddSubjectResponse(result);
     }
 
+    //+!
     @Override
-    public String deleteSubject(DeleteSubjectRequest request) throws JsonProcessingException {
-        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-        String jsonRequest = ow.writeValueAsString(request);
-
-        // вызов метода на сервера
-        //
-
-        return "Ответ сервера на метод deleteSubject";
+    public String deleteSubject(DeleteSubjectRequest request) {
+        return subjectDAO.deleteSubject(request.getId());
     }
 
+    //+!
     @Override
-    public EditSubjectResponse editSubject(EditSubjectRequest request) throws JsonProcessingException {
-        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-        String jsonRequest = ow.writeValueAsString(request);
-
-        // вызов метода на сервера
-        //
-
-        String jsonResponse = "Ответ сервера на метод editSubject";
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        return objectMapper.readValue(jsonResponse, EditSubjectResponse.class);
+    public String editSubject(EditSubjectRequest request) {
+        return subjectDAO.editSubject(request.getId(),request.getName());
     }
 
+    //+!
     @Override
-    public GetSubjectByIdResponse getSubjectById(GetSubjectByIdRequest request) throws JsonProcessingException {
-        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-        String jsonRequest = ow.writeValueAsString(request);
-
-        // вызов метода на сервера
-        //
-
-        String jsonResponse = "Ответ сервера на метод getSubjectById";
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        return objectMapper.readValue(jsonResponse, GetSubjectByIdResponse.class);
+    public GetSubjectByIdResponse getSubjectById(GetSubjectByIdRequest request) {
+        Subject subject = subjectDAO.getSubjectById(request.getId());
+        return new GetSubjectByIdResponse(subject.getName());
     }
 
+    //+!
     @Override
-    public GetSubjectsResponse getSubjects() throws JsonProcessingException {
+    public GetSubjectsResponse getSubjects() {
+        ArrayList<Subject> listSubject = subjectDAO.getSubjects();
+        ArrayList<String> newListSubject = new ArrayList<>();
 
-        // вызов метода на сервера
-        //
+        for ( Subject subject : listSubject){
+            newListSubject.add(subject.toString());
+        }
 
-        String jsonResponse = "Ответ сервера на метод getSubjects";
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        return objectMapper.readValue(jsonResponse, GetSubjectsResponse.class);
+        return new GetSubjectsResponse(newListSubject);
     }
 }

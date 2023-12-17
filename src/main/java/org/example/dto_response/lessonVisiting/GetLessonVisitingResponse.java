@@ -1,19 +1,35 @@
 package org.example.dto_response.lessonVisiting;
 
-import java.util.ArrayList;
+import java.util.Objects;
 
 public class GetLessonVisitingResponse {
-    private ArrayList<String> listLessonVisiting;
+    private String lessonVisiting;
 
-    public GetLessonVisitingResponse(ArrayList<String> listLessonVisiting){
-        this.listLessonVisiting = new ArrayList<>(listLessonVisiting);
+    public GetLessonVisitingResponse(String listLessonVisiting){
+        this.lessonVisiting = listLessonVisiting;
     }
 
-    public ArrayList<String> getListLessonVisiting() {
-        return listLessonVisiting;
+    public GetLessonVisitingResponse(){
+        super();
     }
 
-    public void setListLessonVisiting(ArrayList<String> listLessonVisiting) {
-        this.listLessonVisiting = new ArrayList<>(listLessonVisiting);
+    public String getListLessonVisiting() {
+        return lessonVisiting;
+    }
+
+    public void setListLessonVisiting(String listLessonVisiting) {
+        this.lessonVisiting = lessonVisiting;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof GetLessonVisitingResponse response)) return false;
+        return Objects.equals(lessonVisiting, response.lessonVisiting);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(lessonVisiting);
     }
 }

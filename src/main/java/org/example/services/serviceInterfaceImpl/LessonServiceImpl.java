@@ -1,8 +1,6 @@
 package org.example.services.serviceInterfaceImpl;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
+import org.example.dao_repositories_implements.LessonDAOImpl;
 import org.example.dto_request.lesson.add.AddLessonRequest;
 import org.example.dto_request.lesson.delete.byGroup.DeleteLessonsByGroupRequest;
 import org.example.dto_request.lesson.delete.byId.DeleteLessonByIdRequest;
@@ -11,110 +9,80 @@ import org.example.dto_request.lesson.edit.EditLessonRequest;
 import org.example.dto_request.lesson.get.byGroup.GetLessonsByGroupRequest;
 import org.example.dto_request.lesson.get.byId.GetLessonByIdRequest;
 import org.example.dto_request.lesson.get.byTeacher.GetLessonsByTeacherRequest;
-import org.example.dto_response.lesson.*;
+import org.example.dto_response.lesson.AddLessonResponse;
+import org.example.dto_response.lesson.GetLessonByIdResponse;
+import org.example.dto_response.lesson.GetLessonsByGroupResponse;
+import org.example.dto_response.lesson.GetLessonsByTeacherResponse;
+import org.example.model.Lesson;
 import org.example.services.serviceInterface.LessonService;
 
+import java.text.ParseException;
+import java.util.ArrayList;
+
 public class LessonServiceImpl implements LessonService {
+
+    private final LessonDAOImpl lessonDAO = new LessonDAOImpl();
+    //+!
     @Override
-    public AddLessonResponse addLesson(AddLessonRequest request) throws JsonProcessingException {
-        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-        String jsonRequest = ow.writeValueAsString(request);
+    public AddLessonResponse addLesson(AddLessonRequest request) throws ParseException {
+        int result = lessonDAO.AddLesson(request.getDate(), request.getNumber(), request.getTeacherId(), request.getGroupId());
+        return new AddLessonResponse(result);
+    }
 
-        // вызов метода на сервера
-        //
+    //+!
+    @Override
+    public String deleteLessonsByGroup(DeleteLessonsByGroupRequest request){
+        return lessonDAO.DeleteLessonsByGroup(request.getGroupId());
+    }
 
-        String jsonResponse = "Ответ сервера на метод addLesson";
-        ObjectMapper objectMapper = new ObjectMapper();
+    //+!
+    @Override
+    public String deleteLessonById(DeleteLessonByIdRequest request){
+        return lessonDAO.DeleteLessonById(request.getLessonId());
+    }
 
-        return objectMapper.readValue(jsonResponse, AddLessonResponse.class);
+    //+!
+    @Override
+    public String deleteLessonsByTeacher(DeleteLessonsByTeacherRequest request){
+        return lessonDAO.DeleteLessonsByTeacher(request.getTeacherId());
+    }
+
+    //+!
+    @Override
+    public String editLesson(EditLessonRequest request) throws ParseException {
+        return lessonDAO.EditLesson(request.getId(),request.getDate(),request.getNumber(),request.getTeacherId(),request.getGroupId());
+    }
+
+    //+!
+    @Override
+    public GetLessonsByGroupResponse getLessonsByGroup(GetLessonsByGroupRequest request) throws ParseException {
+
+        ArrayList<Lesson> lessons = lessonDAO.getLessonsByGroup(request.getStartDate(),request.getEndDate(),request.getGroupId());
+        ArrayList<String> newList = new ArrayList<>();
+
+        for (Lesson lesson : lessons){
+            newList.add(lesson.toString());
+        }
+        return new GetLessonsByGroupResponse(newList);
     }
 
     @Override
-    public String deleteLessonsByGroup(DeleteLessonsByGroupRequest request) throws JsonProcessingException {
-        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-        String jsonRequest = ow.writeValueAsString(request);
-
-        // вызов метода на сервера
-        //
-
-        return "Ответ сервера на метод deleteLessonsByGroup";
+    public GetLessonByIdResponse getLessonById(GetLessonByIdRequest request) {
+        Lesson lesson = lessonDAO.getLessonById(request.getLessonId());
+        return new GetLessonByIdResponse(lesson.getDate().toString(), lesson.getNumber(),lesson.getTeacher().getId(),lesson.getGroup().getId());
     }
 
+    //+!
     @Override
-    public String deleteLessonById(DeleteLessonByIdRequest request) throws JsonProcessingException {
-        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-        String jsonRequest = ow.writeValueAsString(request);
+    public GetLessonsByTeacherResponse getLessonsByTeacher(GetLessonsByTeacherRequest request) throws ParseException {
 
-        // вызов метода на сервера
-        //
+        ArrayList<Lesson> listLessons = lessonDAO.getLessonsByTeacher(request.getStartDate(),request.getEndDate(),request.getTeacherId());
+        ArrayList<String> newListLessons = new ArrayList<>();
 
-        return "Ответ сервера на метод deleteLessonById";
-    }
+        for (Lesson lesson : listLessons){
+            newListLessons.add(lesson.toString());
+        }
 
-    @Override
-    public String deleteLessonsByTeacher(DeleteLessonsByTeacherRequest request) throws JsonProcessingException {
-        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-        String jsonRequest = ow.writeValueAsString(request);
-
-        // вызов метода на сервера
-        //
-
-        return "Ответ сервера на метод deleteLessonsByTeacher";
-    }
-
-    @Override
-    public EditLessonResponse editLesson(EditLessonRequest request) throws JsonProcessingException {
-        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-        String jsonRequest = ow.writeValueAsString(request);
-
-        // вызов метода на сервера
-        //
-
-        String jsonResponse = "Ответ сервера на метод editLesson";
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        return objectMapper.readValue(jsonResponse, EditLessonResponse.class);
-    }
-
-    @Override
-    public GetLessonsByGroupResponse getLessonsByGroup(GetLessonsByGroupRequest request) throws JsonProcessingException {
-        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-        String jsonRequest = ow.writeValueAsString(request);
-
-        // вызов метода на сервера
-        //
-
-        String jsonResponse = "Ответ сервера на метод getLessonsByGroup";
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        return objectMapper.readValue(jsonResponse, GetLessonsByGroupResponse.class);
-    }
-
-    @Override
-    public GetLessonByIdResponse getLessonById(GetLessonByIdRequest request) throws JsonProcessingException {
-        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-        String jsonRequest = ow.writeValueAsString(request);
-
-        // вызов метода на сервера
-        //
-
-        String jsonResponse = "Ответ сервера на метод getLessonById";
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        return objectMapper.readValue(jsonResponse, GetLessonByIdResponse.class);
-    }
-
-    @Override
-    public GetLessonsByTeacherResponse getLessonsByTeacher(GetLessonsByTeacherRequest request) throws JsonProcessingException {
-        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-        String jsonRequest = ow.writeValueAsString(request);
-
-        // вызов метода на сервера
-        //
-
-        String jsonResponse = "Ответ сервера на метод getLessonsByTeacher";
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        return objectMapper.readValue(jsonResponse, GetLessonsByTeacherResponse.class);
+        return new GetLessonsByTeacherResponse(newListLessons);
     }
 }

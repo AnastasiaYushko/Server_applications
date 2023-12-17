@@ -9,6 +9,10 @@ public class GetTeachersResponse {
         this.listTeachers = new ArrayList<>(listTeachers);
     }
 
+    public GetTeachersResponse(){
+        super();
+    }
+
     public ArrayList<String> getListTeachers() {
         return listTeachers;
     }

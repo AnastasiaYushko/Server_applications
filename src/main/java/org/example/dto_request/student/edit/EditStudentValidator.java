@@ -14,7 +14,6 @@ public class EditStudentValidator implements RequestValidator<EditStudentRequest
         int maxLength = 50;
 
         ValidatorNumber.validateNumber(request.getId(),errors,"id");
-        ValidatorNumber.validateNumber(request.getGroupId(),errors,"groupId");
 
         ValidatorString.validateNull(request.getLastName(),errors,"lastName");
         ValidatorString.validateEmpty(request.getLastName(),errors,"lastName");

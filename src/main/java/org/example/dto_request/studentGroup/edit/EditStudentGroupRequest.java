@@ -9,6 +9,10 @@ public class EditStudentGroupRequest {
         this.name = name;
     }
 
+    public EditStudentGroupRequest(){
+        super();
+    }
+
     public void setId(int id) {
         this.id = id;
     }

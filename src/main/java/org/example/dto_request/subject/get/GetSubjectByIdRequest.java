@@ -7,6 +7,10 @@ public class GetSubjectByIdRequest {
         this.id = id;
     }
 
+    public GetSubjectByIdRequest(){
+        super();
+    }
+
     public void setId(int id) {
         this.id = id;
     }

@@ -7,6 +7,10 @@ public class AddSubjectResponse {
         this.id = id;
     }
 
+    public AddSubjectResponse(){
+        super();
+    }
+
     public int getId() {
         return id;
     }

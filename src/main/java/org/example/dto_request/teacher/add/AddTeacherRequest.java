@@ -11,6 +11,10 @@ public class AddTeacherRequest {
         this.middleName = middleName;
     }
 
+    public AddTeacherRequest(){
+        super();
+    }
+
     public void setMiddleName(String middleName) {
         this.middleName = middleName;
     }

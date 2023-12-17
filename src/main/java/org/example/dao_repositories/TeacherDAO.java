@@ -10,9 +10,9 @@ public interface TeacherDAO {
 
     Teacher getTeacherById(int id);
 
-    void addTeacher(String firstName, String middleName, String lastName);
+    int addTeacher(String firstName, String middleName, String lastName);
 
-    void editTeacher(int id,String firstName, String middleName, String lastName);
+    String editTeacher(int id,String firstName, String middleName, String lastName);
 
-    void deleteTeacher(int id);
+    String deleteTeacher(int id);
 }

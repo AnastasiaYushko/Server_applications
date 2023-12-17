@@ -1,15 +1,14 @@
 package org.example.dao_repositories;
 
 import org.example.model.LessonVisiting;
-import org.example.model.Student;
 
 import java.util.ArrayList;
 
 public interface LessonVisitingDAO {
 
-    LessonVisiting GetLessonVisitingRequest(int lessonId);
+    LessonVisiting GetLessonVisiting(int lessonId);
 
-    void AddLessonVisiting(int lessonId, ArrayList<Student> students);
+    String AddLessonVisiting(int lessonId, ArrayList<String> students);
 
-    void DeleteLessonVisitingRequest(int lessonId);
+    String DeleteLessonVisiting(int lessonId);
 }

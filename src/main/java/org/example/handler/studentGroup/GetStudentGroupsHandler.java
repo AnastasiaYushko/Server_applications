@@ -11,7 +11,6 @@ import org.example.network_operations.controllers.GroupController;
 public class GetStudentGroupsHandler implements IHandler {
     @Override
     public String handler(String str) throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
 
         ResponseEntity<GetStudentGroupsResponse> getStudentGroupsResponse= GroupController.getStudentGroups();
 

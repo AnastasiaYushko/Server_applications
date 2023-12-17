@@ -7,6 +7,10 @@ public class AddStudentGroupRequest {
         this.name = name;
     }
 
+    public AddStudentGroupRequest(){
+        super();
+    }
+
     public void setName(String name) {
         this.name = name;
     }

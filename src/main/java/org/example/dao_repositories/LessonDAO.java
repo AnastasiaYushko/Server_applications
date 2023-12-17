@@ -2,6 +2,7 @@ package org.example.dao_repositories;
 
 import org.example.model.Lesson;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 //без посещаемости
@@ -9,17 +10,17 @@ public interface LessonDAO {
 
     Lesson getLessonById(int id);
 
-    ArrayList<Lesson> getLessonsByGroup( String startDate, String endDate, int groupId);
+    ArrayList<Lesson> getLessonsByGroup(String startDate, String endDate, int groupId) throws ParseException;
 
-    ArrayList<Lesson> getLessonsByTeacher( String startDate, String endDate, int teacherId);
+    ArrayList<Lesson> getLessonsByTeacher(String startDate, String endDate, int teacherId) throws ParseException;
 
-    void EditLessonRequest(int id, String date, int number, int teacherId, int groupId);
+    String EditLesson(int id, String date, int number, int teacherId, int groupId) throws ParseException;
 
-    void DeleteLessonsByGroup(int groupId);
+    String DeleteLessonsByGroup(int groupId);
 
-    void DeleteLessonsById(int lessonId);
+    String DeleteLessonById(int lessonId);
 
-    void DeleteLessonsByTeacher(int teacherId);
+    String DeleteLessonsByTeacher(int teacherId);
 
-    void AddLesson(String date, int number, int teacherId, int groupId);
+    int AddLesson(String date, int number, int teacherId, int groupId) throws ParseException;
 }

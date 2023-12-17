@@ -10,9 +10,9 @@ public interface StudentGroupDAO {
 
     StudentGroup getStudentGroupById(int groupId);
 
-    void addStudentGroup(String name);
+    int addStudentGroup(String name);
 
-    void editStudentGroup(int id,String name);
+    String editStudentGroup(int id,String name);
 
-    void deleteStudentGroup(int id);
+    String deleteStudentGroup(int id);
 }

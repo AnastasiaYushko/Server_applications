@@ -7,6 +7,10 @@ public class DeleteTeacherRequest {
         this.id = id;
     }
 
+    public DeleteTeacherRequest(){
+        super();
+    }
+
     public void setId(int id) {
         this.id = id;
     }

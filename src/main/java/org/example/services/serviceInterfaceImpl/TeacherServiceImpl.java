@@ -1,82 +1,57 @@
 package org.example.services.serviceInterfaceImpl;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
+import org.example.dao_repositories_implements.TeacherDAOImpl;
 import org.example.dto_request.teacher.add.AddTeacherRequest;
 import org.example.dto_request.teacher.delete.DeleteTeacherRequest;
 import org.example.dto_request.teacher.edit.EditTeacherRequest;
 import org.example.dto_request.teacher.get.GetTeacherByIdRequest;
 import org.example.dto_response.teacher.AddTeacherResponse;
-import org.example.dto_response.teacher.EditTeacherResponse;
 import org.example.dto_response.teacher.GetTeacherByIdResponse;
 import org.example.dto_response.teacher.GetTeachersResponse;
+import org.example.model.Teacher;
 import org.example.services.serviceInterface.TeacherService;
 
+import java.util.ArrayList;
+
 public class TeacherServiceImpl implements TeacherService {
+    private final TeacherDAOImpl teacherDAO = new TeacherDAOImpl();
+
+    //+!
     @Override
-    public AddTeacherResponse addTeacher(AddTeacherRequest request) throws JsonProcessingException {
-        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-        String jsonRequest = ow.writeValueAsString(request);
-
-        // вызов метода на сервера
-        //
-
-        String jsonResponse = "Ответ сервера на метод addTeacher";
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        return objectMapper.readValue(jsonResponse, AddTeacherResponse.class);
+    public AddTeacherResponse addTeacher(AddTeacherRequest request) {
+       int result = teacherDAO.addTeacher(request.getFirstName(),request.getMiddleName(),request.getLastName());
+       return new AddTeacherResponse(result);
     }
 
+    //+!
     @Override
-    public String deleteTeacher(DeleteTeacherRequest request) throws JsonProcessingException {
-
-        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-        String jsonRequest = ow.writeValueAsString(request);
-
-        // вызов метода на сервера
-        //
-
-        return "Ответ сервера на метод deleteTeacher";
+    public String deleteTeacher(DeleteTeacherRequest request){
+        return teacherDAO.deleteTeacher(request.getId());
     }
 
+    //+!
     @Override
-    public EditTeacherResponse editTeacher(EditTeacherRequest request) throws JsonProcessingException {
-        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-        String jsonRequest = ow.writeValueAsString(request);
-
-        // вызов метода на сервера
-        //
-
-        String jsonResponse = "Ответ сервера на метод editTeacher";
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        return objectMapper.readValue(jsonResponse, EditTeacherResponse.class);
+    public String editTeacher(EditTeacherRequest request){
+        return teacherDAO.editTeacher(request.getId(),request.getFirstName(),request.getMiddleName(),request.getLastName());
     }
 
+    //+!
     @Override
-    public GetTeacherByIdResponse getTeacherById(GetTeacherByIdRequest request) throws JsonProcessingException {
-        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-        String jsonRequest = ow.writeValueAsString(request);
-
-        // вызов метода на сервера
-        //
-
-        String jsonResponse = "Ответ сервера на метод getTeacherById";
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        return objectMapper.readValue(jsonResponse, GetTeacherByIdResponse.class);
+    public GetTeacherByIdResponse getTeacherById(GetTeacherByIdRequest request) {
+        Teacher teacher = teacherDAO.getTeacherById(request.getId());
+        return new GetTeacherByIdResponse(teacher.getFirstName(),teacher.getLastName(),teacher.getMiddleName());
     }
 
+    //+!
     @Override
-    public GetTeachersResponse getTeachers() throws JsonProcessingException {
+    public GetTeachersResponse getTeachers(){
+        ArrayList<Teacher> listTeachers = teacherDAO.getTeachers();
+        ArrayList<String> newListTeachers = new ArrayList<>();
 
-        // вызов метода на сервера
-        //
+        for (Teacher teacher : listTeachers){
+            newListTeachers.add(teacher.toString());
+        }
 
-        String jsonResponse = "Ответ сервера на метод getTeachers";
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        return objectMapper.readValue(jsonResponse, GetTeachersResponse.class);
+        return new GetTeachersResponse(newListTeachers);
     }
 }

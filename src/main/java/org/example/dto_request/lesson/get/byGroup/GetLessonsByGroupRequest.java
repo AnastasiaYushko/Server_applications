@@ -11,6 +11,10 @@ public class GetLessonsByGroupRequest {
         this.groupId = groupId;
     }
 
+    public GetLessonsByGroupRequest(){
+        super();
+    }
+
     public void setEndDate(String endDate) {
         this.endDate = endDate;
     }

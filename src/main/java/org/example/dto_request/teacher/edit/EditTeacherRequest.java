@@ -13,6 +13,10 @@ public class EditTeacherRequest {
         this.middleName = middleName;
     }
 
+    public EditTeacherRequest(){
+        super();
+    }
+
     public void setMiddleName(String middleName) {
         this.middleName = middleName;
     }

@@ -1,45 +1,47 @@
 package org.example.dao_repositories_implements;
 
+import org.example.DataBase;
 import org.example.dao_repositories.TeacherDAO;
 import org.example.model.Teacher;
 
 import java.util.ArrayList;
 
 public class TeacherDAOImpl implements TeacherDAO {
+
+    private final DataBase dataBase = DataBase.getDataBase();
+
+    //+!
     @Override
     public ArrayList<Teacher> getTeachers() {
-        //Возвращает массив конкретных объектов Teacher
-        Teacher teacher1 = new Teacher(1,"Артем","Иванович","Иванов");
-        Teacher teacher2 = new Teacher(2,"Андрей","Иванович","Теонов");
-        ArrayList<Teacher> arrayList = new ArrayList<>();
-        arrayList.add(teacher1);
-        arrayList.add(teacher2);
-        //
-        return arrayList;
+        return dataBase.getTeachers();
     }
 
+    //+!
     @Override
     public Teacher getTeacherById(int id) {
-        //Возвращает конкретный объект Teacher
-        return new Teacher(id,"Артем","Иванович","Иванов");
-        //
+        return dataBase.getTeacherById(id);
     }
 
+    //+!
     @Override
-    public void addTeacher(String firstName, String middleName, String lastName) {
-        //Ничего не делает (выводит сообщение на консоль)
-        System.out.println("Преподаватель добавлен");
+    public int addTeacher(String firstName, String middleName, String lastName) {
+        Teacher teacher = new Teacher(0,firstName,middleName,lastName);
+        return dataBase.addTeacher(teacher);
     }
 
+    //+!
     @Override
-    public void editTeacher(int id, String firstName, String middleName, String lastName) {
-        //Ничего не делает (выводит сообщение на консоль)
-        System.out.println("Преподаватель изменен");
+    public String editTeacher(int id, String firstName, String middleName, String lastName) {
+        Teacher teacher = new Teacher(id, firstName, middleName, lastName);
+        dataBase.editTeacher(teacher);
+        return "Преподаватель изменен";
     }
 
+
+    //+!
     @Override
-    public void deleteTeacher(int id) {
-        //Ничего не делает (выводит сообщение на консоль)
-        System.out.println("Преподаватель удален");
+    public String deleteTeacher(int id) {
+        dataBase.deleteTeacher(id);
+        return "Преподаватель удален";
     }
 }

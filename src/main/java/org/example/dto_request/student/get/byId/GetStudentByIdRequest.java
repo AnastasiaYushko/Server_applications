@@ -7,6 +7,10 @@ public class GetStudentByIdRequest {
         this.studentId = studentId;
     }
 
+    public GetStudentByIdRequest(){
+        super();
+    }
+
     public void setId(int studentId) {
         this.studentId = studentId;
     }

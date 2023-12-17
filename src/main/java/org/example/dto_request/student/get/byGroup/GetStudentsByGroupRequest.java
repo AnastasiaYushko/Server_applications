@@ -7,6 +7,10 @@ public class GetStudentsByGroupRequest {
         this.groupId = groupId;
     }
 
+    public GetStudentsByGroupRequest(){
+        super();
+    }
+
     public void setGroupId(int groupId) {
         this.groupId = groupId;
     }

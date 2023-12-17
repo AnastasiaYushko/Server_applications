@@ -11,6 +11,10 @@ public class GetLessonsByTeacherRequest {
         this.teacherId = teacherId;
     }
 
+    public GetLessonsByTeacherRequest(){
+        super();
+    }
+
     public void setEndDate(String endDate) {
         this.endDate = endDate;
     }

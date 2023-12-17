@@ -11,6 +11,10 @@ public class GetLessonByIdRequest {
         this.lessonId = lessonId;
     }
 
+    public GetLessonByIdRequest(){
+        super();
+    }
+
     public void setLessonId(@Positive int lessonId) {
         this.lessonId = lessonId;
     }

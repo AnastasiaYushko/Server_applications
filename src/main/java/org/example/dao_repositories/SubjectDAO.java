@@ -10,9 +10,9 @@ public interface SubjectDAO {
 
     Subject getSubjectById(int id);
 
-    void addSubject(String name);
+    int addSubject(String name);
 
-    void editSubject(int id,String name);
+    String editSubject(int id,String name);
 
-    void deleteSubject(int id);
+    String deleteSubject(int id);
 }

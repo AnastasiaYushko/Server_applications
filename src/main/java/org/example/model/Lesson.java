@@ -4,12 +4,13 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
+import java.util.Date;
 import java.util.Objects;
 
 public class Lesson {
     private int id;
     @Pattern(regexp = "(0?[1-9]|[12][0-9]|3[01])-(0?[1-9]|1[012])-((19|20|21)\\d\\d)")
-    private String date;
+    private Date date;
     @Positive
     private int number;
     @NotNull
@@ -17,7 +18,7 @@ public class Lesson {
     @NotNull
     private StudentGroup group;
 
-    public Lesson(int id, String date, int number, @NotNull Teacher teacher, @NotNull StudentGroup group) {
+    public Lesson(int id, Date date, int number, @NotNull Teacher teacher, @NotNull StudentGroup group) {
         this.id = id;
         this.date = date;
         this.number = number;
@@ -33,7 +34,7 @@ public class Lesson {
         this.group = group;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -61,7 +62,7 @@ public class Lesson {
         return teacher;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 

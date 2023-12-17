@@ -10,6 +10,10 @@ public class DeleteLessonByIdRequest {
         this.lessonId = lessonId;
     }
 
+    public DeleteLessonByIdRequest(){
+        super();
+    }
+
     public void setLessonId( @Positive int lessonId) {
         this.lessonId = lessonId;
     }

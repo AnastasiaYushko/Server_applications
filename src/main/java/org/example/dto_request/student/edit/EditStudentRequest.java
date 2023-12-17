@@ -6,15 +6,19 @@ public class EditStudentRequest {
     private String firstName;
     private String middleName;
     private String status;
-    private int groupId;
+    private String group;
 
-    public EditStudentRequest(int id,String lastName,String firstName,String middleName,String status,int groupId){
+    public EditStudentRequest(int id,String lastName,String firstName,String middleName,String status,String groupId){
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;
         this.status = status;
-        this.groupId = groupId;
+        this.group = groupId;
+    }
+
+    public EditStudentRequest(){
+        super();
     }
 
     public void setLastName(String lastName) {
@@ -33,8 +37,8 @@ public class EditStudentRequest {
         return status;
     }
 
-    public void setGroupId(int groupId) {
-        this.groupId = groupId;
+    public void setGroup(String group) {
+        this.group = group;
     }
 
     public void setStatus(String status) {
@@ -57,8 +61,8 @@ public class EditStudentRequest {
         return middleName;
     }
 
-    public int getGroupId() {
-        return groupId;
+    public String getGroup() {
+        return group;
     }
 
     public int getId() {

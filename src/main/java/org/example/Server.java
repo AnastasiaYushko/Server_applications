@@ -11,16 +11,16 @@ import org.example.handler.studentGroup.*;
 import org.example.handler.subject.*;
 import org.example.handler.teacher.*;
 
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Server {
     private final static Map<String, IHandler> map = new HashMap<>();
-    private static final GetStudentByIdHandler g = null;
 
     static {
-        map.put ("getStudentById", new GetStudentByIdHandler());
-        map.put("addStudent",new AddStudentHandler());
+        map.put("getStudentById", new GetStudentByIdHandler());
+        map.put("addStudent", new AddStudentHandler());
         map.put("editStudent", new EditStudentHandler());
         map.put("deleteStudent", new DeleteStudentHandler());
         map.put("getStudentsByGroup", new GetStudentsByGroupHandler());
@@ -31,7 +31,7 @@ public class Server {
         map.put("editStudentGroup", new EditStudentGroupHandler());
         map.put("deleteStudentGroup", new DeleteStudentGroupHandler());
 
-        map.put("getTeachers",new GetTeachersHandler());
+        map.put("getTeachers", new GetTeachersHandler());
         map.put("getTeacherById", new GetTeacherByIdHandler());
         map.put("addTeacher", new AddTeacherHandler());
         map.put("editTeacher", new EditTeacherHandler());
@@ -46,8 +46,8 @@ public class Server {
         map.put("addLesson", new AddLessonHandler());
         map.put("editLesson", new EditLessonHandler());
         map.put("getLessonById", new GetLessonByIdHandler());
-        map.put("getLessonByGroup", new GetLessonsByGroupHandler());
-        map.put("getLessonByTeacher", new GetLessonByTeacherHandler());
+        map.put("getLessonsByGroup", new GetLessonsByGroupHandler());
+        map.put("getLessonsByTeacher", new GetLessonByTeacherHandler());
 
         map.put("getLessonVisiting", new GetLessonVisitingHandler());
         map.put("addLessonVisiting", new AddLessonVisitingHandler());
@@ -55,14 +55,13 @@ public class Server {
 
     }
 
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello World!" );
+    public static void main(String[] args) {
+        System.out.println("Hello World!");
     }
 
-    public String processServer(String endpoint, String json) throws JsonProcessingException {
+    public String processServer(String endpoint, String json) throws JsonProcessingException, ParseException {
 
-       IHandler classHandler =  map.get(endpoint);
+        IHandler classHandler = map.get(endpoint);
         return classHandler.handler(json);
     }
 }

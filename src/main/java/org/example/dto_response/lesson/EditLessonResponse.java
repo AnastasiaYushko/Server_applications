@@ -1,5 +1,7 @@
 package org.example.dto_response.lesson;
 
+import java.util.Objects;
+
 //показать как выглядят новые данные
 public class EditLessonResponse {
     private String date;
@@ -12,6 +14,10 @@ public class EditLessonResponse {
         this.number = number;
         this.teacherId = teacherId;
         this.groupId = groupId;
+    }
+
+    public EditLessonResponse(){
+        super();
     }
 
     public String getDate() {
@@ -44,5 +50,17 @@ public class EditLessonResponse {
 
     public void setTeacherId(int teacherId) {
         this.teacherId = teacherId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof EditLessonResponse that)) return false;
+        return getNumber() == that.getNumber() && getTeacherId() == that.getTeacherId() && getGroupId() == that.getGroupId() && Objects.equals(getDate(), that.getDate());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getDate(), getNumber(), getTeacherId(), getGroupId());
     }
 }

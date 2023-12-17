@@ -5,14 +5,18 @@ public class AddStudentRequest {
     private String firstName;
     private String middleName;
     private String status;
-    private int groupId;
+    private String groupId;
 
-    public AddStudentRequest(String lastName,String firstName,String middleName,String status,int groupId){
+    public AddStudentRequest(String lastName,String firstName,String middleName,String status,String groupId){
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;
         this.status = status;
         this.groupId = groupId;
+    }
+
+    public AddStudentRequest(){
+        super();
     }
 
     public void setFirstName(String firstName) {
@@ -31,7 +35,7 @@ public class AddStudentRequest {
         this.status = status;
     }
 
-    public void setGroup(int groupId) {
+    public void setGroup(String groupId) {
         this.groupId = groupId;
     }
 
@@ -47,7 +51,7 @@ public class AddStudentRequest {
         return lastName;
     }
 
-    public int getGroup() {
+    public String getGroup() {
         return groupId;
     }
 

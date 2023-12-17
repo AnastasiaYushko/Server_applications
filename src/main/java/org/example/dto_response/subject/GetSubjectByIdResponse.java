@@ -7,6 +7,10 @@ public class GetSubjectByIdResponse {
         this.name = name;
     }
 
+    public GetSubjectByIdResponse(){
+        super();
+    }
+
     public String getName() {
         return name;
     }

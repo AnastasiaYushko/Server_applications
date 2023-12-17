@@ -1,6 +1,5 @@
 package org.example.network_operations.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.apache.http.HttpStatus;
 import org.example.dto_request.lessonVisiting.add.AddLessonVisitingRequest;
 import org.example.dto_request.lessonVisiting.add.AddLessonVisitingValidator;
@@ -17,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LessonVisitingController {
-    public static ResponseEntity<String> addLessonVisiting(@RequestBody AddLessonVisitingRequest request) throws JsonProcessingException{
+    public static ResponseEntity<String> addLessonVisiting(@RequestBody AddLessonVisitingRequest request) {
 
         AddLessonVisitingValidator validator = new AddLessonVisitingValidator();
         List<String> errors = new ArrayList<>();
@@ -35,7 +34,7 @@ public class LessonVisitingController {
 
         return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
     }
-    public static ResponseEntity<String> deleteLessonVisiting(@RequestBody DeleteLessonVisitingRequest request) throws JsonProcessingException{
+    public static ResponseEntity<String> deleteLessonVisiting(@RequestBody DeleteLessonVisitingRequest request) {
 
         DeleteLessonVisitingValidator validator = new DeleteLessonVisitingValidator();
         List<String> errors = new ArrayList<>();
@@ -54,7 +53,7 @@ public class LessonVisitingController {
         return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
     }
 
-    public static ResponseEntity<GetLessonVisitingResponse> getLessonVisiting(@RequestBody GetLessonVisitingRequest request) throws JsonProcessingException{
+    public static ResponseEntity<GetLessonVisitingResponse> getLessonVisiting(@RequestBody GetLessonVisitingRequest request) {
 
         GetLessonVisitingValidator validator = new GetLessonVisitingValidator();
         List<String> errors = new ArrayList<>();
