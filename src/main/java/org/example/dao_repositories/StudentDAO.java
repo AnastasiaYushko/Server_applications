@@ -12,7 +12,7 @@ public interface StudentDAO {
 
     int addStudent(String lastName, String firstName, String middleName, String groupId, String status);
 
-    String editStudent(int id, String lastName, String firstName, String middleName, String groupId, String status);
+    String editStudent(int id, String lastName, String firstName, String middleName, String groupId, String status) throws Exception;
 
-    String deleteStudent(int id);
+    String deleteStudent(int id) throws Exception;
 }

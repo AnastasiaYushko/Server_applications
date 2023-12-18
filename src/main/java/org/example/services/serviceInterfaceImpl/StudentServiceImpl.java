@@ -20,8 +20,13 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public GetStudentByIdResponse getStudentById(GetStudentByIdRequest request) {
-        Student student = studentDAO.getStudentById(request.getId());
-        return new GetStudentByIdResponse(student.getLastName(), student.getFirstName(), student.getMiddleName(), student.getStatus().name(), student.getGroup().getName());
+        try {
+            Student student = studentDAO.getStudentById(request.getId());
+            return new GetStudentByIdResponse(student.getLastName(), student.getFirstName(), student.getMiddleName(), student.getStatus().name(), student.getGroup().getName());
+        }
+        catch (Exception e){
+            throw new NullPointerException();
+        }
     }
 
     @Override
@@ -38,7 +43,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public String editStudent(EditStudentRequest request) {
+    public String editStudent(EditStudentRequest request){
         return studentDAO.editStudent(request.getId(), request.getLastName(), request.getFirstName(), request.getMiddleName(), request.getGroup(), request.getStatus());
     }
 

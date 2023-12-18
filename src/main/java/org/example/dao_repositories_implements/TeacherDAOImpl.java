@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class TeacherDAOImpl implements TeacherDAO {
 
-    private final DataBase dataBase = DataBase.getDataBase();
+    DataBase dataBase = DataBase.getDataBase();
 
     //+!
     @Override

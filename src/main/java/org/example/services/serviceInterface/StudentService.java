@@ -16,9 +16,9 @@ public interface StudentService {
 
     GetStudentsByGroupResponse getStudentsByGroup(GetStudentsByGroupRequest request) throws JsonProcessingException;
 
-    String editStudent(EditStudentRequest request) throws JsonProcessingException;
+    String editStudent(EditStudentRequest request) throws Exception;
 
     AddStudentResponse addStudent(AddStudentRequest request) throws JsonProcessingException;
 
-    String deleteStudent(DeleteStudentRequest request) throws JsonProcessingException;
+    String deleteStudent(DeleteStudentRequest request) throws Exception;
 }

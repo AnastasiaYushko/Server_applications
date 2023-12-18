@@ -30,6 +30,8 @@ public class EditStudentValidator implements RequestValidator<EditStudentRequest
         ValidatorString.validateNull(request.getStatus(), errors, "status");
         ValidatorString.validateEmpty(request.getStatus(), errors, "status");
 
+        ValidatorNumber.validateNumber(Integer.parseInt(request.getGroup()),errors,"groupId");
+
         return errors;
     }
 }

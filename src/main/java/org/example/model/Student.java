@@ -14,11 +14,12 @@ public class Student {
     @NotNull
     private String firstName;
     private String middleName;
+    @NotNull
     private StatusStudent status;
     @NotNull
     private StudentGroup group;
 
-    public Student(int id, @NotNull String lastName, @NotNull String firstName, String middleName, StatusStudent status, @NotNull StudentGroup group) {
+    public Student(int id, @NotNull String lastName, @NotNull String firstName, String middleName, @NotNull StatusStudent status, @NotNull StudentGroup group) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -47,15 +48,15 @@ public class Student {
         this.group = group;
     }
 
-    public void setStatus(StatusStudent status) {
+    public void setStatus(@NotNull StatusStudent status) {
         this.status = status;
     }
 
-    public StudentGroup getGroup() {
+    public @NotNull StudentGroup getGroup() {
         return group;
     }
 
-    public StatusStudent getStatus() {
+    public @NotNull StatusStudent getStatus() {
         return status;
     }
 
@@ -63,11 +64,11 @@ public class Student {
         return id;
     }
 
-    public String getFirstName() {
+    public @NotNull String getFirstName() {
         return firstName;
     }
 
-    public String getLastName() {
+    public @NotNull String getLastName() {
         return lastName;
     }
 

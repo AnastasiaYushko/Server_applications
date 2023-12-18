@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class SubjectDAOImpl implements SubjectDAO {
 
-    private final DataBase dataBase = DataBase.getDataBase();
+    DataBase dataBase = DataBase.getDataBase();
 
     //+!
     @Override

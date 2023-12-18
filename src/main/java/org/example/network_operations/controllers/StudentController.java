@@ -81,9 +81,7 @@ public class StudentController {
         validator.validate(request, errors);
 
         if (!errors.isEmpty()) {
-            for (String error : errors) {
-                System.out.println(error);
-            }
+            throw new IllegalArgumentException(errors.toString());
         }
 
         StudentServiceImpl studentService = new StudentServiceImpl();
@@ -112,16 +110,14 @@ public class StudentController {
         return new ResponseEntity<>(addStudentResponse, HttpStatus.SC_OK);
     }
 
-    public static ResponseEntity<String> deleteStudent(@RequestBody DeleteStudentRequest request) {
+    public static ResponseEntity<String> deleteStudent(@RequestBody DeleteStudentRequest request){
 
         DeleteStudentValidator validator = new DeleteStudentValidator();
         List<String> errors = new ArrayList<>();
         validator.validate(request, errors);
 
         if (!errors.isEmpty()) {
-            for (String error : errors) {
-                System.out.println(error);
-            }
+            throw new IllegalArgumentException(errors.toString());
         }
 
         StudentServiceImpl studentService = new StudentServiceImpl();

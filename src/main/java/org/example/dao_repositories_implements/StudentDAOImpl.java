@@ -11,7 +11,7 @@ import java.util.Objects;
 
 public class StudentDAOImpl implements StudentDAO {
 
-    private final DataBase dataBase = DataBase.getDataBase();
+    DataBase dataBase = DataBase.getDataBase();
 
     //+!
     @Override
@@ -28,25 +28,50 @@ public class StudentDAOImpl implements StudentDAO {
     //+!
     @Override
     public int addStudent(String lastName, String firstName, String middleName, String groupId, String status) {
-        StudentGroup group = dataBase.getStudentGroupById(Integer.parseInt(groupId));
-        Student student = new Student(0, lastName, firstName, middleName, getStatus(status), group);
-        return dataBase.addStudent(student);
+        try {
+            StudentGroup group = dataBase.getStudentGroupById(Integer.parseInt(groupId));
+            if (group!= null) {
+                Student student = new Student(0, lastName, firstName, middleName, getStatus(status), group);
+                return dataBase.addStudent(student);
+            }
+            else {
+                throw new NullPointerException();
+            }
+        }
+        catch (Exception e){
+            throw new NullPointerException();
+        }
     }
 
     //+!
     @Override
-    public String editStudent(int id, String lastName, String firstName, String middleName, String groupId, String status) {
-        StudentGroup group = dataBase.getStudentGroupById(Integer.parseInt(groupId));
-        Student student = new Student(0, lastName, firstName, middleName, getStatus(status), group);
-        dataBase.editStudent(student);
-        return "Данные студента изменены";
+    public String editStudent(int id, String lastName, String firstName, String middleName, String groupId, String status){
+        try {
+            StudentGroup group = dataBase.getStudentGroupById(Integer.parseInt(groupId));
+            Student student = new Student(id, lastName, firstName, middleName, getStatus(status), group);
+            if (dataBase.getStudentById(id) != null){
+                dataBase.editStudent(student);
+                return "Данные студента изменены";
+            }
+            else {
+                throw new NullPointerException();
+            }
+        }
+        catch (Exception e){
+            throw new NullPointerException();
+        }
     }
 
     //+!
     @Override
     public String deleteStudent(int id) {
-        dataBase.deleteStudent(id);
-        return "Студент удален";
+        if (dataBase.getStudentById(id) != null){
+            dataBase.deleteStudent(id);
+            return "Студент удален";
+        }
+        else {
+            throw new NullPointerException();
+        }
     }
 
     private StatusStudent getStatus(String status) {
