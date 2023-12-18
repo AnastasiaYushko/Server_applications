@@ -34,8 +34,13 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public GetTeacherByIdResponse getTeacherById(GetTeacherByIdRequest request) {
-        Teacher teacher = teacherDAO.getTeacherById(request.getId());
-        return new GetTeacherByIdResponse(teacher.getFirstName(), teacher.getLastName(), teacher.getMiddleName());
+        try {
+            Teacher teacher = teacherDAO.getTeacherById(request.getId());
+            return new GetTeacherByIdResponse(teacher.getFirstName(), teacher.getLastName(), teacher.getMiddleName());
+        }
+        catch (Exception e){
+            throw new NullPointerException();
+        }
     }
 
     @Override

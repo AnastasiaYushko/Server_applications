@@ -1,5 +1,7 @@
 package org.example.dto_response.teacher;
 
+import java.util.Objects;
+
 public class GetTeacherByIdResponse {
     private String firstName;
     private String lastName;
@@ -37,5 +39,17 @@ public class GetTeacherByIdResponse {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof GetTeacherByIdResponse that)) return false;
+        return getFirstName().equals(that.getFirstName()) && getLastName().equals(that.getLastName()) && Objects.equals(getMiddleName(), that.getMiddleName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getFirstName(), getLastName(), getMiddleName());
     }
 }

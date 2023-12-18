@@ -32,16 +32,28 @@ public class TeacherDAOImpl implements TeacherDAO {
     //+!
     @Override
     public String editTeacher(int id, String firstName, String middleName, String lastName) {
-        Teacher teacher = new Teacher(id, firstName, middleName, lastName);
-        dataBase.editTeacher(teacher);
-        return "Преподаватель изменен";
+        Teacher teacher1 = dataBase.getTeacherById(id);
+        if (teacher1 != null){
+            Teacher teacher = new Teacher(id, firstName, middleName, lastName);
+            dataBase.editTeacher(teacher);
+            return "Преподаватель изменен";
+        }
+        else {
+            throw new NullPointerException("Такой преподаватель не найден");
+        }
     }
 
 
     //+!
     @Override
     public String deleteTeacher(int id) {
-        dataBase.deleteTeacher(id);
-        return "Преподаватель удален";
+        Teacher teacher1 = dataBase.getTeacherById(id);
+        if (teacher1 != null) {
+            dataBase.deleteTeacher(id);
+            return "Преподаватель удален";
+        }
+        else {
+            throw new NullPointerException("Такой преподаватель не найден");
+        }
     }
 }
