@@ -107,7 +107,7 @@ public class DataBase {
 
         ArrayList<Lesson> lessonsList = new ArrayList<>();
 
-        ArrayList<Lesson> lessons = (ArrayList<Lesson>) listLesson.values();
+        ArrayList<Lesson> lessons = new ArrayList<>(listLesson.values());
         for (Lesson l : lessons) {
             if ((endDate.after(l.getDate())) && (startDate.before(l.getDate())) && (l.getGroup().equals(group))) {
                 lessonsList.add(l);
@@ -120,7 +120,7 @@ public class DataBase {
     public ArrayList<Lesson> getLessonsByTeacher(Date startDate, Date endDate, Teacher teacher) {
         ArrayList<Lesson> lessonsList = new ArrayList<>();
 
-        ArrayList<Lesson> lessons = (ArrayList<Lesson>) listLesson.values();
+        ArrayList<Lesson> lessons = new ArrayList<>(listLesson.values());
         for (Lesson l : lessons) {
             if ((endDate.after(l.getDate())) && (startDate.before(l.getDate())) && (l.getTeacher().equals(teacher))) {
                 lessonsList.add(l);
@@ -143,7 +143,7 @@ public class DataBase {
 
     public void DeleteLessonsByGroup(int groupId) {
 
-        ArrayList<Lesson> lessons = (ArrayList<Lesson>) listLesson.values();
+        ArrayList<Lesson> lessons = new ArrayList<>(listLesson.values());
 
         for (Lesson lesson : lessons) {
             if (lesson.getGroup().getId() == groupId) {
@@ -157,7 +157,7 @@ public class DataBase {
     }
 
     public void DeleteLessonsByTeacher(int teacherId) {
-        ArrayList<Lesson> lessons = (ArrayList<Lesson>) listLesson.values();
+        ArrayList<Lesson> lessons = new ArrayList<>(listLesson.values());
 
         for (Lesson lesson : lessons) {
             if (lesson.getTeacher().getId() == teacherId) {
@@ -169,7 +169,7 @@ public class DataBase {
 
     //StudentGroup
     public ArrayList<StudentGroup> getStudentGroups() {
-        return (ArrayList<StudentGroup>) listGroups.values();
+        return new ArrayList<>(listGroups.values());
     }
 
     public StudentGroup getStudentGroupById(int id) {
@@ -198,7 +198,7 @@ public class DataBase {
     }
 
     public ArrayList<Teacher> getTeachers() {
-        return (ArrayList<Teacher>) listTeachers.values();
+        return new ArrayList<>(listTeachers.values());
     }
 
     public int addTeacher(Teacher teacher) {
@@ -220,7 +220,7 @@ public class DataBase {
     //Subject
 
     public ArrayList<Subject> getSubjects() {
-        return (ArrayList<Subject>) listSubjects.values();
+        return new ArrayList<>(listSubjects.values());
     }
 
     public Subject getSubjectById(int id) {
@@ -246,25 +246,13 @@ public class DataBase {
 
     // LessonVisiting
     public void addLessonVisiting(LessonVisiting lessonVisiting) {
-
-        int idLesson = lessonVisiting.getLesson();
-
-        ArrayList<LessonVisiting> lessonVisitingArrayList = (ArrayList<LessonVisiting>) listLessonVisiting.values();
-
-        for (LessonVisiting LV : lessonVisitingArrayList) {
-            if (LV.getLesson() == idLesson) {
-                //выбросить ошибку
-                System.out.println("Посещаемость этого урока уже есть в система");
-            }
-        }
-
         lessonVisiting.setId(keyLessonVisiting);
         listLessonVisiting.put(keyLessonVisiting, lessonVisiting);
         keyLessonVisiting++;
     }
 
     public LessonVisiting getLessonVisiting(int lessonId) {
-        ArrayList<LessonVisiting> lessonVisitingArrayList = (ArrayList<LessonVisiting>) listLessonVisiting.values();
+        ArrayList<LessonVisiting> lessonVisitingArrayList = new ArrayList<>(listLessonVisiting.values());
         LessonVisiting result = null;
 
         for (LessonVisiting lessonVisiting : lessonVisitingArrayList) {
@@ -277,14 +265,7 @@ public class DataBase {
     }
 
     public void deleteLessonVisiting(int lessonId) {
-        ArrayList<LessonVisiting> lessonVisitingArrayList = (ArrayList<LessonVisiting>) listLessonVisiting.values();
-
-        for (LessonVisiting LV : lessonVisitingArrayList) {
-            if (LV.getLesson() == lessonId) {
-                listLessonVisiting.remove(LV.getId());
-            }
-        }
-
-        throw new NoSuchElementException("Данные о посещаемости этого урока отсутсвуют!");
+        LessonVisiting lessonVisiting = dataBase.getLessonVisiting(lessonId);
+        listLessonVisiting.remove(lessonVisiting.getId());
     }
 }

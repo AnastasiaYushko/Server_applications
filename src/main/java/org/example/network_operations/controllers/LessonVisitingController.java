@@ -16,16 +16,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LessonVisitingController {
-    public static ResponseEntity<String> addLessonVisiting(@RequestBody AddLessonVisitingRequest request) {
+    public static ResponseEntity<String> addLessonVisiting(@RequestBody AddLessonVisitingRequest request) throws Exception {
 
         AddLessonVisitingValidator validator = new AddLessonVisitingValidator();
         List<String> errors = new ArrayList<>();
         validator.validate(request, errors);
 
         if (!errors.isEmpty()) {
-            for (String error : errors) {
-                System.out.println(error);
-            }
+            throw new IllegalArgumentException(errors.toString());
         }
 
         LessonVisitingServiceImpl lessonVisitingService = new LessonVisitingServiceImpl();
@@ -35,16 +33,14 @@ public class LessonVisitingController {
         return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
     }
 
-    public static ResponseEntity<String> deleteLessonVisiting(@RequestBody DeleteLessonVisitingRequest request) {
+    public static ResponseEntity<String> deleteLessonVisiting(@RequestBody DeleteLessonVisitingRequest request) throws Exception {
 
         DeleteLessonVisitingValidator validator = new DeleteLessonVisitingValidator();
         List<String> errors = new ArrayList<>();
         validator.validate(request, errors);
 
         if (!errors.isEmpty()) {
-            for (String error : errors) {
-                System.out.println(error);
-            }
+            throw new IllegalArgumentException(errors.toString());
         }
 
         LessonVisitingServiceImpl lessonVisitingService = new LessonVisitingServiceImpl();
@@ -61,9 +57,7 @@ public class LessonVisitingController {
         validator.validate(request, errors);
 
         if (!errors.isEmpty()) {
-            for (String error : errors) {
-                System.out.println(error);
-            }
+            throw new IllegalArgumentException(errors.toString());
         }
 
         LessonVisitingServiceImpl lessonVisitingService = new LessonVisitingServiceImpl();

@@ -20,8 +20,13 @@ public class GroupStudentServiceImpl implements GroupStudentsService {
 
     @Override
     public GetStudentGroupByIdResponse getStudentGroupById(GetStudentGroupByIdRequest request) throws JsonProcessingException {
-        StudentGroup group = studentGroupDAO.getStudentGroupById(request.getId());
-        return new GetStudentGroupByIdResponse(group.getName());
+        try {
+            StudentGroup group = studentGroupDAO.getStudentGroupById(request.getId());
+            return new GetStudentGroupByIdResponse(group.getName());
+        }
+        catch (Exception e){
+            throw new NullPointerException();
+        }
     }
 
     @Override

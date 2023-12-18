@@ -32,18 +32,13 @@ import java.util.List;
 public class LessonController {
 
     public static ResponseEntity<AddLessonResponse> addLesson(@RequestBody AddLessonRequest request) throws ParseException {
-        // валидация запроса
+
         AddLessonValidator validator = new AddLessonValidator();
         List<String> errors = new ArrayList<>();
         validator.validate(request, errors);
 
-        //Обработка ошибок валидации
         if (!errors.isEmpty()) {
-            for (String error : errors) {
-                System.out.println(error);
-                //исключение
-            }
-            // сформировать ответ
+            throw new IllegalArgumentException(errors.toString());
         }
 
         LessonServiceImpl lessonService = new LessonServiceImpl();
@@ -58,13 +53,8 @@ public class LessonController {
         List<String> errors = new ArrayList<>();
         validator.validate(request, errors);
 
-        //Обработка ошибок валидации
         if (!errors.isEmpty()) {
-            for (String error : errors) {
-                System.out.println(error);
-                //исключение
-            }
-            // сформировать ответ
+            throw new IllegalArgumentException(errors.toString());
         }
 
         LessonServiceImpl lessonService = new LessonServiceImpl();
@@ -79,13 +69,8 @@ public class LessonController {
         List<String> errors = new ArrayList<>();
         validator.validate(request, errors);
 
-        //Обработка ошибок валидации
         if (!errors.isEmpty()) {
-            for (String error : errors) {
-                System.out.println(error);
-                //исключение
-            }
-            // сформировать ответ
+            throw new IllegalArgumentException(errors.toString());
         }
 
         LessonServiceImpl lessonService = new LessonServiceImpl();
@@ -100,13 +85,8 @@ public class LessonController {
         List<String> errors = new ArrayList<>();
         validator.validate(request, errors);
 
-        //Обработка ошибок валидации
         if (!errors.isEmpty()) {
-            for (String error : errors) {
-                System.out.println(error);
-                //исключение
-            }
-            // сформировать ответ
+            throw new IllegalArgumentException(errors.toString());
         }
 
         LessonServiceImpl lessonService = new LessonServiceImpl();
@@ -121,13 +101,8 @@ public class LessonController {
         List<String> errors = new ArrayList<>();
         validator.validate(request, errors);
 
-        //Обработка ошибок валидации
         if (!errors.isEmpty()) {
-            for (String error : errors) {
-                System.out.println(error);
-                //исключение
-            }
-            // сформировать ответ
+            throw new IllegalArgumentException(errors.toString());
         }
 
         LessonServiceImpl lessonService = new LessonServiceImpl();
@@ -142,13 +117,8 @@ public class LessonController {
         List<String> errors = new ArrayList<>();
         validator.validate(request, errors);
 
-        //Обработка ошибок валидации
         if (!errors.isEmpty()) {
-            for (String error : errors) {
-                System.out.println(error);
-                //исключение
-            }
-            // сформировать ответ
+            throw new IllegalArgumentException(errors.toString());
         }
 
         LessonServiceImpl lessonService = new LessonServiceImpl();
@@ -163,13 +133,8 @@ public class LessonController {
         List<String> errors = new ArrayList<>();
         validator.validate(request, errors);
 
-        //Обработка ошибок валидации
         if (!errors.isEmpty()) {
-            for (String error : errors) {
-                System.out.println(error);
-                //исключение
-            }
-            // сформировать ответ
+            throw new IllegalArgumentException(errors.toString());
         }
 
         LessonServiceImpl lessonService = new LessonServiceImpl();
@@ -184,13 +149,8 @@ public class LessonController {
         List<String> errors = new ArrayList<>();
         validator.validate(request, errors);
 
-        //Обработка ошибок валидации
         if (!errors.isEmpty()) {
-            for (String error : errors) {
-                System.out.println(error);
-                //исключение
-            }
-            // сформировать ответ
+            throw new IllegalArgumentException(errors.toString());
         }
 
         LessonServiceImpl lessonService = new LessonServiceImpl();

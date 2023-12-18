@@ -18,7 +18,6 @@ import org.example.network_operations.ResponseEntity;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 
 public class StudentMethodsTest {
@@ -27,7 +26,7 @@ public class StudentMethodsTest {
 
     //1. Добавление студентов несколько раз
     @Test
-    public void test_student_1() throws JsonProcessingException, ParseException {
+    public void test_student_1() throws Exception {
 
         //добавили группу перед добавлением студента
         AddStudentGroupRequest groupRequest = new AddStudentGroupRequest("ММБ-104");
@@ -234,7 +233,7 @@ public class StudentMethodsTest {
 
     //6. Получить студентов по группе и получение по несуществующей группе
     @Test
-    public void test_student_6() throws JsonProcessingException, ParseException {
+    public void test_student_6() throws Exception {
 
         AddStudentGroupRequest groupRequest = new AddStudentGroupRequest("ММБ-104");
         ObjectWriter ow0 = new ObjectMapper().writer().withDefaultPrettyPrinter();
@@ -278,21 +277,21 @@ public class StudentMethodsTest {
 
     //7. Поля empty, null, length > maxlength(50) и id<=0 и groupId<=0
     @Test
-    public void test_student_7() throws JsonProcessingException, ParseException {
+    public void test_student_7() throws JsonProcessingException {
         EditStudentRequest editStudentRequest2 = new EditStudentRequest(-1, null, "аааааарараааааааааааааааааааааааааааааааааааааааааааааааааа", "", "STUDIES", "-5");
         ObjectWriter ow2 = new ObjectMapper().writer().withDefaultPrettyPrinter();
         String jsonRequestStudent2 = ow2.writeValueAsString(editStudentRequest2);
 
         try {
             server.processServer("editStudent", jsonRequestStudent2);
-        } catch (IllegalArgumentException e) {
+        } catch (Exception e) {
             Assert.assertEquals("[id<= 0, lastName is null, firstName exceeds the maximum length, middleName is empty, groupId<= 0]", e.getMessage());
         }
     }
 
     //8. Неккоректный статус
     @Test(expected = NullPointerException.class)
-    public void test_student_8() throws JsonProcessingException, ParseException {
+    public void test_student_8() throws Exception {
         AddStudentGroupRequest groupRequest = new AddStudentGroupRequest("ММБ-104");
         ObjectWriter ow0 = new ObjectMapper().writer().withDefaultPrettyPrinter();
         String jsonRequestGroup = ow0.writeValueAsString(groupRequest);
@@ -313,7 +312,7 @@ public class StudentMethodsTest {
 
     //9. Не найдена группа для добавления студента
     @Test(expected = NullPointerException.class)
-    public void test_student_9() throws JsonProcessingException, ParseException {
+    public void test_student_9() throws Exception {
         AddStudentRequest studentRequest1 = new AddStudentRequest("Котов", "Кот", "Котикович", "EXPELLED", "1");
         ObjectWriter ow1 = new ObjectMapper().writer().withDefaultPrettyPrinter();
         String jsonRequestStudent1 = ow1.writeValueAsString(studentRequest1);

@@ -8,7 +8,7 @@ public interface LessonVisitingDAO {
 
     LessonVisiting GetLessonVisiting(int lessonId);
 
-    String AddLessonVisiting(int lessonId, ArrayList<String> students);
+    String AddLessonVisiting(int lessonId, ArrayList<String> students) throws Exception;
 
-    String DeleteLessonVisiting(int lessonId);
+    String DeleteLessonVisiting(int lessonId) throws Exception;
 }

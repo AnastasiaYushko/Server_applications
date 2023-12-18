@@ -26,10 +26,7 @@ public class TeacherController {
         validator.validate(request, errors);
 
         if (!errors.isEmpty()) {
-            for (String error : errors) {
-                System.out.println(error);
-            }
-            return null;
+            throw new IllegalArgumentException(errors.toString());
         }
 
         TeacherServiceImpl teacherService = new TeacherServiceImpl();
@@ -45,10 +42,7 @@ public class TeacherController {
         validator.validate(request, errors);
 
         if (!errors.isEmpty()) {
-            for (String error : errors) {
-                System.out.println(error);
-            }
-            return null;
+            throw new IllegalArgumentException(errors.toString());
         }
 
         TeacherServiceImpl teacherService = new TeacherServiceImpl();
@@ -64,10 +58,7 @@ public class TeacherController {
         validator.validate(request, errors);
 
         if (!errors.isEmpty()) {
-            for (String error : errors) {
-                System.out.println(error);
-            }
-            return null;
+            throw new IllegalArgumentException(errors.toString());
         }
 
         TeacherServiceImpl teacherService = new TeacherServiceImpl();
@@ -83,10 +74,7 @@ public class TeacherController {
         validator.validate(request, errors);
 
         if (!errors.isEmpty()) {
-            for (String error : errors) {
-                System.out.println(error);
-            }
-            return null;
+            throw new IllegalArgumentException(errors.toString());
         }
 
         TeacherServiceImpl teacherService = new TeacherServiceImpl();

@@ -29,10 +29,7 @@ public class GroupController {
         validator.validate(request, errors);
 
         if (!errors.isEmpty()) {
-            for (String error : errors) {
-                System.out.println(error);
-            }
-            return null;
+            throw new IllegalArgumentException(errors.toString());
         }
 
         GroupStudentServiceImpl groupStudentService = new GroupStudentServiceImpl();
@@ -48,10 +45,7 @@ public class GroupController {
         validator.validate(request, errors);
 
         if (!errors.isEmpty()) {
-            for (String error : errors) {
-                System.out.println(error);
-            }
-            return null;
+            throw new IllegalArgumentException(errors.toString());
         }
 
         GroupStudentServiceImpl groupStudentService = new GroupStudentServiceImpl();
@@ -67,10 +61,7 @@ public class GroupController {
         validator.validate(request, errors);
 
         if (!errors.isEmpty()) {
-            for (String error : errors) {
-                System.out.println(error);
-            }
-            return null;
+            throw new IllegalArgumentException(errors.toString());
         }
 
         GroupStudentServiceImpl groupStudentService = new GroupStudentServiceImpl();
@@ -86,10 +77,7 @@ public class GroupController {
         validator.validate(request, errors);
 
         if (!errors.isEmpty()) {
-            for (String error : errors) {
-                System.out.println(error);
-            }
-            return null;
+            throw new IllegalArgumentException(errors.toString());
         }
 
         GroupStudentServiceImpl groupStudentService = new GroupStudentServiceImpl();

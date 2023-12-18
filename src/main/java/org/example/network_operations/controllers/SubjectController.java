@@ -27,10 +27,7 @@ public class SubjectController {
         validator.validate(request, errors);
 
         if (!errors.isEmpty()) {
-            for (String error : errors) {
-                System.out.println(error);
-            }
-            return null;
+            throw new IllegalArgumentException(errors.toString());
         }
 
         SubjectServiceImpl subjectService = new SubjectServiceImpl();
@@ -46,10 +43,7 @@ public class SubjectController {
         validator.validate(request, errors);
 
         if (!errors.isEmpty()) {
-            for (String error : errors) {
-                System.out.println(error);
-            }
-            return null;
+            throw new IllegalArgumentException(errors.toString());
         }
 
         SubjectServiceImpl subjectService = new SubjectServiceImpl();
@@ -64,10 +58,7 @@ public class SubjectController {
         validator.validate(request, errors);
 
         if (!errors.isEmpty()) {
-            for (String error : errors) {
-                System.out.println(error);
-            }
-            return null;
+            throw new IllegalArgumentException(errors.toString());
         }
 
         SubjectServiceImpl subjectService = new SubjectServiceImpl();
@@ -82,10 +73,7 @@ public class SubjectController {
         validator.validate(request, errors);
 
         if (!errors.isEmpty()) {
-            for (String error : errors) {
-                System.out.println(error);
-            }
-            return null;
+            throw new IllegalArgumentException(errors.toString());
         }
 
         SubjectServiceImpl subjectService = new SubjectServiceImpl();

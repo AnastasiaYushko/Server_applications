@@ -29,13 +29,23 @@ public class StudentGroupDAOImpl implements StudentGroupDAO {
 
     @Override
     public String editStudentGroup(int id, String name) {
-        dataBase.editStudentGroup(new StudentGroup(id, name));
-        return "Группа изменена";
+        StudentGroup group = dataBase.getStudentGroupById(id);
+        if (group != null) {
+            dataBase.editStudentGroup(new StudentGroup(id, name));
+            return "Группа изменена";
+        } else {
+            throw new NullPointerException();
+        }
     }
 
     @Override
     public String deleteStudentGroup(int id) {
-        dataBase.deleteStudentGroup(id);
-        return "Группа удалена";
+        StudentGroup group = dataBase.getStudentGroupById(id);
+        if (group != null) {
+            dataBase.deleteStudentGroup(id);
+            return "Группа удалена";
+        } else {
+            throw new NullPointerException();
+        }
     }
 }

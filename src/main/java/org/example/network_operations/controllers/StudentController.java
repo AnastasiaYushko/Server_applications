@@ -27,31 +27,17 @@ public class StudentController {
 
     public static ResponseEntity<GetStudentByIdResponse> getStudentById(@RequestBody GetStudentByIdRequest request) {
 
-        // валидация запроса
         GetStudentByIdValidator validator = new GetStudentByIdValidator();
         List<String> errors = new ArrayList<>();
         validator.validate(request, errors);
 
-        //Обработка ошибок валидации
         if (!errors.isEmpty()) {
-            for (String error : errors) {
-                System.out.println(error);
-                //исключение
-            }
-            // сформировать ответ
+            throw new IllegalArgumentException(errors.toString());
         }
 
-        //если все ок то кидаем запрос (вызывая сервис)
         StudentServiceImpl studentService = new StudentServiceImpl();
-        //на сервисе запрос выполняется и возвращается ответ
         GetStudentByIdResponse studentResponse = studentService.getStudentById(request);
 
-        //если такой студент не найден
-        if (studentResponse == null) {
-            return new ResponseEntity<>(null, HttpStatus.SC_NOT_FOUND);
-        }
-
-        //найден
         return new ResponseEntity<>(studentResponse, HttpStatus.SC_ACCEPTED);
     }
 
@@ -62,10 +48,7 @@ public class StudentController {
         validator.validate(request, errors);
 
         if (!errors.isEmpty()) {
-            for (String error : errors) {
-                System.out.println(error);
-            }
-            return null;
+            throw new IllegalArgumentException(errors.toString());
         }
 
         StudentServiceImpl studentService = new StudentServiceImpl();
@@ -98,9 +81,7 @@ public class StudentController {
         validator.validate(request, errors);
 
         if (!errors.isEmpty()) {
-            for (String error : errors) {
-                System.out.println(error);
-            }
+            throw new IllegalArgumentException(errors.toString());
         }
 
         StudentServiceImpl studentService = new StudentServiceImpl();
