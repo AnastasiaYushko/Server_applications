@@ -17,12 +17,10 @@ import org.example.dto_response.student.GetStudentsByGroupResponse;
 import org.example.network_operations.ResponseEntity;
 import org.example.services.serviceInterfaceImpl.StudentServiceImpl;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@RestController
 public class StudentController {
 
     public static ResponseEntity<GetStudentByIdResponse> getStudentById(@RequestBody GetStudentByIdRequest request) {

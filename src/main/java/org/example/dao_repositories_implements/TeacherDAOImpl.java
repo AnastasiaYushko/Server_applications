@@ -10,26 +10,22 @@ public class TeacherDAOImpl implements TeacherDAO {
 
     DataBase dataBase = DataBase.getDataBase();
 
-    //+!
     @Override
     public ArrayList<Teacher> getTeachers() {
         return dataBase.getTeachers();
     }
 
-    //+!
     @Override
     public Teacher getTeacherById(int id) {
         return dataBase.getTeacherById(id);
     }
 
-    //+!
     @Override
     public int addTeacher(String firstName, String middleName, String lastName) {
         Teacher teacher = new Teacher(0, firstName, middleName, lastName);
         return dataBase.addTeacher(teacher);
     }
 
-    //+!
     @Override
     public String editTeacher(int id, String firstName, String middleName, String lastName) {
         Teacher teacher1 = dataBase.getTeacherById(id);
@@ -43,8 +39,6 @@ public class TeacherDAOImpl implements TeacherDAO {
         }
     }
 
-
-    //+!
     @Override
     public String deleteTeacher(int id) {
         Teacher teacher1 = dataBase.getTeacherById(id);

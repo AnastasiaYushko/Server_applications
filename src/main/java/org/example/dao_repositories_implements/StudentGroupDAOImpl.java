@@ -10,7 +10,6 @@ public class StudentGroupDAOImpl implements StudentGroupDAO {
 
     DataBase dataBase = DataBase.getDataBase();
 
-    //+
     @Override
     public ArrayList<StudentGroup> getStudentGroups() {
         return dataBase.getStudentGroups();

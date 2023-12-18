@@ -35,14 +35,4 @@ public class LessonVisitingMethodsTest {
 //
 //        Assert.assertEquals(response1,response2);
     }
-
-    @Test
-    public void addLessonVisiting() throws JsonProcessingException {
-
-    }
-
-    @Test
-    public void deleteLessonVisiting() throws JsonProcessingException {
-
-    }
 }

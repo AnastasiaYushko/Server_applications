@@ -63,8 +63,12 @@ public class LessonServiceImpl implements LessonService {
 
     @Override
     public GetLessonByIdResponse getLessonById(GetLessonByIdRequest request) {
-        Lesson lesson = lessonDAO.getLessonById(request.getLessonId());
-        return new GetLessonByIdResponse(lesson.getDate().toString(), lesson.getNumber(), lesson.getTeacher().getId(), lesson.getGroup().getId());
+        try {
+            Lesson lesson = lessonDAO.getLessonById(request.getLessonId());
+            return new GetLessonByIdResponse(lesson.getDate().toString(), lesson.getNumber(), lesson.getTeacher().getId(), lesson.getGroup().getId());
+        } catch (Exception e) {
+            throw new NullPointerException();
+        }
     }
 
     @Override
