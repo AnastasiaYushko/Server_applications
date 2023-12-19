@@ -21,7 +21,9 @@ public class LessonVisitingDAOImpl implements LessonVisitingDAO {
 
     @Override
     public String AddLessonVisiting(int lessonId, ArrayList<String> students) {
-        LessonVisiting result = dataBase.getLessonVisiting(lessonId);
+
+        //?
+         LessonVisiting result = dataBase.getLessonVisiting(lessonId);
         if (result == null){
             LessonVisiting lessonVisiting = new LessonVisiting(0, lessonId, students);
             dataBase.addLessonVisiting(lessonVisiting);

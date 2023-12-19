@@ -219,9 +219,7 @@ public class StudentMethodsTest {
         }
     }
 
-    //6. Получить студентов по группе и
-
-    // получение по несуществующей группе -
+    //6. Получить студентов по группе - получение по несуществующей группе
     @Test
     public void test_student_6() throws JsonProcessingException, ParseException {
         AddStudentGroupRequest groupRequest = new AddStudentGroupRequest("ММБ-104");
@@ -257,7 +255,18 @@ public class StudentMethodsTest {
 
         Assert.assertEquals(students, objectResponse1.getListStudents());
 
-        dataBase.clear();
+        GetStudentsByGroupRequest getStudentsByGroupRequest2 = new GetStudentsByGroupRequest(12);
+        String jsonRequest2 = ow.writeValueAsString(getStudentsByGroupRequest2);
+
+        try {
+            server.processServer("getStudentsByGroup", jsonRequest2);
+        }
+        catch (NullPointerException e){
+            Assert.assertEquals(e.getMessage(),"Такой группы нет в системе");
+        }
+        finally {
+            dataBase.clear();
+        }
     }
 
     //7. Поля empty, null, length > maxlength(50) и id<=0 и groupId<=0

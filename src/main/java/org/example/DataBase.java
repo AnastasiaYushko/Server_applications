@@ -109,7 +109,7 @@ public class DataBase {
 
         ArrayList<Lesson> lessons = new ArrayList<>(listLesson.values());
         for (Lesson l : lessons) {
-            if ((endDate.after(l.getDate())) && (startDate.before(l.getDate())) && (l.getGroup().equals(group))) {
+            if ((endDate.after(l.getDate()) || endDate.equals(l.getDate())) && (startDate.before(l.getDate()) || endDate.equals(l.getDate()) && (l.getGroup().equals(group)))) {
                 lessonsList.add(l);
             }
         }

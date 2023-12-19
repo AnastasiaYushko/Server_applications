@@ -15,6 +15,10 @@ public class StudentDAOImpl implements StudentDAO {
 
     @Override
     public ArrayList<Student> getStudentsByGroup(int id) {
+        StudentGroup studentGroup = dataBase.getStudentGroupById(id);
+        if (studentGroup == null){
+            throw new NullPointerException("Такой группы нет в системе");
+        }
         return dataBase.getStudentsByGroup(id);
     }
 

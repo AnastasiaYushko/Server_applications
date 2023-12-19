@@ -52,7 +52,6 @@ public class Server {
         map.put("deleteLessonsByGroup", new DeleteLessonsByGroupHandler());
         map.put("deleteLessonsByTeacher", new DeleteLessonsByTeacherHandler());
 
-
         map.put("getLessonVisiting", new GetLessonVisitingHandler());
         map.put("addLessonVisiting", new AddLessonVisitingHandler());
         map.put("deleteLessonVisiting", new DeleteLessonVisitingHandler());
