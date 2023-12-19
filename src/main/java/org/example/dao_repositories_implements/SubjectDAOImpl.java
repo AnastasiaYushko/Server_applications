@@ -17,7 +17,11 @@ public class SubjectDAOImpl implements SubjectDAO {
 
     @Override
     public Subject getSubjectById(int id) {
-        return dataBase.getSubjectById(id);
+        Subject subject = dataBase.getSubjectById(id);
+        if (subject == null){
+            throw new NullPointerException("Такого предмета нет в системе");
+        }
+        return subject;
     }
 
     @Override

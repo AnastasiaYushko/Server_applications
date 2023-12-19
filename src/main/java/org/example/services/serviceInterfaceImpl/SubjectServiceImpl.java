@@ -35,12 +35,8 @@ public class SubjectServiceImpl implements SubjectService {
 
     @Override
     public GetSubjectByIdResponse getSubjectById(GetSubjectByIdRequest request) {
-        try {
-            Subject subject = subjectDAO.getSubjectById(request.getId());
-            return new GetSubjectByIdResponse(subject.getName());
-        } catch (Exception e) {
-            throw new NullPointerException("Такого предмета не найдено");
-        }
+        Subject subject = subjectDAO.getSubjectById(request.getId());
+        return new GetSubjectByIdResponse(subject.getName());
     }
 
     @Override

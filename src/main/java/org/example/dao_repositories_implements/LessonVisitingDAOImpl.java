@@ -12,11 +12,15 @@ public class LessonVisitingDAOImpl implements LessonVisitingDAO {
 
     @Override
     public LessonVisiting GetLessonVisiting(int lessonId) {
-        return dataBase.getLessonVisiting(lessonId);
+        LessonVisiting lessonVisiting = dataBase.getLessonVisiting(lessonId);
+        if (lessonVisiting == null){
+            throw new NullPointerException("Такого урока нет в системе");
+        }
+        return lessonVisiting;
     }
 
     @Override
-    public String AddLessonVisiting(int lessonId, ArrayList<String> students) throws Exception {
+    public String AddLessonVisiting(int lessonId, ArrayList<String> students) {
         LessonVisiting result = dataBase.getLessonVisiting(lessonId);
         if (result == null){
             LessonVisiting lessonVisiting = new LessonVisiting(0, lessonId, students);
@@ -24,19 +28,19 @@ public class LessonVisitingDAOImpl implements LessonVisitingDAO {
             return "Посещаемость урока добавлена!";
         }
         else{
-            throw new Exception();
+            throw new NullPointerException("Данных о посещаемости такого урока нет в система");
         }
     }
 
     @Override
-    public String DeleteLessonVisiting(int lessonId) throws Exception {
+    public String DeleteLessonVisiting(int lessonId) {
         LessonVisiting result = dataBase.getLessonVisiting(lessonId);
         if (result == null){
             dataBase.deleteLessonVisiting(lessonId);
             return "Посещаемость данного урока удалена!";
         }
         else{
-            throw new Exception();
+            throw new NullPointerException("Данных о посещаемости такого урока нет в система");
         }
     }
 }

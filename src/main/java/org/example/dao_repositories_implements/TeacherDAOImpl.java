@@ -17,7 +17,11 @@ public class TeacherDAOImpl implements TeacherDAO {
 
     @Override
     public Teacher getTeacherById(int id) {
-        return dataBase.getTeacherById(id);
+        Teacher teacher = dataBase.getTeacherById(id);
+        if (teacher == null){
+            throw new NullPointerException("Такого учителя нет в системе");
+        }
+        return teacher;
     }
 
     @Override

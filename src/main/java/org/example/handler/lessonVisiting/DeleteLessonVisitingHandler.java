@@ -1,5 +1,6 @@
 package org.example.handler.lessonVisiting;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import org.example.dto_request.lessonVisiting.delete.DeleteLessonVisitingRequest;
@@ -9,7 +10,7 @@ import org.example.network_operations.controllers.LessonVisitingController;
 
 public class DeleteLessonVisitingHandler implements IHandler {
     @Override
-    public String handler(String jsonRequest) throws Exception {
+    public String handler(String jsonRequest) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
 
         DeleteLessonVisitingRequest deleteLessonVisitingRequest = objectMapper.readValue(jsonRequest, DeleteLessonVisitingRequest.class);

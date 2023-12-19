@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LessonVisitingController {
-    public static ResponseEntity<String> addLessonVisiting(@RequestBody AddLessonVisitingRequest request) throws Exception {
+    public static ResponseEntity<String> addLessonVisiting(@RequestBody AddLessonVisitingRequest request) {
 
         AddLessonVisitingValidator validator = new AddLessonVisitingValidator();
         List<String> errors = new ArrayList<>();
@@ -33,7 +33,7 @@ public class LessonVisitingController {
         return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
     }
 
-    public static ResponseEntity<String> deleteLessonVisiting(@RequestBody DeleteLessonVisitingRequest request) throws Exception {
+    public static ResponseEntity<String> deleteLessonVisiting(@RequestBody DeleteLessonVisitingRequest request) {
 
         DeleteLessonVisitingValidator validator = new DeleteLessonVisitingValidator();
         List<String> errors = new ArrayList<>();

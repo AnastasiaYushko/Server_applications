@@ -1,5 +1,6 @@
 package org.example;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.example.handler.IHandler;
 import org.example.handler.lesson.*;
 import org.example.handler.lessonVisiting.AddLessonVisitingHandler;
@@ -10,6 +11,7 @@ import org.example.handler.studentGroup.*;
 import org.example.handler.subject.*;
 import org.example.handler.teacher.*;
 
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,6 +48,10 @@ public class Server {
         map.put("getLessonById", new GetLessonByIdHandler());
         map.put("getLessonsByGroup", new GetLessonsByGroupHandler());
         map.put("getLessonsByTeacher", new GetLessonByTeacherHandler());
+        map.put("deleteLessonById", new DeleteLessonByIdHandler());
+        map.put("deleteLessonsByGroup", new DeleteLessonsByGroupHandler());
+        map.put("deleteLessonsByTeacher", new DeleteLessonsByTeacherHandler());
+
 
         map.put("getLessonVisiting", new GetLessonVisitingHandler());
         map.put("addLessonVisiting", new AddLessonVisitingHandler());
@@ -57,7 +63,7 @@ public class Server {
         System.out.println("Hello World!");
     }
 
-    public String processServer(String endpoint, String json) throws Exception {
+    public String processServer(String endpoint, String json) throws ParseException, JsonProcessingException {
 
         IHandler classHandler = map.get(endpoint);
         return classHandler.handler(json);

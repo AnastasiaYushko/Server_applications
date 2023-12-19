@@ -7,14 +7,12 @@ public class GetLessonByIdResponse {
     private int number;
     private int teacherId;
     private int groupId;
-    //private ArrayList<String> students;
 
     public GetLessonByIdResponse(String date, int number, int teacherId, int groupId) {
         this.date = date;
         this.number = number;
         this.teacherId = teacherId;
         this.groupId = groupId;
-        //this.students = new ArrayList<>(students);
     }
 
     public GetLessonByIdResponse() {
@@ -32,10 +30,6 @@ public class GetLessonByIdResponse {
     public String getDate() {
         return date;
     }
-
-    //public ArrayList<String> getStudents() {
-    //     return students;
-    //}
 
     public int getNameGroup() {
         return groupId;
@@ -57,16 +51,11 @@ public class GetLessonByIdResponse {
         this.teacherId = teacherId;
     }
 
-    // public void setStudents(ArrayList<String> students) {
-    //    this.students = new ArrayList<>(students);
-    // }
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof GetLessonByIdResponse that)) return false;
-        return getNumber() == that.getNumber() && getTeacherId() == that.getTeacherId() && groupId == that.groupId && Objects.equals(getDate(), that.getDate());
+        return getNumber() == that.getNumber() && getTeacherId() == that.getTeacherId() && groupId == that.groupId && getDate().equals(that.getDate());
     }
 
     @Override

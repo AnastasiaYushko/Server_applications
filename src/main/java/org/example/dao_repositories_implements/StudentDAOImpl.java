@@ -13,65 +13,55 @@ public class StudentDAOImpl implements StudentDAO {
 
     DataBase dataBase = DataBase.getDataBase();
 
-    //+!
     @Override
     public ArrayList<Student> getStudentsByGroup(int id) {
         return dataBase.getStudentsByGroup(id);
     }
 
-    //+!
     @Override
     public Student getStudentById(int id) {
-        return dataBase.getStudentById(id);
+        Student student = dataBase.getStudentById(id);
+        if (student == null) {
+            throw new NullPointerException("Такого студента нет в системе");
+        }
+        return student;
     }
 
-    //+!
     @Override
     public int addStudent(String lastName, String firstName, String middleName, String groupId, String status) {
-        try {
-            StudentGroup group = dataBase.getStudentGroupById(Integer.parseInt(groupId));
-            if (group!= null) {
-                Student student = new Student(0, lastName, firstName, middleName, getStatus(status), group);
-                return dataBase.addStudent(student);
-            }
-            else {
-                throw new NullPointerException();
-            }
+        StudentGroup group = dataBase.getStudentGroupById(Integer.parseInt(groupId));
+        if (group == null) {
+            throw new NullPointerException("Такого студента нет в системе");
         }
-        catch (Exception e){
-            throw new NullPointerException();
+        if (getStatus(status) == null) {
+            throw new NullPointerException("Неверный статус");
         }
+        Student student = new Student(0, lastName, firstName, middleName, getStatus(status), group);
+        return dataBase.addStudent(student);
     }
 
-    //+!
     @Override
-    public String editStudent(int id, String lastName, String firstName, String middleName, String groupId, String status){
-        try {
-            StudentGroup group = dataBase.getStudentGroupById(Integer.parseInt(groupId));
-            Student student = new Student(id, lastName, firstName, middleName, getStatus(status), group);
-            if (dataBase.getStudentById(id) != null){
-                dataBase.editStudent(student);
-                return "Данные студента изменены";
-            }
-            else {
-                throw new NullPointerException();
-            }
+    public String editStudent(int id, String lastName, String firstName, String middleName, String groupId, String status) {
+        StudentGroup group = dataBase.getStudentGroupById(Integer.parseInt(groupId));
+        Student student = new Student(id, lastName, firstName, middleName, getStatus(status), group);
+        if (dataBase.getStudentById(id) == null) {
+            throw new NullPointerException("Такого студента нет в системе");
         }
-        catch (Exception e){
-            throw new NullPointerException();
+
+        if (getStatus(status) == null) {
+            throw new NullPointerException("Неверный статус");
         }
+        dataBase.editStudent(student);
+        return "Данные студента изменены";
     }
 
-    //+!
     @Override
     public String deleteStudent(int id) {
-        if (dataBase.getStudentById(id) != null){
-            dataBase.deleteStudent(id);
-            return "Студент удален";
+        if (dataBase.getStudentById(id) == null) {
+            throw new NullPointerException("Такого студента нет в системе");
         }
-        else {
-            throw new NullPointerException();
-        }
+        dataBase.deleteStudent(id);
+        return "Студент удален";
     }
 
     private StatusStudent getStatus(String status) {

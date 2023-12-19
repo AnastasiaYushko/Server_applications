@@ -17,7 +17,11 @@ public class StudentGroupDAOImpl implements StudentGroupDAO {
 
     @Override
     public StudentGroup getStudentGroupById(int id) {
-        return dataBase.getStudentGroupById(id);
+        StudentGroup group = dataBase.getStudentGroupById(id);
+        if (group == null){
+            throw new NullPointerException("Такой группы нет в системе");
+        }
+        return group;
     }
 
     @Override
@@ -33,7 +37,7 @@ public class StudentGroupDAOImpl implements StudentGroupDAO {
             dataBase.editStudentGroup(new StudentGroup(id, name));
             return "Группа изменена";
         } else {
-            throw new NullPointerException();
+            throw new NullPointerException("Такой группы нет в системе");
         }
     }
 
@@ -44,7 +48,7 @@ public class StudentGroupDAOImpl implements StudentGroupDAO {
             dataBase.deleteStudentGroup(id);
             return "Группа удалена";
         } else {
-            throw new NullPointerException();
+            throw new NullPointerException("Такой группы нет в системе");
         }
     }
 }

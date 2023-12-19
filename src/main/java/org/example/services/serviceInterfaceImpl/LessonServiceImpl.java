@@ -16,8 +16,11 @@ import org.example.dto_response.lesson.GetLessonsByTeacherResponse;
 import org.example.model.Lesson;
 import org.example.services.serviceInterface.LessonService;
 
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class LessonServiceImpl implements LessonService {
 
@@ -63,12 +66,8 @@ public class LessonServiceImpl implements LessonService {
 
     @Override
     public GetLessonByIdResponse getLessonById(GetLessonByIdRequest request) {
-        try {
-            Lesson lesson = lessonDAO.getLessonById(request.getLessonId());
-            return new GetLessonByIdResponse(lesson.getDate().toString(), lesson.getNumber(), lesson.getTeacher().getId(), lesson.getGroup().getId());
-        } catch (Exception e) {
-            throw new NullPointerException();
-        }
+        Lesson lesson = lessonDAO.getLessonById(request.getLessonId());
+        return new GetLessonByIdResponse(dateToStringFormat(lesson.getDate()), lesson.getNumber(), lesson.getTeacher().getId(), lesson.getGroup().getId());
     }
 
     @Override
@@ -82,5 +81,10 @@ public class LessonServiceImpl implements LessonService {
         }
 
         return new GetLessonsByTeacherResponse(newListLessons);
+    }
+
+    public String dateToStringFormat(Date date) {
+        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        return df.format(date);
     }
 }

@@ -2,14 +2,12 @@ package org.example.model;
 
 import org.jetbrains.annotations.NotNull;
 
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
 import java.util.Date;
 import java.util.Objects;
 
 public class Lesson {
     private int id;
-    @Pattern(regexp = "(0?[1-9]|[12][0-9]|3[01])-(0?[1-9]|1[012])-((19|20|21)\\d\\d)")
     private Date date;
     @Positive
     private int number;
@@ -34,8 +32,8 @@ public class Lesson {
         this.group = group;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDate(Date date){
+       this.date = date;
     }
 
     public void setNumber(int number) {

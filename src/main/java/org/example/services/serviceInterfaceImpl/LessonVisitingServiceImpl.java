@@ -12,12 +12,12 @@ public class LessonVisitingServiceImpl implements LessonVisitingService {
     private final LessonVisitingDAOImpl lessonVisitingDAO = new LessonVisitingDAOImpl();
 
     @Override
-    public String addLessonVisiting(AddLessonVisitingRequest request) throws Exception {
+    public String addLessonVisiting(AddLessonVisitingRequest request) {
         return lessonVisitingDAO.AddLessonVisiting(request.getLessonId(), request.getListStudent());
     }
 
     @Override
-    public String deleteLessonVisiting(DeleteLessonVisitingRequest request) throws Exception {
+    public String deleteLessonVisiting(DeleteLessonVisitingRequest request) {
         return lessonVisitingDAO.DeleteLessonVisiting(request.getLessonId());
     }
 
