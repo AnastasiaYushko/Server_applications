@@ -37,22 +37,22 @@ public class StudentDAOImpl implements StudentDAO {
         if (group == null) {
             throw new NullPointerException("Такого студента нет в системе");
         }
-        if (getStatus(status) == null) {
+        if (getStudentStatus(status) == null) {
             throw new NullPointerException("Неверный статус");
         }
-        Student student = new Student(0, lastName, firstName, middleName, getStatus(status), group);
+        Student student = new Student(0, lastName, firstName, middleName, getStudentStatus(status), group);
         return dataBase.addStudent(student);
     }
 
     @Override
     public String editStudent(int id, String lastName, String firstName, String middleName, String groupId, String status) {
         StudentGroup group = dataBase.getStudentGroupById(Integer.parseInt(groupId));
-        Student student = new Student(id, lastName, firstName, middleName, getStatus(status), group);
+        Student student = new Student(id, lastName, firstName, middleName, getStudentStatus(status), group);
         if (dataBase.getStudentById(id) == null) {
             throw new NullPointerException("Такого студента нет в системе");
         }
 
-        if (getStatus(status) == null) {
+        if (getStudentStatus(status) == null) {
             throw new NullPointerException("Неверный статус");
         }
         dataBase.editStudent(student);
@@ -68,7 +68,7 @@ public class StudentDAOImpl implements StudentDAO {
         return "Студент удален";
     }
 
-    private StatusStudent getStatus(String status) {
+    public static StatusStudent getStudentStatus(String status) {
         StatusStudent newStatus = null;
 
         if (Objects.equals(StatusStudent.STUDIES.toString(), status)) {

@@ -1,13 +1,14 @@
-package org.example.dto_request.lessonVisiting.get;
+package org.example.dto_request.lessonVisiting.get.byILessonId;
 
-public class GetLessonVisitingRequest {
+public class GetLessonVisitingByLessonIdRequest {
+
     private int lessonId;
 
-    public GetLessonVisitingRequest(int lessonId) {
+    public GetLessonVisitingByLessonIdRequest(int lessonId) {
         this.lessonId = lessonId;
     }
 
-    public GetLessonVisitingRequest() {
+    public GetLessonVisitingByLessonIdRequest() {
         super();
     }
 

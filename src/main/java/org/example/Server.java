@@ -3,9 +3,7 @@ package org.example;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.example.handler.IHandler;
 import org.example.handler.lesson.*;
-import org.example.handler.lessonVisiting.AddLessonVisitingHandler;
-import org.example.handler.lessonVisiting.DeleteLessonVisitingHandler;
-import org.example.handler.lessonVisiting.GetLessonVisitingHandler;
+import org.example.handler.lessonVisiting.*;
 import org.example.handler.student.*;
 import org.example.handler.studentGroup.*;
 import org.example.handler.subject.*;
@@ -52,9 +50,11 @@ public class Server {
         map.put("deleteLessonsByGroup", new DeleteLessonsByGroupHandler());
         map.put("deleteLessonsByTeacher", new DeleteLessonsByTeacherHandler());
 
-        map.put("getLessonVisiting", new GetLessonVisitingHandler());
+        map.put("getLessonVisitingById", new GetLessonVisitingByIdHandler());
+        map.put("getLessonVisitingByLessonId", new GetLessonVisitingByLessonIdHandler());
         map.put("addLessonVisiting", new AddLessonVisitingHandler());
-        map.put("deleteLessonVisiting", new DeleteLessonVisitingHandler());
+        map.put("deleteLessonVisitingById", new DeleteLessonVisitingByIdHandler());
+        map.put("deleteLessonVisitingByLessonId", new DeleteLessonVisitingByLessonIdHandler());
 
     }
 

@@ -6,9 +6,15 @@ import java.util.ArrayList;
 
 public interface LessonVisitingDAO {
 
-    LessonVisiting GetLessonVisiting(int lessonId);
+    LessonVisiting GetLessonVisitingByLessonId(int lessonId);
 
-    String AddLessonVisiting(int lessonId, ArrayList<String> students) throws Exception;
+    LessonVisiting GetLessonVisitingById(int lessonVisitingId);
 
-    String DeleteLessonVisiting(int lessonId) throws Exception;
+    int AddLessonVisiting(int lessonId, ArrayList<String> students) ;
+
+    String DeleteLessonVisitingById(int lessonVisitingId);
+
+    String DeleteLessonVisitingByLessonId(int lessonId);
+
+    String EditLessonVisiting(int lessonVisitingId, int lessonId, ArrayList<String> students);
 }

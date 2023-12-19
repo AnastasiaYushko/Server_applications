@@ -1,16 +1,16 @@
-package org.example.dto_request.lessonVisiting.delete;
+package org.example.dto_request.lessonVisiting.delete.byLessonId;
 
 import javax.validation.constraints.Positive;
 
-public class DeleteLessonVisitingRequest {
+public class DeleteLessonVisitingByLessonIdRequest {
     @Positive
     private int lessonId;
 
-    public DeleteLessonVisitingRequest(@Positive int lessonId) {
+    public DeleteLessonVisitingByLessonIdRequest(@Positive int lessonId) {
         this.lessonId = lessonId;
     }
 
-    public DeleteLessonVisitingRequest() {
+    public DeleteLessonVisitingByLessonIdRequest() {
         super();
     }
 

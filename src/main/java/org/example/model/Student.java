@@ -1,7 +1,7 @@
 package org.example.model;
 
 import org.example.enums.StatusStudent;
-import org.jetbrains.annotations.*;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 

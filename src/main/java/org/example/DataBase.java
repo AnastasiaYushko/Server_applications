@@ -6,7 +6,7 @@ import java.util.*;
 
 public class DataBase {
 
-    private static  DataBase dataBase;
+    private static DataBase dataBase;
 
     private final Map<Integer, Student> listStudents;
     private Integer keyStudent;
@@ -18,8 +18,12 @@ public class DataBase {
     private Integer keySubject;
     private final Map<Integer, Lesson> listLesson;
     private Integer keyLesson;
-    private final Map<Integer, LessonVisiting> listLessonVisiting;
-    private Integer keyLessonVisiting;
+
+    private final Map<Integer, LessonVisiting> listLessonVisiting_Id;
+    private Integer keyLessonVisiting_Id;
+
+    private final Map<Integer, LessonVisiting> listLessonVisiting_LessonId;
+
 
     private DataBase() {
         keyStudent = 1;
@@ -27,14 +31,15 @@ public class DataBase {
         keyTeacher = 1;
         keySubject = 1;
         keyLesson = 1;
-        keyLessonVisiting = 1;
+        keyLessonVisiting_Id = 1;
 
         listStudents = new HashMap<>();
         listGroups = new HashMap<>();
         listTeachers = new HashMap<>();
         listSubjects = new HashMap<>();
         listLesson = new HashMap<>();
-        listLessonVisiting = new HashMap<>();
+        listLessonVisiting_Id = new HashMap<>();
+        listLessonVisiting_LessonId = new HashMap<>();
 
     }
 
@@ -51,14 +56,15 @@ public class DataBase {
         dataBase.listGroups.clear();
         dataBase.listSubjects.clear();
         dataBase.listLesson.clear();
-        dataBase.listLessonVisiting.clear();
+        dataBase.listLessonVisiting_LessonId.clear();
+        dataBase.listLessonVisiting_Id.clear();
 
         keyStudent = 1;
         keyGroup = 1;
         keyTeacher = 1;
         keySubject = 1;
         keyLesson = 1;
-        keyLessonVisiting = 1;
+        keyLessonVisiting_Id = 1;
 
         dataBase = null;
     }
@@ -68,7 +74,7 @@ public class DataBase {
         student.setId(keyStudent);
         listStudents.put(keyStudent, student);
         keyStudent++;
-        return keyStudent-1;
+        return keyStudent - 1;
     }
 
     public ArrayList<Student> getStudentsByGroup(int id) {
@@ -103,7 +109,7 @@ public class DataBase {
         return listLesson.get(id);
     }
 
-    public ArrayList<Lesson> getLessonsByGroup(Date startDate, Date endDate, StudentGroup group){
+    public ArrayList<Lesson> getLessonsByGroup(Date startDate, Date endDate, StudentGroup group) {
 
         ArrayList<Lesson> lessonsList = new ArrayList<>();
 
@@ -130,7 +136,7 @@ public class DataBase {
         return lessonsList;
     }
 
-    public void EditLesson(Lesson lesson)  {
+    public void EditLesson(Lesson lesson) {
         listLesson.put(lesson.getId(), lesson);
     }
 
@@ -138,7 +144,7 @@ public class DataBase {
         lesson.setId(keyLesson);
         listLesson.put(keyLesson, lesson);
         keyLesson++;
-        return keyLesson-1;
+        return keyLesson - 1;
     }
 
     public void DeleteLessonsByGroup(int groupId) {
@@ -180,7 +186,7 @@ public class DataBase {
         group.setId(keyGroup);
         listGroups.put(keyGroup, group);
         keyGroup++;
-        return keyGroup-1;
+        return keyGroup - 1;
     }
 
     public void editStudentGroup(StudentGroup group) {
@@ -205,7 +211,7 @@ public class DataBase {
         teacher.setId(keyTeacher);
         listTeachers.put(keyTeacher, teacher);
         keyTeacher++;
-        return keyTeacher-1;
+        return keyTeacher - 1;
     }
 
     public void editTeacher(Teacher teacher) {
@@ -231,7 +237,7 @@ public class DataBase {
         subject.setId(keySubject);
         listSubjects.put(keySubject, subject);
         keySubject++;
-        return keySubject-1;
+        return keySubject - 1;
     }
 
     public void editSubject(Subject subject) {
@@ -245,27 +251,36 @@ public class DataBase {
     //
 
     // LessonVisiting
-    public void addLessonVisiting(LessonVisiting lessonVisiting) {
-        lessonVisiting.setId(keyLessonVisiting);
-        listLessonVisiting.put(keyLessonVisiting, lessonVisiting);
-        keyLessonVisiting++;
+    public int addLessonVisiting(LessonVisiting lessonVisiting) {
+        lessonVisiting.setId(keyLessonVisiting_Id);
+        listLessonVisiting_Id.put(keyLessonVisiting_Id,lessonVisiting);
+        listLessonVisiting_LessonId.put(lessonVisiting.getLesson(),lessonVisiting);
+        keyLessonVisiting_Id ++;
+        return keyLessonVisiting_Id-1;
     }
 
-    public LessonVisiting getLessonVisiting(int lessonId) {
-        ArrayList<LessonVisiting> lessonVisitingArrayList = new ArrayList<>(listLessonVisiting.values());
-        LessonVisiting result = null;
-
-        for (LessonVisiting lessonVisiting : lessonVisitingArrayList) {
-            if (lessonVisiting.getLesson() == lessonId) {
-                result = lessonVisiting;
-            }
-        }
-
-        return result;
+    public LessonVisiting getLessonVisitingById(int lessonVisitingId) {
+        return listLessonVisiting_Id.get(lessonVisitingId);
     }
 
-    public void deleteLessonVisiting(int lessonId) {
-        LessonVisiting lessonVisiting = dataBase.getLessonVisiting(lessonId);
-        listLessonVisiting.remove(lessonVisiting.getId());
+    public LessonVisiting getLessonVisitingByLessonId(int lessonId){
+        return listLessonVisiting_LessonId.get(lessonId);
+    }
+
+    public void editLessonVisiting(LessonVisiting lessonVisiting){
+        listLessonVisiting_Id.put(lessonVisiting.getId(),lessonVisiting);
+        listLessonVisiting_LessonId.put(lessonVisiting.getLesson(),lessonVisiting);
+
+    }
+    public void deleteLessonVisitingById(int lessonVisitingId) {
+        listLessonVisiting_Id.remove(lessonVisitingId);
+        int lessonId = dataBase.getLessonVisitingById(lessonVisitingId).getLesson();
+        listLessonVisiting_LessonId.remove(lessonId);
+    }
+
+    public void deleteLessonVisitingBtLessonId(int lessonId){
+        LessonVisiting lessonVisiting = dataBase.getLessonVisitingByLessonId(lessonId);
+        listLessonVisiting_LessonId.remove(lessonId);
+        listLessonVisiting_Id.remove(lessonVisiting.getId());
     }
 }

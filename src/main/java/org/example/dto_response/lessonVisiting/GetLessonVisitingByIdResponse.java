@@ -2,29 +2,29 @@ package org.example.dto_response.lessonVisiting;
 
 import java.util.Objects;
 
-public class GetLessonVisitingResponse {
+public class GetLessonVisitingByIdResponse {
     private String lessonVisiting;
 
-    public GetLessonVisitingResponse(String listLessonVisiting) {
+    public GetLessonVisitingByIdResponse(String listLessonVisiting) {
         this.lessonVisiting = listLessonVisiting;
     }
 
-    public GetLessonVisitingResponse() {
+    public GetLessonVisitingByIdResponse() {
         super();
     }
 
-    public String getListLessonVisiting() {
+    public String getLessonVisiting() {
         return lessonVisiting;
     }
 
-    public void setListLessonVisiting(String listLessonVisiting) {
+    public void setLessonVisiting(String lessonVisiting) {
         this.lessonVisiting = lessonVisiting;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof GetLessonVisitingResponse response)) return false;
+        if (!(o instanceof GetLessonVisitingByIdResponse response)) return false;
         return Objects.equals(lessonVisiting, response.lessonVisiting);
     }
 
