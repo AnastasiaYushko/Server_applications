@@ -154,12 +154,18 @@ public class DataBase {
         for (Lesson lesson : lessons) {
             if (lesson.getGroup().getId() == groupId) {
                 listLesson.remove(lesson.getId());
+                if (getLessonVisitingByLessonId(lesson.getId()) != null) {
+                    deleteLessonVisitingByLessonId(lesson.getId());
+                }
             }
         }
     }
 
     public void DeleteLessonById(int lessonId) {
         listLesson.remove(lessonId);
+        if (getLessonVisitingByLessonId(lessonId) != null) {
+            deleteLessonVisitingByLessonId(lessonId);
+        }
     }
 
     public void DeleteLessonsByTeacher(int teacherId) {
@@ -168,6 +174,9 @@ public class DataBase {
         for (Lesson lesson : lessons) {
             if (lesson.getTeacher().getId() == teacherId) {
                 listLesson.remove(lesson.getId());
+                if (getLessonVisitingByLessonId(lesson.getId()) != null) {
+                    deleteLessonVisitingByLessonId(lesson.getId());
+                }
             }
         }
     }
@@ -253,32 +262,33 @@ public class DataBase {
     // LessonVisiting
     public int addLessonVisiting(LessonVisiting lessonVisiting) {
         lessonVisiting.setId(keyLessonVisiting_Id);
-        listLessonVisiting_Id.put(keyLessonVisiting_Id,lessonVisiting);
-        listLessonVisiting_LessonId.put(lessonVisiting.getLesson(),lessonVisiting);
-        keyLessonVisiting_Id ++;
-        return keyLessonVisiting_Id-1;
+        listLessonVisiting_Id.put(keyLessonVisiting_Id, lessonVisiting);
+        listLessonVisiting_LessonId.put(lessonVisiting.getLesson(), lessonVisiting);
+        keyLessonVisiting_Id++;
+        return keyLessonVisiting_Id - 1;
     }
 
     public LessonVisiting getLessonVisitingById(int lessonVisitingId) {
         return listLessonVisiting_Id.get(lessonVisitingId);
     }
 
-    public LessonVisiting getLessonVisitingByLessonId(int lessonId){
+    public LessonVisiting getLessonVisitingByLessonId(int lessonId) {
         return listLessonVisiting_LessonId.get(lessonId);
     }
 
-    public void editLessonVisiting(LessonVisiting lessonVisiting){
-        listLessonVisiting_Id.put(lessonVisiting.getId(),lessonVisiting);
-        listLessonVisiting_LessonId.put(lessonVisiting.getLesson(),lessonVisiting);
+    public void editLessonVisiting(LessonVisiting lessonVisiting) {
+        listLessonVisiting_Id.put(lessonVisiting.getId(), lessonVisiting);
+        listLessonVisiting_LessonId.put(lessonVisiting.getLesson(), lessonVisiting);
 
     }
+
     public void deleteLessonVisitingById(int lessonVisitingId) {
         listLessonVisiting_Id.remove(lessonVisitingId);
         int lessonId = dataBase.getLessonVisitingById(lessonVisitingId).getLesson();
         listLessonVisiting_LessonId.remove(lessonId);
     }
 
-    public void deleteLessonVisitingBtLessonId(int lessonId){
+    public void deleteLessonVisitingByLessonId(int lessonId) {
         LessonVisiting lessonVisiting = dataBase.getLessonVisitingByLessonId(lessonId);
         listLessonVisiting_LessonId.remove(lessonId);
         listLessonVisiting_Id.remove(lessonVisiting.getId());

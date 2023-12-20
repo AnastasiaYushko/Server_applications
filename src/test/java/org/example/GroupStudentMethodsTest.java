@@ -22,6 +22,21 @@ public class GroupStudentMethodsTest {
 
     Server server = new Server();
 
+    //0. Ошибка в методе
+    @Test
+    public void test_0() throws JsonProcessingException,ParseException{
+        try{
+            AddStudentGroupRequest groupRequest = new AddStudentGroupRequest("ММБ-104");
+            ObjectWriter ow0 = new ObjectMapper().writer().withDefaultPrettyPrinter();
+            String jsonRequestGroup = ow0.writeValueAsString(groupRequest);
+            server.processServer("addGroup", jsonRequestGroup);
+        }
+        catch (NullPointerException e){
+            Assert.assertEquals(e.getMessage(),"Метод не найден");
+        }
+    }
+
+
     //1. Добавление групп - получить все группы - удалить - получить если нет - удалить несуществующую
     @Test
     public void studentGroup_test_1() throws JsonProcessingException, ParseException {

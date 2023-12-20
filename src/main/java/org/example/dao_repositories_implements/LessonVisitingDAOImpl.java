@@ -74,6 +74,7 @@ public class LessonVisitingDAOImpl implements LessonVisitingDAO {
         if (lessonVisiting == null) {
             throw new NullPointerException("Такой посещаемости нет в системе");
         }
+        dataBase.deleteLessonVisitingById(lessonVisitingId);
         return "Посещаемость удалена";
     }
 
@@ -89,6 +90,7 @@ public class LessonVisitingDAOImpl implements LessonVisitingDAO {
         if (lessonVisiting == null) {
             throw new NullPointerException("Такой посещаемости нет в системе");
         }
+        dataBase.deleteLessonVisitingByLessonId(lessonId);
         return "Посещаемость удалена";
     }
 }

@@ -55,6 +55,7 @@ public class Server {
         map.put("addLessonVisiting", new AddLessonVisitingHandler());
         map.put("deleteLessonVisitingById", new DeleteLessonVisitingByIdHandler());
         map.put("deleteLessonVisitingByLessonId", new DeleteLessonVisitingByLessonIdHandler());
+        map.put("editLessonVisiting", new EditLessonVisitingHandler());
 
     }
 
@@ -65,6 +66,9 @@ public class Server {
     public String processServer(String endpoint, String json) throws ParseException, JsonProcessingException {
 
         IHandler classHandler = map.get(endpoint);
+        if (classHandler == null){
+            throw new NullPointerException("Метод не найден");
+        }
         return classHandler.handler(json);
     }
 }
