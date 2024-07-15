@@ -1,12 +1,18 @@
 package org.example.dto_request.lessonVisiting.delete.byId;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.stereotype.Component;
+
 import javax.validation.constraints.Positive;
 
+@Getter
+@Setter
+@Component
 public class DeleteLessonVisitingByIdRequest {
-    @Positive
     private int lessonVisitingId;
 
-    public DeleteLessonVisitingByIdRequest(@Positive int lessonVisitingId) {
+    public DeleteLessonVisitingByIdRequest(int lessonVisitingId) {
         this.lessonVisitingId = lessonVisitingId;
     }
 
@@ -14,11 +20,4 @@ public class DeleteLessonVisitingByIdRequest {
         super();
     }
 
-    public int getLessonVisitingId() {
-        return lessonVisitingId;
-    }
-
-    public void setLessonVisitingId(@Positive int lessonVisitingId) {
-        this.lessonVisitingId = lessonVisitingId;
-    }
 }

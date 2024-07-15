@@ -1,27 +1,25 @@
 package org.example.handler.lessonVisiting;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.example.dto_request.lessonVisiting.get.byILessonId.GetLessonVisitingByLessonIdRequest;
 import org.example.dto_response.lessonVisiting.GetLessonVisitingByLessonIdResponse;
 import org.example.handler.IHandler;
 import org.example.network_operations.ResponseEntity;
 import org.example.network_operations.controllers.LessonVisitingController;
+import org.springframework.stereotype.Component;
 
-import java.text.ParseException;
-
+@Component
 public class GetLessonVisitingByLessonIdHandler implements IHandler {
     @Override
-    public String handler(String jsonRequest) throws JsonProcessingException, ParseException {
-        ObjectMapper objectMapper = new ObjectMapper();
+    public String handler(Object jsonRequest) throws JsonProcessingException {
 
-        GetLessonVisitingByLessonIdRequest getLessonVisitingRequest = objectMapper.readValue(jsonRequest, GetLessonVisitingByLessonIdRequest.class);
+        ResponseEntity<GetLessonVisitingByLessonIdResponse> getLessonVisitingResponse = LessonVisitingController.getLessonVisitingByLessonId((GetLessonVisitingByLessonIdRequest) jsonRequest);
 
-        ResponseEntity<GetLessonVisitingByLessonIdResponse> getLessonVisitingResponse = LessonVisitingController.getLessonVisitingByLessonId(getLessonVisitingRequest);
-
-        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-
-        return ow.writeValueAsString(getLessonVisitingResponse);
+        Gson gson = new GsonBuilder()
+                .setPrettyPrinting()
+                .create();
+        return gson.toJson(getLessonVisitingResponse);
     }
 }

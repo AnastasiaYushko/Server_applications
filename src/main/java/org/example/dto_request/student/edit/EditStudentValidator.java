@@ -3,13 +3,17 @@ package org.example.dto_request.student.edit;
 import org.example.validators.RequestValidator;
 import org.example.validators.ValidatorNumber;
 import org.example.validators.ValidatorString;
+import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class EditStudentValidator implements RequestValidator<EditStudentRequest> {
 
     @Override
-    public List<String> validate(EditStudentRequest request, List<String> errors) {
+    public List<String> validate(@NotNull EditStudentRequest request, List<String> errors) {
 
         int maxLength = 50;
 

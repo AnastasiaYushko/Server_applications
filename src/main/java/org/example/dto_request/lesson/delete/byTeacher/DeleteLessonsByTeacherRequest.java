@@ -1,24 +1,21 @@
 package org.example.dto_request.lesson.delete.byTeacher;
 
-import javax.validation.constraints.Positive;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.stereotype.Component;
 
+@Setter
+@Getter
+@Component
 public class DeleteLessonsByTeacherRequest {
-    @Positive
+
     private int teacherId;
 
-    public DeleteLessonsByTeacherRequest(@Positive int teacherId) {
+    public DeleteLessonsByTeacherRequest(int teacherId) {
         this.teacherId = teacherId;
     }
 
     public DeleteLessonsByTeacherRequest() {
         super();
-    }
-
-    public void setTeacherId(@Positive int teacherId) {
-        this.teacherId = teacherId;
-    }
-
-    public int getTeacherId() {
-        return teacherId;
     }
 }

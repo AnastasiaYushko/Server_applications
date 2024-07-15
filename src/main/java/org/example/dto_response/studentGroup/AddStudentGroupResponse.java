@@ -1,7 +1,14 @@
 package org.example.dto_response.studentGroup;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.stereotype.Component;
+
 import java.util.Objects;
 
+@Setter
+@Getter
+@Component
 public class AddStudentGroupResponse {
     private int id;
 
@@ -11,14 +18,6 @@ public class AddStudentGroupResponse {
 
     public AddStudentGroupResponse() {
         super();
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     @Override

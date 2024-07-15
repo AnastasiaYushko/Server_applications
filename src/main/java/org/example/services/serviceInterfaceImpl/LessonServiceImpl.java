@@ -15,6 +15,7 @@ import org.example.dto_response.lesson.GetLessonsByGroupResponse;
 import org.example.dto_response.lesson.GetLessonsByTeacherResponse;
 import org.example.model.Lesson;
 import org.example.services.serviceInterface.LessonService;
+import org.springframework.stereotype.Service;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -22,13 +23,18 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+@Service("lesson_service")
 public class LessonServiceImpl implements LessonService {
 
-    private final LessonDAOImpl lessonDAO = new LessonDAOImpl();
+    private final LessonDAOImpl lessonDAO;
+
+    public LessonServiceImpl(LessonDAOImpl lessonDAO){
+        this.lessonDAO = lessonDAO;
+    }
 
     @Override
     public AddLessonResponse addLesson(AddLessonRequest request) throws ParseException {
-        int result = lessonDAO.AddLesson(request.getDate(), request.getNumber(), request.getTeacherId(), request.getGroupId());
+        int result = lessonDAO.AddLesson(request.getDate(), request.getNumber(), request.getTeacherId(), request.getSubjectId(), request.getGroupId());
         return new AddLessonResponse(result);
     }
 
@@ -49,7 +55,7 @@ public class LessonServiceImpl implements LessonService {
 
     @Override
     public String editLesson(EditLessonRequest request) throws ParseException {
-        return lessonDAO.EditLesson(request.getId(), request.getDate(), request.getNumber(), request.getTeacherId(), request.getGroupId());
+        return lessonDAO.EditLesson(request.getId(), request.getDate(), request.getNumber(), request.getTeacherId(), request.getGroupId(),request.getSubjectId());
     }
 
     @Override
@@ -69,6 +75,7 @@ public class LessonServiceImpl implements LessonService {
         Lesson lesson = lessonDAO.getLessonById(request.getLessonId());
         return new GetLessonByIdResponse(dateToStringFormat(lesson.getDate()), lesson.getNumber(), lesson.getTeacher().getId(), lesson.getGroup().getId());
     }
+
 
     @Override
     public GetLessonsByTeacherResponse getLessonsByTeacher(GetLessonsByTeacherRequest request) throws ParseException {

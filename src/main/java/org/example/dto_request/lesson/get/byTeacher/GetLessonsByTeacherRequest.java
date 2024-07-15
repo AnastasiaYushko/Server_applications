@@ -1,5 +1,12 @@
 package org.example.dto_request.lesson.get.byTeacher;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.stereotype.Component;
+
+@Setter
+@Getter
+@Component
 public class GetLessonsByTeacherRequest {
     private String startDate;
     private String endDate;
@@ -15,27 +22,4 @@ public class GetLessonsByTeacherRequest {
         super();
     }
 
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
-    }
-
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
-    }
-
-    public String getEndDate() {
-        return endDate;
-    }
-
-    public String getStartDate() {
-        return startDate;
-    }
-
-    public void setTeacherId(int teacherId) {
-        this.teacherId = teacherId;
-    }
-
-    public int getTeacherId() {
-        return teacherId;
-    }
 }

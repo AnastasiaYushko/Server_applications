@@ -1,5 +1,12 @@
 package org.example.dto_request.student.edit;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.stereotype.Component;
+
+@Setter
+@Getter
+@Component
 public class EditStudentRequest {
     private int id;
     private String lastName;
@@ -21,51 +28,4 @@ public class EditStudentRequest {
         super();
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setGroup(String group) {
-        this.group = group;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getMiddleName() {
-        return middleName;
-    }
-
-    public String getGroup() {
-        return group;
-    }
-
-    public int getId() {
-        return id;
-    }
 }

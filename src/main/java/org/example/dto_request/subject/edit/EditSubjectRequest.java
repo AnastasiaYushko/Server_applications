@@ -1,5 +1,12 @@
 package org.example.dto_request.subject.edit;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.stereotype.Component;
+
+@Setter
+@Getter
+@Component
 public class EditSubjectRequest {
     private int id;
     private String name;
@@ -13,19 +20,4 @@ public class EditSubjectRequest {
         super();
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getId() {
-        return id;
-    }
 }

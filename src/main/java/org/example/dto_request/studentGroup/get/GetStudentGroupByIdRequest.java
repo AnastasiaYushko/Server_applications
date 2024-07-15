@@ -1,5 +1,12 @@
 package org.example.dto_request.studentGroup.get;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.stereotype.Component;
+
+@Setter
+@Getter
+@Component
 public class GetStudentGroupByIdRequest {
     private int id;
 
@@ -7,15 +14,6 @@ public class GetStudentGroupByIdRequest {
         this.id = id;
     }
 
-    public GetStudentGroupByIdRequest() {
-        super();
-    }
+    public GetStudentGroupByIdRequest() {}
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getId() {
-        return id;
-    }
 }

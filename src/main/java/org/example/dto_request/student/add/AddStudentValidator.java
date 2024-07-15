@@ -2,10 +2,14 @@ package org.example.dto_request.student.add;
 
 import org.example.validators.RequestValidator;
 import org.example.validators.ValidatorString;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class AddStudentValidator implements RequestValidator<AddStudentRequest> {
+
     @Override
     public List<String> validate(AddStudentRequest request, List<String> errors) {
 
@@ -22,8 +26,8 @@ public class AddStudentValidator implements RequestValidator<AddStudentRequest> 
         ValidatorString.validateEmpty(request.getMiddleName(), errors, "middleName");
         ValidatorString.validateLength(request.getMiddleName(), errors, "middleName", maxLength);
 
-        ValidatorString.validateNull(request.getGroup(), errors, "groupId");
-        ValidatorString.validateEmpty(request.getGroup(), errors, "groupId");
+        ValidatorString.validateNull(request.getGroupId(), errors, "groupId");
+        ValidatorString.validateEmpty(request.getGroupId(), errors, "groupId");
 
         ValidatorString.validateNull(request.getStatus(), errors, "status");
         ValidatorString.validateEmpty(request.getStatus(), errors, "status");

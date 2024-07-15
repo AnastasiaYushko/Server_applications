@@ -1,5 +1,12 @@
 package org.example.dto_request.teacher.edit;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.stereotype.Component;
+
+@Setter
+@Getter
+@Component
 public class EditTeacherRequest {
     private int id;
     private String lastName;
@@ -17,35 +24,4 @@ public class EditTeacherRequest {
         super();
     }
 
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getMiddleName() {
-        return middleName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getId() {
-        return id;
-    }
 }

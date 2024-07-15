@@ -1,33 +1,21 @@
 package org.example.model;
 
-import org.jetbrains.annotations.NotNull;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.stereotype.Component;
 
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
+@Setter
+@Getter
 public class StudentGroup {
     private int id;
-    @NotNull
     private String name;
 
-    public StudentGroup(int id, @NotNull String name) {
+    public StudentGroup(int id,String name) {
         this.id = id;
         this.name = name;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setName(@NotNull String name) {
-        this.name = name;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
     }
 
     @Override

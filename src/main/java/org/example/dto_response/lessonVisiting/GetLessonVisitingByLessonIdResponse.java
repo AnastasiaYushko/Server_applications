@@ -1,7 +1,14 @@
 package org.example.dto_response.lessonVisiting;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.stereotype.Component;
+
 import java.util.Objects;
 
+@Setter
+@Getter
+@Component
 public class GetLessonVisitingByLessonIdResponse {
     private String lessonVisiting;
 
@@ -11,14 +18,6 @@ public class GetLessonVisitingByLessonIdResponse {
 
     public GetLessonVisitingByLessonIdResponse() {
         super();
-    }
-
-    public String getLessonVisiting() {
-        return lessonVisiting;
-    }
-
-    public void setLessonVisiting(String lessonVisiting) {
-        this.lessonVisiting = lessonVisiting;
     }
 
     @Override

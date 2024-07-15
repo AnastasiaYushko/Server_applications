@@ -1,7 +1,14 @@
 package org.example.dto_response.subject;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.stereotype.Component;
+
 import java.util.Objects;
 
+@Setter
+@Getter
+@Component
 public class AddSubjectResponse {
     private int id;
 
@@ -11,14 +18,6 @@ public class AddSubjectResponse {
 
     public AddSubjectResponse() {
         super();
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     @Override

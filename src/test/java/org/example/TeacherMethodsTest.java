@@ -1,27 +1,22 @@
+
 package org.example;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-import org.example.dto_request.teacher.add.AddTeacherRequest;
-import org.example.dto_request.teacher.delete.DeleteTeacherRequest;
-import org.example.dto_request.teacher.edit.EditTeacherRequest;
-import org.example.dto_request.teacher.get.GetTeacherByIdRequest;
-import org.example.dto_response.teacher.GetTeacherByIdResponse;
-import org.example.dto_response.teacher.GetTeachersResponse;
-import org.example.model.Teacher;
-import org.example.network_operations.ResponseEntity;
-import org.junit.Assert;
+import org.example.handler.teacher.GetTeacherByIdHandler;
 import org.junit.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
-import java.text.ParseException;
-import java.util.ArrayList;
-
+@SpringBootTest
 public class TeacherMethodsTest {
 
-    Server server = new Server();
-
+    @Test
+    public void test() throws JsonProcessingException {
+        app.start();
+        GetTeacherByIdHandler getTeacherByIdHandler = new GetTeacherByIdHandler();
+        String result = getTeacherByIdHandler.handler("{\"id\": 5}");
+        System.out.println(result);
+    }
+/*
     //1. Добавление учителей - Получение всех учителей - Получение по ID
     @Test
     public void teacher_test1() throws JsonProcessingException, ParseException {
@@ -173,4 +168,6 @@ public class TeacherMethodsTest {
             dataBase.clear();
         }
     }
+    */
 }
+

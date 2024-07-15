@@ -3,10 +3,14 @@ package org.example.dto_request.lesson.edit;
 import org.example.validators.RequestValidator;
 import org.example.validators.ValidatorDate;
 import org.example.validators.ValidatorNumber;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class EditLessonValidator implements RequestValidator<EditLessonRequest> {
+
     @Override
     public List<String> validate(EditLessonRequest request, List<String> errors) {
 

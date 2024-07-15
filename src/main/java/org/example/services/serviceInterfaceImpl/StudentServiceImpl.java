@@ -11,16 +11,24 @@ import org.example.dto_response.student.GetStudentByIdResponse;
 import org.example.dto_response.student.GetStudentsByGroupResponse;
 import org.example.model.Student;
 import org.example.services.serviceInterface.StudentService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
+@Service("student_service")
 public class StudentServiceImpl implements StudentService {
 
-    private final StudentDAOImpl studentDAO = new StudentDAOImpl();
+    private final StudentDAOImpl studentDAO;
+
+    public StudentServiceImpl(StudentDAOImpl studentDAO) {
+        this.studentDAO = studentDAO;
+    }
 
     @Override
     public GetStudentByIdResponse getStudentById(GetStudentByIdRequest request) {
-        Student student = studentDAO.getStudentById(request.getId());
+        Student student = studentDAO.getStudentById(request.getStudentId());
         return new GetStudentByIdResponse(student.getLastName(), student.getFirstName(), student.getMiddleName(), student.getStatus().name(), student.getGroup().getName());
     }
 
@@ -44,7 +52,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public AddStudentResponse addStudent(AddStudentRequest request) {
-        int result = studentDAO.addStudent(request.getLastName(), request.getFirstName(), request.getMiddleName(), request.getGroup(), request.getStatus());
+        int result = studentDAO.addStudent(request.getLastName(), request.getFirstName(), request.getMiddleName(), request.getGroupId(), request.getStatus());
         return new AddStudentResponse(result);
     }
 

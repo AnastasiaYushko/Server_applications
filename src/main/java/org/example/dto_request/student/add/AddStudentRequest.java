@@ -1,5 +1,12 @@
 package org.example.dto_request.student.add;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.stereotype.Component;
+
+@Setter
+@Getter
+@Component
 public class AddStudentRequest {
     private String lastName;
     private String firstName;
@@ -17,45 +24,5 @@ public class AddStudentRequest {
 
     public AddStudentRequest() {
         super();
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public void setGroup(String groupId) {
-        this.groupId = groupId;
-    }
-
-    public String getMiddleName() {
-        return middleName;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getGroup() {
-        return groupId;
-    }
-
-    public String getStatus() {
-        return status;
     }
 }

@@ -1,5 +1,11 @@
 package org.example.dto_request.lessonVisiting.get.byId;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.stereotype.Component;
 
+@Setter
+@Getter
+@Component
 public class GetLessonVisitingByIdRequest {
     private int lessonVisitingId;
 
@@ -11,11 +17,4 @@ public class GetLessonVisitingByIdRequest {
         super();
     }
 
-    public int getLessonVisitingId() {
-        return lessonVisitingId;
-    }
-
-    public void setLessonVisitingId(int lessonVisitingId) {
-        this.lessonVisitingId = lessonVisitingId;
-    }
 }

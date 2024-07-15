@@ -1,24 +1,24 @@
 package org.example.handler.teacher;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.example.dto_request.teacher.edit.EditTeacherRequest;
 import org.example.handler.IHandler;
 import org.example.network_operations.ResponseEntity;
 import org.example.network_operations.controllers.TeacherController;
+import org.springframework.stereotype.Component;
 
+@Component
 public class EditTeacherHandler implements IHandler {
     @Override
-    public String handler(String jsonRequest) throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
+    public String handler(Object jsonRequest) throws JsonProcessingException {
 
-        EditTeacherRequest editTeacherRequest = objectMapper.readValue(jsonRequest, EditTeacherRequest.class);
+        ResponseEntity<String> editTeacherResponse = TeacherController.editTeacher((EditTeacherRequest) jsonRequest);
 
-        ResponseEntity<String> editTeacherResponse = TeacherController.editTeacher(editTeacherRequest);
-
-        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-
-        return ow.writeValueAsString(editTeacherResponse);
+        Gson gson = new GsonBuilder()
+                .setPrettyPrinting()
+                .create();
+        return gson.toJson(editTeacherResponse);
     }
 }

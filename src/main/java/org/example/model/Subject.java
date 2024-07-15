@@ -1,34 +1,21 @@
 package org.example.model;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.stereotype.Component;
+
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
+@Getter
+@Setter
 public class Subject {
     private int id;
-    @NotNull
     private String name;
 
-    public Subject(int id, @NotNull String name) {
+    public Subject(int id, String name) {
         this.id = id;
         this.name = name;
-    }
-
-    public void setId(int id) {
-        if (id > 0) {
-            this.id = id;
-        }
-    }
-
-    public void setName(@NotNull String name) {
-        this.name = name;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
     }
 
     @Override

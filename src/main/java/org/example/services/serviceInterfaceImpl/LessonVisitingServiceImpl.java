@@ -11,10 +11,18 @@ import org.example.dto_response.lessonVisiting.AddLessonVisitingResponse;
 import org.example.dto_response.lessonVisiting.GetLessonVisitingByIdResponse;
 import org.example.dto_response.lessonVisiting.GetLessonVisitingByLessonIdResponse;
 import org.example.services.serviceInterface.LessonVisitingService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service("lesson_visiting_service")
 public class LessonVisitingServiceImpl implements LessonVisitingService {
 
-    private final LessonVisitingDAOImpl lessonVisitingDAO = new LessonVisitingDAOImpl();
+    private final LessonVisitingDAOImpl lessonVisitingDAO;
+
+    @Autowired
+    public LessonVisitingServiceImpl(LessonVisitingDAOImpl lessonVisitingDAO) {
+        this.lessonVisitingDAO = lessonVisitingDAO;
+    }
 
     @Override
     public AddLessonVisitingResponse addLessonVisiting(AddLessonVisitingRequest request) {
@@ -45,5 +53,4 @@ public class LessonVisitingServiceImpl implements LessonVisitingService {
     public String editLessonVisiting(EditLessonVisitingRequest request){
         return lessonVisitingDAO.EditLessonVisiting(request.getLessonVisitingId(), request.getLessonId(),request.getListStudent());
     }
-
 }

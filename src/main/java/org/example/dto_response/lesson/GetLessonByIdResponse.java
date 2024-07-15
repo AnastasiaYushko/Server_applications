@@ -1,7 +1,14 @@
 package org.example.dto_response.lesson;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.stereotype.Component;
+
 import java.util.Objects;
 
+@Getter
+@Setter
+@Component
 public class GetLessonByIdResponse {
     private String date;
     private int number;
@@ -17,38 +24,6 @@ public class GetLessonByIdResponse {
 
     public GetLessonByIdResponse() {
         super();
-    }
-
-    public int getTeacherId() {
-        return teacherId;
-    }
-
-    public int getNumber() {
-        return number;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public int getNameGroup() {
-        return groupId;
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public void setNameGroup(int groupId) {
-        this.groupId = groupId;
-    }
-
-    public void setTeacherId(int teacherId) {
-        this.teacherId = teacherId;
     }
 
     @Override

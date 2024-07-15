@@ -1,5 +1,12 @@
 package org.example.dto_request.lesson.delete.byGroup;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.stereotype.Component;
+
+@Setter
+@Getter
+@Component
 public class DeleteLessonsByGroupRequest {
     private int groupId;
 
@@ -11,11 +18,4 @@ public class DeleteLessonsByGroupRequest {
         super();
     }
 
-    public void setGroupId(int groupId) {
-        this.groupId = groupId;
-    }
-
-    public int getGroupId() {
-        return groupId;
-    }
 }

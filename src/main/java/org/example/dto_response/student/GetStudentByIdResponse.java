@@ -1,7 +1,14 @@
 package org.example.dto_response.student;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.stereotype.Component;
+
 import java.util.Objects;
 
+@Setter
+@Getter
+@Component
 public class GetStudentByIdResponse {
     private String lastName;
     private String firstName;
@@ -19,46 +26,6 @@ public class GetStudentByIdResponse {
 
     public GetStudentByIdResponse() {
         super();
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getMiddleName() {
-        return middleName;
-    }
-
-    public String getGroup() {
-        return group;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public void setGroup(String group) {
-        this.group = group;
     }
 
     @Override

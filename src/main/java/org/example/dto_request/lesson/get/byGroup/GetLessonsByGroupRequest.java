@@ -1,5 +1,12 @@
 package org.example.dto_request.lesson.get.byGroup;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.stereotype.Component;
+
+@Setter
+@Getter
+@Component
 public class GetLessonsByGroupRequest {
     private String startDate;
     private String endDate;
@@ -15,27 +22,4 @@ public class GetLessonsByGroupRequest {
         super();
     }
 
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
-    }
-
-    public void setGroupId(int groupId) {
-        this.groupId = groupId;
-    }
-
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
-    }
-
-    public int getGroupId() {
-        return groupId;
-    }
-
-    public String getEndDate() {
-        return endDate;
-    }
-
-    public String getStartDate() {
-        return startDate;
-    }
 }

@@ -1,54 +1,25 @@
 package org.example.model;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 
+@Getter
+@Setter
 public class Teacher {
-    private int id;
-    @NotNull
-    private String firstName;
-    @NotNull
-    private String lastName;
-    private String middleName;
+    private int id = 0;
+    private String firstName = "";
+    private String lastName = "";
+    private String middleName = "";
 
-    public Teacher(int id, @NotNull String firstName, String middleName, @NotNull String lastName) {
+    public Teacher(int id,String firstName, String middleName,  String lastName) {
         this.id = id;
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public @NotNull String getLastName() {
-        return lastName;
-    }
-
-    public @NotNull String getFirstName() {
-        return firstName;
-    }
-
-    public String getMiddleName() {
-        return middleName;
-    }
-
-    public void setLastName(@NotNull String lastName) {
-        this.lastName = lastName;
-    }
-
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
-    }
-
-    public void setFirstName(@NotNull String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     @Override

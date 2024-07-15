@@ -5,6 +5,7 @@ import org.example.model.Lesson;
 import java.text.ParseException;
 import java.util.ArrayList;
 
+
 public interface LessonDAO {
 
     Lesson getLessonById(int id);
@@ -13,7 +14,7 @@ public interface LessonDAO {
 
     ArrayList<Lesson> getLessonsByTeacher(String startDate, String endDate, int teacherId) throws ParseException;
 
-    String EditLesson(int id, String date, int number, int teacherId, int groupId) throws ParseException;
+    String EditLesson(int id, String date, int number, int teacherId, int groupId,int subjectId) throws ParseException;
 
     String DeleteLessonsByGroup(int groupId);
 
@@ -21,5 +22,5 @@ public interface LessonDAO {
 
     String DeleteLessonsByTeacher(int teacherId);
 
-    int AddLesson(String date, int number, int teacherId, int groupId) throws ParseException;
+    int AddLesson(String date, int number, int teacherId, int subjectId, int groupId) throws ParseException;
 }

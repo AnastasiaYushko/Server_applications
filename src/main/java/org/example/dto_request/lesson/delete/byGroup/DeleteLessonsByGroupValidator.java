@@ -2,10 +2,14 @@ package org.example.dto_request.lesson.delete.byGroup;
 
 import org.example.validators.RequestValidator;
 import org.example.validators.ValidatorNumber;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class DeleteLessonsByGroupValidator implements RequestValidator<DeleteLessonsByGroupRequest> {
+
     @Override
     public List<String> validate(DeleteLessonsByGroupRequest request, List<String> errors) {
 

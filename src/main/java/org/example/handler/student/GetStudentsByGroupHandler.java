@@ -1,25 +1,25 @@
 package org.example.handler.student;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.example.dto_request.student.get.byGroup.GetStudentsByGroupRequest;
 import org.example.dto_response.student.GetStudentsByGroupResponse;
 import org.example.handler.IHandler;
 import org.example.network_operations.ResponseEntity;
 import org.example.network_operations.controllers.StudentController;
+import org.springframework.stereotype.Component;
 
+@Component
 public class GetStudentsByGroupHandler implements IHandler {
     @Override
-    public String handler(String jsonRequest) throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
+    public String handler(Object jsonRequest) throws JsonProcessingException {
 
-        GetStudentsByGroupRequest getStudentsByGroupRequest = objectMapper.readValue(jsonRequest, GetStudentsByGroupRequest.class);
+        ResponseEntity<GetStudentsByGroupResponse> getStudentsByGroupResponse = StudentController.getStudentByGroup((GetStudentsByGroupRequest) jsonRequest);
 
-        ResponseEntity<GetStudentsByGroupResponse> getStudentsByGroupResponse = StudentController.getStudentByGroup(getStudentsByGroupRequest);
-
-        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-
-        return ow.writeValueAsString(getStudentsByGroupResponse);
+        Gson gson = new GsonBuilder()
+                .setPrettyPrinting()
+                .create();
+        return gson.toJson(getStudentsByGroupResponse);
     }
 }

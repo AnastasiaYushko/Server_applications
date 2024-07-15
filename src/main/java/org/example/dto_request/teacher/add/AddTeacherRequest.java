@@ -1,5 +1,12 @@
 package org.example.dto_request.teacher.add;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.stereotype.Component;
+
+@Setter
+@Getter
+@Component
 public class AddTeacherRequest {
     private String lastName;
     private String firstName;
@@ -15,27 +22,4 @@ public class AddTeacherRequest {
         super();
     }
 
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getMiddleName() {
-        return middleName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
 }

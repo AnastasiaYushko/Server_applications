@@ -1,12 +1,17 @@
 package org.example.dto_request.lesson.get.byId;
 
-import javax.validation.constraints.Positive;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.stereotype.Component;
 
+
+@Setter
+@Getter
+@Component
 public class GetLessonByIdRequest {
-    @Positive
     private int lessonId;
 
-    public GetLessonByIdRequest(@Positive int lessonId) {
+    public GetLessonByIdRequest(int lessonId) {
         this.lessonId = lessonId;
     }
 
@@ -14,11 +19,4 @@ public class GetLessonByIdRequest {
         super();
     }
 
-    public void setLessonId(@Positive int lessonId) {
-        this.lessonId = lessonId;
-    }
-
-    public int getLessonId() {
-        return lessonId;
-    }
 }

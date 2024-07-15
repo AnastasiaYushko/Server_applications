@@ -11,12 +11,18 @@ import org.example.dto_response.studentGroup.GetStudentGroupByIdResponse;
 import org.example.dto_response.studentGroup.GetStudentGroupsResponse;
 import org.example.model.StudentGroup;
 import org.example.services.serviceInterface.GroupStudentsService;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
+@Service("group_student_service")
 public class GroupStudentServiceImpl implements GroupStudentsService {
 
-    private final StudentGroupDAOImpl studentGroupDAO = new StudentGroupDAOImpl();
+    private final StudentGroupDAOImpl studentGroupDAO;
+
+    public GroupStudentServiceImpl(StudentGroupDAOImpl studentGroupDAO){
+        this.studentGroupDAO = studentGroupDAO;
+    }
 
     @Override
     public GetStudentGroupByIdResponse getStudentGroupById(GetStudentGroupByIdRequest request) throws JsonProcessingException {

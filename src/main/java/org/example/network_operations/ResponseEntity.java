@@ -1,5 +1,10 @@
 package org.example.network_operations;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Setter
+@Getter
 public class ResponseEntity<T> {
     private T responseData;
     private int responseStatus;
@@ -13,20 +18,12 @@ public class ResponseEntity<T> {
         super();
     }
 
-    public T getResponseData() {
-        return responseData;
-    }
-
-    public void setResponseData(T responseData) {
-        this.responseData = responseData;
-    }
-
-    public int getResponseStatus() {
-        return responseStatus;
-    }
-
-    public void setStatus(int responseStatus) {
-        this.responseStatus = responseStatus;
+    @Override
+    public String toString() {
+        return "ResponseEntity{" +
+                "responseData=" + responseData +
+                ", responseStatus=" + responseStatus +
+                '}';
     }
 }
 

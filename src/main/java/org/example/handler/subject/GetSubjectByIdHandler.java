@@ -1,25 +1,25 @@
 package org.example.handler.subject;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.example.dto_request.subject.get.GetSubjectByIdRequest;
 import org.example.dto_response.subject.GetSubjectByIdResponse;
 import org.example.handler.IHandler;
 import org.example.network_operations.ResponseEntity;
 import org.example.network_operations.controllers.SubjectController;
+import org.springframework.stereotype.Component;
 
+@Component
 public class GetSubjectByIdHandler implements IHandler {
     @Override
-    public String handler(String jsonRequest) throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
+    public String handler(Object jsonRequest) throws JsonProcessingException {
 
-        GetSubjectByIdRequest getSubjectByIdRequest = objectMapper.readValue(jsonRequest, GetSubjectByIdRequest.class);
+        ResponseEntity<GetSubjectByIdResponse> getSubjectResponse = SubjectController.getSubjectById((GetSubjectByIdRequest) jsonRequest);
 
-        ResponseEntity<GetSubjectByIdResponse> getSubjectResponse = SubjectController.getSubjectById(getSubjectByIdRequest);
-
-        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-
-        return ow.writeValueAsString(getSubjectResponse);
+        Gson gson = new GsonBuilder()
+                .setPrettyPrinting()
+                .create();
+        return gson.toJson(getSubjectResponse);
     }
 }

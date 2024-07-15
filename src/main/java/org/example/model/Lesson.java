@@ -1,67 +1,42 @@
 package org.example.model;
 
-import org.jetbrains.annotations.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 
-import javax.validation.constraints.Positive;
 import java.util.Date;
 import java.util.Objects;
 
+// Предмета нет
+@Getter
+@Setter
 public class Lesson {
     private int id;
     private Date date;
-    @Positive
     private int number;
-    @NotNull
+    private Subject subject;
     private Teacher teacher;
-    @NotNull
     private StudentGroup group;
 
-    public Lesson(int id, Date date, int number, @NotNull Teacher teacher, @NotNull StudentGroup group) {
+    public Lesson(int id, Date date, int number, Teacher teacher,Subject subject, StudentGroup group) {
         this.id = id;
         this.date = date;
         this.number = number;
         this.teacher = teacher;
+        this.subject = subject;
         this.group = group;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Lesson lesson = (Lesson) o;
+        return id == lesson.id && number == lesson.number && Objects.equals(date, lesson.date) && Objects.equals(subject, lesson.subject) && Objects.equals(teacher, lesson.teacher) && Objects.equals(group, lesson.group);
     }
 
-    public void setGroup(@NotNull StudentGroup group) {
-        this.group = group;
-    }
-
-    public void setDate(Date date){
-       this.date = date;
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
-    }
-
-    public void setTeacher(@NotNull Teacher teacher) {
-        this.teacher = teacher;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public int getNumber() {
-        return number;
-    }
-
-    public @NotNull StudentGroup getGroup() {
-        return group;
-    }
-
-    public @NotNull Teacher getTeacher() {
-        return teacher;
-    }
-
-    public Date getDate() {
-        return date;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, date, number, subject, teacher, group);
     }
 
     @Override
@@ -70,20 +45,9 @@ public class Lesson {
                 "id=" + id +
                 ", date=" + date +
                 ", number=" + number +
+                ", subject=" + subject +
                 ", teacher=" + teacher +
                 ", group=" + group +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Lesson lesson)) return false;
-        return getId() == lesson.getId() && getNumber() == lesson.getNumber() && getDate().equals(lesson.getDate()) && getTeacher().equals(lesson.getTeacher()) && getGroup().equals(lesson.getGroup());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId(), getDate(), getNumber(), getTeacher(), getGroup());
     }
 }

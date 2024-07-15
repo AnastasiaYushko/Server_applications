@@ -1,8 +1,15 @@
 package org.example.dto_response.subject;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
+@Setter
+@Getter
+@Component
 public class GetSubjectsResponse {
     private ArrayList<String> listSubjects;
 
@@ -12,14 +19,6 @@ public class GetSubjectsResponse {
 
     public GetSubjectsResponse() {
         super();
-    }
-
-    public ArrayList<String> getListSubjects() {
-        return listSubjects;
-    }
-
-    public void setListSubjects(ArrayList<String> listSubjects) {
-        this.listSubjects = listSubjects;
     }
 
     @Override

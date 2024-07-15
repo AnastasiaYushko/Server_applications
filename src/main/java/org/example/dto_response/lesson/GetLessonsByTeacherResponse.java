@@ -1,8 +1,16 @@
 package org.example.dto_response.lesson;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
+@Setter
+@Getter
+@Component
 public class GetLessonsByTeacherResponse {
     private ArrayList<String> listLessons;
 
@@ -12,14 +20,6 @@ public class GetLessonsByTeacherResponse {
 
     public GetLessonsByTeacherResponse() {
         super();
-    }
-
-    public ArrayList<String> getListLessons() {
-        return listLessons;
-    }
-
-    public void setListLessons(ArrayList<String> listLessons) {
-        this.listLessons = new ArrayList<>(listLessons);
     }
 
     @Override

@@ -1,5 +1,12 @@
 package org.example.dto_request.subject.get;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.stereotype.Component;
+
+@Setter
+@Getter
+@Component
 public class GetSubjectByIdRequest {
     private int id;
 
@@ -11,11 +18,4 @@ public class GetSubjectByIdRequest {
         super();
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getId() {
-        return id;
-    }
 }

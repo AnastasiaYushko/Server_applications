@@ -1,5 +1,12 @@
 package org.example.dto_request.studentGroup.delete;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.stereotype.Component;
+
+@Setter
+@Getter
+@Component
 public class DeleteStudentGroupRequest {
     private int id;
 
@@ -7,15 +14,6 @@ public class DeleteStudentGroupRequest {
         this.id = id;
     }
 
-    public DeleteStudentGroupRequest() {
-        super();
-    }
+    public DeleteStudentGroupRequest(){}
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getId() {
-        return id;
-    }
 }
