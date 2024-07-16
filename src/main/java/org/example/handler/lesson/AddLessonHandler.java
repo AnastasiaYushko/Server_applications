@@ -10,8 +10,6 @@ import org.example.network_operations.ResponseEntity;
 import org.example.network_operations.controllers.LessonController;
 import org.springframework.stereotype.Component;
 
-import java.text.ParseException;
-
 @Component
 public class AddLessonHandler implements IHandler {
     @Override

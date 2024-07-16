@@ -16,13 +16,11 @@ import org.example.dto_response.student.AddStudentResponse;
 import org.example.dto_response.student.GetStudentByIdResponse;
 import org.example.dto_response.student.GetStudentsByGroupResponse;
 import org.example.network_operations.ResponseEntity;
-import org.example.services.serviceInterfaceImpl.LessonServiceImpl;
 import org.example.services.serviceInterfaceImpl.StudentServiceImpl;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 @Component
 public class StudentController {
@@ -37,7 +35,7 @@ public class StudentController {
             throw new IllegalArgumentException(errors.toString());
         }
 
-        StudentServiceImpl studentService = app.getContext().getBean("student_service",StudentServiceImpl.class);
+        StudentServiceImpl studentService = app.getContext().getBean("student_service", StudentServiceImpl.class);
         GetStudentByIdResponse studentResponse = studentService.getStudentById(request);
 
         return new ResponseEntity<>(studentResponse, HttpStatus.SC_ACCEPTED);
@@ -53,7 +51,7 @@ public class StudentController {
             throw new IllegalArgumentException(errors.toString());
         }
 
-        StudentServiceImpl studentService = app.getContext().getBean("student_service",StudentServiceImpl.class);
+        StudentServiceImpl studentService = app.getContext().getBean("student_service", StudentServiceImpl.class);
 
         GetStudentsByGroupResponse getStudentsByGroupResponse = studentService.getStudentsByGroup(request);
 
@@ -69,7 +67,7 @@ public class StudentController {
             throw new IllegalArgumentException(errors.toString());
         }
 
-        StudentServiceImpl studentService = app.getContext().getBean("student_service",StudentServiceImpl.class);
+        StudentServiceImpl studentService = app.getContext().getBean("student_service", StudentServiceImpl.class);
 
         String editStudentResponse = studentService.editStudent(request);
 
@@ -86,14 +84,14 @@ public class StudentController {
             throw new IllegalArgumentException(errors.toString());
         }
 
-        StudentServiceImpl studentService = app.getContext().getBean("student_service",StudentServiceImpl.class);
+        StudentServiceImpl studentService = app.getContext().getBean("student_service", StudentServiceImpl.class);
 
         AddStudentResponse addStudentResponse = studentService.addStudent(request);
 
         return new ResponseEntity<>(addStudentResponse, HttpStatus.SC_OK);
     }
 
-    public static ResponseEntity<String> deleteStudent(DeleteStudentRequest request){
+    public static ResponseEntity<String> deleteStudent(DeleteStudentRequest request) {
 
         DeleteStudentValidator validator = new DeleteStudentValidator();
         List<String> errors = new ArrayList<>();
@@ -103,7 +101,7 @@ public class StudentController {
             throw new IllegalArgumentException(errors.toString());
         }
 
-        StudentServiceImpl studentService = app.getContext().getBean("student_service",StudentServiceImpl.class);
+        StudentServiceImpl studentService = app.getContext().getBean("student_service", StudentServiceImpl.class);
 
         String data = studentService.deleteStudent(request);
         return new ResponseEntity<>(data, HttpStatus.SC_OK);

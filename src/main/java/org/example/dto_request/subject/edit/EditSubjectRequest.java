@@ -17,7 +17,5 @@ public class EditSubjectRequest {
     }
 
     public EditSubjectRequest() {
-        super();
     }
-
 }

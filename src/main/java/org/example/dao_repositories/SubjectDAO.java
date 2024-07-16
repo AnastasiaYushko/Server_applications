@@ -1,10 +1,8 @@
 package org.example.dao_repositories;
 
 import org.example.model.Subject;
-import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
-
 
 public interface SubjectDAO {
 

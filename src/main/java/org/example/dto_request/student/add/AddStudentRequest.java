@@ -23,6 +23,5 @@ public class AddStudentRequest {
     }
 
     public AddStudentRequest() {
-        super();
     }
 }

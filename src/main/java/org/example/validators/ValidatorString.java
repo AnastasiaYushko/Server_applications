@@ -4,7 +4,7 @@ import java.util.List;
 
 public class ValidatorString {
     public static void validateEmpty(String str, List<String> error, String fieldName) {
-        if (str!= null && str.isEmpty()) {
+        if (str != null && str.isEmpty()) {
             error.add(fieldName + " is empty");
         }
     }

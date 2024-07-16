@@ -24,7 +24,6 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Component
 public class LessonVisitingController {
     public static ResponseEntity<AddLessonVisitingResponse> addLessonVisiting(AddLessonVisitingRequest request) {
@@ -37,7 +36,7 @@ public class LessonVisitingController {
             throw new IllegalArgumentException(errors.toString());
         }
 
-        LessonVisitingServiceImpl lessonVisitingService = app.getContext().getBean("lesson_visiting_service",LessonVisitingServiceImpl.class);
+        LessonVisitingServiceImpl lessonVisitingService = app.getContext().getBean("lesson_visiting_service", LessonVisitingServiceImpl.class);
 
         AddLessonVisitingResponse dataResponse = lessonVisitingService.addLessonVisiting(request);
 
@@ -54,14 +53,14 @@ public class LessonVisitingController {
             throw new IllegalArgumentException(errors.toString());
         }
 
-        LessonVisitingServiceImpl lessonVisitingService = app.getContext().getBean("lesson_visiting_service",LessonVisitingServiceImpl.class);
+        LessonVisitingServiceImpl lessonVisitingService = app.getContext().getBean("lesson_visiting_service", LessonVisitingServiceImpl.class);
 
         String dataResponse = lessonVisitingService.deleteLessonVisitingById(request);
 
         return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
     }
 
-    public static ResponseEntity<String> deleteLessonVisitingByLessonId(DeleteLessonVisitingByLessonIdRequest request){
+    public static ResponseEntity<String> deleteLessonVisitingByLessonId(DeleteLessonVisitingByLessonIdRequest request) {
         DeleteLessonVisitingByLessonIdValidator validator = new DeleteLessonVisitingByLessonIdValidator();
         List<String> errors = new ArrayList<>();
         validator.validate(request, errors);
@@ -70,12 +69,13 @@ public class LessonVisitingController {
             throw new IllegalArgumentException(errors.toString());
         }
 
-        LessonVisitingServiceImpl lessonVisitingService = app.getContext().getBean("lesson_visiting_service",LessonVisitingServiceImpl.class);
+        LessonVisitingServiceImpl lessonVisitingService = app.getContext().getBean("lesson_visiting_service", LessonVisitingServiceImpl.class);
 
         String dataResponse = lessonVisitingService.deleteLessonVisitingByLessonId(request);
 
         return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
     }
+
     public static ResponseEntity<GetLessonVisitingByIdResponse> getLessonVisitingById(GetLessonVisitingByIdRequest request) {
 
         GetLessonVisitingByIdValidator validator = new GetLessonVisitingByIdValidator();
@@ -86,13 +86,14 @@ public class LessonVisitingController {
             throw new IllegalArgumentException(errors.toString());
         }
 
-        LessonVisitingServiceImpl lessonVisitingService = app.getContext().getBean("lesson_visiting_service",LessonVisitingServiceImpl.class);
+        LessonVisitingServiceImpl lessonVisitingService = app.getContext().getBean("lesson_visiting_service", LessonVisitingServiceImpl.class);
 
         GetLessonVisitingByIdResponse dataResponse = lessonVisitingService.getLessonVisitingById(request);
 
         return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
     }
-    public static ResponseEntity<GetLessonVisitingByLessonIdResponse> getLessonVisitingByLessonId(GetLessonVisitingByLessonIdRequest request){
+
+    public static ResponseEntity<GetLessonVisitingByLessonIdResponse> getLessonVisitingByLessonId(GetLessonVisitingByLessonIdRequest request) {
         GetLessonVisitingByLessonIdValidator validator = new GetLessonVisitingByLessonIdValidator();
         List<String> errors = new ArrayList<>();
         validator.validate(request, errors);
@@ -101,14 +102,14 @@ public class LessonVisitingController {
             throw new IllegalArgumentException(errors.toString());
         }
 
-        LessonVisitingServiceImpl lessonVisitingService = app.getContext().getBean("lesson_visiting_service",LessonVisitingServiceImpl.class);
+        LessonVisitingServiceImpl lessonVisitingService = app.getContext().getBean("lesson_visiting_service", LessonVisitingServiceImpl.class);
 
         GetLessonVisitingByLessonIdResponse dataResponse = lessonVisitingService.getLessonVisitingByLessonId(request);
 
         return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
     }
 
-    public static ResponseEntity<String> editLessonVisiting(EditLessonVisitingRequest request){
+    public static ResponseEntity<String> editLessonVisiting(EditLessonVisitingRequest request) {
         EditLessonVisitingValidator validator = new EditLessonVisitingValidator();
         List<String> errors = new ArrayList<>();
         validator.validate(request, errors);
@@ -117,7 +118,7 @@ public class LessonVisitingController {
             throw new IllegalArgumentException(errors.toString());
         }
 
-        LessonVisitingServiceImpl lessonVisitingService = app.getContext().getBean("lesson_visiting_service",LessonVisitingServiceImpl.class);
+        LessonVisitingServiceImpl lessonVisitingService = app.getContext().getBean("lesson_visiting_service", LessonVisitingServiceImpl.class);
 
         String dataResponse = lessonVisitingService.editLessonVisiting(request);
 

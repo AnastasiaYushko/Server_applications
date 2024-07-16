@@ -1,7 +1,6 @@
 package org.example.dao_repositories;
 
 import org.example.model.LessonVisiting;
-import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 
@@ -11,7 +10,7 @@ public interface LessonVisitingDAO {
 
     LessonVisiting GetLessonVisitingById(int lessonVisitingId);
 
-    int AddLessonVisiting(int lessonId, ArrayList<String> students) ;
+    int AddLessonVisiting(int lessonId, ArrayList<String> students);
 
     String DeleteLessonVisitingById(int lessonVisitingId);
 

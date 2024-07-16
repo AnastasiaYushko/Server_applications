@@ -4,11 +4,11 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 
-import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 @Getter
 @Setter
+@Component("subject")
 public class Subject {
     private int id;
     private String name;
@@ -16,6 +16,9 @@ public class Subject {
     public Subject(int id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public Subject() {
     }
 
     @Override
@@ -29,12 +32,13 @@ public class Subject {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Subject that)) return false;
-        return getId() == that.getId() && getName().equals(that.getName());
+        if (o == null || getClass() != o.getClass()) return false;
+        Subject subject = (Subject) o;
+        return id == subject.id && Objects.equals(name, subject.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName());
+        return Objects.hash(id, name);
     }
 }

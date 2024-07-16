@@ -3,7 +3,6 @@ package org.example.dto_request.subject.edit;
 import org.example.validators.RequestValidator;
 import org.example.validators.ValidatorNumber;
 import org.example.validators.ValidatorString;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

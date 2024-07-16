@@ -3,11 +3,13 @@ package org.example.model;
 import lombok.Getter;
 import lombok.Setter;
 import org.example.enums.StatusStudent;
+import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 
 @Getter
 @Setter
+@Component("student")
 public class Student {
 
     private int id;
@@ -17,13 +19,16 @@ public class Student {
     private StatusStudent status;
     private StudentGroup group;
 
-    public Student(int id, String lastName, String firstName, String middleName,  StatusStudent status,  StudentGroup group) {
+    public Student(int id, String lastName, String firstName, String middleName, StatusStudent status, StudentGroup group) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;
         this.group = group;
         this.status = status;
+    }
+
+    public Student() {
     }
 
     @Override
@@ -41,12 +46,13 @@ public class Student {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Student student)) return false;
-        return getId() == student.getId() && getLastName().equals(student.getLastName()) && getFirstName().equals(student.getFirstName()) && Objects.equals(getMiddleName(), student.getMiddleName()) && getStatus() == student.getStatus() && getGroup().equals(student.getGroup());
+        if (o == null || getClass() != o.getClass()) return false;
+        Student student = (Student) o;
+        return id == student.id && Objects.equals(lastName, student.lastName) && Objects.equals(firstName, student.firstName) && Objects.equals(middleName, student.middleName) && status == student.status && Objects.equals(group, student.group);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getLastName(), getFirstName(), getMiddleName(), getStatus(), getGroup());
+        return Objects.hash(id, lastName, firstName, middleName, status, group);
     }
 }

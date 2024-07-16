@@ -15,7 +15,5 @@ public class DeleteTeacherRequest {
     }
 
     public DeleteTeacherRequest() {
-        super();
     }
-
 }

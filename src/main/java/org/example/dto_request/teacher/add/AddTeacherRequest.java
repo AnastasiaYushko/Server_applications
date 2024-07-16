@@ -19,7 +19,5 @@ public class AddTeacherRequest {
     }
 
     public AddTeacherRequest() {
-        super();
     }
-
 }

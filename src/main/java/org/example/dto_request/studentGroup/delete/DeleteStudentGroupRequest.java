@@ -14,6 +14,6 @@ public class DeleteStudentGroupRequest {
         this.id = id;
     }
 
-    public DeleteStudentGroupRequest(){}
-
+    public DeleteStudentGroupRequest() {
+    }
 }

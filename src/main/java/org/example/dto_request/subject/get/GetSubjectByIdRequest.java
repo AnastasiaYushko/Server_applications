@@ -15,7 +15,5 @@ public class GetSubjectByIdRequest {
     }
 
     public GetSubjectByIdRequest() {
-        super();
     }
-
 }

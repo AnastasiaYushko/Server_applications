@@ -18,5 +18,4 @@ public class EditStudentGroupRequest {
 
     public EditStudentGroupRequest() {
     }
-
 }

@@ -14,7 +14,6 @@ import org.example.dto_response.subject.AddSubjectResponse;
 import org.example.dto_response.subject.GetSubjectByIdResponse;
 import org.example.dto_response.subject.GetSubjectsResponse;
 import org.example.network_operations.ResponseEntity;
-import org.example.services.serviceInterfaceImpl.LessonServiceImpl;
 import org.example.services.serviceInterfaceImpl.SubjectServiceImpl;
 import org.springframework.stereotype.Component;
 
@@ -33,7 +32,7 @@ public class SubjectController {
             throw new IllegalArgumentException(errors.toString());
         }
 
-        SubjectServiceImpl subjectService =  app.getContext().getBean("subject_service",SubjectServiceImpl.class);
+        SubjectServiceImpl subjectService = app.getContext().getBean("subject_service", SubjectServiceImpl.class);
 
         AddSubjectResponse addSubjectResponse = subjectService.addSubject(request);
 
@@ -49,7 +48,7 @@ public class SubjectController {
             throw new IllegalArgumentException(errors.toString());
         }
 
-        SubjectServiceImpl subjectService =  app.getContext().getBean("subject_service",SubjectServiceImpl.class);
+        SubjectServiceImpl subjectService = app.getContext().getBean("subject_service", SubjectServiceImpl.class);
 
         String editSubjectResponse = subjectService.editSubject(request);
         return new ResponseEntity<>(editSubjectResponse, HttpStatus.SC_CREATED);
@@ -64,7 +63,7 @@ public class SubjectController {
             throw new IllegalArgumentException(errors.toString());
         }
 
-        SubjectServiceImpl subjectService =  app.getContext().getBean("subject_service",SubjectServiceImpl.class);
+        SubjectServiceImpl subjectService = app.getContext().getBean("subject_service", SubjectServiceImpl.class);
 
         GetSubjectByIdResponse getSubjectsResponse = subjectService.getSubjectById(request);
         return new ResponseEntity<>(getSubjectsResponse, HttpStatus.SC_OK);
@@ -79,7 +78,7 @@ public class SubjectController {
             throw new IllegalArgumentException(errors.toString());
         }
 
-        SubjectServiceImpl subjectService =  app.getContext().getBean("subject_service",SubjectServiceImpl.class);
+        SubjectServiceImpl subjectService = app.getContext().getBean("subject_service", SubjectServiceImpl.class);
 
         String dataResponse = subjectService.deleteSubject(request);
         return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
@@ -87,7 +86,7 @@ public class SubjectController {
 
     public static ResponseEntity<GetSubjectsResponse> getSubjects() {
 
-        SubjectServiceImpl subjectService =  app.getContext().getBean("subject_service",SubjectServiceImpl.class);
+        SubjectServiceImpl subjectService = app.getContext().getBean("subject_service", SubjectServiceImpl.class);
 
         GetSubjectsResponse dataResponse = subjectService.getSubjects();
         return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 @Getter
 @Component
 public class DeleteLessonsByTeacherRequest {
-
     private int teacherId;
 
     public DeleteLessonsByTeacherRequest(int teacherId) {
@@ -16,6 +15,5 @@ public class DeleteLessonsByTeacherRequest {
     }
 
     public DeleteLessonsByTeacherRequest() {
-        super();
     }
 }

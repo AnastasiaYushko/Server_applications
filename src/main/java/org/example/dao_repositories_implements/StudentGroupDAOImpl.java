@@ -8,20 +8,22 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 
+import static java.util.Objects.isNull;
+
 @Repository("student_group_dao_impl")
 public class StudentGroupDAOImpl implements StudentGroupDAO {
 
     @Override
     public ArrayList<StudentGroup> getStudentGroups() {
-        DataBase dataBase =  app.getContext().getBean("data_base",DataBase.class);
+        DataBase dataBase = app.getContext().getBean("data_base", DataBase.class);
         return dataBase.getStudentGroups();
     }
 
     @Override
     public StudentGroup getStudentGroupById(int id) {
-        DataBase dataBase =  app.getContext().getBean("data_base",DataBase.class);
+        DataBase dataBase = app.getContext().getBean("data_base", DataBase.class);
         StudentGroup group = dataBase.getStudentGroupById(id);
-         if (group == null){
+        if (isNull(group)) {
             throw new NullPointerException("Такой группы нет в системе");
         }
         return group;
@@ -29,17 +31,21 @@ public class StudentGroupDAOImpl implements StudentGroupDAO {
 
     @Override
     public int addStudentGroup(String name) {
-        DataBase dataBase =  app.getContext().getBean("data_base",DataBase.class);
-        StudentGroup group = new StudentGroup(0, name);
+        DataBase dataBase = app.getContext().getBean("data_base", DataBase.class);
+        StudentGroup group = app.getContext().getBean("studentGroup", StudentGroup.class);
+        group.setName(name);
         return dataBase.addStudentGroup(group);
     }
 
     @Override
     public String editStudentGroup(int id, String name) {
-        DataBase dataBase =  app.getContext().getBean("data_base",DataBase.class);
+        DataBase dataBase = app.getContext().getBean("data_base", DataBase.class);
         StudentGroup group = dataBase.getStudentGroupById(id);
-        if (group != null) {
-            dataBase.editStudentGroup(new StudentGroup(id, name));
+        if (!isNull(group)) {
+            StudentGroup newDataGroup = app.getContext().getBean("studentGroup", StudentGroup.class);
+            newDataGroup.setName(name);
+            newDataGroup.setId(id);
+            dataBase.editStudentGroup(newDataGroup);
             return "Группа изменена";
         } else {
             throw new NullPointerException("Такой группы нет в системе");
@@ -48,9 +54,9 @@ public class StudentGroupDAOImpl implements StudentGroupDAO {
 
     @Override
     public String deleteStudentGroup(int id) {
-        DataBase dataBase =  app.getContext().getBean("data_base",DataBase.class);
+        DataBase dataBase = app.getContext().getBean("data_base", DataBase.class);
         StudentGroup group = dataBase.getStudentGroupById(id);
-        if (group != null) {
+        if (!isNull(group)) {
             dataBase.deleteStudentGroup(id);
             return "Группа удалена";
         } else {

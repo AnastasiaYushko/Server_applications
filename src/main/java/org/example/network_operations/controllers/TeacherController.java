@@ -24,29 +24,32 @@ public class TeacherController {
 
     static ApplicationContext context = app.getContext();
 
-    public static ResponseEntity<String> deleteTeacher(DeleteTeacherRequest request) {
+    public static ResponseEntity<?> deleteTeacher(DeleteTeacherRequest request) {
         DeleteTeacherValidator validator = new DeleteTeacherValidator();
         List<String> errors = new ArrayList<>();
         validator.validate(request, errors);
 
         if (!errors.isEmpty()) {
-            throw new IllegalArgumentException(errors.toString());
+            return new ResponseEntity<>(errors, HttpStatus.SC_BAD_REQUEST);
         }
 
         TeacherServiceImpl teacherService = app.getContext().getBean("teacher_service", TeacherServiceImpl.class);
 
-        String dataResponse = teacherService.deleteTeacher(request);
-
-        return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
+        try {
+            String dataResponse = teacherService.deleteTeacher(request);
+            return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
+        } catch (NullPointerException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
+        }
     }
 
-    public static ResponseEntity<AddTeacherResponse> addTeacher(AddTeacherRequest request) {
+    public static ResponseEntity<?> addTeacher(AddTeacherRequest request) {
         AddTeacherValidator validator = new AddTeacherValidator();
         List<String> errors = new ArrayList<>();
         validator.validate(request, errors);
 
         if (!errors.isEmpty()) {
-            throw new IllegalArgumentException(errors.toString());
+            return new ResponseEntity<>(errors, HttpStatus.SC_BAD_REQUEST);
         }
 
         TeacherServiceImpl teacherService = app.getContext().getBean("teacher_service", TeacherServiceImpl.class);
@@ -72,13 +75,13 @@ public class TeacherController {
         return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
     }
 
-    public static ResponseEntity<GetTeacherByIdResponse> getTeacherById(GetTeacherByIdRequest request) {
+    public static ResponseEntity<?> getTeacherById(GetTeacherByIdRequest request) {
         GetTeacherByIdValidator validator = new GetTeacherByIdValidator();
         List<String> errors = new ArrayList<>();
         validator.validate(request, errors);
 
         if (!errors.isEmpty()) {
-            return new ResponseEntity<>(null, HttpStatus.SC_BAD_GATEWAY);
+            return new ResponseEntity<>(errors, HttpStatus.SC_BAD_REQUEST);
         }
 
         TeacherServiceImpl teacherService = context.getBean("teacher_service", TeacherServiceImpl.class);
@@ -87,7 +90,7 @@ public class TeacherController {
         try {
             dataResponse = teacherService.getTeacherById(request);
         } catch (NullPointerException e) {
-            return new ResponseEntity<>(null, HttpStatus.SC_NOT_FOUND);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
         }
 
         return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);

@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 
-import javax.validation.constraints.Positive;
 import java.util.ArrayList;
 
 @Getter
@@ -15,14 +14,12 @@ public class EditLessonVisitingRequest {
     private int lessonId;
     private ArrayList<String> listStudent;
 
-    public EditLessonVisitingRequest(int lessonVisitingId,int lessonId, ArrayList<String> listStudent) {
+    public EditLessonVisitingRequest(int lessonVisitingId, int lessonId, ArrayList<String> listStudent) {
         this.lessonId = lessonId;
         this.listStudent = new ArrayList<>(listStudent);
         this.lessonVisitingId = lessonVisitingId;
     }
 
     public EditLessonVisitingRequest() {
-        super();
     }
-
 }

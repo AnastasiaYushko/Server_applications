@@ -17,7 +17,6 @@ public class GetLessonVisitingByLessonIdResponse {
     }
 
     public GetLessonVisitingByLessonIdResponse() {
-        super();
     }
 
     @Override

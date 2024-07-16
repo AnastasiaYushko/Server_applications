@@ -5,6 +5,7 @@ import lombok.Setter;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 @Setter
 @Getter
@@ -17,6 +18,18 @@ public class GetTeachersResponse {
     }
 
     public GetTeachersResponse() {
-        super();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        GetTeachersResponse that = (GetTeachersResponse) o;
+        return Objects.equals(listTeachers, that.listTeachers);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(listTeachers);
     }
 }

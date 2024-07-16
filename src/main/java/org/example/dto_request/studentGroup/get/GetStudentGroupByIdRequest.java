@@ -14,6 +14,6 @@ public class GetStudentGroupByIdRequest {
         this.id = id;
     }
 
-    public GetStudentGroupByIdRequest() {}
-
+    public GetStudentGroupByIdRequest() {
+    }
 }

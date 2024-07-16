@@ -23,18 +23,18 @@ public class GetLessonByIdResponse {
     }
 
     public GetLessonByIdResponse() {
-        super();
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof GetLessonByIdResponse that)) return false;
-        return getNumber() == that.getNumber() && getTeacherId() == that.getTeacherId() && groupId == that.groupId && getDate().equals(that.getDate());
+        if (o == null || getClass() != o.getClass()) return false;
+        GetLessonByIdResponse that = (GetLessonByIdResponse) o;
+        return number == that.number && teacherId == that.teacherId && groupId == that.groupId && Objects.equals(date, that.date);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getDate(), getNumber(), getTeacherId(), groupId);
+        return Objects.hash(date, number, teacherId, groupId);
     }
 }

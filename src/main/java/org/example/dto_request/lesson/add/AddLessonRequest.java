@@ -15,7 +15,6 @@ public class AddLessonRequest {
     private int groupId;
     private int subjectId;
 
-
     public AddLessonRequest(String date, int number, int teacherId, int groupId, int subjectId) {
         this.date = date;
         this.number = number;
@@ -25,7 +24,6 @@ public class AddLessonRequest {
     }
 
     public AddLessonRequest() {
-        super();
     }
 
 }

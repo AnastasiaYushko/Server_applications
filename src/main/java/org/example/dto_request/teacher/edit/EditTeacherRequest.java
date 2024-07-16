@@ -21,7 +21,5 @@ public class EditTeacherRequest {
     }
 
     public EditTeacherRequest() {
-        super();
     }
-
 }

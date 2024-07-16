@@ -15,7 +15,5 @@ public class AddSubjectRequest {
     }
 
     public AddSubjectRequest() {
-        super();
     }
-
 }

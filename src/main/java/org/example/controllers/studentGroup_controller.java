@@ -1,6 +1,10 @@
 package org.example.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import org.example.dto_request.studentGroup.add.AddStudentGroupRequest;
+import org.example.dto_request.studentGroup.delete.DeleteStudentGroupRequest;
+import org.example.dto_request.studentGroup.edit.EditStudentGroupRequest;
+import org.example.dto_request.studentGroup.get.GetStudentGroupByIdRequest;
 import org.example.handler.IHandler;
 import org.example.handler.studentGroup.AddStudentGroupHandler;
 import org.example.handler.studentGroup.DeleteStudentGroupHandler;
@@ -21,26 +25,27 @@ public class studentGroup_controller {
         return classHandler.handler(null);
     }
 
-    @PostMapping("/getGyId")
-    public String GetStudentGroupById(@RequestBody String jsonRequest) throws ParseException, JsonProcessingException {
+    @GetMapping("/getGyId")
+    public String GetStudentGroupById(@RequestParam("id") int id) throws ParseException, JsonProcessingException {
         classHandler = new GetStudentGroupsHandler();
-        return classHandler.handler(jsonRequest);
+        GetStudentGroupByIdRequest getStudentGroupByIdRequest = new GetStudentGroupByIdRequest(id);
+        return classHandler.handler(getStudentGroupByIdRequest);
     }
 
     @PostMapping("/add")
-    public String AddStudentGroup(@RequestBody String jsonRequest) throws ParseException, JsonProcessingException {
+    public String AddStudentGroup(@RequestBody AddStudentGroupRequest jsonRequest) throws ParseException, JsonProcessingException {
         classHandler = new AddStudentGroupHandler();
         return classHandler.handler(jsonRequest);
     }
 
     @PostMapping("/edit")
-    public String EditStudentGroup(@RequestBody String jsonRequest) throws ParseException, JsonProcessingException {
+    public String EditStudentGroup(@RequestBody EditStudentGroupRequest jsonRequest) throws ParseException, JsonProcessingException {
         classHandler = new EditStudentGroupHandler();
         return classHandler.handler(jsonRequest);
     }
 
     @DeleteMapping("/delete")
-    public String DeleteStudentGroup(@RequestBody String jsonRequest) throws ParseException, JsonProcessingException {
+    public String DeleteStudentGroup(@RequestBody DeleteStudentGroupRequest jsonRequest) throws ParseException, JsonProcessingException {
         classHandler = new DeleteStudentGroupHandler();
         return classHandler.handler(jsonRequest);
     }

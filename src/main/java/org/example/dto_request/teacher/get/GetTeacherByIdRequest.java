@@ -15,7 +15,5 @@ public class GetTeacherByIdRequest {
     }
 
     public GetTeacherByIdRequest() {
-        super();
     }
-
 }

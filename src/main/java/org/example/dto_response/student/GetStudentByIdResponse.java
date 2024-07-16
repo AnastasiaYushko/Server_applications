@@ -25,18 +25,18 @@ public class GetStudentByIdResponse {
     }
 
     public GetStudentByIdResponse() {
-        super();
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof GetStudentByIdResponse that)) return false;
-        return getLastName().equals(that.getLastName()) && getFirstName().equals(that.getFirstName()) && Objects.equals(getMiddleName(), that.getMiddleName()) && getStatus().equals(that.getStatus()) && getGroup().equals(that.getGroup());
+        if (o == null || getClass() != o.getClass()) return false;
+        GetStudentByIdResponse that = (GetStudentByIdResponse) o;
+        return Objects.equals(lastName, that.lastName) && Objects.equals(firstName, that.firstName) && Objects.equals(middleName, that.middleName) && Objects.equals(status, that.status) && Objects.equals(group, that.group);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getLastName(), getFirstName(), getMiddleName(), getStatus(), getGroup());
+        return Objects.hash(lastName, firstName, middleName, status, group);
     }
 }

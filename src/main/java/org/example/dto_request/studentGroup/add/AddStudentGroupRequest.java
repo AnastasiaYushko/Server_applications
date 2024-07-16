@@ -14,6 +14,6 @@ public class AddStudentGroupRequest {
         this.name = name;
     }
 
-    public AddStudentGroupRequest() {}
-
+    public AddStudentGroupRequest() {
+    }
 }

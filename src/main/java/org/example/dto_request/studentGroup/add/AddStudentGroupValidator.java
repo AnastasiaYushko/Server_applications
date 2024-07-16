@@ -2,7 +2,6 @@ package org.example.dto_request.studentGroup.add;
 
 import org.example.validators.RequestValidator;
 import org.example.validators.ValidatorString;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

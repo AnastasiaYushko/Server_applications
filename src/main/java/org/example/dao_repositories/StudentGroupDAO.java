@@ -1,7 +1,6 @@
 package org.example.dao_repositories;
 
 import org.example.model.StudentGroup;
-import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 

@@ -16,7 +16,5 @@ public class GetLessonVisitingByLessonIdRequest {
     }
 
     public GetLessonVisitingByLessonIdRequest() {
-        super();
     }
-
 }

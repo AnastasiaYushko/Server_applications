@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 
-import javax.validation.constraints.Positive;
 import java.util.ArrayList;
 
 @Getter
@@ -20,6 +19,5 @@ public class AddLessonVisitingRequest {
     }
 
     public AddLessonVisitingRequest() {
-        super();
     }
 }

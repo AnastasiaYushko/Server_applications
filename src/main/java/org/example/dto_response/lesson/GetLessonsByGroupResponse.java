@@ -18,18 +18,18 @@ public class GetLessonsByGroupResponse {
     }
 
     public GetLessonsByGroupResponse() {
-        super();
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof GetLessonsByGroupResponse that)) return false;
-        return Objects.equals(getListLessons(), that.getListLessons());
+        if (o == null || getClass() != o.getClass()) return false;
+        GetLessonsByGroupResponse that = (GetLessonsByGroupResponse) o;
+        return Objects.equals(listLessons, that.listLessons);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getListLessons());
+        return Objects.hashCode(listLessons);
     }
 }

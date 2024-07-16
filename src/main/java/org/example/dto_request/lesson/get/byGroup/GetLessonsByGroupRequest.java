@@ -19,7 +19,5 @@ public class GetLessonsByGroupRequest {
     }
 
     public GetLessonsByGroupRequest() {
-        super();
     }
-
 }

@@ -11,14 +11,16 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import static java.util.Objects.isNull;
+
 @Repository("student_dao_impl")
 public class StudentDAOImpl implements StudentDAO {
 
     @Override
     public ArrayList<Student> getStudentsByGroup(int id) {
-        DataBase dataBase =  app.getContext().getBean("data_base",DataBase.class);
+        DataBase dataBase = app.getContext().getBean("data_base", DataBase.class);
         StudentGroup studentGroup = dataBase.getStudentGroupById(id);
-        if (studentGroup == null){
+        if (isNull(studentGroup)) {
             throw new NullPointerException("Такой группы нет в системе");
         }
         return dataBase.getStudentsByGroup(id);
@@ -26,9 +28,9 @@ public class StudentDAOImpl implements StudentDAO {
 
     @Override
     public Student getStudentById(int id) {
-        DataBase dataBase =  app.getContext().getBean("data_base",DataBase.class);
+        DataBase dataBase = app.getContext().getBean("data_base", DataBase.class);
         Student student = dataBase.getStudentById(id);
-        if (student == null) {
+        if (isNull(student)) {
             throw new NullPointerException("Такого студента нет в системе");
         }
         return student;
@@ -36,38 +38,55 @@ public class StudentDAOImpl implements StudentDAO {
 
     @Override
     public int addStudent(String lastName, String firstName, String middleName, String groupId, String status) {
-        DataBase dataBase =  app.getContext().getBean("data_base",DataBase.class);
+        DataBase dataBase = app.getContext().getBean("data_base", DataBase.class);
         StudentGroup group = dataBase.getStudentGroupById(Integer.parseInt(groupId));
-        if (group == null) {
-            throw new NullPointerException("Такого студента нет в системе");
+        if (isNull(group)) {
+            throw new NullPointerException("Такой группы нет в системе");
         }
-        if (getStudentStatus(status) == null) {
+        StatusStudent newStatus = getStudentStatus(status);
+        if (isNull(newStatus)) {
             throw new NullPointerException("Неверный статус");
         }
-        Student student = new Student(0, lastName, firstName, middleName, getStudentStatus(status), group);
+        Student student = app.getContext().getBean("student", Student.class);
+        student.setLastName(lastName);
+        student.setFirstName(firstName);
+        student.setMiddleName(middleName);
+        student.setGroup(group);
+        student.setStatus(newStatus);
         return dataBase.addStudent(student);
     }
 
     @Override
     public String editStudent(int id, String lastName, String firstName, String middleName, String groupId, String status) {
-        DataBase dataBase =  app.getContext().getBean("data_base",DataBase.class);
+        DataBase dataBase = app.getContext().getBean("data_base", DataBase.class);
         StudentGroup group = dataBase.getStudentGroupById(Integer.parseInt(groupId));
-        Student student = new Student(id, lastName, firstName, middleName, getStudentStatus(status), group);
-        if (dataBase.getStudentById(id) == null) {
+        if (isNull(dataBase.getStudentById(id))) {
             throw new NullPointerException("Такого студента нет в системе");
         }
-
-        if (getStudentStatus(status) == null) {
+        if (isNull(group)) {
+            throw new NullPointerException("Такой группы нет в системе");
+        }
+        StatusStudent newStatus = getStudentStatus(status);
+        if (isNull(newStatus)) {
             throw new NullPointerException("Неверный статус");
         }
+        Student student = app.getContext().getBean("student", Student.class);
+        student.setId(id);
+        student.setLastName(lastName);
+        student.setFirstName(firstName);
+        student.setMiddleName(middleName);
+        student.setGroup(group);
+        student.setStatus(newStatus);
+
         dataBase.editStudent(student);
+
         return "Данные студента изменены";
     }
 
     @Override
     public String deleteStudent(int id) {
-        DataBase dataBase =  app.getContext().getBean("data_base",DataBase.class);
-        if (dataBase.getStudentById(id) == null) {
+        DataBase dataBase = app.getContext().getBean("data_base", DataBase.class);
+        if (isNull(dataBase.getStudentById(id))) {
             throw new NullPointerException("Такого студента нет в системе");
         }
         dataBase.deleteStudent(id);

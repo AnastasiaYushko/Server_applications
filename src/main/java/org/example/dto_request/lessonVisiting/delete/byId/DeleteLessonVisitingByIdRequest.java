@@ -4,8 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 
-import javax.validation.constraints.Positive;
-
 @Getter
 @Setter
 @Component
@@ -17,7 +15,5 @@ public class DeleteLessonVisitingByIdRequest {
     }
 
     public DeleteLessonVisitingByIdRequest() {
-        super();
     }
-
 }

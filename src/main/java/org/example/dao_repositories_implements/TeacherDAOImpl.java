@@ -8,54 +8,62 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 
+import static java.util.Objects.isNull;
+
 @Repository("teacher_dao_impl")
 public class TeacherDAOImpl implements TeacherDAO {
 
     @Override
     public ArrayList<Teacher> getTeachers() {
-        DataBase dataBase =  app.getContext().getBean("data_base",DataBase.class);
+        DataBase dataBase = app.getContext().getBean("data_base", DataBase.class);
         return dataBase.getTeachers();
     }
 
     @Override
     public Teacher getTeacherById(int id) {
-        DataBase dataBase =  app.getContext().getBean("data_base",DataBase.class);
-        //  if (teacher == null){
-     //       throw new NullPointerException("Такого учителя нет в системе");
-      //  }
-        return dataBase.getTeacherById(id);
+        DataBase dataBase = app.getContext().getBean("data_base", DataBase.class);
+        Teacher teacher = dataBase.getTeacherById(id);
+        if (isNull(teacher)) {
+            throw new NullPointerException("Такого учителя нет в системе");
+        }
+        return teacher;
     }
 
     @Override
     public int addTeacher(String firstName, String middleName, String lastName) {
-        DataBase dataBase =  app.getContext().getBean("data_base",DataBase.class);
-        Teacher teacher = new Teacher(0, firstName, middleName, lastName);
+        DataBase dataBase = app.getContext().getBean("data_base", DataBase.class);
+        Teacher teacher = app.getContext().getBean("teacher", Teacher.class);
+        teacher.setFirstName(firstName);
+        teacher.setLastName(lastName);
+        teacher.setMiddleName(middleName);
         return dataBase.addTeacher(teacher);
     }
 
     @Override
     public String editTeacher(int id, String firstName, String middleName, String lastName) {
-        DataBase dataBase =  app.getContext().getBean("data_base",DataBase.class);
-        Teacher teacher1 = dataBase.getTeacherById(id);
-        if (teacher1 != null){
-            Teacher teacher = new Teacher(id, firstName, middleName, lastName);
-            dataBase.editTeacher(teacher);
+        DataBase dataBase = app.getContext().getBean("data_base", DataBase.class);
+        Teacher teacher = dataBase.getTeacherById(id);
+        if (!isNull(teacher)) {
+            Teacher newDataTeacher = app.getContext().getBean("teacher", Teacher.class);
+            newDataTeacher.setId(id);
+            newDataTeacher.setFirstName(firstName);
+            newDataTeacher.setMiddleName(middleName);
+            newDataTeacher.setLastName(lastName);
+            dataBase.editTeacher(newDataTeacher);
             return "Преподаватель изменен";
-        }
-        else {
+        } else {
             throw new NullPointerException("Такой преподаватель не найден");
         }
     }
 
     @Override
     public String deleteTeacher(int id) {
-        DataBase dataBase =  app.getContext().getBean("data_base",DataBase.class);
-        Teacher teacher1 = dataBase.getTeacherById(id);
-        if (teacher1 != null) {
+        DataBase dataBase = app.getContext().getBean("data_base", DataBase.class);
+        Teacher teacher = dataBase.getTeacherById(id);
+        if (!isNull(teacher)) {
             dataBase.deleteTeacher(id);
             return "Преподаватель удален";
-        }
-        else {
+        } else {
             throw new NullPointerException("Такой преподаватель не найден");
         }
     }

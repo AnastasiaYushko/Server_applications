@@ -23,10 +23,11 @@ public class teacher_controller {
         return classHandler.handler(null);
     }
 
-    @PostMapping("/getById")
-    public String GetTeacherById(@RequestBody GetTeacherByIdRequest jsonRequest) throws JsonProcessingException, ParseException {
+    @GetMapping("/getById")
+    public String GetTeacherById(@RequestParam("id") int id) throws JsonProcessingException, ParseException {
         classHandler = new GetTeacherByIdHandler();
-        return classHandler.handler(jsonRequest);
+        GetTeacherByIdRequest getTeacherByIdRequest = new GetTeacherByIdRequest(id);
+        return classHandler.handler(getTeacherByIdRequest);
     }
 
     @PostMapping("/add")
@@ -42,8 +43,9 @@ public class teacher_controller {
     }
 
     @DeleteMapping("/delete")
-    public String deleteTeacher(@RequestBody DeleteTeacherRequest jsonRequest) throws ParseException, JsonProcessingException {
+    public String deleteTeacher(@RequestParam("id") int id) throws ParseException, JsonProcessingException {
         classHandler = new DeleteTeacherHandler();
-        return classHandler.handler(jsonRequest);
+        DeleteTeacherRequest deleteTeacherRequest = new DeleteTeacherRequest(id);
+        return classHandler.handler(deleteTeacherRequest);
     }
 }

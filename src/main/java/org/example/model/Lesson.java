@@ -2,13 +2,14 @@ package org.example.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.Objects;
 
-// Предмета нет
 @Getter
 @Setter
+@Component("lesson")
 public class Lesson {
     private int id;
     private Date date;
@@ -17,13 +18,16 @@ public class Lesson {
     private Teacher teacher;
     private StudentGroup group;
 
-    public Lesson(int id, Date date, int number, Teacher teacher,Subject subject, StudentGroup group) {
+    public Lesson(int id, Date date, int number, Teacher teacher, Subject subject, StudentGroup group) {
         this.id = id;
         this.date = date;
         this.number = number;
         this.teacher = teacher;
         this.subject = subject;
         this.group = group;
+    }
+
+    public Lesson() {
     }
 
     @Override

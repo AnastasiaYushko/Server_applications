@@ -8,20 +8,22 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 
+import static java.util.Objects.isNull;
+
 @Repository("subject_dao_impl")
 public class SubjectDAOImpl implements SubjectDAO {
 
     @Override
     public ArrayList<Subject> getSubjects() {
-        DataBase dataBase =  app.getContext().getBean("data_base",DataBase.class);
+        DataBase dataBase = app.getContext().getBean("data_base", DataBase.class);
         return dataBase.getSubjects();
     }
 
     @Override
     public Subject getSubjectById(int id) {
-        DataBase dataBase =  app.getContext().getBean("data_base",DataBase.class);
+        DataBase dataBase = app.getContext().getBean("data_base", DataBase.class);
         Subject subject = dataBase.getSubjectById(id);
-        if (subject == null){
+        if (isNull(subject)) {
             throw new NullPointerException("Такого предмета нет в системе");
         }
         return subject;
@@ -29,18 +31,25 @@ public class SubjectDAOImpl implements SubjectDAO {
 
     @Override
     public int addSubject(String name) {
-        DataBase dataBase =  app.getContext().getBean("data_base",DataBase.class);
-        Subject subject = new Subject(0, name);
-        return dataBase.addSubject(subject);
+        DataBase dataBase = app.getContext().getBean("data_base", DataBase.class);
+        Subject subject = app.getContext().getBean("subject", Subject.class);
+        subject.setName(name);
+        int result = dataBase.addSubject(subject);
+        if (result == -1) {
+            throw new NullPointerException("Такой предмет уже есть в системе");
+        }
+        return result;
     }
 
     @Override
     public String editSubject(int id, String name) {
-        DataBase dataBase =  app.getContext().getBean("data_base",DataBase.class);
-        Subject subject1 = dataBase.getSubjectById(id);
-        if (subject1 != null) {
-            Subject subject = new Subject(id, name);
-            dataBase.editSubject(subject);
+        DataBase dataBase = app.getContext().getBean("data_base", DataBase.class);
+        Subject subject = dataBase.getSubjectById(id);
+        if (!isNull(subject)) {
+            Subject newDataSubject = app.getContext().getBean("subject", Subject.class);
+            newDataSubject.setId(id);
+            newDataSubject.setName(name);
+            dataBase.editSubject(newDataSubject);
             return "Предмет изменен";
         } else {
             throw new NullPointerException("Такой предмет не найден в системе");
@@ -49,9 +58,9 @@ public class SubjectDAOImpl implements SubjectDAO {
 
     @Override
     public String deleteSubject(int id) {
-        DataBase dataBase =  app.getContext().getBean("data_base",DataBase.class);
-        Subject subject1 = dataBase.getSubjectById(id);
-        if (subject1 != null) {
+        DataBase dataBase = app.getContext().getBean("data_base", DataBase.class);
+        Subject subject = dataBase.getSubjectById(id);
+        if (!isNull(subject)) {
             dataBase.deleteSubject(id);
             return "Предмет удален";
         } else {

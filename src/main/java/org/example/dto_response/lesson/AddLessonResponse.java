@@ -17,18 +17,18 @@ public class AddLessonResponse {
     }
 
     public AddLessonResponse() {
-        super();
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof AddLessonResponse response)) return false;
-        return getId() == response.getId();
+        if (o == null || getClass() != o.getClass()) return false;
+        AddLessonResponse that = (AddLessonResponse) o;
+        return id == that.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId());
+        return Objects.hashCode(id);
     }
 }

@@ -18,7 +18,6 @@ import org.example.network_operations.ResponseEntity;
 import org.example.services.serviceInterfaceImpl.GroupStudentServiceImpl;
 import org.springframework.stereotype.Component;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,14 +34,13 @@ public class GroupController {
             throw new IllegalArgumentException(errors.toString());
         }
 
-        GroupStudentServiceImpl groupStudentService = app.getContext().getBean("group_student_service",GroupStudentServiceImpl.class);
+        GroupStudentServiceImpl groupStudentService = app.getContext().getBean("group_student_service", GroupStudentServiceImpl.class);
 
         GetStudentGroupByIdResponse getStudentGroupByIdResponse;
         int status = HttpStatus.SC_OK;
         try {
             getStudentGroupByIdResponse = groupStudentService.getStudentGroupById(request);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             getStudentGroupByIdResponse = null;
             status = HttpStatus.SC_NOT_FOUND;
         }
@@ -59,14 +57,13 @@ public class GroupController {
             throw new IllegalArgumentException(errors.toString());
         }
 
-        GroupStudentServiceImpl groupStudentService = app.getContext().getBean("group_student_service",GroupStudentServiceImpl.class);
+        GroupStudentServiceImpl groupStudentService = app.getContext().getBean("group_student_service", GroupStudentServiceImpl.class);
 
         String editStudentGroupResponse;
         int status = HttpStatus.SC_OK;
         try {
             editStudentGroupResponse = groupStudentService.editStudentGroup(request);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             editStudentGroupResponse = null;
             status = HttpStatus.SC_NOT_FOUND;
         }
@@ -83,14 +80,13 @@ public class GroupController {
             throw new IllegalArgumentException(errors.toString());
         }
 
-        GroupStudentServiceImpl groupStudentService = app.getContext().getBean("group_student_service",GroupStudentServiceImpl.class);
+        GroupStudentServiceImpl groupStudentService = app.getContext().getBean("group_student_service", GroupStudentServiceImpl.class);
 
         AddStudentGroupResponse addStudentGroupResponse;
         int status = HttpStatus.SC_OK;
         try {
             addStudentGroupResponse = groupStudentService.addStudentGroup(request);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             addStudentGroupResponse = null;
             status = HttpStatus.SC_NOT_FOUND;
         }
@@ -108,14 +104,13 @@ public class GroupController {
         }
 
 
-        GroupStudentServiceImpl groupStudentService = app.getContext().getBean("group_student_service",GroupStudentServiceImpl.class);
+        GroupStudentServiceImpl groupStudentService = app.getContext().getBean("group_student_service", GroupStudentServiceImpl.class);
 
         String dataResponse;
         int status = HttpStatus.SC_OK;
         try {
             dataResponse = groupStudentService.deleteStudentGroup(request);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             dataResponse = null;
             status = HttpStatus.SC_NOT_FOUND;
         }
@@ -125,14 +120,13 @@ public class GroupController {
 
     public static ResponseEntity<GetStudentGroupsResponse> getStudentGroups() {
 
-        GroupStudentServiceImpl groupStudentService = app.getContext().getBean("group_student_service",GroupStudentServiceImpl.class);
+        GroupStudentServiceImpl groupStudentService = app.getContext().getBean("group_student_service", GroupStudentServiceImpl.class);
 
         GetStudentGroupsResponse getStudentGroupsResponse;
         int status = HttpStatus.SC_OK;
         try {
             getStudentGroupsResponse = groupStudentService.getStudentGroups();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             getStudentGroupsResponse = null;
             status = HttpStatus.SC_NOT_FOUND;
         }

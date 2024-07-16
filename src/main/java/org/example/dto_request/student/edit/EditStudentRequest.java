@@ -25,7 +25,5 @@ public class EditStudentRequest {
     }
 
     public EditStudentRequest() {
-        super();
     }
-
 }

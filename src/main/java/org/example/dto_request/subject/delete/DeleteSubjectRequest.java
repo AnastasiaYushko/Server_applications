@@ -15,7 +15,5 @@ public class DeleteSubjectRequest {
     }
 
     public DeleteSubjectRequest() {
-        super();
     }
-
 }

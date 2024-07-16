@@ -15,7 +15,5 @@ public class GetStudentsByGroupRequest {
     }
 
     public GetStudentsByGroupRequest() {
-        super();
     }
-
 }

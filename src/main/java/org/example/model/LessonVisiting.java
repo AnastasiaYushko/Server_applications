@@ -2,12 +2,14 @@ package org.example.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
 @Setter
 @Getter
+@Component("lessonVisiting")
 public class LessonVisiting {
     private int id;
     private int lessonId;
@@ -17,6 +19,9 @@ public class LessonVisiting {
         this.id = id;
         this.lessonId = lessonId;
         this.listStudent = new ArrayList<>(listStudent);
+    }
+
+    public LessonVisiting() {
     }
 
     @Override
@@ -31,12 +36,13 @@ public class LessonVisiting {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof LessonVisiting that)) return false;
-        return getId() == that.getId() && lessonId == that.lessonId && Objects.equals(getListStudent(), that.getListStudent());
+        if (o == null || getClass() != o.getClass()) return false;
+        LessonVisiting that = (LessonVisiting) o;
+        return id == that.id && lessonId == that.lessonId && Objects.equals(listStudent, that.listStudent);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), lessonId, getListStudent());
+        return Objects.hash(id, lessonId, listStudent);
     }
 }

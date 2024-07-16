@@ -21,18 +21,18 @@ public class GetTeacherByIdResponse {
     }
 
     public GetTeacherByIdResponse() {
-        super();
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof GetTeacherByIdResponse that)) return false;
-        return getFirstName().equals(that.getFirstName()) && getLastName().equals(that.getLastName()) && Objects.equals(getMiddleName(), that.getMiddleName());
+        if (o == null || getClass() != o.getClass()) return false;
+        GetTeacherByIdResponse that = (GetTeacherByIdResponse) o;
+        return Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(middleName, that.middleName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getFirstName(), getLastName(), getMiddleName());
+        return Objects.hash(firstName, lastName, middleName);
     }
 }

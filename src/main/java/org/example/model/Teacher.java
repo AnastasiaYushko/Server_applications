@@ -2,24 +2,27 @@ package org.example.model;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 
 @Getter
 @Setter
+@Component("teacher")
 public class Teacher {
-    private int id = 0;
-    private String firstName = "";
-    private String lastName = "";
-    private String middleName = "";
+    private int id;
+    private String firstName;
+    private String lastName;
+    private String middleName;
 
-    public Teacher(int id,String firstName, String middleName,  String lastName) {
+    public Teacher(int id, String firstName, String middleName, String lastName) {
         this.id = id;
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
+    }
+
+    public Teacher() {
     }
 
     @Override
@@ -35,12 +38,13 @@ public class Teacher {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Teacher teacher)) return false;
-        return getId() == teacher.getId() && getFirstName().equals(teacher.getFirstName()) && Objects.equals(getMiddleName(), teacher.getMiddleName()) && getLastName().equals(teacher.getLastName());
+        if (o == null || getClass() != o.getClass()) return false;
+        Teacher teacher = (Teacher) o;
+        return id == teacher.id && Objects.equals(firstName, teacher.firstName) && Objects.equals(lastName, teacher.lastName) && Objects.equals(middleName, teacher.middleName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getFirstName(), getMiddleName(), getLastName());
+        return Objects.hash(id, firstName, lastName, middleName);
     }
 }

@@ -18,18 +18,18 @@ public class GetStudentGroupsResponse {
     }
 
     public GetStudentGroupsResponse() {
-        super();
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof GetStudentGroupsResponse that)) return false;
-        return Objects.equals(getGroups(), that.getGroups());
+        if (o == null || getClass() != o.getClass()) return false;
+        GetStudentGroupsResponse that = (GetStudentGroupsResponse) o;
+        return Objects.equals(groups, that.groups);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getGroups());
+        return Objects.hashCode(groups);
     }
 }

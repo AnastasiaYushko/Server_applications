@@ -15,7 +15,5 @@ public class DeleteLessonsByGroupRequest {
     }
 
     public DeleteLessonsByGroupRequest() {
-        super();
     }
-
 }

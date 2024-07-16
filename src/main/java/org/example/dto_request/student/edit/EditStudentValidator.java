@@ -4,7 +4,6 @@ import org.example.validators.RequestValidator;
 import org.example.validators.ValidatorNumber;
 import org.example.validators.ValidatorString;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -34,7 +33,7 @@ public class EditStudentValidator implements RequestValidator<EditStudentRequest
         ValidatorString.validateNull(request.getStatus(), errors, "status");
         ValidatorString.validateEmpty(request.getStatus(), errors, "status");
 
-        ValidatorNumber.validateNumber(Integer.parseInt(request.getGroup()),errors,"groupId");
+        ValidatorNumber.validateNumber(Integer.parseInt(request.getGroup()), errors, "groupId");
 
         return errors;
     }

@@ -19,7 +19,5 @@ public class GetLessonsByTeacherRequest {
     }
 
     public GetLessonsByTeacherRequest() {
-        super();
     }
-
 }

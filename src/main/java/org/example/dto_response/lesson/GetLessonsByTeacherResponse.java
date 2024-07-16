@@ -3,7 +3,6 @@ package org.example.dto_response.lesson;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -19,18 +18,18 @@ public class GetLessonsByTeacherResponse {
     }
 
     public GetLessonsByTeacherResponse() {
-        super();
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof GetLessonsByTeacherResponse that)) return false;
-        return Objects.equals(getListLessons(), that.getListLessons());
+        if (o == null || getClass() != o.getClass()) return false;
+        GetLessonsByTeacherResponse that = (GetLessonsByTeacherResponse) o;
+        return Objects.equals(listLessons, that.listLessons);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getListLessons());
+        return Objects.hashCode(listLessons);
     }
 }

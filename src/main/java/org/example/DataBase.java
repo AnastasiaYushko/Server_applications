@@ -3,10 +3,7 @@ package org.example;
 import org.example.model.*;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Component("data_base")
 public class DataBase {
@@ -79,21 +76,20 @@ public class DataBase {
             listStudents.put(keyStudent, student);
         }
         keyStudent++;
-        return keyStudent - 1;
+        return keyStudent--;
     }
 
     public ArrayList<Student> getStudentsByGroup(int id) {
-        ArrayList<Student> answerBase = new ArrayList<>();
-
-        ArrayList<Student> students = new ArrayList<>(listStudents.values());
-        for (Student s : students) {
-            int idGroup = s.getGroup().getId();
-            if (idGroup == id) {
-                answerBase.add(s);
+        ArrayList<Student> result = new ArrayList<>();
+        synchronized (listStudents) {
+            for (int i = 1; i < keyStudent; i++) {
+                Student s = listStudents.get(i);
+                if ((s.getGroup().getId()) == id) {
+                    result.add(s);
+                }
             }
         }
-
-        return answerBase;
+        return result;
     }
 
     public Student getStudentById(int id) {
@@ -118,15 +114,16 @@ public class DataBase {
         return listLesson.get(id);
     }
 
-
     public ArrayList<Lesson> getLessonsByGroup(Date startDate, Date endDate, StudentGroup group) {
 
         ArrayList<Lesson> lessonsList = new ArrayList<>();
 
-        ArrayList<Lesson> lessons = new ArrayList<>(listLesson.values());
-        for (Lesson l : lessons) {
-            if ((endDate.after(l.getDate()) || endDate.equals(l.getDate())) && (startDate.before(l.getDate()) || endDate.equals(l.getDate()) && (l.getGroup().equals(group)))) {
-                lessonsList.add(l);
+        synchronized (listLesson) {
+            for (int i = 1; i < keyLesson; i++) {
+                Lesson l = listLesson.get(i);
+                if ((endDate.after(l.getDate()) || endDate.equals(l.getDate())) && (startDate.before(l.getDate()) || endDate.equals(l.getDate()) && (l.getGroup().equals(group)))) {
+                    lessonsList.add(l);
+                }
             }
         }
 
@@ -136,10 +133,12 @@ public class DataBase {
     public ArrayList<Lesson> getLessonsByTeacher(Date startDate, Date endDate, Teacher teacher) {
         ArrayList<Lesson> lessonsList = new ArrayList<>();
 
-        ArrayList<Lesson> lessons = new ArrayList<>(listLesson.values());
-        for (Lesson l : lessons) {
-            if ((endDate.after(l.getDate())) && (startDate.before(l.getDate())) && (l.getTeacher().equals(teacher))) {
-                lessonsList.add(l);
+        synchronized (listLesson) {
+            for (int i = 1; i < keyLesson; i++) {
+                Lesson l = listLesson.get(i);
+                if ((endDate.after(l.getDate())) && (startDate.before(l.getDate())) && (l.getTeacher().equals(teacher))) {
+                    lessonsList.add(l);
+                }
             }
         }
 
@@ -160,15 +159,13 @@ public class DataBase {
             listLesson.put(keyLesson, lesson);
         }
         keyLesson++;
-        return keyLesson - 1;
+        return keyLesson--;
     }
 
     public void DeleteLessonsByGroup(int groupId) {
-
         synchronized (listLesson) {
-            ArrayList<Lesson> lessons = new ArrayList<>(listLesson.values());
-
-            for (Lesson lesson : lessons) {
+            for (int i = 1; i < keyLesson; i++) {
+                Lesson lesson = listLesson.get(i);
                 if (lesson.getGroup().getId() == groupId) {
                     listLesson.remove(lesson.getId());
                     if (getLessonVisitingByLessonId(lesson.getId()) != null) {
@@ -189,13 +186,14 @@ public class DataBase {
     }
 
     public void DeleteLessonsByTeacher(int teacherId) {
-        ArrayList<Lesson> lessons = new ArrayList<>(listLesson.values());
-
-        for (Lesson lesson : lessons) {
-            if (lesson.getTeacher().getId() == teacherId) {
-                listLesson.remove(lesson.getId());
-                if (getLessonVisitingByLessonId(lesson.getId()) != null) {
-                    deleteLessonVisitingByLessonId(lesson.getId());
+        synchronized (listLesson) {
+            for (int i = 1; i < keyLesson; i++) {
+                Lesson lesson = listLesson.get(i);
+                if (lesson.getTeacher().getId() == teacherId) {
+                    listLesson.remove(lesson.getId());
+                    if (getLessonVisitingByLessonId(lesson.getId()) != null) {
+                        deleteLessonVisitingByLessonId(lesson.getId());
+                    }
                 }
             }
         }
@@ -204,7 +202,7 @@ public class DataBase {
 
     //StudentGroup
     public ArrayList<StudentGroup> getStudentGroups() {
-        return new ArrayList<>(listGroups.values());
+        return (ArrayList<StudentGroup>) listGroups.values();
     }
 
     public StudentGroup getStudentGroupById(int id) {
@@ -213,18 +211,24 @@ public class DataBase {
 
     public synchronized int addStudentGroup(StudentGroup group) {
         group.setId(keyGroup);
-        listGroups.put(keyGroup, group);
+        synchronized (listGroups) {
+            listGroups.put(keyGroup, group);
+        }
         keyGroup++;
-        return keyGroup - 1;
+        return keyGroup--;
     }
 
 
     public void editStudentGroup(StudentGroup group) {
-        listGroups.put(group.getId(), group);
+        synchronized (listGroups) {
+            listGroups.put(group.getId(), group);
+        }
     }
 
     public void deleteStudentGroup(int id) {
-        listGroups.remove(id);
+        synchronized (listGroups) {
+            listGroups.remove(id);
+        }
     }
     //
 
@@ -234,52 +238,69 @@ public class DataBase {
     }
 
     public ArrayList<Teacher> getTeachers() {
-        return new ArrayList<>(listTeachers.values());
+        return (ArrayList<Teacher>) listTeachers.values();
     }
 
 
     public synchronized int addTeacher(Teacher teacher) {
         teacher.setId(keyTeacher);
-        listTeachers.put(keyTeacher, teacher);
+        synchronized (listTeachers) {
+            listTeachers.put(keyTeacher, teacher);
+        }
         keyTeacher++;
-        return keyTeacher - 1;
+        return keyTeacher--;
     }
 
 
     public void editTeacher(Teacher teacher) {
-        listTeachers.put(teacher.getId(), teacher);
+        synchronized (listTeachers) {
+            listTeachers.put(teacher.getId(), teacher);
+        }
     }
 
     public void deleteTeacher(int id) {
-        listTeachers.remove(id);
+        synchronized (listTeachers) {
+            listTeachers.remove(id);
+        }
     }
     //
 
     //Subject
 
     public ArrayList<Subject> getSubjects() {
-        return new ArrayList<>(listSubjects.values());
+        return (ArrayList<Subject>) listSubjects.values();
     }
 
     public Subject getSubjectById(int id) {
         return listSubjects.get(id);
     }
 
-
     public synchronized int addSubject(Subject subject) {
-        subject.setId(keySubject);
-        listSubjects.put(keySubject, subject);
+        synchronized (listSubjects) {
+            for (int i = 1; i < keySubject; i++) {
+                Subject s = listSubjects.get(i);
+                if (Objects.equals(s.getName(), subject.getName())) {
+                    return -1;
+                }
+            }
+            subject.setId(keySubject);
+            listSubjects.put(keySubject, subject);
+        }
         keySubject++;
-        return keySubject - 1;
+        return keySubject--;
     }
 
 
     public void editSubject(Subject subject) {
-        listSubjects.put(subject.getId(), subject);
+        synchronized (listSubjects) {
+            listSubjects.put(subject.getId(), subject);
+        }
     }
 
     public void deleteSubject(int id) {
-        listSubjects.remove(id);
+        synchronized (listSubjects) {
+            listSubjects.remove(id);
+        }
     }
 
     //
@@ -288,10 +309,14 @@ public class DataBase {
 
     public synchronized int addLessonVisiting(LessonVisiting lessonVisiting) {
         lessonVisiting.setId(keyLessonVisiting_Id);
-        listLessonVisiting_Id.put(keyLessonVisiting_Id, lessonVisiting);
-        listLessonVisiting_LessonId.put(lessonVisiting.getLessonId(), lessonVisiting);
+        synchronized (listLessonVisiting_Id) {
+            listLessonVisiting_Id.put(keyLessonVisiting_Id, lessonVisiting);
+        }
+        synchronized (listLessonVisiting_LessonId) {
+            listLessonVisiting_LessonId.put(lessonVisiting.getLessonId(), lessonVisiting);
+        }
         keyLessonVisiting_Id++;
-        return keyLessonVisiting_Id - 1;
+        return keyLessonVisiting_Id--;
     }
 
     public LessonVisiting getLessonVisitingById(int lessonVisitingId) {
@@ -303,20 +328,18 @@ public class DataBase {
     }
 
 
-    public void editLessonVisiting(LessonVisiting lessonVisiting) {
+    public synchronized void editLessonVisiting(LessonVisiting lessonVisiting) {
         listLessonVisiting_Id.put(lessonVisiting.getId(), lessonVisiting);
         listLessonVisiting_LessonId.put(lessonVisiting.getLessonId(), lessonVisiting);
     }
 
-    public void deleteLessonVisitingById(int lessonVisitingId) {
+    public synchronized void deleteLessonVisitingById(int lessonVisitingId) {
+        listLessonVisiting_LessonId.remove(listLessonVisiting_Id.get(lessonVisitingId).getLessonId());
         listLessonVisiting_Id.remove(lessonVisitingId);
-        int lessonId = getLessonVisitingById(lessonVisitingId).getLessonId();
-        listLessonVisiting_LessonId.remove(lessonId);
     }
 
-    public void deleteLessonVisitingByLessonId(int lessonId) {
-        LessonVisiting lessonVisiting = getLessonVisitingByLessonId(lessonId);
+    public synchronized void deleteLessonVisitingByLessonId(int lessonId) {
+        listLessonVisiting_Id.remove(listLessonVisiting_LessonId.get(lessonId).getId());
         listLessonVisiting_LessonId.remove(lessonId);
-        listLessonVisiting_Id.remove(lessonVisiting.getId());
     }
 }

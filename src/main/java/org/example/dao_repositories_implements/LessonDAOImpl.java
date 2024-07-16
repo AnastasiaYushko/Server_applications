@@ -15,14 +15,16 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import static java.util.Objects.isNull;
+
 @Repository
 public class LessonDAOImpl implements LessonDAO {
 
     @Override
     public Lesson getLessonById(int id) {
-        DataBase dataBase =  app.getContext().getBean("data_base",DataBase.class);
-        Lesson lesson =dataBase.getLessonById(id);
-        if (lesson == null){
+        DataBase dataBase = app.getContext().getBean("data_base", DataBase.class);
+        Lesson lesson = dataBase.getLessonById(id);
+        if (isNull(lesson)) {
             throw new NullPointerException("Такого урока нет в системе");
         }
         return lesson;
@@ -30,99 +32,99 @@ public class LessonDAOImpl implements LessonDAO {
 
     @Override
     public ArrayList<Lesson> getLessonsByGroup(String startDate, String endDate, int groupId) throws ParseException {
-        DataBase dataBase =  app.getContext().getBean("data_base",DataBase.class);
+        DataBase dataBase = app.getContext().getBean("data_base", DataBase.class);
         StudentGroup group = dataBase.getStudentGroupById(groupId);
-        if (group != null) {
-            DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-            Date date1 = df.parse(startDate);
-            Date date2 = df.parse(endDate);
-            return dataBase.getLessonsByGroup(date1, date2, group);
+        if (!isNull(group)) {
+            Date dateStartTrue = new SimpleDateFormat("dd-MM-yyyy").parse(startDate);
+            Date dateEndTrue = new SimpleDateFormat("dd-MM-yyyy").parse(endDate);
+            return dataBase.getLessonsByGroup(dateStartTrue, dateEndTrue, group);
         } else {
             throw new NullPointerException("Такой группы нет в системе");
         }
     }
 
-    //+!
     @Override
     public ArrayList<Lesson> getLessonsByTeacher(String startDate, String endDate, int teacherId) throws ParseException {
-        DataBase dataBase =  app.getContext().getBean("data_base",DataBase.class);
+        DataBase dataBase = app.getContext().getBean("data_base", DataBase.class);
         Teacher teacher = dataBase.getTeacherById(teacherId);
-        if (teacher != null) {
-            DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-            Date date1 = df.parse(startDate);
-            Date date2 = df.parse(endDate);
-            return dataBase.getLessonsByTeacher(date1, date2, teacher);
+        if (!isNull(teacher)) {
+            Date dateStartTrue = new SimpleDateFormat("dd-MM-yyyy").parse(startDate);
+            Date dateEndTrue = new SimpleDateFormat("dd-MM-yyyy").parse(endDate);
+            return dataBase.getLessonsByTeacher(dateStartTrue, dateEndTrue, teacher);
         } else {
             throw new NullPointerException("Такого учителя нет в системе");
         }
     }
 
-    //+!
     @Override
-    public String EditLesson(int id, String date, int number, int teacherId, int groupId,int subjectId) throws ParseException {
-        DataBase dataBase =  app.getContext().getBean("data_base",DataBase.class);
+    public String EditLesson(int id, String date, int number, int teacherId, int groupId, int subjectId) throws ParseException {
+        DataBase dataBase = app.getContext().getBean("data_base", DataBase.class);
         Teacher teacher = dataBase.getTeacherById(teacherId);
-        if (teacher == null) {
+        if (isNull(teacher)) {
             throw new NullPointerException("Такого учителя нет в системе");
         }
-        StudentGroup group = dataBase.getStudentGroupById(groupId);
-        if (group == null) {
+        StudentGroup studentGroup = dataBase.getStudentGroupById(groupId);
+        if (isNull(studentGroup)) {
             throw new NullPointerException("Такой группы нет в системе");
         }
-        Lesson lesson = dataBase.getLessonById(id);
-        if (lesson == null) {
+        if (isNull(dataBase.getLessonById(id))) {
             throw new NullPointerException("Такого урока нет в системе");
         }
         Subject subject = dataBase.getSubjectById(subjectId);
-        if (subject == null) {
+        if (isNull(subject)) {
             throw new NullPointerException("Такого урока нет в системе");
         }
 
-        Date date1 = new SimpleDateFormat("dd-MM-yyyy").parse(date);
-        dataBase.EditLesson(new Lesson(id, date1, number, teacher,subject,group));
+        Date dateTrue = new SimpleDateFormat("dd-MM-yyyy").parse(date);
+        Lesson lesson = app.getContext().getBean("lesson", Lesson.class);
+        lesson.setId(id);
+        lesson.setDate(dateTrue);
+        lesson.setGroup(studentGroup);
+        lesson.setTeacher(teacher);
+        lesson.setSubject(subject);
+        lesson.setNumber(number);
+
+        dataBase.EditLesson(lesson);
+
         return "Данные урока изменены!";
     }
 
-    //+!
     @Override
     public String DeleteLessonsByGroup(int groupId) {
-        DataBase dataBase =  app.getContext().getBean("data_base",DataBase.class);
+        DataBase dataBase = app.getContext().getBean("data_base", DataBase.class);
         StudentGroup group = dataBase.getStudentGroupById(groupId);
-        if (group == null) {
+        if (isNull(group)) {
             throw new NullPointerException("Такой группы нет в системе");
         }
         dataBase.DeleteLessonsByGroup(groupId);
         return "Уроки у группы удалены!";
     }
 
-    //+!
     @Override
     public String DeleteLessonById(int lessonId) {
-        DataBase dataBase =  app.getContext().getBean("data_base",DataBase.class);
+        DataBase dataBase = app.getContext().getBean("data_base", DataBase.class);
         Lesson lesson = dataBase.getLessonById(lessonId);
-        if (lesson == null) {
+        if (isNull(lesson)) {
             throw new NullPointerException("Такого урока нет в системе");
         }
         dataBase.DeleteLessonById(lessonId);
         return "Урок удален";
     }
 
-    //+!
     @Override
     public String DeleteLessonsByTeacher(int teacherId) {
-        DataBase dataBase =  app.getContext().getBean("data_base",DataBase.class);
+        DataBase dataBase = app.getContext().getBean("data_base", DataBase.class);
         Teacher teacher = dataBase.getTeacherById(teacherId);
-        if (teacher == null) {
+        if (isNull(teacher)) {
             throw new NullPointerException("Такого учителя нет в системе");
         }
         dataBase.DeleteLessonsByTeacher(teacherId);
         return "Урок удален";
     }
 
-    //+!
     @Override
     public int AddLesson(String date, int number, int teacherId, int subjectId, int groupId) throws ParseException {
-        DataBase dataBase =  app.getContext().getBean("data_base",DataBase.class);
+        DataBase dataBase = app.getContext().getBean("data_base", DataBase.class);
         DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
         Date date1 = df.parse(date);
         Teacher teacher = dataBase.getTeacherById(teacherId);

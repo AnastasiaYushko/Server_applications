@@ -17,18 +17,18 @@ public class AddStudentGroupResponse {
     }
 
     public AddStudentGroupResponse() {
-        super();
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof AddStudentGroupResponse that)) return false;
-        return getId() == that.getId();
+        if (o == null || getClass() != o.getClass()) return false;
+        AddStudentGroupResponse that = (AddStudentGroupResponse) o;
+        return id == that.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId());
+        return Objects.hashCode(id);
     }
 }

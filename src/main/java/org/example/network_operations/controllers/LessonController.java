@@ -43,14 +43,13 @@ public class LessonController {
             throw new IllegalArgumentException(errors.toString());
         }
 
-        LessonServiceImpl lessonService = app.getContext().getBean("lesson_service",LessonServiceImpl.class);
+        LessonServiceImpl lessonService = app.getContext().getBean("lesson_service", LessonServiceImpl.class);
 
         AddLessonResponse lessonResponse;
         int status = HttpStatus.SC_OK;
         try {
             lessonResponse = lessonService.addLesson(request);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             lessonResponse = null;
             status = HttpStatus.SC_NOT_FOUND;
         }
@@ -67,14 +66,13 @@ public class LessonController {
             throw new IllegalArgumentException(errors.toString());
         }
 
-        LessonServiceImpl lessonService = app.getContext().getBean("lesson_service",LessonServiceImpl.class);
+        LessonServiceImpl lessonService = app.getContext().getBean("lesson_service", LessonServiceImpl.class);
 
         String lessonResponse;
         int status = HttpStatus.SC_OK;
         try {
             lessonResponse = lessonService.editLesson(request);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             lessonResponse = null;
             status = HttpStatus.SC_NOT_FOUND;
         }
@@ -92,14 +90,14 @@ public class LessonController {
             throw new IllegalArgumentException(errors.toString());
         }
 
-        LessonServiceImpl lessonService = app.getContext().getBean("lesson_service",LessonServiceImpl.class);
+        LessonServiceImpl lessonService = app.getContext().getBean("lesson_service", LessonServiceImpl.class);
 
         String dataResponse;
         int status = HttpStatus.SC_OK;
         try {
-            dataResponse = lessonService.deleteLessonsByGroup(request);;
-        }
-        catch (Exception e){
+            dataResponse = lessonService.deleteLessonsByGroup(request);
+            ;
+        } catch (Exception e) {
             dataResponse = e.getMessage();
             status = HttpStatus.SC_NOT_FOUND;
         }
@@ -116,14 +114,13 @@ public class LessonController {
             throw new IllegalArgumentException(errors.toString());
         }
 
-        LessonServiceImpl lessonService = app.getContext().getBean("lesson_service",LessonServiceImpl.class);
+        LessonServiceImpl lessonService = app.getContext().getBean("lesson_service", LessonServiceImpl.class);
 
         String dataResponse;
         int status = HttpStatus.SC_OK;
         try {
             dataResponse = lessonService.deleteLessonById(request);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             dataResponse = e.getMessage();
             status = HttpStatus.SC_NOT_FOUND;
         }
@@ -140,14 +137,13 @@ public class LessonController {
             throw new IllegalArgumentException(errors.toString());
         }
 
-        LessonServiceImpl lessonService = app.getContext().getBean("lesson_service",LessonServiceImpl.class);
+        LessonServiceImpl lessonService = app.getContext().getBean("lesson_service", LessonServiceImpl.class);
 
         String dataResponse;
         int status = HttpStatus.SC_OK;
         try {
             dataResponse = lessonService.deleteLessonsByTeacher(request);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             dataResponse = e.getMessage();
             status = HttpStatus.SC_NOT_FOUND;
         }
@@ -164,7 +160,7 @@ public class LessonController {
             throw new IllegalArgumentException(errors.toString());
         }
 
-        LessonServiceImpl lessonService = app.getContext().getBean("lesson_service",LessonServiceImpl.class);
+        LessonServiceImpl lessonService = app.getContext().getBean("lesson_service", LessonServiceImpl.class);
 
         GetLessonsByGroupResponse getLessonsByGroupResponse = lessonService.getLessonsByGroup(request);
 
@@ -180,7 +176,7 @@ public class LessonController {
             throw new IllegalArgumentException(errors.toString());
         }
 
-        LessonServiceImpl lessonService = app.getContext().getBean("lesson_service",LessonServiceImpl.class);
+        LessonServiceImpl lessonService = app.getContext().getBean("lesson_service", LessonServiceImpl.class);
 
         GetLessonByIdResponse getLessonByIdResponse = lessonService.getLessonById(request);
 
@@ -196,7 +192,7 @@ public class LessonController {
             throw new IllegalArgumentException(errors.toString());
         }
 
-        LessonServiceImpl lessonService = app.getContext().getBean("lesson_service",LessonServiceImpl.class);
+        LessonServiceImpl lessonService = app.getContext().getBean("lesson_service", LessonServiceImpl.class);
 
         GetLessonsByTeacherResponse getLessonsByTeacherResponse = lessonService.getLessonsByTeacher(request);
 
