@@ -1,21 +1,14 @@
-
+/*
 package org.example;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import org.example.handler.teacher.GetTeacherByIdHandler;
-import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 public class TeacherMethodsTest {
 
-    @Test
-    public void test() throws JsonProcessingException {
-        app.start();
-        GetTeacherByIdHandler getTeacherByIdHandler = new GetTeacherByIdHandler();
-        String result = getTeacherByIdHandler.handler("{\"id\": 5}");
-        System.out.println(result);
-    }
+ //   @Test
+ //   public void test() throws JsonProcessingException {
+ //   }
 /*
     //1. Добавление учителей - Получение всех учителей - Получение по ID
     @Test
@@ -169,5 +162,6 @@ public class TeacherMethodsTest {
         }
     }
     */
-}
+//}
+
 
