@@ -14,7 +14,7 @@ public class DeleteLessonsByGroupHandler implements IHandler {
     @Override
     public String handler(Object jsonRequest) throws JsonProcessingException {
 
-        ResponseEntity<String> deleteLessonResponse = LessonController.deleteLessonsByGroup((DeleteLessonsByGroupRequest) jsonRequest);
+        ResponseEntity<?> deleteLessonResponse = LessonController.deleteLessonsByGroup((DeleteLessonsByGroupRequest) jsonRequest);
 
         Gson gson = new GsonBuilder()
                 .setPrettyPrinting()

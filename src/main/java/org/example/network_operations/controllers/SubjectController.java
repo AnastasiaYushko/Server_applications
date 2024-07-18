@@ -1,7 +1,7 @@
 package org.example.network_operations.controllers;
 
 import org.apache.http.HttpStatus;
-import org.example.app;
+import org.example.SpringConfig;
 import org.example.dto_request.subject.add.AddSubjectRequest;
 import org.example.dto_request.subject.add.AddSubjectValidator;
 import org.example.dto_request.subject.delete.DeleteSubjectRequest;
@@ -23,70 +23,85 @@ import java.util.List;
 @Component
 public class SubjectController {
 
-    public static ResponseEntity<AddSubjectResponse> addSubject(AddSubjectRequest request) {
+    public static ResponseEntity<?> addSubject(AddSubjectRequest request) {
         AddSubjectValidator validator = new AddSubjectValidator();
         List<String> errors = new ArrayList<>();
         validator.validate(request, errors);
 
         if (!errors.isEmpty()) {
-            throw new IllegalArgumentException(errors.toString());
+            return new ResponseEntity<>(errors, HttpStatus.SC_BAD_REQUEST);
         }
 
-        SubjectServiceImpl subjectService = app.getContext().getBean("subject_service", SubjectServiceImpl.class);
+        SubjectServiceImpl subjectService = SpringConfig.getContext().getBean("subject_service", SubjectServiceImpl.class);
 
-        AddSubjectResponse addSubjectResponse = subjectService.addSubject(request);
-
-        return new ResponseEntity<>(addSubjectResponse, HttpStatus.SC_OK);
+        try {
+            AddSubjectResponse addSubjectResponse = subjectService.addSubject(request);
+            return new ResponseEntity<>(addSubjectResponse, HttpStatus.SC_OK);
+        } catch (NullPointerException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
+        }
     }
 
-    public static ResponseEntity<String> editSubject(EditSubjectRequest request) {
+    public static ResponseEntity<?> editSubject(EditSubjectRequest request) {
         EditSubjectValidator validator = new EditSubjectValidator();
         List<String> errors = new ArrayList<>();
         validator.validate(request, errors);
 
         if (!errors.isEmpty()) {
-            throw new IllegalArgumentException(errors.toString());
+            return new ResponseEntity<>(errors, HttpStatus.SC_BAD_REQUEST);
         }
 
-        SubjectServiceImpl subjectService = app.getContext().getBean("subject_service", SubjectServiceImpl.class);
+        SubjectServiceImpl subjectService = SpringConfig.getContext().getBean("subject_service", SubjectServiceImpl.class);
 
-        String editSubjectResponse = subjectService.editSubject(request);
-        return new ResponseEntity<>(editSubjectResponse, HttpStatus.SC_CREATED);
+        try {
+            String editSubjectResponse = subjectService.editSubject(request);
+            return new ResponseEntity<>(editSubjectResponse, HttpStatus.SC_OK);
+        } catch (NullPointerException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
+        }
     }
 
-    public static ResponseEntity<GetSubjectByIdResponse> getSubjectById(GetSubjectByIdRequest request) {
+    public static ResponseEntity<?> getSubjectById(GetSubjectByIdRequest request) {
         GetSubjectByIdValidator validator = new GetSubjectByIdValidator();
         List<String> errors = new ArrayList<>();
         validator.validate(request, errors);
 
         if (!errors.isEmpty()) {
-            throw new IllegalArgumentException(errors.toString());
+            return new ResponseEntity<>(errors, HttpStatus.SC_BAD_REQUEST);
         }
 
-        SubjectServiceImpl subjectService = app.getContext().getBean("subject_service", SubjectServiceImpl.class);
+        SubjectServiceImpl subjectService = SpringConfig.getContext().getBean("subject_service", SubjectServiceImpl.class);
 
-        GetSubjectByIdResponse getSubjectsResponse = subjectService.getSubjectById(request);
-        return new ResponseEntity<>(getSubjectsResponse, HttpStatus.SC_OK);
+        try {
+            GetSubjectByIdResponse getSubjectsResponse = subjectService.getSubjectById(request);
+            return new ResponseEntity<>(getSubjectsResponse, HttpStatus.SC_OK);
+        } catch (NullPointerException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
+        }
     }
 
-    public static ResponseEntity<String> deleteSubject(DeleteSubjectRequest request) {
+    public static ResponseEntity<?> deleteSubject(DeleteSubjectRequest request) {
         DeleteSubjectValidator validator = new DeleteSubjectValidator();
         List<String> errors = new ArrayList<>();
         validator.validate(request, errors);
 
         if (!errors.isEmpty()) {
-            throw new IllegalArgumentException(errors.toString());
+            return new ResponseEntity<>(errors, HttpStatus.SC_BAD_REQUEST);
         }
 
-        SubjectServiceImpl subjectService = app.getContext().getBean("subject_service", SubjectServiceImpl.class);
+        SubjectServiceImpl subjectService = SpringConfig.getContext().getBean("subject_service", SubjectServiceImpl.class);
 
-        String dataResponse = subjectService.deleteSubject(request);
-        return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
+        try {
+            String dataResponse = subjectService.deleteSubject(request);
+            return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
+        } catch (NullPointerException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
+        }
     }
 
     public static ResponseEntity<GetSubjectsResponse> getSubjects() {
 
-        SubjectServiceImpl subjectService = app.getContext().getBean("subject_service", SubjectServiceImpl.class);
+        SubjectServiceImpl subjectService = SpringConfig.getContext().getBean("subject_service", SubjectServiceImpl.class);
 
         GetSubjectsResponse dataResponse = subjectService.getSubjects();
         return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);

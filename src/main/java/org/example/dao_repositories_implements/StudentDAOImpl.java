@@ -1,7 +1,7 @@
 package org.example.dao_repositories_implements;
 
 import org.example.DataBase;
-import org.example.app;
+import org.example.SpringConfig;
 import org.example.dao_repositories.StudentDAO;
 import org.example.enums.StatusStudent;
 import org.example.model.Student;
@@ -18,7 +18,7 @@ public class StudentDAOImpl implements StudentDAO {
 
     @Override
     public ArrayList<Student> getStudentsByGroup(int id) {
-        DataBase dataBase = app.getContext().getBean("data_base", DataBase.class);
+        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
         StudentGroup studentGroup = dataBase.getStudentGroupById(id);
         if (isNull(studentGroup)) {
             throw new NullPointerException("Такой группы нет в системе");
@@ -28,7 +28,7 @@ public class StudentDAOImpl implements StudentDAO {
 
     @Override
     public Student getStudentById(int id) {
-        DataBase dataBase = app.getContext().getBean("data_base", DataBase.class);
+        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
         Student student = dataBase.getStudentById(id);
         if (isNull(student)) {
             throw new NullPointerException("Такого студента нет в системе");
@@ -38,7 +38,7 @@ public class StudentDAOImpl implements StudentDAO {
 
     @Override
     public int addStudent(String lastName, String firstName, String middleName, String groupId, String status) {
-        DataBase dataBase = app.getContext().getBean("data_base", DataBase.class);
+        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
         StudentGroup group = dataBase.getStudentGroupById(Integer.parseInt(groupId));
         if (isNull(group)) {
             throw new NullPointerException("Такой группы нет в системе");
@@ -47,7 +47,7 @@ public class StudentDAOImpl implements StudentDAO {
         if (isNull(newStatus)) {
             throw new NullPointerException("Неверный статус");
         }
-        Student student = app.getContext().getBean("student", Student.class);
+        Student student = SpringConfig.getContext().getBean("student", Student.class);
         student.setLastName(lastName);
         student.setFirstName(firstName);
         student.setMiddleName(middleName);
@@ -58,7 +58,7 @@ public class StudentDAOImpl implements StudentDAO {
 
     @Override
     public String editStudent(int id, String lastName, String firstName, String middleName, String groupId, String status) {
-        DataBase dataBase = app.getContext().getBean("data_base", DataBase.class);
+        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
         StudentGroup group = dataBase.getStudentGroupById(Integer.parseInt(groupId));
         if (isNull(dataBase.getStudentById(id))) {
             throw new NullPointerException("Такого студента нет в системе");
@@ -70,7 +70,7 @@ public class StudentDAOImpl implements StudentDAO {
         if (isNull(newStatus)) {
             throw new NullPointerException("Неверный статус");
         }
-        Student student = app.getContext().getBean("student", Student.class);
+        Student student = SpringConfig.getContext().getBean("student", Student.class);
         student.setId(id);
         student.setLastName(lastName);
         student.setFirstName(firstName);
@@ -85,7 +85,7 @@ public class StudentDAOImpl implements StudentDAO {
 
     @Override
     public String deleteStudent(int id) {
-        DataBase dataBase = app.getContext().getBean("data_base", DataBase.class);
+        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
         if (isNull(dataBase.getStudentById(id))) {
             throw new NullPointerException("Такого студента нет в системе");
         }

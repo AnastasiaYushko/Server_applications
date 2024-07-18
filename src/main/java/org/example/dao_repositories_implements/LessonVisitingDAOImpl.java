@@ -1,7 +1,7 @@
 package org.example.dao_repositories_implements;
 
 import org.example.DataBase;
-import org.example.app;
+import org.example.SpringConfig;
 import org.example.dao_repositories.LessonVisitingDAO;
 import org.example.model.Lesson;
 import org.example.model.LessonVisiting;
@@ -16,7 +16,7 @@ public class LessonVisitingDAOImpl implements LessonVisitingDAO {
 
     @Override
     public LessonVisiting GetLessonVisitingByLessonId(int lessonId) {
-        DataBase dataBase = app.getContext().getBean("data_base", DataBase.class);
+        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
         if (isNull(dataBase.getLessonById(lessonId))) {
             throw new NullPointerException("Такого урока нет в системе");
         }
@@ -30,7 +30,7 @@ public class LessonVisitingDAOImpl implements LessonVisitingDAO {
 
     @Override
     public LessonVisiting GetLessonVisitingById(int lessonVisitingById) {
-        DataBase dataBase = app.getContext().getBean("data_base", DataBase.class);
+        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
         LessonVisiting lessonVisiting = dataBase.getLessonVisitingById(lessonVisitingById);
 
         if (isNull(lessonVisiting)) {
@@ -42,13 +42,13 @@ public class LessonVisitingDAOImpl implements LessonVisitingDAO {
 
     @Override
     public int AddLessonVisiting(int lessonId, ArrayList<String> students) {
-        DataBase dataBase = app.getContext().getBean("data_base", DataBase.class);
+        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
         Lesson lesson = dataBase.getLessonById(lessonId);
         if (isNull(lesson)) {
             throw new NullPointerException("Такого урока нет в системе");
         }
 
-        LessonVisiting lessonVisiting = app.getContext().getBean("lessonVisiting", LessonVisiting.class);
+        LessonVisiting lessonVisiting = SpringConfig.getContext().getBean("lessonVisiting", LessonVisiting.class);
         lessonVisiting.setLessonId(lessonId);
         lessonVisiting.setListStudent(students);
         if (!isNull(dataBase.getLessonVisitingByLessonId(lessonId))) {
@@ -59,7 +59,7 @@ public class LessonVisitingDAOImpl implements LessonVisitingDAO {
 
     @Override
     public String EditLessonVisiting(int lessonVisitingId, int lessonId, ArrayList<String> students) {
-        DataBase dataBase = app.getContext().getBean("data_base", DataBase.class);
+        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
         Lesson lesson = dataBase.getLessonById(lessonId);
         if (isNull(lesson)) {
             throw new NullPointerException("Такого урока нет в системе");
@@ -69,7 +69,7 @@ public class LessonVisitingDAOImpl implements LessonVisitingDAO {
             throw new NullPointerException("Посещаемость, которую вы хотите изменить - нет в системе");
         }
 
-        LessonVisiting lessonVisiting = app.getContext().getBean("lessonVisiting", LessonVisiting.class);
+        LessonVisiting lessonVisiting = SpringConfig.getContext().getBean("lessonVisiting", LessonVisiting.class);
         lessonVisiting.setId(lessonVisitingId);
         lessonVisiting.setLessonId(lessonId);
         lessonVisiting.setListStudent(students);
@@ -81,7 +81,7 @@ public class LessonVisitingDAOImpl implements LessonVisitingDAO {
 
     @Override
     public String DeleteLessonVisitingById(int lessonVisitingId) {
-        DataBase dataBase = app.getContext().getBean("data_base", DataBase.class);
+        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
         LessonVisiting lessonVisiting = dataBase.getLessonVisitingById(lessonVisitingId);
         if (isNull(lessonVisiting)) {
             throw new NullPointerException("Такой посещаемости нет в системе");
@@ -92,7 +92,7 @@ public class LessonVisitingDAOImpl implements LessonVisitingDAO {
 
     @Override
     public String DeleteLessonVisitingByLessonId(int lessonId) {
-        DataBase dataBase = app.getContext().getBean("data_base", DataBase.class);
+        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
         Lesson lesson = dataBase.getLessonById(lessonId);
         if (isNull(lesson)) {
             throw new NullPointerException("Такого урока нет в системе");

@@ -1,7 +1,7 @@
 package org.example.dao_repositories_implements;
 
 import org.example.DataBase;
-import org.example.app;
+import org.example.SpringConfig;
 import org.example.dao_repositories.LessonDAO;
 import org.example.model.Lesson;
 import org.example.model.StudentGroup;
@@ -22,7 +22,7 @@ public class LessonDAOImpl implements LessonDAO {
 
     @Override
     public Lesson getLessonById(int id) {
-        DataBase dataBase = app.getContext().getBean("data_base", DataBase.class);
+        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
         Lesson lesson = dataBase.getLessonById(id);
         if (isNull(lesson)) {
             throw new NullPointerException("Такого урока нет в системе");
@@ -32,7 +32,7 @@ public class LessonDAOImpl implements LessonDAO {
 
     @Override
     public ArrayList<Lesson> getLessonsByGroup(String startDate, String endDate, int groupId) throws ParseException {
-        DataBase dataBase = app.getContext().getBean("data_base", DataBase.class);
+        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
         StudentGroup group = dataBase.getStudentGroupById(groupId);
         if (!isNull(group)) {
             Date dateStartTrue = new SimpleDateFormat("dd-MM-yyyy").parse(startDate);
@@ -45,7 +45,7 @@ public class LessonDAOImpl implements LessonDAO {
 
     @Override
     public ArrayList<Lesson> getLessonsByTeacher(String startDate, String endDate, int teacherId) throws ParseException {
-        DataBase dataBase = app.getContext().getBean("data_base", DataBase.class);
+        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
         Teacher teacher = dataBase.getTeacherById(teacherId);
         if (!isNull(teacher)) {
             Date dateStartTrue = new SimpleDateFormat("dd-MM-yyyy").parse(startDate);
@@ -58,7 +58,7 @@ public class LessonDAOImpl implements LessonDAO {
 
     @Override
     public String EditLesson(int id, String date, int number, int teacherId, int groupId, int subjectId) throws ParseException {
-        DataBase dataBase = app.getContext().getBean("data_base", DataBase.class);
+        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
         Teacher teacher = dataBase.getTeacherById(teacherId);
         if (isNull(teacher)) {
             throw new NullPointerException("Такого учителя нет в системе");
@@ -76,7 +76,7 @@ public class LessonDAOImpl implements LessonDAO {
         }
 
         Date dateTrue = new SimpleDateFormat("dd-MM-yyyy").parse(date);
-        Lesson lesson = app.getContext().getBean("lesson", Lesson.class);
+        Lesson lesson = SpringConfig.getContext().getBean("lesson", Lesson.class);
         lesson.setId(id);
         lesson.setDate(dateTrue);
         lesson.setGroup(studentGroup);
@@ -91,7 +91,7 @@ public class LessonDAOImpl implements LessonDAO {
 
     @Override
     public String DeleteLessonsByGroup(int groupId) {
-        DataBase dataBase = app.getContext().getBean("data_base", DataBase.class);
+        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
         StudentGroup group = dataBase.getStudentGroupById(groupId);
         if (isNull(group)) {
             throw new NullPointerException("Такой группы нет в системе");
@@ -102,7 +102,7 @@ public class LessonDAOImpl implements LessonDAO {
 
     @Override
     public String DeleteLessonById(int lessonId) {
-        DataBase dataBase = app.getContext().getBean("data_base", DataBase.class);
+        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
         Lesson lesson = dataBase.getLessonById(lessonId);
         if (isNull(lesson)) {
             throw new NullPointerException("Такого урока нет в системе");
@@ -113,7 +113,7 @@ public class LessonDAOImpl implements LessonDAO {
 
     @Override
     public String DeleteLessonsByTeacher(int teacherId) {
-        DataBase dataBase = app.getContext().getBean("data_base", DataBase.class);
+        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
         Teacher teacher = dataBase.getTeacherById(teacherId);
         if (isNull(teacher)) {
             throw new NullPointerException("Такого учителя нет в системе");
@@ -124,13 +124,19 @@ public class LessonDAOImpl implements LessonDAO {
 
     @Override
     public int AddLesson(String date, int number, int teacherId, int subjectId, int groupId) throws ParseException {
-        DataBase dataBase = app.getContext().getBean("data_base", DataBase.class);
+        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
         DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
         Date date1 = df.parse(date);
         Teacher teacher = dataBase.getTeacherById(teacherId);
         StudentGroup group = dataBase.getStudentGroupById(groupId);
         Subject subject = dataBase.getSubjectById(subjectId);
-        Lesson lesson = new Lesson(0, date1, number, teacher, subject, group);
+
+        Lesson lesson = SpringConfig.getContext().getBean("lesson", Lesson.class);
+        lesson.setDate(date1);
+        lesson.setGroup(group);
+        lesson.setTeacher(teacher);
+        lesson.setSubject(subject);
+        lesson.setNumber(number);
 
         return dataBase.AddLesson(lesson);
     }

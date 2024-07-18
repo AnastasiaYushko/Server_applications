@@ -16,7 +16,7 @@ public class EditLessonVisitingHandler implements IHandler {
     @Override
     public String handler(Object jsonRequest) throws JsonProcessingException, ParseException {
 
-        ResponseEntity<String> editStudentVisitingResponse = LessonVisitingController.editLessonVisiting((EditLessonVisitingRequest) jsonRequest);
+        ResponseEntity<?> editStudentVisitingResponse = LessonVisitingController.editLessonVisiting((EditLessonVisitingRequest) jsonRequest);
 
         Gson gson = new GsonBuilder()
                 .setPrettyPrinting()

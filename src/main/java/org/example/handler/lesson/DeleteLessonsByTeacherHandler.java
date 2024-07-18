@@ -15,7 +15,7 @@ public class DeleteLessonsByTeacherHandler implements IHandler {
     @Override
     public String handler(Object jsonRequest) throws JsonProcessingException {
 
-        ResponseEntity<String> deleteLessonResponse = LessonController.deleteLessonsByTeacher((DeleteLessonsByTeacherRequest) jsonRequest);
+        ResponseEntity<?> deleteLessonResponse = LessonController.deleteLessonsByTeacher((DeleteLessonsByTeacherRequest) jsonRequest);
 
         Gson gson = new GsonBuilder()
                 .setPrettyPrinting()

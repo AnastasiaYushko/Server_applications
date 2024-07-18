@@ -14,7 +14,7 @@ public class EditStudentGroupHandler implements IHandler {
     @Override
     public String handler(Object jsonRequest) throws JsonProcessingException {
 
-        ResponseEntity<String> editStudentGroupResponse = GroupController.editStudentGroup((EditStudentGroupRequest) jsonRequest);
+        ResponseEntity<?> editStudentGroupResponse = GroupController.editStudentGroup((EditStudentGroupRequest) jsonRequest);
 
         Gson gson = new GsonBuilder()
                 .setPrettyPrinting()

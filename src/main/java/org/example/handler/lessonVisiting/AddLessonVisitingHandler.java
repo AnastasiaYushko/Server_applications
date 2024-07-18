@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.example.dto_request.lessonVisiting.add.AddLessonVisitingRequest;
-import org.example.dto_response.lessonVisiting.AddLessonVisitingResponse;
 import org.example.handler.IHandler;
 import org.example.network_operations.ResponseEntity;
 import org.example.network_operations.controllers.LessonVisitingController;
@@ -15,7 +14,7 @@ public class AddLessonVisitingHandler implements IHandler {
     @Override
     public String handler(Object jsonRequest) throws JsonProcessingException {
 
-        ResponseEntity<AddLessonVisitingResponse> addStudentVisitingResponse = LessonVisitingController.addLessonVisiting((AddLessonVisitingRequest) jsonRequest);
+        ResponseEntity<?> addStudentVisitingResponse = LessonVisitingController.addLessonVisiting((AddLessonVisitingRequest) jsonRequest);
 
         Gson gson = new GsonBuilder()
                 .setPrettyPrinting()

@@ -2,7 +2,7 @@ package org.example.network_operations.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.apache.http.HttpStatus;
-import org.example.app;
+import org.example.SpringConfig;
 import org.example.dto_request.studentGroup.add.AddStudentGroupRequest;
 import org.example.dto_request.studentGroup.add.AddStudentGroupValidator;
 import org.example.dto_request.studentGroup.delete.DeleteStudentGroupRequest;
@@ -24,113 +24,88 @@ import java.util.List;
 @Component
 public class GroupController {
 
-    public static ResponseEntity<GetStudentGroupByIdResponse> getStudentGroupById(GetStudentGroupByIdRequest request) throws JsonProcessingException {
+    public static ResponseEntity<?> getStudentGroupById(GetStudentGroupByIdRequest request) throws JsonProcessingException {
 
         GetStudentGroupByIdValidator validator = new GetStudentGroupByIdValidator();
         List<String> errors = new ArrayList<>();
         validator.validate(request, errors);
 
         if (!errors.isEmpty()) {
-            throw new IllegalArgumentException(errors.toString());
+            return new ResponseEntity<>(errors, HttpStatus.SC_BAD_REQUEST);
         }
 
-        GroupStudentServiceImpl groupStudentService = app.getContext().getBean("group_student_service", GroupStudentServiceImpl.class);
+        GroupStudentServiceImpl groupStudentService = SpringConfig.getContext().getBean("group_student_service", GroupStudentServiceImpl.class);
 
-        GetStudentGroupByIdResponse getStudentGroupByIdResponse;
-        int status = HttpStatus.SC_OK;
         try {
-            getStudentGroupByIdResponse = groupStudentService.getStudentGroupById(request);
-        } catch (Exception e) {
-            getStudentGroupByIdResponse = null;
-            status = HttpStatus.SC_NOT_FOUND;
+            GetStudentGroupByIdResponse getStudentGroupByIdResponse = groupStudentService.getStudentGroupById(request);
+            return new ResponseEntity<>(getStudentGroupByIdResponse, HttpStatus.SC_OK);
+        } catch (NullPointerException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
         }
-
-        return new ResponseEntity<>(getStudentGroupByIdResponse, status);
     }
 
-    public static ResponseEntity<String> editStudentGroup(EditStudentGroupRequest request) {
+    public static ResponseEntity<?> editStudentGroup(EditStudentGroupRequest request) {
         EditStudentGroupValidator validator = new EditStudentGroupValidator();
         List<String> errors = new ArrayList<>();
         validator.validate(request, errors);
 
         if (!errors.isEmpty()) {
-            throw new IllegalArgumentException(errors.toString());
+            return new ResponseEntity<>(errors, HttpStatus.SC_BAD_REQUEST);
         }
 
-        GroupStudentServiceImpl groupStudentService = app.getContext().getBean("group_student_service", GroupStudentServiceImpl.class);
+        GroupStudentServiceImpl groupStudentService = SpringConfig.getContext().getBean("group_student_service", GroupStudentServiceImpl.class);
 
-        String editStudentGroupResponse;
-        int status = HttpStatus.SC_OK;
         try {
-            editStudentGroupResponse = groupStudentService.editStudentGroup(request);
-        } catch (Exception e) {
-            editStudentGroupResponse = null;
-            status = HttpStatus.SC_NOT_FOUND;
+            String editStudentGroupResponse = groupStudentService.editStudentGroup(request);
+            return new ResponseEntity<>(editStudentGroupResponse, HttpStatus.SC_OK);
+        } catch (NullPointerException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
         }
-
-        return new ResponseEntity<>(editStudentGroupResponse, status);
     }
 
-    public static ResponseEntity<AddStudentGroupResponse> addStudentGroup(AddStudentGroupRequest request) {
+    public static ResponseEntity<?> addStudentGroup(AddStudentGroupRequest request) {
         AddStudentGroupValidator validator = new AddStudentGroupValidator();
         List<String> errors = new ArrayList<>();
         validator.validate(request, errors);
 
         if (!errors.isEmpty()) {
-            throw new IllegalArgumentException(errors.toString());
+            return new ResponseEntity<>(errors, HttpStatus.SC_BAD_REQUEST);
         }
 
-        GroupStudentServiceImpl groupStudentService = app.getContext().getBean("group_student_service", GroupStudentServiceImpl.class);
+        GroupStudentServiceImpl groupStudentService = SpringConfig.getContext().getBean("group_student_service", GroupStudentServiceImpl.class);
 
-        AddStudentGroupResponse addStudentGroupResponse;
-        int status = HttpStatus.SC_OK;
         try {
-            addStudentGroupResponse = groupStudentService.addStudentGroup(request);
-        } catch (Exception e) {
-            addStudentGroupResponse = null;
-            status = HttpStatus.SC_NOT_FOUND;
+            AddStudentGroupResponse addStudentGroupResponse = groupStudentService.addStudentGroup(request);
+            return new ResponseEntity<>(addStudentGroupResponse, HttpStatus.SC_OK);
+        } catch (NullPointerException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
         }
-
-        return new ResponseEntity<>(addStudentGroupResponse, status);
     }
 
-    public static ResponseEntity<String> deleteStudentGroup(DeleteStudentGroupRequest request) {
+    public static ResponseEntity<?> deleteStudentGroup(DeleteStudentGroupRequest request) {
         DeleteStudentGroupValidator validator = new DeleteStudentGroupValidator();
         List<String> errors = new ArrayList<>();
         validator.validate(request, errors);
 
         if (!errors.isEmpty()) {
-            throw new IllegalArgumentException(errors.toString());
+            return new ResponseEntity<>(errors, HttpStatus.SC_BAD_REQUEST);
         }
 
+        GroupStudentServiceImpl groupStudentService = SpringConfig.getContext().getBean("group_student_service", GroupStudentServiceImpl.class);
 
-        GroupStudentServiceImpl groupStudentService = app.getContext().getBean("group_student_service", GroupStudentServiceImpl.class);
-
-        String dataResponse;
-        int status = HttpStatus.SC_OK;
         try {
-            dataResponse = groupStudentService.deleteStudentGroup(request);
-        } catch (Exception e) {
-            dataResponse = null;
-            status = HttpStatus.SC_NOT_FOUND;
+            String dataResponse = groupStudentService.deleteStudentGroup(request);
+            return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
+        } catch (NullPointerException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
         }
-
-        return new ResponseEntity<>(dataResponse, status);
     }
 
     public static ResponseEntity<GetStudentGroupsResponse> getStudentGroups() {
 
-        GroupStudentServiceImpl groupStudentService = app.getContext().getBean("group_student_service", GroupStudentServiceImpl.class);
+        GroupStudentServiceImpl groupStudentService = SpringConfig.getContext().getBean("group_student_service", GroupStudentServiceImpl.class);
 
-        GetStudentGroupsResponse getStudentGroupsResponse;
-        int status = HttpStatus.SC_OK;
-        try {
-            getStudentGroupsResponse = groupStudentService.getStudentGroups();
-        } catch (Exception e) {
-            getStudentGroupsResponse = null;
-            status = HttpStatus.SC_NOT_FOUND;
-        }
-
-        return new ResponseEntity<>(getStudentGroupsResponse, status);
+        GetStudentGroupsResponse getStudentGroupsResponse = groupStudentService.getStudentGroups();
+        return new ResponseEntity<>(getStudentGroupsResponse, HttpStatus.SC_OK);
     }
 }

@@ -14,7 +14,7 @@ public class EditSubjectHandler implements IHandler {
     @Override
     public String handler(Object jsonRequest) throws JsonProcessingException {
 
-        ResponseEntity<String> editSubjectResponse = SubjectController.editSubject((EditSubjectRequest) jsonRequest);
+        ResponseEntity<?> editSubjectResponse = SubjectController.editSubject((EditSubjectRequest) jsonRequest);
 
         Gson gson = new GsonBuilder()
                 .setPrettyPrinting()

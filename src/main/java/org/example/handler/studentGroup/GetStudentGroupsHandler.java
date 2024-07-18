@@ -3,7 +3,6 @@ package org.example.handler.studentGroup;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import org.example.dto_response.studentGroup.GetStudentGroupsResponse;
 import org.example.handler.IHandler;
 import org.example.network_operations.ResponseEntity;
 import org.example.network_operations.controllers.GroupController;
@@ -14,7 +13,7 @@ public class GetStudentGroupsHandler implements IHandler {
     @Override
     public String handler(Object str) throws JsonProcessingException {
 
-        ResponseEntity<GetStudentGroupsResponse> getStudentGroupsResponse = GroupController.getStudentGroups();
+        ResponseEntity<?> getStudentGroupsResponse = GroupController.getStudentGroups();
 
         Gson gson = new GsonBuilder()
                 .setPrettyPrinting()

@@ -76,7 +76,7 @@ public class DataBase {
             listStudents.put(keyStudent, student);
         }
         keyStudent++;
-        return keyStudent--;
+        return keyStudent-1;
     }
 
     public ArrayList<Student> getStudentsByGroup(int id) {
@@ -159,7 +159,7 @@ public class DataBase {
             listLesson.put(keyLesson, lesson);
         }
         keyLesson++;
-        return keyLesson--;
+        return keyLesson-1;
     }
 
     public void DeleteLessonsByGroup(int groupId) {
@@ -202,7 +202,7 @@ public class DataBase {
 
     //StudentGroup
     public ArrayList<StudentGroup> getStudentGroups() {
-        return (ArrayList<StudentGroup>) listGroups.values();
+        return new ArrayList<>(listGroups.values());
     }
 
     public StudentGroup getStudentGroupById(int id) {
@@ -215,7 +215,7 @@ public class DataBase {
             listGroups.put(keyGroup, group);
         }
         keyGroup++;
-        return keyGroup--;
+        return keyGroup-1;
     }
 
 
@@ -238,7 +238,7 @@ public class DataBase {
     }
 
     public ArrayList<Teacher> getTeachers() {
-        return (ArrayList<Teacher>) listTeachers.values();
+        return new ArrayList<>(listTeachers.values());
     }
 
 
@@ -248,7 +248,7 @@ public class DataBase {
             listTeachers.put(keyTeacher, teacher);
         }
         keyTeacher++;
-        return keyTeacher--;
+        return keyTeacher-1;
     }
 
 
@@ -268,7 +268,7 @@ public class DataBase {
     //Subject
 
     public ArrayList<Subject> getSubjects() {
-        return (ArrayList<Subject>) listSubjects.values();
+        return new ArrayList<>(listSubjects.values());
     }
 
     public Subject getSubjectById(int id) {
@@ -287,7 +287,7 @@ public class DataBase {
             listSubjects.put(keySubject, subject);
         }
         keySubject++;
-        return keySubject--;
+        return keySubject-1;
     }
 
 
@@ -316,7 +316,7 @@ public class DataBase {
             listLessonVisiting_LessonId.put(lessonVisiting.getLessonId(), lessonVisiting);
         }
         keyLessonVisiting_Id++;
-        return keyLessonVisiting_Id--;
+        return keyLessonVisiting_Id-1;
     }
 
     public LessonVisiting getLessonVisitingById(int lessonVisitingId) {

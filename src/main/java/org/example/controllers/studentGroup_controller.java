@@ -6,10 +6,7 @@ import org.example.dto_request.studentGroup.delete.DeleteStudentGroupRequest;
 import org.example.dto_request.studentGroup.edit.EditStudentGroupRequest;
 import org.example.dto_request.studentGroup.get.GetStudentGroupByIdRequest;
 import org.example.handler.IHandler;
-import org.example.handler.studentGroup.AddStudentGroupHandler;
-import org.example.handler.studentGroup.DeleteStudentGroupHandler;
-import org.example.handler.studentGroup.EditStudentGroupHandler;
-import org.example.handler.studentGroup.GetStudentGroupsHandler;
+import org.example.handler.studentGroup.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
@@ -27,7 +24,7 @@ public class studentGroup_controller {
 
     @GetMapping("/getGyId")
     public String GetStudentGroupById(@RequestParam("id") int id) throws ParseException, JsonProcessingException {
-        classHandler = new GetStudentGroupsHandler();
+        classHandler = new GetStudentGroupByIdHandler();
         GetStudentGroupByIdRequest getStudentGroupByIdRequest = new GetStudentGroupByIdRequest(id);
         return classHandler.handler(getStudentGroupByIdRequest);
     }

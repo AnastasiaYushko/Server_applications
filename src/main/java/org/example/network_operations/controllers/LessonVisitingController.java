@@ -1,7 +1,7 @@
 package org.example.network_operations.controllers;
 
 import org.apache.http.HttpStatus;
-import org.example.app;
+import org.example.SpringConfig;
 import org.example.dto_request.lessonVisiting.add.AddLessonVisitingRequest;
 import org.example.dto_request.lessonVisiting.add.AddLessonVisitingValidator;
 import org.example.dto_request.lessonVisiting.delete.byId.DeleteLessonVisitingByIdRequest;
@@ -26,102 +26,120 @@ import java.util.List;
 
 @Component
 public class LessonVisitingController {
-    public static ResponseEntity<AddLessonVisitingResponse> addLessonVisiting(AddLessonVisitingRequest request) {
+    public static ResponseEntity<?> addLessonVisiting(AddLessonVisitingRequest request) {
 
         AddLessonVisitingValidator validator = new AddLessonVisitingValidator();
         List<String> errors = new ArrayList<>();
         validator.validate(request, errors);
 
         if (!errors.isEmpty()) {
-            throw new IllegalArgumentException(errors.toString());
+            return new ResponseEntity<>(errors, HttpStatus.SC_BAD_REQUEST);
         }
 
-        LessonVisitingServiceImpl lessonVisitingService = app.getContext().getBean("lesson_visiting_service", LessonVisitingServiceImpl.class);
+        LessonVisitingServiceImpl lessonVisitingService = SpringConfig.getContext().getBean("lesson_visiting_service", LessonVisitingServiceImpl.class);
 
-        AddLessonVisitingResponse dataResponse = lessonVisitingService.addLessonVisiting(request);
-
-        return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
+        try {
+            AddLessonVisitingResponse dataResponse = lessonVisitingService.addLessonVisiting(request);
+            return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
+        } catch (NullPointerException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
+        }
     }
 
-    public static ResponseEntity<String> deleteLessonVisitingById(DeleteLessonVisitingByIdRequest request) {
+    public static ResponseEntity<?> deleteLessonVisitingById(DeleteLessonVisitingByIdRequest request) {
 
         DeleteLessonVisitingByIdValidator validator = new DeleteLessonVisitingByIdValidator();
         List<String> errors = new ArrayList<>();
         validator.validate(request, errors);
 
         if (!errors.isEmpty()) {
-            throw new IllegalArgumentException(errors.toString());
+            return new ResponseEntity<>(errors, HttpStatus.SC_BAD_REQUEST);
         }
 
-        LessonVisitingServiceImpl lessonVisitingService = app.getContext().getBean("lesson_visiting_service", LessonVisitingServiceImpl.class);
+        LessonVisitingServiceImpl lessonVisitingService = SpringConfig.getContext().getBean("lesson_visiting_service", LessonVisitingServiceImpl.class);
 
-        String dataResponse = lessonVisitingService.deleteLessonVisitingById(request);
-
-        return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
+        try {
+            String dataResponse = lessonVisitingService.deleteLessonVisitingById(request);
+            return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
+        } catch (NullPointerException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
+        }
     }
 
-    public static ResponseEntity<String> deleteLessonVisitingByLessonId(DeleteLessonVisitingByLessonIdRequest request) {
+    public static ResponseEntity<?> deleteLessonVisitingByLessonId(DeleteLessonVisitingByLessonIdRequest request) {
         DeleteLessonVisitingByLessonIdValidator validator = new DeleteLessonVisitingByLessonIdValidator();
         List<String> errors = new ArrayList<>();
         validator.validate(request, errors);
 
         if (!errors.isEmpty()) {
-            throw new IllegalArgumentException(errors.toString());
+            return new ResponseEntity<>(errors, HttpStatus.SC_BAD_REQUEST);
         }
 
-        LessonVisitingServiceImpl lessonVisitingService = app.getContext().getBean("lesson_visiting_service", LessonVisitingServiceImpl.class);
+        LessonVisitingServiceImpl lessonVisitingService = SpringConfig.getContext().getBean("lesson_visiting_service", LessonVisitingServiceImpl.class);
 
-        String dataResponse = lessonVisitingService.deleteLessonVisitingByLessonId(request);
-
-        return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
+        try {
+            String dataResponse = lessonVisitingService.deleteLessonVisitingByLessonId(request);
+            return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
+        } catch (NullPointerException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
+        }
     }
 
-    public static ResponseEntity<GetLessonVisitingByIdResponse> getLessonVisitingById(GetLessonVisitingByIdRequest request) {
+    public static ResponseEntity<?> getLessonVisitingById(GetLessonVisitingByIdRequest request) {
 
         GetLessonVisitingByIdValidator validator = new GetLessonVisitingByIdValidator();
         List<String> errors = new ArrayList<>();
         validator.validate(request, errors);
 
         if (!errors.isEmpty()) {
-            throw new IllegalArgumentException(errors.toString());
+            return new ResponseEntity<>(errors, HttpStatus.SC_BAD_REQUEST);
         }
 
-        LessonVisitingServiceImpl lessonVisitingService = app.getContext().getBean("lesson_visiting_service", LessonVisitingServiceImpl.class);
+        LessonVisitingServiceImpl lessonVisitingService = SpringConfig.getContext().getBean("lesson_visiting_service", LessonVisitingServiceImpl.class);
 
-        GetLessonVisitingByIdResponse dataResponse = lessonVisitingService.getLessonVisitingById(request);
-
-        return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
+        try {
+            GetLessonVisitingByIdResponse dataResponse = lessonVisitingService.getLessonVisitingById(request);
+            return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
+        } catch (NullPointerException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
+        }
     }
 
-    public static ResponseEntity<GetLessonVisitingByLessonIdResponse> getLessonVisitingByLessonId(GetLessonVisitingByLessonIdRequest request) {
+    public static ResponseEntity<?> getLessonVisitingByLessonId(GetLessonVisitingByLessonIdRequest request) {
         GetLessonVisitingByLessonIdValidator validator = new GetLessonVisitingByLessonIdValidator();
         List<String> errors = new ArrayList<>();
         validator.validate(request, errors);
 
         if (!errors.isEmpty()) {
-            throw new IllegalArgumentException(errors.toString());
+            return new ResponseEntity<>(errors, HttpStatus.SC_BAD_REQUEST);
         }
 
-        LessonVisitingServiceImpl lessonVisitingService = app.getContext().getBean("lesson_visiting_service", LessonVisitingServiceImpl.class);
+        LessonVisitingServiceImpl lessonVisitingService = SpringConfig.getContext().getBean("lesson_visiting_service", LessonVisitingServiceImpl.class);
 
-        GetLessonVisitingByLessonIdResponse dataResponse = lessonVisitingService.getLessonVisitingByLessonId(request);
-
-        return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
+        try {
+            GetLessonVisitingByLessonIdResponse dataResponse = lessonVisitingService.getLessonVisitingByLessonId(request);
+            return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
+        } catch (NullPointerException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
+        }
     }
 
-    public static ResponseEntity<String> editLessonVisiting(EditLessonVisitingRequest request) {
+    public static ResponseEntity<?> editLessonVisiting(EditLessonVisitingRequest request) {
         EditLessonVisitingValidator validator = new EditLessonVisitingValidator();
         List<String> errors = new ArrayList<>();
         validator.validate(request, errors);
 
         if (!errors.isEmpty()) {
-            throw new IllegalArgumentException(errors.toString());
+            return new ResponseEntity<>(errors, HttpStatus.SC_BAD_REQUEST);
         }
 
-        LessonVisitingServiceImpl lessonVisitingService = app.getContext().getBean("lesson_visiting_service", LessonVisitingServiceImpl.class);
+        LessonVisitingServiceImpl lessonVisitingService = SpringConfig.getContext().getBean("lesson_visiting_service", LessonVisitingServiceImpl.class);
 
-        String dataResponse = lessonVisitingService.editLessonVisiting(request);
-
-        return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
+        try {
+            String dataResponse = lessonVisitingService.editLessonVisiting(request);
+            return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
+        } catch (NullPointerException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
+        }
     }
 }

@@ -1,7 +1,7 @@
 package org.example.dao_repositories_implements;
 
 import org.example.DataBase;
-import org.example.app;
+import org.example.SpringConfig;
 import org.example.dao_repositories.TeacherDAO;
 import org.example.model.Teacher;
 import org.springframework.stereotype.Repository;
@@ -15,13 +15,13 @@ public class TeacherDAOImpl implements TeacherDAO {
 
     @Override
     public ArrayList<Teacher> getTeachers() {
-        DataBase dataBase = app.getContext().getBean("data_base", DataBase.class);
+        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
         return dataBase.getTeachers();
     }
 
     @Override
     public Teacher getTeacherById(int id) {
-        DataBase dataBase = app.getContext().getBean("data_base", DataBase.class);
+        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
         Teacher teacher = dataBase.getTeacherById(id);
         if (isNull(teacher)) {
             throw new NullPointerException("Такого учителя нет в системе");
@@ -31,8 +31,8 @@ public class TeacherDAOImpl implements TeacherDAO {
 
     @Override
     public int addTeacher(String firstName, String middleName, String lastName) {
-        DataBase dataBase = app.getContext().getBean("data_base", DataBase.class);
-        Teacher teacher = app.getContext().getBean("teacher", Teacher.class);
+        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
+        Teacher teacher = SpringConfig.getContext().getBean("teacher", Teacher.class);
         teacher.setFirstName(firstName);
         teacher.setLastName(lastName);
         teacher.setMiddleName(middleName);
@@ -41,10 +41,10 @@ public class TeacherDAOImpl implements TeacherDAO {
 
     @Override
     public String editTeacher(int id, String firstName, String middleName, String lastName) {
-        DataBase dataBase = app.getContext().getBean("data_base", DataBase.class);
+        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
         Teacher teacher = dataBase.getTeacherById(id);
         if (!isNull(teacher)) {
-            Teacher newDataTeacher = app.getContext().getBean("teacher", Teacher.class);
+            Teacher newDataTeacher = SpringConfig.getContext().getBean("teacher", Teacher.class);
             newDataTeacher.setId(id);
             newDataTeacher.setFirstName(firstName);
             newDataTeacher.setMiddleName(middleName);
@@ -58,7 +58,7 @@ public class TeacherDAOImpl implements TeacherDAO {
 
     @Override
     public String deleteTeacher(int id) {
-        DataBase dataBase = app.getContext().getBean("data_base", DataBase.class);
+        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
         Teacher teacher = dataBase.getTeacherById(id);
         if (!isNull(teacher)) {
             dataBase.deleteTeacher(id);

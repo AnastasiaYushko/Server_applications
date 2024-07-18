@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.example.dto_request.lesson.get.byId.GetLessonByIdRequest;
-import org.example.dto_response.lesson.GetLessonByIdResponse;
 import org.example.handler.IHandler;
 import org.example.network_operations.ResponseEntity;
 import org.example.network_operations.controllers.LessonController;
@@ -15,7 +14,7 @@ public class GetLessonByIdHandler implements IHandler {
     @Override
     public String handler(Object jsonRequest) throws JsonProcessingException {
 
-        ResponseEntity<GetLessonByIdResponse> getLessonByIdResponse = LessonController.getLessonById((GetLessonByIdRequest) jsonRequest);
+        ResponseEntity<?> getLessonByIdResponse = LessonController.getLessonById((GetLessonByIdRequest) jsonRequest);
 
         Gson gson = new GsonBuilder()
                 .setPrettyPrinting()

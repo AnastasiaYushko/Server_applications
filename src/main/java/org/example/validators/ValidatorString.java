@@ -17,7 +17,7 @@ public class ValidatorString {
 
     public static void validateLength(String str, List<String> error, String fieldName, int maxLength) {
         if (str != null && str.length() > maxLength) {
-            error.add(fieldName + " exceeds the maximum length");
+            error.add(fieldName + " превышает максимальную длину");
         }
     }
 }
