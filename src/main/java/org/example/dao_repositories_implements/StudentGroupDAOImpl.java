@@ -29,6 +29,7 @@ public class StudentGroupDAOImpl implements StudentGroupDAO {
         return group;
     }
 
+    // нельзя добавить 2 одинаковых группы
     @Override
     public int addStudentGroup(String name) {
         DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);

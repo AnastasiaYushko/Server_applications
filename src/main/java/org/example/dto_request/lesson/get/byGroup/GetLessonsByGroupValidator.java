@@ -3,11 +3,9 @@ package org.example.dto_request.lesson.get.byGroup;
 import org.example.validators.RequestValidator;
 import org.example.validators.ValidatorDate;
 import org.example.validators.ValidatorNumber;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
 public class GetLessonsByGroupValidator implements RequestValidator<GetLessonsByGroupRequest> {
 
     @Override

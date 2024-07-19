@@ -40,6 +40,7 @@ public class LessonVisitingDAOImpl implements LessonVisitingDAO {
         return lessonVisiting;
     }
 
+    // исключить добавление одинаковых
     @Override
     public int AddLessonVisiting(int lessonId, ArrayList<String> students) {
         DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
@@ -57,6 +58,7 @@ public class LessonVisitingDAOImpl implements LessonVisitingDAO {
         return dataBase.addLessonVisiting(lessonVisiting);
     }
 
+    ////при изменении чтобы не было одинаковых
     @Override
     public String EditLessonVisiting(int lessonVisitingId, int lessonId, ArrayList<String> students) {
         DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);

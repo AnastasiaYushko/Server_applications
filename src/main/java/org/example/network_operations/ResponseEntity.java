@@ -14,9 +14,7 @@ public class ResponseEntity<T> {
         this.responseStatus = responseStatus;
     }
 
-    public ResponseEntity() {
-        super();
-    }
+    public ResponseEntity() {}
 
     @Override
     public String toString() {

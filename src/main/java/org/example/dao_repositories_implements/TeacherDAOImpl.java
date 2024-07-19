@@ -29,6 +29,7 @@ public class TeacherDAOImpl implements TeacherDAO {
         return teacher;
     }
 
+    //исключить повторы
     @Override
     public int addTeacher(String firstName, String middleName, String lastName) {
         DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
@@ -39,6 +40,7 @@ public class TeacherDAOImpl implements TeacherDAO {
         return dataBase.addTeacher(teacher);
     }
 
+    //исключить повторы
     @Override
     public String editTeacher(int id, String firstName, String middleName, String lastName) {
         DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);

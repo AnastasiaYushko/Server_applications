@@ -10,6 +10,7 @@ import org.example.dto_response.teacher.GetTeacherByIdResponse;
 import org.example.dto_response.teacher.GetTeachersResponse;
 import org.example.model.Teacher;
 import org.example.services.serviceInterface.TeacherService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 public class TeacherServiceImpl implements TeacherService {
     private final TeacherDAOImpl teacherDAO;
 
+    @Autowired
     public TeacherServiceImpl(TeacherDAOImpl teacherDAO) {
         this.teacherDAO = teacherDAO;
     }
@@ -41,9 +43,6 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public GetTeacherByIdResponse getTeacherById(GetTeacherByIdRequest request) {
         Teacher teacher = teacherDAO.getTeacherById(request.getId());
-        if (teacher == null){
-            throw new NullPointerException("teacher is null");
-        }
         return new GetTeacherByIdResponse(teacher.getFirstName(), teacher.getLastName(), teacher.getMiddleName());
     }
 

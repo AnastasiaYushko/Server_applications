@@ -4,11 +4,9 @@ import org.example.validators.RequestValidator;
 import org.example.validators.ValidatorNumber;
 import org.example.validators.ValidatorString;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
 public class EditStudentValidator implements RequestValidator<EditStudentRequest> {
 
     @Override

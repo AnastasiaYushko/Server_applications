@@ -1,6 +1,7 @@
 package org.example.services.serviceInterfaceImpl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import org.example.SpringConfig;
 import org.example.dao_repositories_implements.StudentGroupDAOImpl;
 import org.example.dto_request.studentGroup.add.AddStudentGroupRequest;
 import org.example.dto_request.studentGroup.delete.DeleteStudentGroupRequest;
@@ -11,6 +12,7 @@ import org.example.dto_response.studentGroup.GetStudentGroupByIdResponse;
 import org.example.dto_response.studentGroup.GetStudentGroupsResponse;
 import org.example.model.StudentGroup;
 import org.example.services.serviceInterface.GroupStudentsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,6 +22,7 @@ public class GroupStudentServiceImpl implements GroupStudentsService {
 
     private final StudentGroupDAOImpl studentGroupDAO;
 
+    @Autowired
     public GroupStudentServiceImpl(StudentGroupDAOImpl studentGroupDAO){
         this.studentGroupDAO = studentGroupDAO;
     }
@@ -27,7 +30,9 @@ public class GroupStudentServiceImpl implements GroupStudentsService {
     @Override
     public GetStudentGroupByIdResponse getStudentGroupById(GetStudentGroupByIdRequest request) throws JsonProcessingException {
         StudentGroup group = studentGroupDAO.getStudentGroupById(request.getId());
-        return new GetStudentGroupByIdResponse(group.getName());
+        GetStudentGroupByIdResponse getStudentGroupByIdResponse = SpringConfig.getContext().getBean("getStudentGroupByIdResponse",GetStudentGroupByIdResponse.class);
+        getStudentGroupByIdResponse.setName(group.getName());
+        return getStudentGroupByIdResponse;
     }
 
     @Override
@@ -38,7 +43,10 @@ public class GroupStudentServiceImpl implements GroupStudentsService {
         for (StudentGroup group : listStudentGroup) {
             newListStudentGroup.add(group.toString());
         }
-        return new GetStudentGroupsResponse(newListStudentGroup);
+
+        GetStudentGroupsResponse getStudentGroupsResponse = SpringConfig.getContext().getBean("getStudentGroupsResponse",GetStudentGroupsResponse.class);
+        getStudentGroupsResponse.setGroups(newListStudentGroup);
+        return getStudentGroupsResponse;
     }
 
     @Override
@@ -49,7 +57,9 @@ public class GroupStudentServiceImpl implements GroupStudentsService {
     @Override
     public AddStudentGroupResponse addStudentGroup(AddStudentGroupRequest request) {
         int result = studentGroupDAO.addStudentGroup(request.getName());
-        return new AddStudentGroupResponse(result);
+        AddStudentGroupResponse AddStudentGroupResponse = SpringConfig.getContext().getBean("addStudentGroupResponse",AddStudentGroupResponse.class);
+        AddStudentGroupResponse.setId(result);
+        return AddStudentGroupResponse;
     }
 
     @Override

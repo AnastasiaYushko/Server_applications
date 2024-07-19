@@ -1,5 +1,6 @@
 package org.example.services.serviceInterfaceImpl;
 
+import org.example.SpringConfig;
 import org.example.dao_repositories_implements.LessonVisitingDAOImpl;
 import org.example.dto_request.lessonVisiting.add.AddLessonVisitingRequest;
 import org.example.dto_request.lessonVisiting.delete.byId.DeleteLessonVisitingByIdRequest;
@@ -26,7 +27,11 @@ public class LessonVisitingServiceImpl implements LessonVisitingService {
 
     @Override
     public AddLessonVisitingResponse addLessonVisiting(AddLessonVisitingRequest request) {
-        return new AddLessonVisitingResponse(lessonVisitingDAO.AddLessonVisiting(request.getLessonId(), request.getListStudent()));
+        int result = lessonVisitingDAO.AddLessonVisiting(request.getLessonId(), request.getListStudent());
+        AddLessonVisitingResponse addLessonVisitingResponse = SpringConfig.getContext().getBean("addLessonVisitingResponse",AddLessonVisitingResponse.class);
+        addLessonVisitingResponse.setId(result);
+
+        return addLessonVisitingResponse;
     }
 
     @Override
@@ -36,12 +41,21 @@ public class LessonVisitingServiceImpl implements LessonVisitingService {
 
     @Override
     public GetLessonVisitingByIdResponse getLessonVisitingById(GetLessonVisitingByIdRequest request) {
-        return new GetLessonVisitingByIdResponse(lessonVisitingDAO.GetLessonVisitingById(request.getLessonVisitingId()).toString());
+        String result = lessonVisitingDAO.GetLessonVisitingById(request.getLessonVisitingId()).toString();
+
+        GetLessonVisitingByIdResponse getLessonVisitingByIdResponse = SpringConfig.getContext().getBean("getLessonVisitingByIdResponse",GetLessonVisitingByIdResponse.class);
+        getLessonVisitingByIdResponse.setLessonVisiting(result);
+        return getLessonVisitingByIdResponse;
     }
 
     @Override
     public GetLessonVisitingByLessonIdResponse getLessonVisitingByLessonId(GetLessonVisitingByLessonIdRequest request){
-        return new GetLessonVisitingByLessonIdResponse(lessonVisitingDAO.GetLessonVisitingByLessonId(request.getLessonId()).toString());
+        String result = lessonVisitingDAO.GetLessonVisitingByLessonId(request.getLessonId()).toString();
+
+        GetLessonVisitingByLessonIdResponse getLessonVisitingByLessonIdResponse = SpringConfig.getContext().getBean("getLessonVisitingByLessonIdResponse",GetLessonVisitingByLessonIdResponse.class);
+        getLessonVisitingByLessonIdResponse.setLessonVisiting(result);
+
+        return getLessonVisitingByLessonIdResponse;
     }
 
     @Override

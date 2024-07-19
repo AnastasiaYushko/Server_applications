@@ -2,11 +2,9 @@ package org.example.dto_request.student.add;
 
 import org.example.validators.RequestValidator;
 import org.example.validators.ValidatorString;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
 public class AddStudentValidator implements RequestValidator<AddStudentRequest> {
 
     @Override

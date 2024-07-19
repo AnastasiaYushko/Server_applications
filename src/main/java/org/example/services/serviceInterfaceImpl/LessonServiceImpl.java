@@ -1,5 +1,6 @@
 package org.example.services.serviceInterfaceImpl;
 
+import org.example.SpringConfig;
 import org.example.dao_repositories_implements.LessonDAOImpl;
 import org.example.dto_request.lesson.add.AddLessonRequest;
 import org.example.dto_request.lesson.delete.byGroup.DeleteLessonsByGroupRequest;
@@ -15,6 +16,7 @@ import org.example.dto_response.lesson.GetLessonsByGroupResponse;
 import org.example.dto_response.lesson.GetLessonsByTeacherResponse;
 import org.example.model.Lesson;
 import org.example.services.serviceInterface.LessonService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.DateFormat;
@@ -28,6 +30,7 @@ public class LessonServiceImpl implements LessonService {
 
     private final LessonDAOImpl lessonDAO;
 
+    @Autowired
     public LessonServiceImpl(LessonDAOImpl lessonDAO){
         this.lessonDAO = lessonDAO;
     }
@@ -35,7 +38,9 @@ public class LessonServiceImpl implements LessonService {
     @Override
     public AddLessonResponse addLesson(AddLessonRequest request) throws ParseException {
         int result = lessonDAO.AddLesson(request.getDate(), request.getNumber(), request.getTeacherId(), request.getSubjectId(), request.getGroupId());
-        return new AddLessonResponse(result);
+        AddLessonResponse addLessonResponse = SpringConfig.getContext().getBean("addLessonResponse",AddLessonResponse.class);
+        addLessonResponse.setId(result);
+        return addLessonResponse;
     }
 
     @Override
@@ -67,13 +72,23 @@ public class LessonServiceImpl implements LessonService {
         for (Lesson lesson : lessons) {
             newList.add(lesson.toString());
         }
-        return new GetLessonsByGroupResponse(newList);
+
+        GetLessonsByGroupResponse getLessonsByGroupResponse = SpringConfig.getContext().getBean("getLessonsByGroupResponse",GetLessonsByGroupResponse.class);
+        getLessonsByGroupResponse.setListLessons(newList);
+        return getLessonsByGroupResponse;
     }
 
     @Override
     public GetLessonByIdResponse getLessonById(GetLessonByIdRequest request) {
         Lesson lesson = lessonDAO.getLessonById(request.getLessonId());
-        return new GetLessonByIdResponse(dateToStringFormat(lesson.getDate()), lesson.getNumber(), lesson.getTeacher().getId(), lesson.getGroup().getId());
+
+        GetLessonByIdResponse getLessonByIdResponse = SpringConfig.getContext().getBean("getLessonByIdResponse",GetLessonByIdResponse.class);
+        getLessonByIdResponse.setDate(dateToStringFormat(lesson.getDate()));
+        getLessonByIdResponse.setNumber(lesson.getNumber());
+        getLessonByIdResponse.setTeacherId(lesson.getTeacher().getId());
+        getLessonByIdResponse.setGroupId(lesson.getGroup().getId());
+
+        return getLessonByIdResponse;
     }
 
 
@@ -87,7 +102,10 @@ public class LessonServiceImpl implements LessonService {
             newListLessons.add(lesson.toString());
         }
 
-        return new GetLessonsByTeacherResponse(newListLessons);
+        GetLessonsByTeacherResponse getLessonsByTeacherResponse = SpringConfig.getContext().getBean("getLessonsByTeacherResponse",GetLessonsByTeacherResponse.class);
+        getLessonsByTeacherResponse.setListLessons(newListLessons);
+
+        return getLessonsByTeacherResponse;
     }
 
     public String dateToStringFormat(Date date) {

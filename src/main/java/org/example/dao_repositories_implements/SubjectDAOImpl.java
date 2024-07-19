@@ -29,6 +29,7 @@ public class SubjectDAOImpl implements SubjectDAO {
         return subject;
     }
 
+    //нельзя одинаковые
     @Override
     public int addSubject(String name) {
         DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
@@ -41,6 +42,7 @@ public class SubjectDAOImpl implements SubjectDAO {
         return result;
     }
 
+    //исключить повторение
     @Override
     public String editSubject(int id, String name) {
         DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);

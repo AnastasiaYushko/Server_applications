@@ -11,7 +11,6 @@ import org.example.dto_response.subject.GetSubjectsResponse;
 import org.example.model.Subject;
 import org.example.services.serviceInterface.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -21,6 +20,7 @@ public class SubjectServiceImpl implements SubjectService {
 
     private final SubjectDAOImpl subjectDAO;
 
+    @Autowired
     public SubjectServiceImpl(SubjectDAOImpl subjectDAO ) {
         this.subjectDAO = subjectDAO;
     }

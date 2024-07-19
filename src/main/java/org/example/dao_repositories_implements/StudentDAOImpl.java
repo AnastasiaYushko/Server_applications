@@ -36,6 +36,7 @@ public class StudentDAOImpl implements StudentDAO {
         return student;
     }
 
+    //исключить повторения
     @Override
     public int addStudent(String lastName, String firstName, String middleName, String groupId, String status) {
         DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
@@ -56,6 +57,7 @@ public class StudentDAOImpl implements StudentDAO {
         return dataBase.addStudent(student);
     }
 
+    // изменение не приводит к повторениям
     @Override
     public String editStudent(int id, String lastName, String firstName, String middleName, String groupId, String status) {
         DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);

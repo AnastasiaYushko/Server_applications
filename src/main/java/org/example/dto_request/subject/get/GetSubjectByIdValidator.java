@@ -2,11 +2,9 @@ package org.example.dto_request.subject.get;
 
 import org.example.validators.RequestValidator;
 import org.example.validators.ValidatorNumber;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
 public class GetSubjectByIdValidator implements RequestValidator<GetSubjectByIdRequest> {
 
     @Override

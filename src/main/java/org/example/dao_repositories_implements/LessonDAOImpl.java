@@ -56,6 +56,7 @@ public class LessonDAOImpl implements LessonDAO {
         }
     }
 
+    //при изменении чтобы не было одинаковых
     @Override
     public String EditLesson(int id, String date, int number, int teacherId, int groupId, int subjectId) throws ParseException {
         DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
@@ -122,6 +123,7 @@ public class LessonDAOImpl implements LessonDAO {
         return "Урок удален";
     }
 
+    //нельзя добавить 2 одинаковых
     @Override
     public int AddLesson(String date, int number, int teacherId, int subjectId, int groupId) throws ParseException {
         DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);

@@ -1,5 +1,6 @@
 package org.example.services.serviceInterfaceImpl;
 
+import org.example.SpringConfig;
 import org.example.dao_repositories_implements.StudentDAOImpl;
 import org.example.dto_request.student.add.AddStudentRequest;
 import org.example.dto_request.student.delete.DeleteStudentRequest;
@@ -12,7 +13,6 @@ import org.example.dto_response.student.GetStudentsByGroupResponse;
 import org.example.model.Student;
 import org.example.services.serviceInterface.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -22,6 +22,7 @@ public class StudentServiceImpl implements StudentService {
 
     private final StudentDAOImpl studentDAO;
 
+    @Autowired
     public StudentServiceImpl(StudentDAOImpl studentDAO) {
         this.studentDAO = studentDAO;
     }
@@ -29,7 +30,15 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public GetStudentByIdResponse getStudentById(GetStudentByIdRequest request) {
         Student student = studentDAO.getStudentById(request.getStudentId());
-        return new GetStudentByIdResponse(student.getLastName(), student.getFirstName(), student.getMiddleName(), student.getStatus().name(), student.getGroup().getName());
+
+        GetStudentByIdResponse getStudentByIdResponse = SpringConfig.getContext().getBean("getStudentByIdResponse",GetStudentByIdResponse.class);
+        getStudentByIdResponse.setFirstName(student.getFirstName());
+        getStudentByIdResponse.setGroup(student.getGroup().getName());
+        getStudentByIdResponse.setLastName(student.getLastName());
+        getStudentByIdResponse.setMiddleName(student.getMiddleName());
+        getStudentByIdResponse.setStatus(student.getStatus().name());
+
+        return getStudentByIdResponse;
     }
 
     @Override
@@ -42,7 +51,9 @@ public class StudentServiceImpl implements StudentService {
             newListStudents.add(student.toString());
         }
 
-        return new GetStudentsByGroupResponse(newListStudents);
+        GetStudentsByGroupResponse getStudentsByGroupResponse = SpringConfig.getContext().getBean("getStudentsByGroupResponse",GetStudentsByGroupResponse.class);
+        getStudentsByGroupResponse.setListStudents(newListStudents);
+        return getStudentsByGroupResponse;
     }
 
     @Override
@@ -53,7 +64,10 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public AddStudentResponse addStudent(AddStudentRequest request) {
         int result = studentDAO.addStudent(request.getLastName(), request.getFirstName(), request.getMiddleName(), request.getGroupId(), request.getStatus());
-        return new AddStudentResponse(result);
+
+        AddStudentResponse addStudentResponse = SpringConfig.getContext().getBean("addStudentResponse",AddStudentResponse.class);
+        addStudentResponse.setId(result);
+        return addStudentResponse;
     }
 
     @Override

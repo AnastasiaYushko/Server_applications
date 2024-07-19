@@ -2,11 +2,9 @@ package org.example.dto_request.student.get.byGroup;
 
 import org.example.validators.RequestValidator;
 import org.example.validators.ValidatorNumber;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
 public class GetStudentsByGroupValidator implements RequestValidator<GetStudentsByGroupRequest> {
 
     @Override
