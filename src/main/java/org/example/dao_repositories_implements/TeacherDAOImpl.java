@@ -9,29 +9,28 @@ import org.springframework.stereotype.Repository;
 import javax.jcr.RepositoryException;
 import java.util.ArrayList;
 
-@Repository("teacher_dao_impl")
+@Repository
 public class TeacherDAOImpl implements TeacherDAO {
 
     @Override
     public ArrayList<Teacher> getTeachers() {
-        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
+        DataBase dataBase = SpringConfig.getContext().getBean("dataBase", DataBase.class);
         return dataBase.getTeachers();
     }
 
     @Override
     public Teacher getTeacherById(int id) throws RepositoryException {
-        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
+        DataBase dataBase = SpringConfig.getContext().getBean("dataBase", DataBase.class);
         try {
             return dataBase.getTeacherById(id);
-        }
-        catch (NullPointerException e){
-            throw new RepositoryException(e);
+        } catch (NullPointerException e) {
+            throw new RepositoryException(e.getMessage());
         }
     }
 
     @Override
     public int addTeacher(String firstName, String middleName, String lastName) throws RepositoryException {
-        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
+        DataBase dataBase = SpringConfig.getContext().getBean("dataBase", DataBase.class);
         Teacher teacher = SpringConfig.getContext().getBean("teacher", Teacher.class);
         teacher.setFirstName(firstName);
         teacher.setLastName(lastName);
@@ -39,40 +38,37 @@ public class TeacherDAOImpl implements TeacherDAO {
 
         try {
             return dataBase.addTeacher(teacher);
-        }
-        catch (NullPointerException e){
-            throw new RepositoryException(e);
+        } catch (NullPointerException e) {
+            throw new RepositoryException(e.getMessage());
         }
     }
 
     @Override
     public String editTeacher(int id, String firstName, String middleName, String lastName) throws RepositoryException {
-        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
+        DataBase dataBase = SpringConfig.getContext().getBean("dataBase", DataBase.class);
 
-            Teacher teacher = SpringConfig.getContext().getBean("teacher", Teacher.class);
-            teacher.setId(id);
-            teacher.setFirstName(firstName);
-            teacher.setMiddleName(middleName);
-            teacher.setLastName(lastName);
+        Teacher teacher = SpringConfig.getContext().getBean("teacher", Teacher.class);
+        teacher.setId(id);
+        teacher.setFirstName(firstName);
+        teacher.setMiddleName(middleName);
+        teacher.setLastName(lastName);
 
-            try {
-                return dataBase.editTeacher(teacher);
-            }
-            catch (NullPointerException e){
-                throw new RepositoryException(e);
-            }
+        try {
+            return dataBase.editTeacher(teacher);
+        } catch (NullPointerException e) {
+            throw new RepositoryException(e.getMessage());
+        }
 
     }
 
     @Override
     public String deleteTeacher(int id) throws RepositoryException {
-        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
+        DataBase dataBase = SpringConfig.getContext().getBean("dataBase", DataBase.class);
 
         try {
             return dataBase.deleteTeacher(id);
-        }
-        catch (NullPointerException e){
-            throw new RepositoryException(e);
+        } catch (NullPointerException e) {
+            throw new RepositoryException(e.getMessage());
         }
     }
 }

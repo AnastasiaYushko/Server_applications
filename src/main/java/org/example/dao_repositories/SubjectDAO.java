@@ -13,7 +13,7 @@ public interface SubjectDAO {
 
     int addSubject(String name) throws RepositoryException;
 
-    String editSubject(int id, String name);
+    String editSubject(int id, String name) throws RepositoryException;
 
     String deleteSubject(int id) throws RepositoryException;
 }

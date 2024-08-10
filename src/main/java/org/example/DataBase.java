@@ -7,7 +7,7 @@ import java.util.*;
 
 import static java.util.Objects.isNull;
 
-@Component("data_base")
+@Component
 public class DataBase {
 
     private final Map<Integer, Student> listStudents;
@@ -77,7 +77,7 @@ public class DataBase {
         synchronized (listStudents) {
             for (int i = 1; i < keyStudent; i++) {
                 Student s = listStudents.get(i);
-                if (s.equals(student)){
+                if (s.equals(student)) {
                     throw new NullPointerException("Такой студент уже есть в системе");
                 }
             }
@@ -112,13 +112,13 @@ public class DataBase {
 
     public String editStudent(Student student) {
         Student student1 = getStudentById(student.getId());
-        if (student.equals(student1)){
+        if (student.equals(student1)) {
             throw new NullPointerException("Новые данные, которые вы хотите внести, совпадают с имеющимися");
         }
         synchronized (listStudents) {
             for (int i = 1; i < keyStudent; i++) {
                 Student s = listStudents.get(i);
-                if (s.equals(student)){
+                if (s.equals(student)) {
                     throw new NullPointerException("Новые данные, которые вы хотите внести совпадают с другим студентом");
                 }
             }
@@ -137,7 +137,7 @@ public class DataBase {
     //Lesson
     public Lesson getLessonById(int id) {
         Lesson lesson = listLesson.get(id);
-        if (isNull(lesson)){
+        if (isNull(lesson)) {
             throw new NullPointerException("Такого урока нет в базе данных");
         }
         return lesson;
@@ -200,12 +200,11 @@ public class DataBase {
         return "Данные урока изменены!";
     }
 
-
     public synchronized int AddLesson(Lesson lesson) {
         synchronized (listLesson) {
             for (int i = 1; i < keyLesson; i++) {
                 Lesson lesson0 = listLesson.get(i);
-                if (lesson.equals(lesson0)){
+                if (lesson.equals(lesson0)) {
                     throw new NullPointerException("Такой урок уже есть в системе");
                 }
             }
@@ -411,8 +410,7 @@ public class DataBase {
         try {
             getLessonVisitingByLessonId(lessonVisiting.getLessonId());
             throw new NullPointerException("Данные о посещаемости данного урока уже есть в системе");
-        }
-        catch (NullPointerException e){
+        } catch (NullPointerException e) {
             lessonVisiting.setId(keyLessonVisiting_Id);
             synchronized (listLessonVisiting_Id) {
                 listLessonVisiting_Id.put(keyLessonVisiting_Id, lessonVisiting);
@@ -446,7 +444,7 @@ public class DataBase {
         LessonVisiting lv = getLessonVisitingById(lessonVisiting.getId());
         getLessonById(lessonVisiting.getLessonId());
 
-        if (lessonVisiting.equals(lv)){
+        if (lessonVisiting.equals(lv)) {
             throw new NullPointerException("Данные о посещаемости совпадают с имеющимися");
         }
 

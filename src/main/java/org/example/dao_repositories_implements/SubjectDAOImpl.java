@@ -9,55 +9,58 @@ import org.springframework.stereotype.Repository;
 import javax.jcr.RepositoryException;
 import java.util.ArrayList;
 
-@Repository("subject_dao_impl")
+@Repository
 public class SubjectDAOImpl implements SubjectDAO {
 
     @Override
     public ArrayList<Subject> getSubjects() {
-        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
+        DataBase dataBase = SpringConfig.getContext().getBean("dataBase", DataBase.class);
         return dataBase.getSubjects();
     }
 
     @Override
     public Subject getSubjectById(int id) throws RepositoryException {
-        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
+        DataBase dataBase = SpringConfig.getContext().getBean("dataBase", DataBase.class);
         try {
             return dataBase.getSubjectById(id);
         } catch (NullPointerException e) {
-            throw new RepositoryException(e);
+            throw new RepositoryException(e.getMessage());
         }
     }
 
     @Override
     public int addSubject(String name) throws RepositoryException {
-        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
+        DataBase dataBase = SpringConfig.getContext().getBean("dataBase", DataBase.class);
         Subject subject = SpringConfig.getContext().getBean("subject", Subject.class);
         subject.setName(name);
         try {
             return dataBase.addSubject(subject);
         } catch (NullPointerException e) {
-            throw new RepositoryException(e);
+            throw new RepositoryException(e.getMessage());
         }
     }
 
     @Override
-    public String editSubject(int id, String name) {
-        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
+    public String editSubject(int id, String name) throws RepositoryException {
+        DataBase dataBase = SpringConfig.getContext().getBean("dataBase", DataBase.class);
         Subject newDataSubject = SpringConfig.getContext().getBean("subject", Subject.class);
         newDataSubject.setId(id);
         newDataSubject.setName(name);
 
-        return dataBase.editSubject(newDataSubject);
+        try {
+            return dataBase.editSubject(newDataSubject);
+        } catch (NullPointerException e) {
+            throw new RepositoryException(e.getMessage());
+        }
     }
 
     @Override
     public String deleteSubject(int id) throws RepositoryException {
-        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
+        DataBase dataBase = SpringConfig.getContext().getBean("dataBase", DataBase.class);
         try {
             return dataBase.deleteSubject(id);
-        }
-        catch (NullPointerException e){
-            throw new RepositoryException(e);
+        } catch (NullPointerException e) {
+            throw new RepositoryException(e.getMessage());
         }
     }
 }

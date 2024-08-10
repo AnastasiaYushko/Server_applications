@@ -19,8 +19,7 @@ import javax.jcr.RepositoryException;
 import javax.xml.rpc.ServiceException;
 import java.util.ArrayList;
 
-
-@Service("group_student_service")
+@Service
 public class GroupStudentServiceImpl implements GroupStudentsService {
 
     private final StudentGroupDAOImpl studentGroupDAO;
@@ -32,19 +31,21 @@ public class GroupStudentServiceImpl implements GroupStudentsService {
 
     @Override
     public GetStudentGroupByIdResponse getStudentGroupById(GetStudentGroupByIdRequest request) throws JsonProcessingException, ServiceException {
+        StudentGroup group;
         try {
-            StudentGroup group = studentGroupDAO.getStudentGroupById(request.getId());
-            GetStudentGroupByIdResponse getStudentGroupByIdResponse = SpringConfig.getContext().getBean("getStudentGroupByIdResponse", GetStudentGroupByIdResponse.class);
-            getStudentGroupByIdResponse.setName(group.getName());
-            return getStudentGroupByIdResponse;
+            group = studentGroupDAO.getStudentGroupById(request.getId());
         } catch (RepositoryException e) {
-            throw new ServiceException(e);
+            throw new ServiceException(e.getMessage());
         }
+        GetStudentGroupByIdResponse getStudentGroupByIdResponse = SpringConfig.getContext().getBean("getStudentGroupByIdResponse", GetStudentGroupByIdResponse.class);
+        getStudentGroupByIdResponse.setName(group.getName());
+        return getStudentGroupByIdResponse;
     }
 
     @Override
     public GetStudentGroupsResponse getStudentGroups() {
         ArrayList<StudentGroup> listStudentGroup = studentGroupDAO.getStudentGroups();
+
         ArrayList<String> newListStudentGroup = new ArrayList<>();
 
         for (StudentGroup group : listStudentGroup) {
@@ -57,20 +58,33 @@ public class GroupStudentServiceImpl implements GroupStudentsService {
     }
 
     @Override
-    public String editStudentGroup(EditStudentGroupRequest request) throws RepositoryException {
-        return studentGroupDAO.editStudentGroup(request.getId(), request.getName());
+    public String editStudentGroup(EditStudentGroupRequest request) throws ServiceException {
+        try {
+            return studentGroupDAO.editStudentGroup(request.getId(), request.getName());
+        } catch (RepositoryException e) {
+            throw new ServiceException(e.getMessage());
+        }
     }
 
     @Override
-    public AddStudentGroupResponse addStudentGroup(AddStudentGroupRequest request) {
-        int result = studentGroupDAO.addStudentGroup(request.getName());
+    public AddStudentGroupResponse addStudentGroup(AddStudentGroupRequest request) throws ServiceException {
+        int result;
+        try {
+            result = studentGroupDAO.addStudentGroup(request.getName());
+        } catch (RepositoryException e) {
+            throw new ServiceException(e.getMessage());
+        }
         AddStudentGroupResponse AddStudentGroupResponse = SpringConfig.getContext().getBean("addStudentGroupResponse", AddStudentGroupResponse.class);
         AddStudentGroupResponse.setId(result);
         return AddStudentGroupResponse;
     }
 
     @Override
-    public String deleteStudentGroup(DeleteStudentGroupRequest request) throws RepositoryException {
-        return studentGroupDAO.deleteStudentGroup(request.getId());
+    public String deleteStudentGroup(DeleteStudentGroupRequest request) throws ServiceException {
+        try {
+            return studentGroupDAO.deleteStudentGroup(request.getId());
+        } catch (RepositoryException e) {
+            throw new ServiceException(e.getMessage());
+        }
     }
 }

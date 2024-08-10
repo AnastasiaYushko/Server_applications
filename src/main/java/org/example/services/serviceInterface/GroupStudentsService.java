@@ -9,7 +9,6 @@ import org.example.dto_response.studentGroup.AddStudentGroupResponse;
 import org.example.dto_response.studentGroup.GetStudentGroupByIdResponse;
 import org.example.dto_response.studentGroup.GetStudentGroupsResponse;
 
-import javax.jcr.RepositoryException;
 import javax.xml.rpc.ServiceException;
 
 public interface GroupStudentsService {
@@ -18,9 +17,9 @@ public interface GroupStudentsService {
 
     GetStudentGroupsResponse getStudentGroups() throws JsonProcessingException, ServiceException;
 
-    String editStudentGroup(EditStudentGroupRequest request) throws JsonProcessingException, RepositoryException;
+    String editStudentGroup(EditStudentGroupRequest request) throws JsonProcessingException, ServiceException;
 
-    AddStudentGroupResponse addStudentGroup(AddStudentGroupRequest request) throws JsonProcessingException;
+    AddStudentGroupResponse addStudentGroup(AddStudentGroupRequest request) throws JsonProcessingException, ServiceException;
 
-    String deleteStudentGroup(DeleteStudentGroupRequest request) throws JsonProcessingException, RepositoryException;
+    String deleteStudentGroup(DeleteStudentGroupRequest request) throws JsonProcessingException, ServiceException;
 }

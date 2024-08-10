@@ -1,5 +1,6 @@
 package org.example.services.serviceInterfaceImpl;
 
+import org.example.SpringConfig;
 import org.example.dao_repositories_implements.TeacherDAOImpl;
 import org.example.dto_request.teacher.add.AddTeacherRequest;
 import org.example.dto_request.teacher.delete.DeleteTeacherRequest;
@@ -14,9 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.jcr.RepositoryException;
+import javax.xml.rpc.ServiceException;
 import java.util.ArrayList;
 
-@Service("teacher_service")
+@Service
 public class TeacherServiceImpl implements TeacherService {
     private final TeacherDAOImpl teacherDAO;
 
@@ -26,25 +28,53 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public AddTeacherResponse addTeacher(AddTeacherRequest request) throws RepositoryException {
-        int result = teacherDAO.addTeacher(request.getFirstName(), request.getMiddleName(), request.getLastName());
-        return new AddTeacherResponse(result);
+    public AddTeacherResponse addTeacher(AddTeacherRequest request) throws ServiceException {
+        int result;
+        try {
+            result = teacherDAO.addTeacher(request.getFirstName(), request.getMiddleName(), request.getLastName());
+        } catch (RepositoryException e) {
+            throw new ServiceException(e.getMessage());
+        }
+
+        AddTeacherResponse addTeacherResponse = SpringConfig.getContext().getBean("addTeacherResponse", AddTeacherResponse.class);
+        addTeacherResponse.setId(result);
+        return addTeacherResponse;
     }
 
     @Override
-    public String deleteTeacher(DeleteTeacherRequest request) throws RepositoryException {
-        return teacherDAO.deleteTeacher(request.getId());
+    public String deleteTeacher(DeleteTeacherRequest request) throws ServiceException {
+        try {
+            return teacherDAO.deleteTeacher(request.getId());
+        } catch (RepositoryException e) {
+            throw new ServiceException(e.getMessage());
+        }
     }
 
     @Override
-    public String editTeacher(EditTeacherRequest request) throws RepositoryException {
-        return teacherDAO.editTeacher(request.getId(), request.getFirstName(), request.getMiddleName(), request.getLastName());
+    public String editTeacher(EditTeacherRequest request) throws ServiceException {
+        try {
+            return teacherDAO.editTeacher(request.getId(), request.getFirstName(), request.getMiddleName(), request.getLastName());
+        } catch (RepositoryException e) {
+            throw new ServiceException(e.getMessage());
+        }
     }
 
+
     @Override
-    public GetTeacherByIdResponse getTeacherById(GetTeacherByIdRequest request) throws RepositoryException {
-        Teacher teacher = teacherDAO.getTeacherById(request.getId());
-        return new GetTeacherByIdResponse(teacher.getFirstName(), teacher.getLastName(), teacher.getMiddleName());
+    public GetTeacherByIdResponse getTeacherById(GetTeacherByIdRequest request) throws ServiceException {
+        Teacher teacher;
+        try {
+            teacher = teacherDAO.getTeacherById(request.getId());
+        }
+        catch (RepositoryException e) {
+            throw new ServiceException(e.getMessage());
+        }
+        GetTeacherByIdResponse getTeacherByIdResponse = SpringConfig.getContext().getBean("getTeacherByIdResponse",GetTeacherByIdResponse.class);
+        getTeacherByIdResponse.setFirstName(teacher.getFirstName());
+        getTeacherByIdResponse.setLastName(teacher.getLastName());
+        getTeacherByIdResponse.setMiddleName(teacher.getMiddleName());
+
+        return getTeacherByIdResponse;
     }
 
     @Override
@@ -56,6 +86,8 @@ public class TeacherServiceImpl implements TeacherService {
             newListTeachers.add(teacher.toString());
         }
 
-        return new GetTeachersResponse(newListTeachers);
+        GetTeachersResponse getTeachersResponse = SpringConfig.getContext().getBean("getTeachersResponse",GetTeachersResponse.class);
+        getTeachersResponse.setListTeachers(newListTeachers);
+        return getTeachersResponse;
     }
 }

@@ -9,17 +9,17 @@ import org.example.dto_response.subject.AddSubjectResponse;
 import org.example.dto_response.subject.GetSubjectByIdResponse;
 import org.example.dto_response.subject.GetSubjectsResponse;
 
-import javax.jcr.RepositoryException;
+import javax.xml.rpc.ServiceException;
 
 public interface SubjectService {
 
-    AddSubjectResponse addSubject(AddSubjectRequest request) throws JsonProcessingException, RepositoryException;
+    AddSubjectResponse addSubject(AddSubjectRequest request) throws JsonProcessingException, ServiceException;
 
-    String deleteSubject(DeleteSubjectRequest request) throws JsonProcessingException, RepositoryException;
+    String deleteSubject(DeleteSubjectRequest request) throws JsonProcessingException, ServiceException;
 
-    String editSubject(EditSubjectRequest request) throws JsonProcessingException;
+    String editSubject(EditSubjectRequest request) throws JsonProcessingException, ServiceException;
 
-    GetSubjectByIdResponse getSubjectById(GetSubjectByIdRequest request) throws JsonProcessingException, RepositoryException;
+    GetSubjectByIdResponse getSubjectById(GetSubjectByIdRequest request) throws JsonProcessingException, ServiceException;
 
     GetSubjectsResponse getSubjects() throws JsonProcessingException;
 

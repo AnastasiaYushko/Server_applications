@@ -17,13 +17,11 @@ import org.example.dto_response.student.GetStudentByIdResponse;
 import org.example.dto_response.student.GetStudentsByGroupResponse;
 import org.example.network_operations.ResponseEntity;
 import org.example.services.serviceInterfaceImpl.StudentServiceImpl;
-import org.springframework.stereotype.Component;
 
-import javax.jcr.RepositoryException;
+import javax.xml.rpc.ServiceException;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
 public class StudentController {
 
     public static ResponseEntity<?> getStudentById(GetStudentByIdRequest request) {
@@ -40,10 +38,8 @@ public class StudentController {
         try {
             GetStudentByIdResponse studentResponse = studentService.getStudentById(request);
             return new ResponseEntity<>(studentResponse, HttpStatus.SC_ACCEPTED);
-        } catch (NullPointerException e) {
+        } catch (ServiceException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
-        } catch (RepositoryException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -57,15 +53,13 @@ public class StudentController {
             return new ResponseEntity<>(errors, HttpStatus.SC_BAD_REQUEST);
         }
 
-        StudentServiceImpl studentService = SpringConfig.getContext().getBean("student_service", StudentServiceImpl.class);
+        StudentServiceImpl studentService = SpringConfig.getContext().getBean("studentServiceImpl", StudentServiceImpl.class);
 
         try {
             GetStudentsByGroupResponse getStudentsByGroupResponse = studentService.getStudentsByGroup(request);
             return new ResponseEntity<>(getStudentsByGroupResponse, HttpStatus.SC_OK);
-        } catch (NullPointerException e) {
+        } catch (ServiceException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
-        } catch (RepositoryException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -78,15 +72,13 @@ public class StudentController {
             return new ResponseEntity<>(errors, HttpStatus.SC_BAD_REQUEST);
         }
 
-        StudentServiceImpl studentService = SpringConfig.getContext().getBean("student_service", StudentServiceImpl.class);
+        StudentServiceImpl studentService = SpringConfig.getContext().getBean("studentServiceImpl", StudentServiceImpl.class);
 
         try {
             String editStudentResponse = studentService.editStudent(request);
             return new ResponseEntity<>(editStudentResponse, HttpStatus.SC_OK);
-        } catch (NullPointerException e) {
+        } catch (ServiceException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
-        } catch (RepositoryException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -100,15 +92,13 @@ public class StudentController {
             return new ResponseEntity<>(errors, HttpStatus.SC_BAD_REQUEST);
         }
 
-        StudentServiceImpl studentService = SpringConfig.getContext().getBean("student_service", StudentServiceImpl.class);
+        StudentServiceImpl studentService = SpringConfig.getContext().getBean("studentServiceImpl", StudentServiceImpl.class);
 
         try {
             AddStudentResponse addStudentResponse = studentService.addStudent(request);
             return new ResponseEntity<>(addStudentResponse, HttpStatus.SC_OK);
-        } catch (NullPointerException e) {
+        } catch (ServiceException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
-        } catch (RepositoryException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -122,15 +112,13 @@ public class StudentController {
             return new ResponseEntity<>(errors, HttpStatus.SC_BAD_REQUEST);
         }
 
-        StudentServiceImpl studentService = SpringConfig.getContext().getBean("student_service", StudentServiceImpl.class);
+        StudentServiceImpl studentService = SpringConfig.getContext().getBean("studentServiceImpl", StudentServiceImpl.class);
 
         try {
             String data = studentService.deleteStudent(request);
             return new ResponseEntity<>(data, HttpStatus.SC_OK);
-        } catch (NullPointerException e) {
+        } catch (ServiceException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
-        } catch (RepositoryException e) {
-            throw new RuntimeException(e);
         }
     }
 }

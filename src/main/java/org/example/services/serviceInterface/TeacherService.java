@@ -10,17 +10,18 @@ import org.example.dto_response.teacher.GetTeacherByIdResponse;
 import org.example.dto_response.teacher.GetTeachersResponse;
 
 import javax.jcr.RepositoryException;
+import javax.xml.rpc.ServiceException;
 
 public interface TeacherService {
 
-    AddTeacherResponse addTeacher(AddTeacherRequest request) throws JsonProcessingException, RepositoryException;
+    AddTeacherResponse addTeacher(AddTeacherRequest request) throws JsonProcessingException, RepositoryException, ServiceException;
 
-    String deleteTeacher(DeleteTeacherRequest request) throws JsonProcessingException, RepositoryException;
+    String deleteTeacher(DeleteTeacherRequest request) throws JsonProcessingException, RepositoryException, ServiceException;
 
-    String editTeacher(EditTeacherRequest request) throws JsonProcessingException, RepositoryException;
+    String editTeacher(EditTeacherRequest request) throws JsonProcessingException, RepositoryException, ServiceException;
 
-    GetTeacherByIdResponse getTeacherById(GetTeacherByIdRequest request) throws JsonProcessingException, RepositoryException;
+    GetTeacherByIdResponse getTeacherById(GetTeacherByIdRequest request) throws JsonProcessingException, RepositoryException, ServiceException;
 
-    GetTeachersResponse getTeachers() throws JsonProcessingException;
+    GetTeachersResponse getTeachers() throws JsonProcessingException, ServiceException;
 
 }

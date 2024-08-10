@@ -19,14 +19,13 @@ import org.example.dto_response.lessonVisiting.GetLessonVisitingByIdResponse;
 import org.example.dto_response.lessonVisiting.GetLessonVisitingByLessonIdResponse;
 import org.example.network_operations.ResponseEntity;
 import org.example.services.serviceInterfaceImpl.LessonVisitingServiceImpl;
-import org.springframework.stereotype.Component;
 
-import javax.jcr.RepositoryException;
+import javax.xml.rpc.ServiceException;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
 public class LessonVisitingController {
+
     public static ResponseEntity<?> addLessonVisiting(AddLessonVisitingRequest request) {
 
         AddLessonVisitingValidator validator = new AddLessonVisitingValidator();
@@ -37,15 +36,13 @@ public class LessonVisitingController {
             return new ResponseEntity<>(errors, HttpStatus.SC_BAD_REQUEST);
         }
 
-        LessonVisitingServiceImpl lessonVisitingService = SpringConfig.getContext().getBean("lesson_visiting_service", LessonVisitingServiceImpl.class);
+        LessonVisitingServiceImpl lessonVisitingService = SpringConfig.getContext().getBean("lessonVisitingServiceImpl", LessonVisitingServiceImpl.class);
 
         try {
             AddLessonVisitingResponse dataResponse = lessonVisitingService.addLessonVisiting(request);
             return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
-        } catch (NullPointerException e) {
+        } catch (ServiceException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
-        } catch (RepositoryException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -59,15 +56,13 @@ public class LessonVisitingController {
             return new ResponseEntity<>(errors, HttpStatus.SC_BAD_REQUEST);
         }
 
-        LessonVisitingServiceImpl lessonVisitingService = SpringConfig.getContext().getBean("lesson_visiting_service", LessonVisitingServiceImpl.class);
+        LessonVisitingServiceImpl lessonVisitingService = SpringConfig.getContext().getBean("lessonVisitingServiceImpl", LessonVisitingServiceImpl.class);
 
         try {
             String dataResponse = lessonVisitingService.deleteLessonVisitingById(request);
             return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
-        } catch (NullPointerException e) {
+        } catch (ServiceException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
-        } catch (RepositoryException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -80,15 +75,13 @@ public class LessonVisitingController {
             return new ResponseEntity<>(errors, HttpStatus.SC_BAD_REQUEST);
         }
 
-        LessonVisitingServiceImpl lessonVisitingService = SpringConfig.getContext().getBean("lesson_visiting_service", LessonVisitingServiceImpl.class);
+        LessonVisitingServiceImpl lessonVisitingService = SpringConfig.getContext().getBean("lessonVisitingServiceImpl", LessonVisitingServiceImpl.class);
 
         try {
             String dataResponse = lessonVisitingService.deleteLessonVisitingByLessonId(request);
             return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
-        } catch (NullPointerException e) {
+        } catch (ServiceException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
-        } catch (RepositoryException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -102,15 +95,13 @@ public class LessonVisitingController {
             return new ResponseEntity<>(errors, HttpStatus.SC_BAD_REQUEST);
         }
 
-        LessonVisitingServiceImpl lessonVisitingService = SpringConfig.getContext().getBean("lesson_visiting_service", LessonVisitingServiceImpl.class);
+        LessonVisitingServiceImpl lessonVisitingService = SpringConfig.getContext().getBean("lessonVisitingServiceImpl", LessonVisitingServiceImpl.class);
 
         try {
             GetLessonVisitingByIdResponse dataResponse = lessonVisitingService.getLessonVisitingById(request);
             return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
-        } catch (NullPointerException e) {
+        } catch (ServiceException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
-        } catch (RepositoryException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -123,15 +114,13 @@ public class LessonVisitingController {
             return new ResponseEntity<>(errors, HttpStatus.SC_BAD_REQUEST);
         }
 
-        LessonVisitingServiceImpl lessonVisitingService = SpringConfig.getContext().getBean("lesson_visiting_service", LessonVisitingServiceImpl.class);
+        LessonVisitingServiceImpl lessonVisitingService = SpringConfig.getContext().getBean("lessonVisitingServiceImpl", LessonVisitingServiceImpl.class);
 
         try {
             GetLessonVisitingByLessonIdResponse dataResponse = lessonVisitingService.getLessonVisitingByLessonId(request);
             return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
-        } catch (NullPointerException e) {
+        } catch (ServiceException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
-        } catch (RepositoryException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -144,15 +133,13 @@ public class LessonVisitingController {
             return new ResponseEntity<>(errors, HttpStatus.SC_BAD_REQUEST);
         }
 
-        LessonVisitingServiceImpl lessonVisitingService = SpringConfig.getContext().getBean("lesson_visiting_service", LessonVisitingServiceImpl.class);
+        LessonVisitingServiceImpl lessonVisitingService = SpringConfig.getContext().getBean("lessonVisitingServiceImpl", LessonVisitingServiceImpl.class);
 
         try {
             String dataResponse = lessonVisitingService.editLessonVisiting(request);
             return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
-        } catch (NullPointerException e) {
+        } catch (ServiceException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
-        } catch (RepositoryException e) {
-            throw new RuntimeException(e);
         }
     }
 }

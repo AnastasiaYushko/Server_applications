@@ -1,5 +1,6 @@
 package org.example.services.serviceInterfaceImpl;
 
+import org.example.SpringConfig;
 import org.example.dao_repositories_implements.SubjectDAOImpl;
 import org.example.dto_request.subject.add.AddSubjectRequest;
 import org.example.dto_request.subject.delete.DeleteSubjectRequest;
@@ -14,38 +15,64 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.jcr.RepositoryException;
+import javax.xml.rpc.ServiceException;
 import java.util.ArrayList;
 
-@Service("subject_service")
+@Service
 public class SubjectServiceImpl implements SubjectService {
 
     private final SubjectDAOImpl subjectDAO;
 
     @Autowired
-    public SubjectServiceImpl(SubjectDAOImpl subjectDAO ) {
+    public SubjectServiceImpl(SubjectDAOImpl subjectDAO) {
         this.subjectDAO = subjectDAO;
     }
 
     @Override
-    public AddSubjectResponse addSubject(AddSubjectRequest request) throws RepositoryException {
-        int result = subjectDAO.addSubject(request.getName());
-        return new AddSubjectResponse(result);
+    public AddSubjectResponse addSubject(AddSubjectRequest request) throws ServiceException {
+        int result;
+        try {
+            result = subjectDAO.addSubject(request.getName());
+        } catch (RepositoryException e) {
+            throw new ServiceException(e.getMessage());
+        }
+        AddSubjectResponse addSubjectResponse = SpringConfig.getContext().getBean("addSubjectResponse", AddSubjectResponse.class);
+        addSubjectResponse.setId(result);
+        return addSubjectResponse;
+    }
+
+
+    @Override
+    public String deleteSubject(DeleteSubjectRequest request) throws ServiceException {
+        try {
+            return subjectDAO.deleteSubject(request.getId());
+        } catch (RepositoryException e) {
+            throw new ServiceException(e.getMessage());
+        }
+
     }
 
     @Override
-    public String deleteSubject(DeleteSubjectRequest request) throws RepositoryException {
-        return subjectDAO.deleteSubject(request.getId());
+    public String editSubject(EditSubjectRequest request) throws ServiceException {
+        try {
+            return subjectDAO.editSubject(request.getId(), request.getName());
+        }catch (RepositoryException e){
+            throw new ServiceException(e.getMessage());
+        }
     }
 
     @Override
-    public String editSubject(EditSubjectRequest request) {
-        return subjectDAO.editSubject(request.getId(), request.getName());
-    }
+    public GetSubjectByIdResponse getSubjectById(GetSubjectByIdRequest request) throws ServiceException {
+        Subject subject;
+        try {
+            subject = subjectDAO.getSubjectById(request.getId());
+        }catch (RepositoryException e){
+            throw new ServiceException(e.getMessage());
+        }
 
-    @Override
-    public GetSubjectByIdResponse getSubjectById(GetSubjectByIdRequest request) throws RepositoryException {
-        Subject subject = subjectDAO.getSubjectById(request.getId());
-        return new GetSubjectByIdResponse(subject.getName());
+        GetSubjectByIdResponse getSubjectByIdResponse = SpringConfig.getContext().getBean("getSubjectByIdResponse",GetSubjectByIdResponse.class);
+        getSubjectByIdResponse.setName(subject.getName());
+        return getSubjectByIdResponse;
     }
 
     @Override

@@ -15,13 +15,11 @@ import org.example.dto_response.subject.GetSubjectByIdResponse;
 import org.example.dto_response.subject.GetSubjectsResponse;
 import org.example.network_operations.ResponseEntity;
 import org.example.services.serviceInterfaceImpl.SubjectServiceImpl;
-import org.springframework.stereotype.Component;
 
-import javax.jcr.RepositoryException;
+import javax.xml.rpc.ServiceException;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
 public class SubjectController {
 
     public static ResponseEntity<?> addSubject(AddSubjectRequest request) {
@@ -33,17 +31,16 @@ public class SubjectController {
             return new ResponseEntity<>(errors, HttpStatus.SC_BAD_REQUEST);
         }
 
-        SubjectServiceImpl subjectService = SpringConfig.getContext().getBean("subject_service", SubjectServiceImpl.class);
+        SubjectServiceImpl subjectService = SpringConfig.getContext().getBean("subjectServiceImpl", SubjectServiceImpl.class);
 
         try {
             AddSubjectResponse addSubjectResponse = subjectService.addSubject(request);
             return new ResponseEntity<>(addSubjectResponse, HttpStatus.SC_OK);
-        } catch (NullPointerException e) {
+        } catch (ServiceException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
-        } catch (RepositoryException e) {
-            throw new RuntimeException(e);
         }
     }
+
 
     public static ResponseEntity<?> editSubject(EditSubjectRequest request) {
         EditSubjectValidator validator = new EditSubjectValidator();
@@ -54,12 +51,12 @@ public class SubjectController {
             return new ResponseEntity<>(errors, HttpStatus.SC_BAD_REQUEST);
         }
 
-        SubjectServiceImpl subjectService = SpringConfig.getContext().getBean("subject_service", SubjectServiceImpl.class);
+        SubjectServiceImpl subjectService = SpringConfig.getContext().getBean("subjectServiceImpl", SubjectServiceImpl.class);
 
         try {
             String editSubjectResponse = subjectService.editSubject(request);
             return new ResponseEntity<>(editSubjectResponse, HttpStatus.SC_OK);
-        } catch (NullPointerException e) {
+        } catch (ServiceException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
         }
     }
@@ -73,15 +70,13 @@ public class SubjectController {
             return new ResponseEntity<>(errors, HttpStatus.SC_BAD_REQUEST);
         }
 
-        SubjectServiceImpl subjectService = SpringConfig.getContext().getBean("subject_service", SubjectServiceImpl.class);
+        SubjectServiceImpl subjectService = SpringConfig.getContext().getBean("subjectServiceImpl", SubjectServiceImpl.class);
 
         try {
             GetSubjectByIdResponse getSubjectsResponse = subjectService.getSubjectById(request);
             return new ResponseEntity<>(getSubjectsResponse, HttpStatus.SC_OK);
-        } catch (NullPointerException e) {
+        } catch (ServiceException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
-        } catch (RepositoryException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -94,23 +89,22 @@ public class SubjectController {
             return new ResponseEntity<>(errors, HttpStatus.SC_BAD_REQUEST);
         }
 
-        SubjectServiceImpl subjectService = SpringConfig.getContext().getBean("subject_service", SubjectServiceImpl.class);
+        SubjectServiceImpl subjectService = SpringConfig.getContext().getBean("subjectServiceImpl", SubjectServiceImpl.class);
 
         try {
             String dataResponse = subjectService.deleteSubject(request);
             return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
-        } catch (NullPointerException e) {
+        } catch (ServiceException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
-        } catch (RepositoryException e) {
-            throw new RuntimeException(e);
         }
     }
 
     public static ResponseEntity<GetSubjectsResponse> getSubjects() {
 
-        SubjectServiceImpl subjectService = SpringConfig.getContext().getBean("subject_service", SubjectServiceImpl.class);
+        SubjectServiceImpl subjectService = SpringConfig.getContext().getBean("subjectServiceImpl", SubjectServiceImpl.class);
 
         GetSubjectsResponse dataResponse = subjectService.getSubjects();
         return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
     }
+
 }

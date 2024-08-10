@@ -24,14 +24,12 @@ import org.example.dto_response.lesson.GetLessonsByGroupResponse;
 import org.example.dto_response.lesson.GetLessonsByTeacherResponse;
 import org.example.network_operations.ResponseEntity;
 import org.example.services.serviceInterfaceImpl.LessonServiceImpl;
-import org.springframework.stereotype.Component;
 
-import javax.jcr.RepositoryException;
+import javax.xml.rpc.ServiceException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
 public class LessonController {
 
     public static ResponseEntity<?> addLesson(AddLessonRequest request) {
@@ -44,15 +42,13 @@ public class LessonController {
             return new ResponseEntity<>(errors, HttpStatus.SC_BAD_REQUEST);
         }
 
-        LessonServiceImpl lessonService = SpringConfig.getContext().getBean("lesson_service", LessonServiceImpl.class);
+        LessonServiceImpl lessonService = SpringConfig.getContext().getBean("lessonServiceImpl", LessonServiceImpl.class);
 
         try {
             AddLessonResponse lessonResponse = lessonService.addLesson(request);
             return new ResponseEntity<>(lessonResponse, HttpStatus.SC_OK);
-        } catch (NullPointerException | ParseException e) {
+        } catch (ParseException | ServiceException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
-        } catch (RepositoryException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -65,15 +61,13 @@ public class LessonController {
             return new ResponseEntity<>(errors, HttpStatus.SC_BAD_REQUEST);
         }
 
-        LessonServiceImpl lessonService = SpringConfig.getContext().getBean("lesson_service", LessonServiceImpl.class);
+        LessonServiceImpl lessonService = SpringConfig.getContext().getBean("lessonServiceImpl", LessonServiceImpl.class);
 
         try {
             String lessonResponse = lessonService.editLesson(request);
             return new ResponseEntity<>(lessonResponse, HttpStatus.SC_OK);
-        } catch (NullPointerException | ParseException e) {
+        } catch (ParseException | ServiceException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
-        } catch (RepositoryException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -86,15 +80,13 @@ public class LessonController {
             return new ResponseEntity<>(errors, HttpStatus.SC_BAD_REQUEST);
         }
 
-        LessonServiceImpl lessonService = SpringConfig.getContext().getBean("lesson_service", LessonServiceImpl.class);
+        LessonServiceImpl lessonService = SpringConfig.getContext().getBean("lessonServiceImpl", LessonServiceImpl.class);
 
         try {
             String dataResponse = lessonService.deleteLessonsByGroup(request);
             return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
-        } catch (NullPointerException e) {
+        } catch (ServiceException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
-        } catch (RepositoryException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -107,15 +99,13 @@ public class LessonController {
             return new ResponseEntity<>(errors, HttpStatus.SC_BAD_REQUEST);
         }
 
-        LessonServiceImpl lessonService = SpringConfig.getContext().getBean("lesson_service", LessonServiceImpl.class);
+        LessonServiceImpl lessonService = SpringConfig.getContext().getBean("lessonServiceImpl", LessonServiceImpl.class);
 
         try {
             String dataResponse = lessonService.deleteLessonById(request);
             return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
-        } catch (NullPointerException e) {
+        } catch (ServiceException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
-        } catch (RepositoryException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -128,15 +118,13 @@ public class LessonController {
             return new ResponseEntity<>(errors, HttpStatus.SC_BAD_REQUEST);
         }
 
-        LessonServiceImpl lessonService = SpringConfig.getContext().getBean("lesson_service", LessonServiceImpl.class);
+        LessonServiceImpl lessonService = SpringConfig.getContext().getBean("lessonServiceImpl", LessonServiceImpl.class);
 
         try {
             String dataResponse = lessonService.deleteLessonsByTeacher(request);
             return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
-        } catch (NullPointerException e) {
+        } catch (ServiceException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
-        } catch (RepositoryException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -149,15 +137,13 @@ public class LessonController {
             return new ResponseEntity<>(errors, HttpStatus.SC_BAD_REQUEST);
         }
 
-        LessonServiceImpl lessonService = SpringConfig.getContext().getBean("lesson_service", LessonServiceImpl.class);
+        LessonServiceImpl lessonService = SpringConfig.getContext().getBean("lessonServiceImpl", LessonServiceImpl.class);
 
         try {
             GetLessonsByGroupResponse getLessonsByGroupResponse = lessonService.getLessonsByGroup(request);
             return new ResponseEntity<>(getLessonsByGroupResponse, HttpStatus.SC_OK);
-        } catch (NullPointerException e) {
+        } catch (ServiceException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
-        } catch (RepositoryException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -170,15 +156,13 @@ public class LessonController {
             return new ResponseEntity<>(errors, HttpStatus.SC_BAD_REQUEST);
         }
 
-        LessonServiceImpl lessonService = SpringConfig.getContext().getBean("lesson_service", LessonServiceImpl.class);
+        LessonServiceImpl lessonService = SpringConfig.getContext().getBean("lessonServiceImpl", LessonServiceImpl.class);
 
         try {
             GetLessonByIdResponse getLessonByIdResponse = lessonService.getLessonById(request);
             return new ResponseEntity<>(getLessonByIdResponse, HttpStatus.SC_OK);
-        } catch (NullPointerException e) {
+        } catch (ServiceException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
-        } catch (RepositoryException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -191,15 +175,13 @@ public class LessonController {
             return new ResponseEntity<>(errors, HttpStatus.SC_BAD_REQUEST);
         }
 
-        LessonServiceImpl lessonService = SpringConfig.getContext().getBean("lesson_service", LessonServiceImpl.class);
+        LessonServiceImpl lessonService = SpringConfig.getContext().getBean("lessonServiceImpl", LessonServiceImpl.class);
 
         try {
             GetLessonsByTeacherResponse getLessonsByTeacherResponse = lessonService.getLessonsByTeacher(request);
             return new ResponseEntity<>(getLessonsByTeacherResponse, HttpStatus.SC_OK);
-        } catch (NullPointerException e) {
+        } catch (ServiceException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
-        } catch (RepositoryException e) {
-            throw new RuntimeException(e);
         }
     }
 }

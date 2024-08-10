@@ -12,34 +12,32 @@ import javax.jcr.RepositoryException;
 import java.util.ArrayList;
 import java.util.Objects;
 
-@Repository("student_dao_impl")
+@Repository
 public class StudentDAOImpl implements StudentDAO {
 
     @Override
     public ArrayList<Student> getStudentsByGroup(int id) throws RepositoryException {
-        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
+        DataBase dataBase = SpringConfig.getContext().getBean("dataBase", DataBase.class);
         try {
             return dataBase.getStudentsByGroup(id);
-        }
-        catch (NullPointerException e){
-            throw new RepositoryException(e);
+        } catch (NullPointerException e) {
+            throw new RepositoryException(e.getMessage());
         }
     }
 
     @Override
     public Student getStudentById(int id) throws RepositoryException {
-        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
+        DataBase dataBase = SpringConfig.getContext().getBean("dataBase", DataBase.class);
         try {
             return dataBase.getStudentById(id);
-        }
-        catch (NullPointerException e){
-            throw new RepositoryException(e);
+        } catch (NullPointerException e) {
+            throw new RepositoryException(e.getMessage());
         }
     }
 
     @Override
     public int addStudent(String lastName, String firstName, String middleName, int groupId, String status) throws RepositoryException {
-        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
+        DataBase dataBase = SpringConfig.getContext().getBean("dataBase", DataBase.class);
 
         try {
 
@@ -53,15 +51,14 @@ public class StudentDAOImpl implements StudentDAO {
             student.setStatus(getStudentStatus(status));
 
             return dataBase.addStudent(student);
-        }
-        catch (NullPointerException e){
-            throw new RepositoryException(e);
+        } catch (NullPointerException e) {
+            throw new RepositoryException(e.getMessage());
         }
     }
 
     @Override
     public String editStudent(int id, String lastName, String firstName, String middleName, int groupId, String status) throws RepositoryException {
-        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
+        DataBase dataBase = SpringConfig.getContext().getBean("dataBase", DataBase.class);
 
         try {
             StudentGroup group = dataBase.getStudentGroupById(groupId);
@@ -75,20 +72,18 @@ public class StudentDAOImpl implements StudentDAO {
             student.setStatus(getStudentStatus(status));
 
             return dataBase.editStudent(student);
-        }
-        catch (NullPointerException e){
-            throw new RepositoryException(e);
+        } catch (NullPointerException e) {
+            throw new RepositoryException(e.getMessage());
         }
     }
 
     @Override
     public String deleteStudent(int id) throws RepositoryException {
-        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
+        DataBase dataBase = SpringConfig.getContext().getBean("dataBase", DataBase.class);
         try {
             return dataBase.deleteStudent(id);
-        }
-        catch (NullPointerException e){
-            throw new RepositoryException(e);
+        } catch (NullPointerException e) {
+            throw new RepositoryException(e.getMessage());
         }
     }
 

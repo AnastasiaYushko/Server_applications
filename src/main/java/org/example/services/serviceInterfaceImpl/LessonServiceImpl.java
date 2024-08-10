@@ -20,13 +20,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.jcr.RepositoryException;
+import javax.xml.rpc.ServiceException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-@Service("lesson_service")
+@Service
 public class LessonServiceImpl implements LessonService {
 
     private final LessonDAOImpl lessonDAO;
@@ -37,37 +38,64 @@ public class LessonServiceImpl implements LessonService {
     }
 
     @Override
-    public AddLessonResponse addLesson(AddLessonRequest request) throws ParseException, RepositoryException {
-        int result = lessonDAO.AddLesson(request.getDate(), request.getNumber(), request.getTeacherId(), request.getSubjectId(), request.getGroupId());
+    public AddLessonResponse addLesson(AddLessonRequest request) throws ParseException, ServiceException {
+        int result;
+        try {
+            result = lessonDAO.AddLesson(request.getDate(), request.getNumber(), request.getTeacherId(), request.getSubjectId(), request.getGroupId());
+        } catch (RepositoryException e) {
+            throw new ServiceException(e.getMessage());
+        }
         AddLessonResponse addLessonResponse = SpringConfig.getContext().getBean("addLessonResponse", AddLessonResponse.class);
         addLessonResponse.setId(result);
         return addLessonResponse;
     }
 
     @Override
-    public String deleteLessonsByGroup(DeleteLessonsByGroupRequest request) throws RepositoryException {
-        return lessonDAO.DeleteLessonsByGroup(request.getGroupId());
+    public String deleteLessonsByGroup(DeleteLessonsByGroupRequest request) throws ServiceException {
+        try {
+            return lessonDAO.DeleteLessonsByGroup(request.getGroupId());
+        } catch (RepositoryException e) {
+            throw new ServiceException(e.getMessage());
+        }
     }
 
     @Override
-    public String deleteLessonById(DeleteLessonByIdRequest request) throws RepositoryException {
-        return lessonDAO.DeleteLessonById(request.getLessonId());
+    public String deleteLessonById(DeleteLessonByIdRequest request) throws ServiceException {
+        try {
+            return lessonDAO.DeleteLessonById(request.getLessonId());
+        } catch (RepositoryException e) {
+            throw new ServiceException(e.getMessage());
+        }
     }
 
     @Override
-    public String deleteLessonsByTeacher(DeleteLessonsByTeacherRequest request) throws RepositoryException {
-        return lessonDAO.DeleteLessonsByTeacher(request.getTeacherId());
+    public String deleteLessonsByTeacher(DeleteLessonsByTeacherRequest request) throws ServiceException {
+        try {
+            return lessonDAO.DeleteLessonsByTeacher(request.getTeacherId());
+        } catch (RepositoryException e) {
+            throw new ServiceException(e.getMessage());
+        }
     }
 
     @Override
-    public String editLesson(EditLessonRequest request) throws ParseException, RepositoryException {
-        return lessonDAO.EditLesson(request.getId(), request.getDate(), request.getNumber(), request.getTeacherId(), request.getGroupId(), request.getSubjectId());
+    public String editLesson(EditLessonRequest request) throws ParseException, ServiceException {
+        try {
+            return lessonDAO.EditLesson(request.getId(), request.getDate(), request.getNumber(), request.getTeacherId(), request.getGroupId(), request.getSubjectId());
+        } catch (RepositoryException e) {
+            throw new ServiceException(e.getMessage());
+        }
     }
 
     @Override
-    public GetLessonsByGroupResponse getLessonsByGroup(GetLessonsByGroupRequest request) throws ParseException, RepositoryException {
+    public GetLessonsByGroupResponse getLessonsByGroup(GetLessonsByGroupRequest request) throws ParseException, ServiceException {
 
-        ArrayList<Lesson> lessons = lessonDAO.getLessonsByGroup(request.getStartDate(), request.getEndDate(), request.getGroupId());
+        ArrayList<Lesson> lessons;
+
+        try {
+            lessons = lessonDAO.getLessonsByGroup(request.getStartDate(), request.getEndDate(), request.getGroupId());
+        } catch (RepositoryException e) {
+            throw new ServiceException(e);
+        }
         ArrayList<String> newList = new ArrayList<>();
 
         for (Lesson lesson : lessons) {
@@ -80,7 +108,7 @@ public class LessonServiceImpl implements LessonService {
     }
 
     @Override
-    public GetLessonByIdResponse getLessonById(GetLessonByIdRequest request) throws RepositoryException {
+    public GetLessonByIdResponse getLessonById(GetLessonByIdRequest request) throws ServiceException {
         try {
             Lesson lesson = lessonDAO.getLessonById(request.getLessonId());
 
@@ -92,17 +120,22 @@ public class LessonServiceImpl implements LessonService {
 
             return getLessonByIdResponse;
         } catch (RepositoryException e) {
-            throw new SecurityException(e);
+            throw new ServiceException(e.getMessage());
         }
     }
 
-
     @Override
-    public GetLessonsByTeacherResponse getLessonsByTeacher(GetLessonsByTeacherRequest request) throws ParseException, RepositoryException {
+    public GetLessonsByTeacherResponse getLessonsByTeacher(GetLessonsByTeacherRequest request) throws ParseException, ServiceException {
 
-        ArrayList<Lesson> listLessons = lessonDAO.getLessonsByTeacher(request.getStartDate(), request.getEndDate(), request.getTeacherId());
+        ArrayList<Lesson> listLessons;
+
+        try {
+            listLessons = lessonDAO.getLessonsByTeacher(request.getStartDate(), request.getEndDate(), request.getTeacherId());
+        } catch (RepositoryException e) {
+            throw new ServiceException(e.getMessage());
+        }
+
         ArrayList<String> newListLessons = new ArrayList<>();
-
         for (Lesson lesson : listLessons) {
             newListLessons.add(lesson.toString());
         }

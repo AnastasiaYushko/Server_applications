@@ -21,42 +21,42 @@ public class LessonDAOImpl implements LessonDAO {
 
     @Override
     public Lesson getLessonById(int id) throws RepositoryException {
-        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
+        DataBase dataBase = SpringConfig.getContext().getBean("dataBase", DataBase.class);
         try {
             return dataBase.getLessonById(id);
         } catch (NullPointerException e) {
-            throw new RepositoryException(e);
+            throw new RepositoryException(e.getMessage());
         }
     }
 
     @Override
     public ArrayList<Lesson> getLessonsByGroup(String startDate, String endDate, int groupId) throws ParseException, RepositoryException {
-        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
+        DataBase dataBase = SpringConfig.getContext().getBean("dataBase", DataBase.class);
         Date dateStartTrue = new SimpleDateFormat("dd-MM-yyyy").parse(startDate);
         Date dateEndTrue = new SimpleDateFormat("dd-MM-yyyy").parse(endDate);
         try {
             return dataBase.getLessonsByGroup(dateStartTrue, dateEndTrue, groupId);
         } catch (NullPointerException e) {
-            throw new RepositoryException(e);
+            throw new RepositoryException(e.getMessage());
         }
     }
 
     @Override
     public ArrayList<Lesson> getLessonsByTeacher(String startDate, String endDate, int teacherId) throws ParseException, RepositoryException {
-        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
+        DataBase dataBase = SpringConfig.getContext().getBean("dataBase", DataBase.class);
         Date dateStartTrue = new SimpleDateFormat("dd-MM-yyyy").parse(startDate);
         Date dateEndTrue = new SimpleDateFormat("dd-MM-yyyy").parse(endDate);
         try {
             return dataBase.getLessonsByTeacher(dateStartTrue, dateEndTrue, teacherId);
         } catch (NullPointerException e) {
-            throw new RepositoryException(e);
+            throw new RepositoryException(e.getMessage());
         }
     }
 
     @Override
     public String EditLesson(int id, String date, int number, int teacherId, int groupId, int subjectId) throws ParseException, RepositoryException {
 
-        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
+        DataBase dataBase = SpringConfig.getContext().getBean("dataBase", DataBase.class);
 
         try {
             Teacher teacher = dataBase.getTeacherById(teacherId);
@@ -74,45 +74,43 @@ public class LessonDAOImpl implements LessonDAO {
 
             return dataBase.EditLesson(lesson);
         } catch (NullPointerException e) {
-            throw new RepositoryException(e);
+            throw new RepositoryException(e.getMessage());
         }
     }
 
     @Override
     public String DeleteLessonsByGroup(int groupId) throws RepositoryException {
-        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
+        DataBase dataBase = SpringConfig.getContext().getBean("dataBase", DataBase.class);
         try {
             return dataBase.DeleteLessonsByGroup(groupId);
         } catch (NullPointerException e) {
-            throw new RepositoryException(e);
+            throw new RepositoryException(e.getMessage());
         }
     }
 
     @Override
     public String DeleteLessonById(int lessonId) throws RepositoryException {
-        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
+        DataBase dataBase = SpringConfig.getContext().getBean("dataBase", DataBase.class);
         try {
             return dataBase.DeleteLessonById(lessonId);
-        }
-        catch (NullPointerException e){
-            throw new RepositoryException(e);
+        } catch (NullPointerException e) {
+            throw new RepositoryException(e.getMessage());
         }
     }
 
     @Override
     public String DeleteLessonsByTeacher(int teacherId) throws RepositoryException {
-        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
+        DataBase dataBase = SpringConfig.getContext().getBean("dataBase", DataBase.class);
         try {
             return dataBase.DeleteLessonsByTeacher(teacherId);
-        }
-        catch (NullPointerException e){
-            throw new RepositoryException(e);
+        } catch (NullPointerException e) {
+            throw new RepositoryException(e.getMessage());
         }
     }
 
     @Override
     public int AddLesson(String date, int number, int teacherId, int subjectId, int groupId) throws ParseException, RepositoryException {
-        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
+        DataBase dataBase = SpringConfig.getContext().getBean("dataBase", DataBase.class);
         DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
         Date date1 = df.parse(date);
         try {
@@ -128,9 +126,8 @@ public class LessonDAOImpl implements LessonDAO {
             lesson.setNumber(number);
 
             return dataBase.AddLesson(lesson);
-        }
-        catch (NullPointerException e){
-            throw new RepositoryException(e);
+        } catch (NullPointerException e) {
+            throw new RepositoryException(e.getMessage());
         }
     }
 }

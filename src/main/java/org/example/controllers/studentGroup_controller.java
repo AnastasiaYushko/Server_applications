@@ -1,6 +1,7 @@
 package org.example.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import org.example.SpringConfig;
 import org.example.dto_request.studentGroup.add.AddStudentGroupRequest;
 import org.example.dto_request.studentGroup.delete.DeleteStudentGroupRequest;
 import org.example.dto_request.studentGroup.edit.EditStudentGroupRequest;
@@ -18,32 +19,34 @@ public class studentGroup_controller {
 
     @GetMapping("/get")
     public String GetStudentGroups() throws ParseException, JsonProcessingException {
-        classHandler = new GetStudentGroupsHandler();
+        classHandler = SpringConfig.getContext().getBean("getStudentGroupsHandler", GetStudentGroupsHandler.class);
         return classHandler.handler(null);
     }
 
     @GetMapping("/getGyId")
     public String GetStudentGroupById(@RequestParam("id") int id) throws ParseException, JsonProcessingException {
-        classHandler = new GetStudentGroupByIdHandler();
-        GetStudentGroupByIdRequest getStudentGroupByIdRequest = new GetStudentGroupByIdRequest(id);
+        GetStudentGroupByIdRequest getStudentGroupByIdRequest = SpringConfig.getContext().getBean("getStudentGroupByIdRequest", GetStudentGroupByIdRequest.class);
+        getStudentGroupByIdRequest.setId(id);
+
+        classHandler = SpringConfig.getContext().getBean("getStudentGroupBydHandler", GetStudentGroupByIdHandler.class);
         return classHandler.handler(getStudentGroupByIdRequest);
     }
 
     @PostMapping("/add")
     public String AddStudentGroup(@RequestBody AddStudentGroupRequest jsonRequest) throws ParseException, JsonProcessingException {
-        classHandler = new AddStudentGroupHandler();
+        classHandler = SpringConfig.getContext().getBean("addStudentGroupHandler", AddStudentGroupHandler.class);
         return classHandler.handler(jsonRequest);
     }
 
     @PostMapping("/edit")
     public String EditStudentGroup(@RequestBody EditStudentGroupRequest jsonRequest) throws ParseException, JsonProcessingException {
-        classHandler = new EditStudentGroupHandler();
+        classHandler = SpringConfig.getContext().getBean("editStudentGroupHandler", EditStudentGroupHandler.class);
         return classHandler.handler(jsonRequest);
     }
 
     @DeleteMapping("/delete")
     public String DeleteStudentGroup(@RequestBody DeleteStudentGroupRequest jsonRequest) throws ParseException, JsonProcessingException {
-        classHandler = new DeleteStudentGroupHandler();
+        classHandler = SpringConfig.getContext().getBean("deleteStudentGroupHandler", DeleteStudentGroupHandler.class);
         return classHandler.handler(jsonRequest);
     }
 }

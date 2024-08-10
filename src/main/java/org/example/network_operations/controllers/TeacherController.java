@@ -16,7 +16,7 @@ import org.example.dto_response.teacher.GetTeachersResponse;
 import org.example.network_operations.ResponseEntity;
 import org.example.services.serviceInterfaceImpl.TeacherServiceImpl;
 
-import javax.jcr.RepositoryException;
+import javax.xml.rpc.ServiceException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,14 +31,14 @@ public class TeacherController {
             return new ResponseEntity<>(errors, HttpStatus.SC_BAD_REQUEST);
         }
 
-        TeacherServiceImpl teacherService = SpringConfig.getContext().getBean("teacher_service", TeacherServiceImpl.class);
+        TeacherServiceImpl teacherService = SpringConfig.getContext().getBean("teacherServiceImpl", TeacherServiceImpl.class);
 
         try {
             String dataResponse = teacherService.deleteTeacher(request);
             return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
         } catch (NullPointerException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
-        } catch (RepositoryException e) {
+        } catch (ServiceException e) {
             throw new RuntimeException(e);
         }
     }
@@ -52,14 +52,14 @@ public class TeacherController {
             return new ResponseEntity<>(errors, HttpStatus.SC_BAD_REQUEST);
         }
 
-        TeacherServiceImpl teacherService = SpringConfig.getContext().getBean("teacher_service", TeacherServiceImpl.class);
+        TeacherServiceImpl teacherService = SpringConfig.getContext().getBean("teacherServiceImpl", TeacherServiceImpl.class);
 
         try {
             AddTeacherResponse dataResponse = teacherService.addTeacher(request);
             return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
         } catch (NullPointerException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
-        } catch (RepositoryException e) {
+        } catch (ServiceException e) {
             throw new RuntimeException(e);
         }
     }
@@ -73,14 +73,14 @@ public class TeacherController {
             return new ResponseEntity<>(errors, HttpStatus.SC_BAD_REQUEST);
         }
 
-        TeacherServiceImpl teacherService = SpringConfig.getContext().getBean("teacher_service", TeacherServiceImpl.class);
+        TeacherServiceImpl teacherService = SpringConfig.getContext().getBean("teacherServiceImpl", TeacherServiceImpl.class);
 
         try {
             String dataResponse = teacherService.editTeacher(request);
             return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
         } catch (NullPointerException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
-        } catch (RepositoryException e) {
+        } catch (ServiceException e) {
             throw new RuntimeException(e);
         }
     }
@@ -94,21 +94,19 @@ public class TeacherController {
             return new ResponseEntity<>(errors, HttpStatus.SC_BAD_REQUEST);
         }
 
-        TeacherServiceImpl teacherService = SpringConfig.getContext().getBean("teacher_service", TeacherServiceImpl.class);
+        TeacherServiceImpl teacherService = SpringConfig.getContext().getBean("teacherServiceImpl", TeacherServiceImpl.class);
 
         try {
             GetTeacherByIdResponse dataResponse = teacherService.getTeacherById(request);
             return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | ServiceException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
-        } catch (RepositoryException e) {
-            throw new RuntimeException(e);
         }
     }
 
     public static ResponseEntity<GetTeachersResponse> getTeachers() {
 
-        TeacherServiceImpl teacherService = SpringConfig.getContext().getBean("teacher_service", TeacherServiceImpl.class);
+        TeacherServiceImpl teacherService = SpringConfig.getContext().getBean("teacherServiceImpl", TeacherServiceImpl.class);
 
         GetTeachersResponse dataResponse = teacherService.getTeachers();
         return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);

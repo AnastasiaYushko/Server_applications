@@ -9,12 +9,12 @@ import org.springframework.stereotype.Repository;
 import javax.jcr.RepositoryException;
 import java.util.ArrayList;
 
-@Repository("student_group_dao_impl")
+@Repository
 public class StudentGroupDAOImpl implements StudentGroupDAO {
 
     @Override
     public ArrayList<StudentGroup> getStudentGroups() {
-        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
+        DataBase dataBase = SpringConfig.getContext().getBean("dataBase", DataBase.class);
         return dataBase.getStudentGroups();
     }
 
@@ -24,45 +24,44 @@ public class StudentGroupDAOImpl implements StudentGroupDAO {
             DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
             return dataBase.getStudentGroupById(id);
         } catch (NullPointerException e) {
-            throw new RepositoryException(e);
+            throw new RepositoryException(e.getMessage());
         }
     }
 
     @Override
-    public int addStudentGroup(String name) {
-        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
+    public int addStudentGroup(String name) throws RepositoryException {
+        DataBase dataBase = SpringConfig.getContext().getBean("dataBase", DataBase.class);
         StudentGroup group = SpringConfig.getContext().getBean("studentGroup", StudentGroup.class);
         group.setName(name);
         try {
             return dataBase.addStudentGroup(group);
         } catch (NullPointerException e) {
-            throw new RuntimeException(e);
+            throw new RepositoryException(e.getMessage());
         }
     }
 
     @Override
     public String editStudentGroup(int id, String name) throws RepositoryException {
-        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
+        DataBase dataBase = SpringConfig.getContext().getBean("dataBase", DataBase.class);
         StudentGroup newDataGroup = SpringConfig.getContext().getBean("studentGroup", StudentGroup.class);
         newDataGroup.setName(name);
         newDataGroup.setId(id);
 
         try {
             return dataBase.editStudentGroup(newDataGroup);
-        }
-        catch (NullPointerException e){
-            throw new RepositoryException(e);
+        } catch (NullPointerException e) {
+            throw new RepositoryException(e.getMessage());
         }
 
     }
 
     @Override
     public String deleteStudentGroup(int id) throws RepositoryException {
-        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
+        DataBase dataBase = SpringConfig.getContext().getBean("dataBase", DataBase.class);
         try {
             return dataBase.deleteStudentGroup(id);
         } catch (NullPointerException e) {
-            throw new RepositoryException(e);
+            throw new RepositoryException(e.getMessage());
         }
     }
 }

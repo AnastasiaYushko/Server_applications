@@ -1,6 +1,7 @@
 package org.example.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import org.example.SpringConfig;
 import org.example.dto_request.lesson.add.AddLessonRequest;
 import org.example.dto_request.lesson.delete.byGroup.DeleteLessonsByGroupRequest;
 import org.example.dto_request.lesson.delete.byId.DeleteLessonByIdRequest;
@@ -22,52 +23,62 @@ public class lesson_controller {
 
     @PostMapping("/add")
     public String AddLesson(@RequestBody AddLessonRequest jsonRequest) throws ParseException, JsonProcessingException {
-        classHandler = new AddLessonHandler();
+        classHandler = SpringConfig.getContext().getBean("addLessonHandler", AddLessonHandler.class);
         return classHandler.handler(jsonRequest);
     }
 
     @PostMapping("/edit")
     public String EditLesson(@RequestBody EditLessonRequest jsonRequest) throws ParseException, JsonProcessingException {
-        classHandler = new EditLessonHandler();
+        classHandler = SpringConfig.getContext().getBean("editLessonHandler", EditLessonHandler.class);
         return classHandler.handler(jsonRequest);
     }
 
     @DeleteMapping("/deleteById")
     public String DeleteLessonById(@RequestBody DeleteLessonByIdRequest jsonRequest) throws ParseException, JsonProcessingException {
-        classHandler = new DeleteLessonByIdHandler();
+        classHandler = SpringConfig.getContext().getBean("deleteLessonByIdHandler", DeleteLessonByIdHandler.class);
         return classHandler.handler(jsonRequest);
     }
 
     @DeleteMapping("/deleteByGroup")
     public String DeleteLessonByGroup(@RequestBody DeleteLessonsByGroupRequest jsonRequest) throws ParseException, JsonProcessingException {
-        classHandler = new DeleteLessonsByGroupHandler();
+        classHandler = SpringConfig.getContext().getBean("deleteLessonsByGroupHandler", DeleteLessonsByGroupHandler.class);
         return classHandler.handler(jsonRequest);
     }
 
     @DeleteMapping("/deleteByTeacher")
     public String DeleteLessonByTeacher(@RequestBody DeleteLessonsByTeacherRequest jsonRequest) throws ParseException, JsonProcessingException {
-        classHandler = new DeleteLessonsByTeacherHandler();
+        classHandler = SpringConfig.getContext().getBean("deleteLessonsByTeacherHandler", DeleteLessonsByTeacherHandler.class);
         return classHandler.handler(jsonRequest);
     }
 
     @GetMapping("/getByTeacher")
     public String GetLessonByTeacher(@RequestParam("id") int id, @RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate) throws ParseException, JsonProcessingException {
-        classHandler = new GetLessonByTeacherHandler();
-        GetLessonsByTeacherRequest getLessonsByTeacherRequest = new GetLessonsByTeacherRequest(startDate, endDate, id);
+        GetLessonsByTeacherRequest getLessonsByTeacherRequest = SpringConfig.getContext().getBean("getLessonsByTeacherRequest", GetLessonsByTeacherRequest.class);
+        getLessonsByTeacherRequest.setTeacherId(id);
+        getLessonsByTeacherRequest.setEndDate(endDate);
+        getLessonsByTeacherRequest.setStartDate(startDate);
+
+        classHandler = SpringConfig.getContext().getBean("getLessonByTeacherHandler", GetLessonByTeacherHandler.class);
         return classHandler.handler(getLessonsByTeacherRequest);
     }
 
     @GetMapping("/getByGroup")
     public String GetLessonByGroup(@RequestParam("id") int id, @RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate) throws ParseException, JsonProcessingException {
-        classHandler = new GetLessonsByGroupHandler();
-        GetLessonsByGroupRequest getLessonsByGroupRequest = new GetLessonsByGroupRequest(startDate, endDate, id);
+        GetLessonsByGroupRequest getLessonsByGroupRequest = SpringConfig.getContext().getBean("getLessonsByGroupRequest", GetLessonsByGroupRequest.class);
+        getLessonsByGroupRequest.setStartDate(startDate);
+        getLessonsByGroupRequest.setEndDate(endDate);
+        getLessonsByGroupRequest.setGroupId(id);
+
+        classHandler = SpringConfig.getContext().getBean("getLessonsByGroupHandler", GetLessonsByGroupHandler.class);
         return classHandler.handler(getLessonsByGroupRequest);
     }
 
     @GetMapping("/getById")
     public String GetLessonById(@RequestParam("id") int id) throws ParseException, JsonProcessingException {
-        classHandler = new GetLessonByIdHandler();
-        GetLessonByIdRequest getLessonByIdRequest = new GetLessonByIdRequest(id);
+        GetLessonByIdRequest getLessonByIdRequest = SpringConfig.getContext().getBean("getLessonByIdRequest", GetLessonByIdRequest.class);
+        getLessonByIdRequest.setLessonId(id);
+
+        classHandler = SpringConfig.getContext().getBean("getLessonByIdHandler", GetLessonByIdHandler.class);
         return classHandler.handler(getLessonByIdRequest);
     }
 }

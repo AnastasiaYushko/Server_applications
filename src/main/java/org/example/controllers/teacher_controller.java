@@ -1,6 +1,7 @@
 package org.example.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import org.example.SpringConfig;
 import org.example.dto_request.teacher.add.AddTeacherRequest;
 import org.example.dto_request.teacher.delete.DeleteTeacherRequest;
 import org.example.dto_request.teacher.edit.EditTeacherRequest;
@@ -19,33 +20,36 @@ public class teacher_controller {
 
     @GetMapping("/get")
     public String GetTeachers() throws ParseException, JsonProcessingException {
-        classHandler = new GetTeachersHandler();
+        classHandler = SpringConfig.getContext().getBean("getTeachersHandler", GetTeachersHandler.class);
         return classHandler.handler(null);
     }
 
     @GetMapping("/getById")
     public String GetTeacherById(@RequestParam("id") int id) throws JsonProcessingException, ParseException {
-        classHandler = new GetTeacherByIdHandler();
-        GetTeacherByIdRequest getTeacherByIdRequest = new GetTeacherByIdRequest(id);
+        classHandler = SpringConfig.getContext().getBean("getTeacherByIdHandler", GetTeacherByIdHandler.class);
+        GetTeacherByIdRequest getTeacherByIdRequest = SpringConfig.getContext().getBean("getTeacherByIdRequest", GetTeacherByIdRequest.class);
+        getTeacherByIdRequest.setId(id);
         return classHandler.handler(getTeacherByIdRequest);
     }
 
     @PostMapping("/add")
     public String AddTeacher(@RequestBody AddTeacherRequest jsonRequest) throws ParseException, JsonProcessingException {
-        classHandler = new AddTeacherHandler();
+        classHandler = SpringConfig.getContext().getBean("addTeacherHandler", AddTeacherHandler.class);
         return classHandler.handler(jsonRequest);
     }
 
     @PostMapping("/edit")
     public String EditTeacher(@RequestBody EditTeacherRequest jsonRequest) throws ParseException, JsonProcessingException {
-        classHandler = new EditTeacherHandler();
+        classHandler = SpringConfig.getContext().getBean("editTeacherHandler", EditTeacherHandler.class);
         return classHandler.handler(jsonRequest);
     }
 
     @DeleteMapping("/delete")
     public String deleteTeacher(@RequestParam("id") int id) throws ParseException, JsonProcessingException {
-        classHandler = new DeleteTeacherHandler();
-        DeleteTeacherRequest deleteTeacherRequest = new DeleteTeacherRequest(id);
+        DeleteTeacherRequest deleteTeacherRequest = SpringConfig.getContext().getBean("deleteTeacherRequest", DeleteTeacherRequest.class);
+        deleteTeacherRequest.setId(id);
+
+        classHandler = SpringConfig.getContext().getBean("deleteTeacherHandler", DeleteTeacherHandler.class);
         return classHandler.handler(deleteTeacherRequest);
     }
 }
