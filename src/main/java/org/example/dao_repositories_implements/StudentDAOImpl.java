@@ -8,96 +8,93 @@ import org.example.model.Student;
 import org.example.model.StudentGroup;
 import org.springframework.stereotype.Repository;
 
+import javax.jcr.RepositoryException;
 import java.util.ArrayList;
 import java.util.Objects;
-
-import static java.util.Objects.isNull;
 
 @Repository("student_dao_impl")
 public class StudentDAOImpl implements StudentDAO {
 
     @Override
-    public ArrayList<Student> getStudentsByGroup(int id) {
+    public ArrayList<Student> getStudentsByGroup(int id) throws RepositoryException {
         DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
-        StudentGroup studentGroup = dataBase.getStudentGroupById(id);
-        if (isNull(studentGroup)) {
-            throw new NullPointerException("Такой группы нет в системе");
+        try {
+            return dataBase.getStudentsByGroup(id);
         }
-        return dataBase.getStudentsByGroup(id);
+        catch (NullPointerException e){
+            throw new RepositoryException(e);
+        }
     }
 
     @Override
-    public Student getStudentById(int id) {
+    public Student getStudentById(int id) throws RepositoryException {
         DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
-        Student student = dataBase.getStudentById(id);
-        if (isNull(student)) {
-            throw new NullPointerException("Такого студента нет в системе");
+        try {
+            return dataBase.getStudentById(id);
         }
-        return student;
-    }
-
-    //исключить повторения
-    @Override
-    public int addStudent(String lastName, String firstName, String middleName, String groupId, String status) {
-        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
-        StudentGroup group = dataBase.getStudentGroupById(Integer.parseInt(groupId));
-        if (isNull(group)) {
-            throw new NullPointerException("Такой группы нет в системе");
+        catch (NullPointerException e){
+            throw new RepositoryException(e);
         }
-        StatusStudent newStatus = getStudentStatus(status);
-        if (isNull(newStatus)) {
-            throw new NullPointerException("Неверный статус");
-        }
-        Student student = SpringConfig.getContext().getBean("student", Student.class);
-        student.setLastName(lastName);
-        student.setFirstName(firstName);
-        student.setMiddleName(middleName);
-        student.setGroup(group);
-        student.setStatus(newStatus);
-        return dataBase.addStudent(student);
-    }
-
-    // изменение не приводит к повторениям
-    @Override
-    public String editStudent(int id, String lastName, String firstName, String middleName, String groupId, String status) {
-        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
-        StudentGroup group = dataBase.getStudentGroupById(Integer.parseInt(groupId));
-        if (isNull(dataBase.getStudentById(id))) {
-            throw new NullPointerException("Такого студента нет в системе");
-        }
-        if (isNull(group)) {
-            throw new NullPointerException("Такой группы нет в системе");
-        }
-        StatusStudent newStatus = getStudentStatus(status);
-        if (isNull(newStatus)) {
-            throw new NullPointerException("Неверный статус");
-        }
-        Student student = SpringConfig.getContext().getBean("student", Student.class);
-        student.setId(id);
-        student.setLastName(lastName);
-        student.setFirstName(firstName);
-        student.setMiddleName(middleName);
-        student.setGroup(group);
-        student.setStatus(newStatus);
-
-        dataBase.editStudent(student);
-
-        return "Данные студента изменены";
     }
 
     @Override
-    public String deleteStudent(int id) {
+    public int addStudent(String lastName, String firstName, String middleName, int groupId, String status) throws RepositoryException {
         DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
-        if (isNull(dataBase.getStudentById(id))) {
-            throw new NullPointerException("Такого студента нет в системе");
+
+        try {
+
+            StudentGroup group = dataBase.getStudentGroupById(groupId);
+
+            Student student = SpringConfig.getContext().getBean("student", Student.class);
+            student.setLastName(lastName);
+            student.setFirstName(firstName);
+            student.setMiddleName(middleName);
+            student.setGroup(group);
+            student.setStatus(getStudentStatus(status));
+
+            return dataBase.addStudent(student);
         }
-        dataBase.deleteStudent(id);
-        return "Студент удален";
+        catch (NullPointerException e){
+            throw new RepositoryException(e);
+        }
+    }
+
+    @Override
+    public String editStudent(int id, String lastName, String firstName, String middleName, int groupId, String status) throws RepositoryException {
+        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
+
+        try {
+            StudentGroup group = dataBase.getStudentGroupById(groupId);
+
+            Student student = SpringConfig.getContext().getBean("student", Student.class);
+            student.setId(id);
+            student.setLastName(lastName);
+            student.setFirstName(firstName);
+            student.setMiddleName(middleName);
+            student.setGroup(group);
+            student.setStatus(getStudentStatus(status));
+
+            return dataBase.editStudent(student);
+        }
+        catch (NullPointerException e){
+            throw new RepositoryException(e);
+        }
+    }
+
+    @Override
+    public String deleteStudent(int id) throws RepositoryException {
+        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
+        try {
+            return dataBase.deleteStudent(id);
+        }
+        catch (NullPointerException e){
+            throw new RepositoryException(e);
+        }
     }
 
     public static StatusStudent getStudentStatus(String status) {
-        StatusStudent newStatus = null;
 
+        StatusStudent newStatus = null;
         if (Objects.equals(StatusStudent.STUDIES.toString(), status)) {
             newStatus = StatusStudent.STUDIES;
         } else if (Objects.equals(StatusStudent.EXPELLED.toString(), status)) {

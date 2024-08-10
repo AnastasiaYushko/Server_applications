@@ -17,6 +17,7 @@ import org.example.network_operations.ResponseEntity;
 import org.example.services.serviceInterfaceImpl.SubjectServiceImpl;
 import org.springframework.stereotype.Component;
 
+import javax.jcr.RepositoryException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +40,8 @@ public class SubjectController {
             return new ResponseEntity<>(addSubjectResponse, HttpStatus.SC_OK);
         } catch (NullPointerException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
+        } catch (RepositoryException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -77,6 +80,8 @@ public class SubjectController {
             return new ResponseEntity<>(getSubjectsResponse, HttpStatus.SC_OK);
         } catch (NullPointerException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
+        } catch (RepositoryException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -96,6 +101,8 @@ public class SubjectController {
             return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
         } catch (NullPointerException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
+        } catch (RepositoryException e) {
+            throw new RuntimeException(e);
         }
     }
 

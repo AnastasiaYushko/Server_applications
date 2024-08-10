@@ -10,16 +10,18 @@ import org.example.dto_response.lessonVisiting.AddLessonVisitingResponse;
 import org.example.dto_response.lessonVisiting.GetLessonVisitingByIdResponse;
 import org.example.dto_response.lessonVisiting.GetLessonVisitingByLessonIdResponse;
 
+import javax.jcr.RepositoryException;
+
 public interface LessonVisitingService {
-    AddLessonVisitingResponse addLessonVisiting(AddLessonVisitingRequest request);
+    AddLessonVisitingResponse addLessonVisiting(AddLessonVisitingRequest request) throws RepositoryException;
 
-    String deleteLessonVisitingById(DeleteLessonVisitingByIdRequest request);
+    String deleteLessonVisitingById(DeleteLessonVisitingByIdRequest request) throws RepositoryException;
 
-    String deleteLessonVisitingByLessonId(DeleteLessonVisitingByLessonIdRequest request);
+    String deleteLessonVisitingByLessonId(DeleteLessonVisitingByLessonIdRequest request) throws RepositoryException;
 
-    GetLessonVisitingByIdResponse getLessonVisitingById(GetLessonVisitingByIdRequest request);
+    GetLessonVisitingByIdResponse getLessonVisitingById(GetLessonVisitingByIdRequest request) throws RepositoryException;
 
-    GetLessonVisitingByLessonIdResponse getLessonVisitingByLessonId(GetLessonVisitingByLessonIdRequest request);
+    GetLessonVisitingByLessonIdResponse getLessonVisitingByLessonId(GetLessonVisitingByLessonIdRequest request) throws RepositoryException;
 
-    String editLessonVisiting(EditLessonVisitingRequest request);
+    String editLessonVisiting(EditLessonVisitingRequest request) throws RepositoryException;
 }

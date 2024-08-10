@@ -13,15 +13,15 @@ public class EditStudentRequest {
     private String firstName;
     private String middleName;
     private String status;
-    private String group;
+    private int groupId;
 
-    public EditStudentRequest(int id, String lastName, String firstName, String middleName, String status, String groupId) {
+    public EditStudentRequest(int id, String lastName, String firstName, String middleName, String status, int groupId) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;
         this.status = status;
-        this.group = groupId;
+        this.groupId = groupId;
     }
 
     public EditStudentRequest() {

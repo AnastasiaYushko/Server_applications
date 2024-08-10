@@ -26,6 +26,7 @@ import org.example.network_operations.ResponseEntity;
 import org.example.services.serviceInterfaceImpl.LessonServiceImpl;
 import org.springframework.stereotype.Component;
 
+import javax.jcr.RepositoryException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +51,8 @@ public class LessonController {
             return new ResponseEntity<>(lessonResponse, HttpStatus.SC_OK);
         } catch (NullPointerException | ParseException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
+        } catch (RepositoryException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -69,6 +72,8 @@ public class LessonController {
             return new ResponseEntity<>(lessonResponse, HttpStatus.SC_OK);
         } catch (NullPointerException | ParseException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
+        } catch (RepositoryException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -88,6 +93,8 @@ public class LessonController {
             return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
         } catch (NullPointerException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
+        } catch (RepositoryException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -107,6 +114,8 @@ public class LessonController {
             return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
         } catch (NullPointerException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
+        } catch (RepositoryException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -126,6 +135,8 @@ public class LessonController {
             return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
         } catch (NullPointerException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
+        } catch (RepositoryException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -145,6 +156,8 @@ public class LessonController {
             return new ResponseEntity<>(getLessonsByGroupResponse, HttpStatus.SC_OK);
         } catch (NullPointerException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
+        } catch (RepositoryException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -164,6 +177,8 @@ public class LessonController {
             return new ResponseEntity<>(getLessonByIdResponse, HttpStatus.SC_OK);
         } catch (NullPointerException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
+        } catch (RepositoryException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -183,6 +198,8 @@ public class LessonController {
             return new ResponseEntity<>(getLessonsByTeacherResponse, HttpStatus.SC_OK);
         } catch (NullPointerException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
+        } catch (RepositoryException e) {
+            throw new RuntimeException(e);
         }
     }
 }

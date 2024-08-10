@@ -35,12 +35,12 @@ public class Lesson {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Lesson lesson = (Lesson) o;
-        return id == lesson.id && number == lesson.number && Objects.equals(date, lesson.date) && Objects.equals(subject, lesson.subject) && Objects.equals(teacher, lesson.teacher) && Objects.equals(group, lesson.group);
+        return number == lesson.number && Objects.equals(date, lesson.date) && Objects.equals(subject, lesson.subject) && Objects.equals(teacher, lesson.teacher) && Objects.equals(group, lesson.group);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, date, number, subject, teacher, group);
+        return Objects.hash(date, number, subject, teacher, group);
     }
 
     @Override

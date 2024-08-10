@@ -16,6 +16,7 @@ import org.example.dto_response.teacher.GetTeachersResponse;
 import org.example.network_operations.ResponseEntity;
 import org.example.services.serviceInterfaceImpl.TeacherServiceImpl;
 
+import javax.jcr.RepositoryException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +38,8 @@ public class TeacherController {
             return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
         } catch (NullPointerException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
+        } catch (RepositoryException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -56,6 +59,8 @@ public class TeacherController {
             return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
         } catch (NullPointerException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
+        } catch (RepositoryException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -75,6 +80,8 @@ public class TeacherController {
             return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
         } catch (NullPointerException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
+        } catch (RepositoryException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -94,6 +101,8 @@ public class TeacherController {
             return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
         } catch (NullPointerException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
+        } catch (RepositoryException e) {
+            throw new RuntimeException(e);
         }
     }
 

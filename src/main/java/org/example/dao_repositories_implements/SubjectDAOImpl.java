@@ -6,9 +6,8 @@ import org.example.dao_repositories.SubjectDAO;
 import org.example.model.Subject;
 import org.springframework.stereotype.Repository;
 
+import javax.jcr.RepositoryException;
 import java.util.ArrayList;
-
-import static java.util.Objects.isNull;
 
 @Repository("subject_dao_impl")
 public class SubjectDAOImpl implements SubjectDAO {
@@ -20,53 +19,45 @@ public class SubjectDAOImpl implements SubjectDAO {
     }
 
     @Override
-    public Subject getSubjectById(int id) {
+    public Subject getSubjectById(int id) throws RepositoryException {
         DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
-        Subject subject = dataBase.getSubjectById(id);
-        if (isNull(subject)) {
-            throw new NullPointerException("Такого предмета нет в системе");
+        try {
+            return dataBase.getSubjectById(id);
+        } catch (NullPointerException e) {
+            throw new RepositoryException(e);
         }
-        return subject;
     }
 
-    //нельзя одинаковые
     @Override
-    public int addSubject(String name) {
+    public int addSubject(String name) throws RepositoryException {
         DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
         Subject subject = SpringConfig.getContext().getBean("subject", Subject.class);
         subject.setName(name);
-        int result = dataBase.addSubject(subject);
-        if (result == -1) {
-            throw new NullPointerException("Такой предмет уже есть в системе");
+        try {
+            return dataBase.addSubject(subject);
+        } catch (NullPointerException e) {
+            throw new RepositoryException(e);
         }
-        return result;
     }
 
-    //исключить повторение
     @Override
     public String editSubject(int id, String name) {
         DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
-        Subject subject = dataBase.getSubjectById(id);
-        if (!isNull(subject)) {
-            Subject newDataSubject = SpringConfig.getContext().getBean("subject", Subject.class);
-            newDataSubject.setId(id);
-            newDataSubject.setName(name);
-            dataBase.editSubject(newDataSubject);
-            return "Предмет изменен";
-        } else {
-            throw new NullPointerException("Такой предмет не найден в системе");
-        }
+        Subject newDataSubject = SpringConfig.getContext().getBean("subject", Subject.class);
+        newDataSubject.setId(id);
+        newDataSubject.setName(name);
+
+        return dataBase.editSubject(newDataSubject);
     }
 
     @Override
-    public String deleteSubject(int id) {
+    public String deleteSubject(int id) throws RepositoryException {
         DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
-        Subject subject = dataBase.getSubjectById(id);
-        if (!isNull(subject)) {
-            dataBase.deleteSubject(id);
-            return "Предмет удален";
-        } else {
-            throw new NullPointerException("Такой предмет не найден в системе");
+        try {
+            return dataBase.deleteSubject(id);
+        }
+        catch (NullPointerException e){
+            throw new RepositoryException(e);
         }
     }
 }

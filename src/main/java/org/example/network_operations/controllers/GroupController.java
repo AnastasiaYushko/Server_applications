@@ -18,6 +18,8 @@ import org.example.network_operations.ResponseEntity;
 import org.example.services.serviceInterfaceImpl.GroupStudentServiceImpl;
 import org.springframework.stereotype.Component;
 
+import javax.jcr.RepositoryException;
+import javax.xml.rpc.ServiceException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +43,8 @@ public class GroupController {
             return new ResponseEntity<>(getStudentGroupByIdResponse, HttpStatus.SC_OK);
         } catch (NullPointerException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
+        } catch (ServiceException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -60,6 +64,8 @@ public class GroupController {
             return new ResponseEntity<>(editStudentGroupResponse, HttpStatus.SC_OK);
         } catch (NullPointerException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
+        } catch (RepositoryException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -98,10 +104,12 @@ public class GroupController {
             return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
         } catch (NullPointerException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
+        } catch (RepositoryException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    public static ResponseEntity<GetStudentGroupsResponse> getStudentGroups() {
+    public static ResponseEntity<GetStudentGroupsResponse> getStudentGroups() throws ServiceException {
 
         GroupStudentServiceImpl groupStudentService = SpringConfig.getContext().getBean("group_student_service", GroupStudentServiceImpl.class);
 

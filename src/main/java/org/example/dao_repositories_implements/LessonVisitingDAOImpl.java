@@ -3,108 +3,91 @@ package org.example.dao_repositories_implements;
 import org.example.DataBase;
 import org.example.SpringConfig;
 import org.example.dao_repositories.LessonVisitingDAO;
-import org.example.model.Lesson;
 import org.example.model.LessonVisiting;
 import org.springframework.stereotype.Repository;
 
+import javax.jcr.RepositoryException;
 import java.util.ArrayList;
-
-import static java.util.Objects.isNull;
 
 @Repository("lesson_visiting_dao_impl")
 public class LessonVisitingDAOImpl implements LessonVisitingDAO {
 
     @Override
-    public LessonVisiting GetLessonVisitingByLessonId(int lessonId) {
+    public LessonVisiting GetLessonVisitingByLessonId(int lessonId) throws RepositoryException {
         DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
-        if (isNull(dataBase.getLessonById(lessonId))) {
-            throw new NullPointerException("Такого урока нет в системе");
+        try {
+            return dataBase.getLessonVisitingByLessonId(lessonId);
         }
-
-        LessonVisiting lessonVisiting = dataBase.getLessonVisitingByLessonId(lessonId);
-        if (isNull(lessonVisiting)) {
-            throw new NullPointerException("Данных о посещаемость данного урока нет в системе");
+        catch (NullPointerException e){
+            throw new RepositoryException(e);
         }
-        return lessonVisiting;
     }
 
     @Override
-    public LessonVisiting GetLessonVisitingById(int lessonVisitingById) {
+    public LessonVisiting GetLessonVisitingById(int lessonVisitingById) throws RepositoryException {
         DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
-        LessonVisiting lessonVisiting = dataBase.getLessonVisitingById(lessonVisitingById);
-
-        if (isNull(lessonVisiting)) {
-            throw new NullPointerException("Данных о посещаемость данного урока нет в системе");
+        try {
+            return dataBase.getLessonVisitingById(lessonVisitingById);
         }
-
-        return lessonVisiting;
+        catch (NullPointerException e){
+            throw new RepositoryException(e);
+        }
     }
 
-    // исключить добавление одинаковых
     @Override
-    public int AddLessonVisiting(int lessonId, ArrayList<String> students) {
+    public int AddLessonVisiting(int lessonId, ArrayList<String> students) throws RepositoryException {
         DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
-        Lesson lesson = dataBase.getLessonById(lessonId);
-        if (isNull(lesson)) {
-            throw new NullPointerException("Такого урока нет в системе");
-        }
 
         LessonVisiting lessonVisiting = SpringConfig.getContext().getBean("lessonVisiting", LessonVisiting.class);
         lessonVisiting.setLessonId(lessonId);
         lessonVisiting.setListStudent(students);
-        if (!isNull(dataBase.getLessonVisitingByLessonId(lessonId))) {
-            throw new NullPointerException("Посещаемость данного урока уже есть в системе");
+
+        try {
+            return dataBase.addLessonVisiting(lessonVisiting);
         }
-        return dataBase.addLessonVisiting(lessonVisiting);
+        catch (NullPointerException e){
+            throw new RepositoryException(e);
+        }
     }
 
-    ////при изменении чтобы не было одинаковых
     @Override
-    public String EditLessonVisiting(int lessonVisitingId, int lessonId, ArrayList<String> students) {
+    public String EditLessonVisiting(int lessonVisitingId, int lessonId, ArrayList<String> students) throws RepositoryException {
         DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
-        Lesson lesson = dataBase.getLessonById(lessonId);
-        if (isNull(lesson)) {
-            throw new NullPointerException("Такого урока нет в системе");
-        }
-
-        if (isNull(dataBase.getLessonVisitingById(lessonVisitingId))) {
-            throw new NullPointerException("Посещаемость, которую вы хотите изменить - нет в системе");
-        }
 
         LessonVisiting lessonVisiting = SpringConfig.getContext().getBean("lessonVisiting", LessonVisiting.class);
         lessonVisiting.setId(lessonVisitingId);
         lessonVisiting.setLessonId(lessonId);
         lessonVisiting.setListStudent(students);
 
-        dataBase.editLessonVisiting(lessonVisiting);
-
-        return "Посещаемость изменена";
+        try {
+            return dataBase.editLessonVisiting(lessonVisiting);
+        }
+        catch (NullPointerException e){
+            throw new RepositoryException(e);
+        }
     }
 
     @Override
-    public String DeleteLessonVisitingById(int lessonVisitingId) {
+    public String DeleteLessonVisitingById(int lessonVisitingId) throws RepositoryException {
         DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
-        LessonVisiting lessonVisiting = dataBase.getLessonVisitingById(lessonVisitingId);
-        if (isNull(lessonVisiting)) {
-            throw new NullPointerException("Такой посещаемости нет в системе");
+
+        try {
+            return dataBase.deleteLessonVisitingById(lessonVisitingId);
         }
-        dataBase.deleteLessonVisitingById(lessonVisitingId);
-        return "Посещаемость удалена";
+        catch (NullPointerException e){
+            throw new RepositoryException(e);
+        }
     }
 
     @Override
-    public String DeleteLessonVisitingByLessonId(int lessonId) {
+    public String DeleteLessonVisitingByLessonId(int lessonId) throws RepositoryException {
         DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
-        Lesson lesson = dataBase.getLessonById(lessonId);
-        if (isNull(lesson)) {
-            throw new NullPointerException("Такого урока нет в системе");
-        }
 
-        LessonVisiting lessonVisiting = dataBase.getLessonVisitingByLessonId(lessonId);
-        if (isNull(lessonVisiting)) {
-            throw new NullPointerException("Такой посещаемости нет в системе");
+        try {
+            return dataBase.deleteLessonVisitingByLessonId(lessonId);
         }
-        dataBase.deleteLessonVisitingByLessonId(lessonId);
-        return "Посещаемость удалена";
+        catch (NullPointerException e){
+            throw new RepositoryException(e);
+        }
     }
 }

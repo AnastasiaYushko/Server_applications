@@ -6,9 +6,8 @@ import org.example.dao_repositories.StudentGroupDAO;
 import org.example.model.StudentGroup;
 import org.springframework.stereotype.Repository;
 
+import javax.jcr.RepositoryException;
 import java.util.ArrayList;
-
-import static java.util.Objects.isNull;
 
 @Repository("student_group_dao_impl")
 public class StudentGroupDAOImpl implements StudentGroupDAO {
@@ -20,48 +19,50 @@ public class StudentGroupDAOImpl implements StudentGroupDAO {
     }
 
     @Override
-    public StudentGroup getStudentGroupById(int id) {
-        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
-        StudentGroup group = dataBase.getStudentGroupById(id);
-        if (isNull(group)) {
-            throw new NullPointerException("Такой группы нет в системе");
+    public StudentGroup getStudentGroupById(int id) throws RepositoryException {
+        try {
+            DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
+            return dataBase.getStudentGroupById(id);
+        } catch (NullPointerException e) {
+            throw new RepositoryException(e);
         }
-        return group;
     }
 
-    // нельзя добавить 2 одинаковых группы
     @Override
     public int addStudentGroup(String name) {
         DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
         StudentGroup group = SpringConfig.getContext().getBean("studentGroup", StudentGroup.class);
         group.setName(name);
-        return dataBase.addStudentGroup(group);
-    }
-
-    @Override
-    public String editStudentGroup(int id, String name) {
-        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
-        StudentGroup group = dataBase.getStudentGroupById(id);
-        if (!isNull(group)) {
-            StudentGroup newDataGroup = SpringConfig.getContext().getBean("studentGroup", StudentGroup.class);
-            newDataGroup.setName(name);
-            newDataGroup.setId(id);
-            dataBase.editStudentGroup(newDataGroup);
-            return "Группа изменена";
-        } else {
-            throw new NullPointerException("Такой группы нет в системе");
+        try {
+            return dataBase.addStudentGroup(group);
+        } catch (NullPointerException e) {
+            throw new RuntimeException(e);
         }
     }
 
     @Override
-    public String deleteStudentGroup(int id) {
+    public String editStudentGroup(int id, String name) throws RepositoryException {
         DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
-        StudentGroup group = dataBase.getStudentGroupById(id);
-        if (!isNull(group)) {
-            dataBase.deleteStudentGroup(id);
-            return "Группа удалена";
-        } else {
-            throw new NullPointerException("Такой группы нет в системе");
+        StudentGroup newDataGroup = SpringConfig.getContext().getBean("studentGroup", StudentGroup.class);
+        newDataGroup.setName(name);
+        newDataGroup.setId(id);
+
+        try {
+            return dataBase.editStudentGroup(newDataGroup);
+        }
+        catch (NullPointerException e){
+            throw new RepositoryException(e);
+        }
+
+    }
+
+    @Override
+    public String deleteStudentGroup(int id) throws RepositoryException {
+        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
+        try {
+            return dataBase.deleteStudentGroup(id);
+        } catch (NullPointerException e) {
+            throw new RepositoryException(e);
         }
     }
 }

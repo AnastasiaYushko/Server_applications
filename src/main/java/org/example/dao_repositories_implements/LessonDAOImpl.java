@@ -9,137 +9,128 @@ import org.example.model.Subject;
 import org.example.model.Teacher;
 import org.springframework.stereotype.Repository;
 
+import javax.jcr.RepositoryException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import static java.util.Objects.isNull;
-
 @Repository
 public class LessonDAOImpl implements LessonDAO {
 
     @Override
-    public Lesson getLessonById(int id) {
+    public Lesson getLessonById(int id) throws RepositoryException {
         DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
-        Lesson lesson = dataBase.getLessonById(id);
-        if (isNull(lesson)) {
-            throw new NullPointerException("Такого урока нет в системе");
-        }
-        return lesson;
-    }
-
-    @Override
-    public ArrayList<Lesson> getLessonsByGroup(String startDate, String endDate, int groupId) throws ParseException {
-        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
-        StudentGroup group = dataBase.getStudentGroupById(groupId);
-        if (!isNull(group)) {
-            Date dateStartTrue = new SimpleDateFormat("dd-MM-yyyy").parse(startDate);
-            Date dateEndTrue = new SimpleDateFormat("dd-MM-yyyy").parse(endDate);
-            return dataBase.getLessonsByGroup(dateStartTrue, dateEndTrue, group);
-        } else {
-            throw new NullPointerException("Такой группы нет в системе");
+        try {
+            return dataBase.getLessonById(id);
+        } catch (NullPointerException e) {
+            throw new RepositoryException(e);
         }
     }
 
     @Override
-    public ArrayList<Lesson> getLessonsByTeacher(String startDate, String endDate, int teacherId) throws ParseException {
+    public ArrayList<Lesson> getLessonsByGroup(String startDate, String endDate, int groupId) throws ParseException, RepositoryException {
         DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
-        Teacher teacher = dataBase.getTeacherById(teacherId);
-        if (!isNull(teacher)) {
-            Date dateStartTrue = new SimpleDateFormat("dd-MM-yyyy").parse(startDate);
-            Date dateEndTrue = new SimpleDateFormat("dd-MM-yyyy").parse(endDate);
-            return dataBase.getLessonsByTeacher(dateStartTrue, dateEndTrue, teacher);
-        } else {
-            throw new NullPointerException("Такого учителя нет в системе");
+        Date dateStartTrue = new SimpleDateFormat("dd-MM-yyyy").parse(startDate);
+        Date dateEndTrue = new SimpleDateFormat("dd-MM-yyyy").parse(endDate);
+        try {
+            return dataBase.getLessonsByGroup(dateStartTrue, dateEndTrue, groupId);
+        } catch (NullPointerException e) {
+            throw new RepositoryException(e);
         }
     }
 
-    //при изменении чтобы не было одинаковых
     @Override
-    public String EditLesson(int id, String date, int number, int teacherId, int groupId, int subjectId) throws ParseException {
+    public ArrayList<Lesson> getLessonsByTeacher(String startDate, String endDate, int teacherId) throws ParseException, RepositoryException {
         DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
-        Teacher teacher = dataBase.getTeacherById(teacherId);
-        if (isNull(teacher)) {
-            throw new NullPointerException("Такого учителя нет в системе");
+        Date dateStartTrue = new SimpleDateFormat("dd-MM-yyyy").parse(startDate);
+        Date dateEndTrue = new SimpleDateFormat("dd-MM-yyyy").parse(endDate);
+        try {
+            return dataBase.getLessonsByTeacher(dateStartTrue, dateEndTrue, teacherId);
+        } catch (NullPointerException e) {
+            throw new RepositoryException(e);
         }
-        StudentGroup studentGroup = dataBase.getStudentGroupById(groupId);
-        if (isNull(studentGroup)) {
-            throw new NullPointerException("Такой группы нет в системе");
-        }
-        if (isNull(dataBase.getLessonById(id))) {
-            throw new NullPointerException("Такого урока нет в системе");
-        }
-        Subject subject = dataBase.getSubjectById(subjectId);
-        if (isNull(subject)) {
-            throw new NullPointerException("Такого урока нет в системе");
-        }
-
-        Date dateTrue = new SimpleDateFormat("dd-MM-yyyy").parse(date);
-        Lesson lesson = SpringConfig.getContext().getBean("lesson", Lesson.class);
-        lesson.setId(id);
-        lesson.setDate(dateTrue);
-        lesson.setGroup(studentGroup);
-        lesson.setTeacher(teacher);
-        lesson.setSubject(subject);
-        lesson.setNumber(number);
-
-        dataBase.EditLesson(lesson);
-
-        return "Данные урока изменены!";
     }
 
     @Override
-    public String DeleteLessonsByGroup(int groupId) {
+    public String EditLesson(int id, String date, int number, int teacherId, int groupId, int subjectId) throws ParseException, RepositoryException {
+
         DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
-        StudentGroup group = dataBase.getStudentGroupById(groupId);
-        if (isNull(group)) {
-            throw new NullPointerException("Такой группы нет в системе");
+
+        try {
+            Teacher teacher = dataBase.getTeacherById(teacherId);
+            StudentGroup studentGroup = dataBase.getStudentGroupById(groupId);
+            Subject subject = dataBase.getSubjectById(subjectId);
+
+            Date dateTrue = new SimpleDateFormat("dd-MM-yyyy").parse(date);
+            Lesson lesson = SpringConfig.getContext().getBean("lesson", Lesson.class);
+            lesson.setId(id);
+            lesson.setDate(dateTrue);
+            lesson.setGroup(studentGroup);
+            lesson.setTeacher(teacher);
+            lesson.setSubject(subject);
+            lesson.setNumber(number);
+
+            return dataBase.EditLesson(lesson);
+        } catch (NullPointerException e) {
+            throw new RepositoryException(e);
         }
-        dataBase.DeleteLessonsByGroup(groupId);
-        return "Уроки у группы удалены!";
     }
 
     @Override
-    public String DeleteLessonById(int lessonId) {
+    public String DeleteLessonsByGroup(int groupId) throws RepositoryException {
         DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
-        Lesson lesson = dataBase.getLessonById(lessonId);
-        if (isNull(lesson)) {
-            throw new NullPointerException("Такого урока нет в системе");
+        try {
+            return dataBase.DeleteLessonsByGroup(groupId);
+        } catch (NullPointerException e) {
+            throw new RepositoryException(e);
         }
-        dataBase.DeleteLessonById(lessonId);
-        return "Урок удален";
     }
 
     @Override
-    public String DeleteLessonsByTeacher(int teacherId) {
+    public String DeleteLessonById(int lessonId) throws RepositoryException {
         DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
-        Teacher teacher = dataBase.getTeacherById(teacherId);
-        if (isNull(teacher)) {
-            throw new NullPointerException("Такого учителя нет в системе");
+        try {
+            return dataBase.DeleteLessonById(lessonId);
         }
-        dataBase.DeleteLessonsByTeacher(teacherId);
-        return "Урок удален";
+        catch (NullPointerException e){
+            throw new RepositoryException(e);
+        }
     }
 
-    //нельзя добавить 2 одинаковых
     @Override
-    public int AddLesson(String date, int number, int teacherId, int subjectId, int groupId) throws ParseException {
+    public String DeleteLessonsByTeacher(int teacherId) throws RepositoryException {
+        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
+        try {
+            return dataBase.DeleteLessonsByTeacher(teacherId);
+        }
+        catch (NullPointerException e){
+            throw new RepositoryException(e);
+        }
+    }
+
+    @Override
+    public int AddLesson(String date, int number, int teacherId, int subjectId, int groupId) throws ParseException, RepositoryException {
         DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
         DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
         Date date1 = df.parse(date);
-        Teacher teacher = dataBase.getTeacherById(teacherId);
-        StudentGroup group = dataBase.getStudentGroupById(groupId);
-        Subject subject = dataBase.getSubjectById(subjectId);
+        try {
+            Teacher teacher = dataBase.getTeacherById(teacherId);
+            StudentGroup group = dataBase.getStudentGroupById(groupId);
+            Subject subject = dataBase.getSubjectById(subjectId);
 
-        Lesson lesson = SpringConfig.getContext().getBean("lesson", Lesson.class);
-        lesson.setDate(date1);
-        lesson.setGroup(group);
-        lesson.setTeacher(teacher);
-        lesson.setSubject(subject);
-        lesson.setNumber(number);
+            Lesson lesson = SpringConfig.getContext().getBean("lesson", Lesson.class);
+            lesson.setDate(date1);
+            lesson.setGroup(group);
+            lesson.setTeacher(teacher);
+            lesson.setSubject(subject);
+            lesson.setNumber(number);
 
-        return dataBase.AddLesson(lesson);
+            return dataBase.AddLesson(lesson);
+        }
+        catch (NullPointerException e){
+            throw new RepositoryException(e);
+        }
     }
 }

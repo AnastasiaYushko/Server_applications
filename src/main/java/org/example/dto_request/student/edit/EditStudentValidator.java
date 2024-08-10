@@ -2,6 +2,7 @@ package org.example.dto_request.student.edit;
 
 import org.example.validators.RequestValidator;
 import org.example.validators.ValidatorNumber;
+import org.example.validators.ValidatorStatus;
 import org.example.validators.ValidatorString;
 import org.jetbrains.annotations.NotNull;
 
@@ -28,10 +29,11 @@ public class EditStudentValidator implements RequestValidator<EditStudentRequest
         ValidatorString.validateEmpty(request.getMiddleName(), errors, "middleName");
         ValidatorString.validateLength(request.getMiddleName(), errors, "middleName", maxLength);
 
-        ValidatorString.validateNull(request.getStatus(), errors, "status");
-        ValidatorString.validateEmpty(request.getStatus(), errors, "status");
+        ValidatorStatus.validateNull(request.getStatus(), errors, "status");
+        ValidatorStatus.validateEmpty(request.getStatus(), errors, "status");
+        ValidatorStatus.validateCorrectStatus(request.getStatus(), errors, "status");
 
-        ValidatorNumber.validateNumber(Integer.parseInt(request.getGroup()), errors, "groupId");
+        ValidatorNumber.validateNumber(request.getGroupId(), errors, "groupId");
 
         return errors;
     }

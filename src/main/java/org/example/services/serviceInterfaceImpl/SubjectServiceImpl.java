@@ -13,6 +13,7 @@ import org.example.services.serviceInterface.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.jcr.RepositoryException;
 import java.util.ArrayList;
 
 @Service("subject_service")
@@ -26,13 +27,13 @@ public class SubjectServiceImpl implements SubjectService {
     }
 
     @Override
-    public AddSubjectResponse addSubject(AddSubjectRequest request) {
+    public AddSubjectResponse addSubject(AddSubjectRequest request) throws RepositoryException {
         int result = subjectDAO.addSubject(request.getName());
         return new AddSubjectResponse(result);
     }
 
     @Override
-    public String deleteSubject(DeleteSubjectRequest request) {
+    public String deleteSubject(DeleteSubjectRequest request) throws RepositoryException {
         return subjectDAO.deleteSubject(request.getId());
     }
 
@@ -42,7 +43,7 @@ public class SubjectServiceImpl implements SubjectService {
     }
 
     @Override
-    public GetSubjectByIdResponse getSubjectById(GetSubjectByIdRequest request) {
+    public GetSubjectByIdResponse getSubjectById(GetSubjectByIdRequest request) throws RepositoryException {
         Subject subject = subjectDAO.getSubjectById(request.getId());
         return new GetSubjectByIdResponse(subject.getName());
     }

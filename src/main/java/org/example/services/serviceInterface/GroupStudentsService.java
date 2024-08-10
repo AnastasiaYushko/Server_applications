@@ -9,15 +9,18 @@ import org.example.dto_response.studentGroup.AddStudentGroupResponse;
 import org.example.dto_response.studentGroup.GetStudentGroupByIdResponse;
 import org.example.dto_response.studentGroup.GetStudentGroupsResponse;
 
+import javax.jcr.RepositoryException;
+import javax.xml.rpc.ServiceException;
+
 public interface GroupStudentsService {
 
-    GetStudentGroupByIdResponse getStudentGroupById(GetStudentGroupByIdRequest request) throws JsonProcessingException;
+    GetStudentGroupByIdResponse getStudentGroupById(GetStudentGroupByIdRequest request) throws JsonProcessingException, ServiceException;
 
-    GetStudentGroupsResponse getStudentGroups() throws JsonProcessingException;
+    GetStudentGroupsResponse getStudentGroups() throws JsonProcessingException, ServiceException;
 
-    String editStudentGroup(EditStudentGroupRequest request) throws JsonProcessingException;
+    String editStudentGroup(EditStudentGroupRequest request) throws JsonProcessingException, RepositoryException;
 
     AddStudentGroupResponse addStudentGroup(AddStudentGroupRequest request) throws JsonProcessingException;
 
-    String deleteStudentGroup(DeleteStudentGroupRequest request) throws JsonProcessingException;
+    String deleteStudentGroup(DeleteStudentGroupRequest request) throws JsonProcessingException, RepositoryException;
 }

@@ -6,9 +6,8 @@ import org.example.dao_repositories.TeacherDAO;
 import org.example.model.Teacher;
 import org.springframework.stereotype.Repository;
 
+import javax.jcr.RepositoryException;
 import java.util.ArrayList;
-
-import static java.util.Objects.isNull;
 
 @Repository("teacher_dao_impl")
 public class TeacherDAOImpl implements TeacherDAO {
@@ -20,53 +19,60 @@ public class TeacherDAOImpl implements TeacherDAO {
     }
 
     @Override
-    public Teacher getTeacherById(int id) {
+    public Teacher getTeacherById(int id) throws RepositoryException {
         DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
-        Teacher teacher = dataBase.getTeacherById(id);
-        if (isNull(teacher)) {
-            throw new NullPointerException("Такого учителя нет в системе");
+        try {
+            return dataBase.getTeacherById(id);
         }
-        return teacher;
+        catch (NullPointerException e){
+            throw new RepositoryException(e);
+        }
     }
 
-    //исключить повторы
     @Override
-    public int addTeacher(String firstName, String middleName, String lastName) {
+    public int addTeacher(String firstName, String middleName, String lastName) throws RepositoryException {
         DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
         Teacher teacher = SpringConfig.getContext().getBean("teacher", Teacher.class);
         teacher.setFirstName(firstName);
         teacher.setLastName(lastName);
         teacher.setMiddleName(middleName);
-        return dataBase.addTeacher(teacher);
-    }
 
-    //исключить повторы
-    @Override
-    public String editTeacher(int id, String firstName, String middleName, String lastName) {
-        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
-        Teacher teacher = dataBase.getTeacherById(id);
-        if (!isNull(teacher)) {
-            Teacher newDataTeacher = SpringConfig.getContext().getBean("teacher", Teacher.class);
-            newDataTeacher.setId(id);
-            newDataTeacher.setFirstName(firstName);
-            newDataTeacher.setMiddleName(middleName);
-            newDataTeacher.setLastName(lastName);
-            dataBase.editTeacher(newDataTeacher);
-            return "Преподаватель изменен";
-        } else {
-            throw new NullPointerException("Такой преподаватель не найден");
+        try {
+            return dataBase.addTeacher(teacher);
+        }
+        catch (NullPointerException e){
+            throw new RepositoryException(e);
         }
     }
 
     @Override
-    public String deleteTeacher(int id) {
+    public String editTeacher(int id, String firstName, String middleName, String lastName) throws RepositoryException {
         DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
-        Teacher teacher = dataBase.getTeacherById(id);
-        if (!isNull(teacher)) {
-            dataBase.deleteTeacher(id);
-            return "Преподаватель удален";
-        } else {
-            throw new NullPointerException("Такой преподаватель не найден");
+
+            Teacher teacher = SpringConfig.getContext().getBean("teacher", Teacher.class);
+            teacher.setId(id);
+            teacher.setFirstName(firstName);
+            teacher.setMiddleName(middleName);
+            teacher.setLastName(lastName);
+
+            try {
+                return dataBase.editTeacher(teacher);
+            }
+            catch (NullPointerException e){
+                throw new RepositoryException(e);
+            }
+
+    }
+
+    @Override
+    public String deleteTeacher(int id) throws RepositoryException {
+        DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
+
+        try {
+            return dataBase.deleteTeacher(id);
+        }
+        catch (NullPointerException e){
+            throw new RepositoryException(e);
         }
     }
 }

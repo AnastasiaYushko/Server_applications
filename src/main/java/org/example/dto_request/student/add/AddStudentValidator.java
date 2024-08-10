@@ -1,6 +1,8 @@
 package org.example.dto_request.student.add;
 
 import org.example.validators.RequestValidator;
+import org.example.validators.ValidatorNumber;
+import org.example.validators.ValidatorStatus;
 import org.example.validators.ValidatorString;
 
 import java.util.List;
@@ -23,11 +25,11 @@ public class AddStudentValidator implements RequestValidator<AddStudentRequest> 
         ValidatorString.validateEmpty(request.getMiddleName(), errors, "middleName");
         ValidatorString.validateLength(request.getMiddleName(), errors, "middleName", maxLength);
 
-        ValidatorString.validateNull(request.getGroupId(), errors, "groupId");
-        ValidatorString.validateEmpty(request.getGroupId(), errors, "groupId");
+        ValidatorNumber.validateNumber(request.getGroupId(), errors, "groupId");
 
-        ValidatorString.validateNull(request.getStatus(), errors, "status");
-        ValidatorString.validateEmpty(request.getStatus(), errors, "status");
+        ValidatorStatus.validateNull(request.getStatus(), errors, "status");
+        ValidatorStatus.validateEmpty(request.getStatus(), errors, "status");
+        ValidatorStatus.validateCorrectStatus(request.getStatus(), errors, "status");
 
         return errors;
     }

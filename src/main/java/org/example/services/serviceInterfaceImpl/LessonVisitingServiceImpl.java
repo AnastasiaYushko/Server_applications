@@ -15,6 +15,8 @@ import org.example.services.serviceInterface.LessonVisitingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.jcr.RepositoryException;
+
 @Service("lesson_visiting_service")
 public class LessonVisitingServiceImpl implements LessonVisitingService {
 
@@ -26,7 +28,7 @@ public class LessonVisitingServiceImpl implements LessonVisitingService {
     }
 
     @Override
-    public AddLessonVisitingResponse addLessonVisiting(AddLessonVisitingRequest request) {
+    public AddLessonVisitingResponse addLessonVisiting(AddLessonVisitingRequest request) throws RepositoryException {
         int result = lessonVisitingDAO.AddLessonVisiting(request.getLessonId(), request.getListStudent());
         AddLessonVisitingResponse addLessonVisitingResponse = SpringConfig.getContext().getBean("addLessonVisitingResponse",AddLessonVisitingResponse.class);
         addLessonVisitingResponse.setId(result);
@@ -35,12 +37,12 @@ public class LessonVisitingServiceImpl implements LessonVisitingService {
     }
 
     @Override
-    public String deleteLessonVisitingById(DeleteLessonVisitingByIdRequest request) {
+    public String deleteLessonVisitingById(DeleteLessonVisitingByIdRequest request) throws RepositoryException {
         return lessonVisitingDAO.DeleteLessonVisitingById(request.getLessonVisitingId());
     }
 
     @Override
-    public GetLessonVisitingByIdResponse getLessonVisitingById(GetLessonVisitingByIdRequest request) {
+    public GetLessonVisitingByIdResponse getLessonVisitingById(GetLessonVisitingByIdRequest request) throws RepositoryException {
         String result = lessonVisitingDAO.GetLessonVisitingById(request.getLessonVisitingId()).toString();
 
         GetLessonVisitingByIdResponse getLessonVisitingByIdResponse = SpringConfig.getContext().getBean("getLessonVisitingByIdResponse",GetLessonVisitingByIdResponse.class);
@@ -49,7 +51,7 @@ public class LessonVisitingServiceImpl implements LessonVisitingService {
     }
 
     @Override
-    public GetLessonVisitingByLessonIdResponse getLessonVisitingByLessonId(GetLessonVisitingByLessonIdRequest request){
+    public GetLessonVisitingByLessonIdResponse getLessonVisitingByLessonId(GetLessonVisitingByLessonIdRequest request) throws RepositoryException {
         String result = lessonVisitingDAO.GetLessonVisitingByLessonId(request.getLessonId()).toString();
 
         GetLessonVisitingByLessonIdResponse getLessonVisitingByLessonIdResponse = SpringConfig.getContext().getBean("getLessonVisitingByLessonIdResponse",GetLessonVisitingByLessonIdResponse.class);
@@ -59,12 +61,12 @@ public class LessonVisitingServiceImpl implements LessonVisitingService {
     }
 
     @Override
-    public String deleteLessonVisitingByLessonId(DeleteLessonVisitingByLessonIdRequest request){
+    public String deleteLessonVisitingByLessonId(DeleteLessonVisitingByLessonIdRequest request) throws RepositoryException {
         return lessonVisitingDAO.DeleteLessonVisitingByLessonId(request.getLessonId());
     }
 
     @Override
-    public String editLessonVisiting(EditLessonVisitingRequest request){
+    public String editLessonVisiting(EditLessonVisitingRequest request) throws RepositoryException {
         return lessonVisitingDAO.EditLessonVisiting(request.getLessonVisitingId(), request.getLessonId(),request.getListStudent());
     }
 }

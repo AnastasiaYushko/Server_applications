@@ -12,9 +12,9 @@ public class AddStudentRequest {
     private String firstName;
     private String middleName;
     private String status;
-    private String groupId;
+    private int groupId;
 
-    public AddStudentRequest(String lastName, String firstName, String middleName, String status, String groupId) {
+    public AddStudentRequest(String lastName, String firstName, String middleName, String status, int groupId) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;

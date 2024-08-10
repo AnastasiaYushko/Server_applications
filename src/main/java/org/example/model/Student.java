@@ -48,11 +48,11 @@ public class Student {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Student student = (Student) o;
-        return id == student.id && Objects.equals(lastName, student.lastName) && Objects.equals(firstName, student.firstName) && Objects.equals(middleName, student.middleName) && status == student.status && Objects.equals(group, student.group);
+        return Objects.equals(lastName, student.lastName) && Objects.equals(firstName, student.firstName) && Objects.equals(middleName, student.middleName) && status == student.status && Objects.equals(group, student.group);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, lastName, firstName, middleName, status, group);
+        return Objects.hash(lastName, firstName, middleName, status, group);
     }
 }

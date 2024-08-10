@@ -10,15 +10,17 @@ import org.example.dto_response.student.AddStudentResponse;
 import org.example.dto_response.student.GetStudentByIdResponse;
 import org.example.dto_response.student.GetStudentsByGroupResponse;
 
+import javax.jcr.RepositoryException;
+
 public interface StudentService {
 
-    GetStudentByIdResponse getStudentById(GetStudentByIdRequest request) throws JsonProcessingException;
+    GetStudentByIdResponse getStudentById(GetStudentByIdRequest request) throws JsonProcessingException, RepositoryException;
 
-    GetStudentsByGroupResponse getStudentsByGroup(GetStudentsByGroupRequest request) throws JsonProcessingException;
+    GetStudentsByGroupResponse getStudentsByGroup(GetStudentsByGroupRequest request) throws JsonProcessingException, RepositoryException;
 
     String editStudent(EditStudentRequest request) throws Exception;
 
-    AddStudentResponse addStudent(AddStudentRequest request) throws JsonProcessingException;
+    AddStudentResponse addStudent(AddStudentRequest request) throws JsonProcessingException, RepositoryException;
 
     String deleteStudent(DeleteStudentRequest request) throws Exception;
 }

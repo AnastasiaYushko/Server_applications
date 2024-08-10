@@ -19,6 +19,7 @@ import org.example.network_operations.ResponseEntity;
 import org.example.services.serviceInterfaceImpl.StudentServiceImpl;
 import org.springframework.stereotype.Component;
 
+import javax.jcr.RepositoryException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +42,8 @@ public class StudentController {
             return new ResponseEntity<>(studentResponse, HttpStatus.SC_ACCEPTED);
         } catch (NullPointerException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
+        } catch (RepositoryException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -61,6 +64,8 @@ public class StudentController {
             return new ResponseEntity<>(getStudentsByGroupResponse, HttpStatus.SC_OK);
         } catch (NullPointerException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
+        } catch (RepositoryException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -80,6 +85,8 @@ public class StudentController {
             return new ResponseEntity<>(editStudentResponse, HttpStatus.SC_OK);
         } catch (NullPointerException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
+        } catch (RepositoryException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -100,6 +107,8 @@ public class StudentController {
             return new ResponseEntity<>(addStudentResponse, HttpStatus.SC_OK);
         } catch (NullPointerException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
+        } catch (RepositoryException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -120,6 +129,8 @@ public class StudentController {
             return new ResponseEntity<>(data, HttpStatus.SC_OK);
         } catch (NullPointerException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
+        } catch (RepositoryException e) {
+            throw new RuntimeException(e);
         }
     }
 }

@@ -15,6 +15,7 @@ import org.example.services.serviceInterface.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.jcr.RepositoryException;
 import java.util.ArrayList;
 
 @Service("student_service")
@@ -28,7 +29,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public GetStudentByIdResponse getStudentById(GetStudentByIdRequest request) {
+    public GetStudentByIdResponse getStudentById(GetStudentByIdRequest request) throws RepositoryException {
         Student student = studentDAO.getStudentById(request.getStudentId());
 
         GetStudentByIdResponse getStudentByIdResponse = SpringConfig.getContext().getBean("getStudentByIdResponse",GetStudentByIdResponse.class);
@@ -42,7 +43,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public GetStudentsByGroupResponse getStudentsByGroup(GetStudentsByGroupRequest request) {
+    public GetStudentsByGroupResponse getStudentsByGroup(GetStudentsByGroupRequest request) throws RepositoryException {
 
         ArrayList<Student> listStudents = studentDAO.getStudentsByGroup(request.getGroupId());
         ArrayList<String> newListStudents = new ArrayList<>();
@@ -57,12 +58,12 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public String editStudent(EditStudentRequest request) {
-        return studentDAO.editStudent(request.getId(), request.getLastName(), request.getFirstName(), request.getMiddleName(), request.getGroup(), request.getStatus());
+    public String editStudent(EditStudentRequest request) throws RepositoryException {
+        return studentDAO.editStudent(request.getId(), request.getLastName(), request.getFirstName(), request.getMiddleName(), request.getGroupId(), request.getStatus());
     }
 
     @Override
-    public AddStudentResponse addStudent(AddStudentRequest request) {
+    public AddStudentResponse addStudent(AddStudentRequest request) throws RepositoryException {
         int result = studentDAO.addStudent(request.getLastName(), request.getFirstName(), request.getMiddleName(), request.getGroupId(), request.getStatus());
 
         AddStudentResponse addStudentResponse = SpringConfig.getContext().getBean("addStudentResponse",AddStudentResponse.class);
@@ -71,7 +72,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public String deleteStudent(DeleteStudentRequest request) {
+    public String deleteStudent(DeleteStudentRequest request) throws RepositoryException {
         StudentDAOImpl studentDAO = new StudentDAOImpl();
         return studentDAO.deleteStudent(request.getStudentId());
     }

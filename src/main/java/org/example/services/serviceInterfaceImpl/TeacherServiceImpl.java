@@ -13,6 +13,7 @@ import org.example.services.serviceInterface.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.jcr.RepositoryException;
 import java.util.ArrayList;
 
 @Service("teacher_service")
@@ -25,23 +26,23 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public AddTeacherResponse addTeacher(AddTeacherRequest request) {
+    public AddTeacherResponse addTeacher(AddTeacherRequest request) throws RepositoryException {
         int result = teacherDAO.addTeacher(request.getFirstName(), request.getMiddleName(), request.getLastName());
         return new AddTeacherResponse(result);
     }
 
     @Override
-    public String deleteTeacher(DeleteTeacherRequest request) {
+    public String deleteTeacher(DeleteTeacherRequest request) throws RepositoryException {
         return teacherDAO.deleteTeacher(request.getId());
     }
 
     @Override
-    public String editTeacher(EditTeacherRequest request) {
+    public String editTeacher(EditTeacherRequest request) throws RepositoryException {
         return teacherDAO.editTeacher(request.getId(), request.getFirstName(), request.getMiddleName(), request.getLastName());
     }
 
     @Override
-    public GetTeacherByIdResponse getTeacherById(GetTeacherByIdRequest request) {
+    public GetTeacherByIdResponse getTeacherById(GetTeacherByIdRequest request) throws RepositoryException {
         Teacher teacher = teacherDAO.getTeacherById(request.getId());
         return new GetTeacherByIdResponse(teacher.getFirstName(), teacher.getLastName(), teacher.getMiddleName());
     }

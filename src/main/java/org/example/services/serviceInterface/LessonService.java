@@ -9,26 +9,30 @@ import org.example.dto_request.lesson.edit.EditLessonRequest;
 import org.example.dto_request.lesson.get.byGroup.GetLessonsByGroupRequest;
 import org.example.dto_request.lesson.get.byId.GetLessonByIdRequest;
 import org.example.dto_request.lesson.get.byTeacher.GetLessonsByTeacherRequest;
-import org.example.dto_response.lesson.*;
+import org.example.dto_response.lesson.AddLessonResponse;
+import org.example.dto_response.lesson.GetLessonByIdResponse;
+import org.example.dto_response.lesson.GetLessonsByGroupResponse;
+import org.example.dto_response.lesson.GetLessonsByTeacherResponse;
 
+import javax.jcr.RepositoryException;
 import java.text.ParseException;
 
 public interface LessonService {
 
-    AddLessonResponse addLesson(AddLessonRequest request) throws JsonProcessingException, ParseException;
+    AddLessonResponse addLesson(AddLessonRequest request) throws JsonProcessingException, ParseException, RepositoryException;
 
-    String deleteLessonsByGroup(DeleteLessonsByGroupRequest request) throws JsonProcessingException;
+    String deleteLessonsByGroup(DeleteLessonsByGroupRequest request) throws JsonProcessingException, RepositoryException;
 
-    String deleteLessonById(DeleteLessonByIdRequest request) throws JsonProcessingException;
+    String deleteLessonById(DeleteLessonByIdRequest request) throws JsonProcessingException, RepositoryException;
 
-    String deleteLessonsByTeacher(DeleteLessonsByTeacherRequest request) throws JsonProcessingException;
+    String deleteLessonsByTeacher(DeleteLessonsByTeacherRequest request) throws JsonProcessingException, RepositoryException;
 
-    String editLesson(EditLessonRequest request) throws JsonProcessingException, ParseException;
+    String editLesson(EditLessonRequest request) throws JsonProcessingException, ParseException, RepositoryException;
 
-    GetLessonsByGroupResponse getLessonsByGroup(GetLessonsByGroupRequest request) throws JsonProcessingException, ParseException;
+    GetLessonsByGroupResponse getLessonsByGroup(GetLessonsByGroupRequest request) throws JsonProcessingException, ParseException, RepositoryException;
 
-    GetLessonByIdResponse getLessonById(GetLessonByIdRequest request) throws JsonProcessingException;
+    GetLessonByIdResponse getLessonById(GetLessonByIdRequest request) throws RepositoryException;
 
-    GetLessonsByTeacherResponse getLessonsByTeacher(GetLessonsByTeacherRequest request) throws JsonProcessingException, ParseException;
+    GetLessonsByTeacherResponse getLessonsByTeacher(GetLessonsByTeacherRequest request) throws JsonProcessingException, ParseException, RepositoryException;
 
 }
