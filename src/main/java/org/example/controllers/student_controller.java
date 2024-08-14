@@ -49,8 +49,11 @@ public class student_controller {
     }
 
     @DeleteMapping("/delete")
-    public String DeleteStudent(@RequestBody DeleteStudentRequest jsonRequest) throws ParseException, JsonProcessingException {
+    public String DeleteStudent(@RequestParam("id") int id) throws ParseException, JsonProcessingException {
+        DeleteStudentRequest deleteStudentRequest = SpringConfig.getContext().getBean("deleteStudentRequest",DeleteStudentRequest.class);
+        deleteStudentRequest.setStudentId(id);
+
         classHandler = SpringConfig.getContext().getBean("deleteStudentHandler", DeleteStudentHandler.class);
-        return classHandler.handler(jsonRequest);
+        return classHandler.handler(deleteStudentRequest);
     }
 }

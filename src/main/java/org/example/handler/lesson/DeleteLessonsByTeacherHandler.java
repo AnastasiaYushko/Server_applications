@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class DeleteLessonsByTeacherHandler implements IHandler {
-
     @Override
     public String handler(Object jsonRequest) throws JsonProcessingException {
 

@@ -2,11 +2,13 @@ package org.example.dto_request.subject.delete;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Setter
 @Getter
 @Component
+@Scope("prototype")
 public class DeleteSubjectRequest {
     private int id;
 

@@ -36,10 +36,8 @@ public class TeacherController {
         try {
             String dataResponse = teacherService.deleteTeacher(request);
             return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
-        } catch (NullPointerException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
         } catch (ServiceException e) {
-            throw new RuntimeException(e);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
         }
     }
 
@@ -57,10 +55,8 @@ public class TeacherController {
         try {
             AddTeacherResponse dataResponse = teacherService.addTeacher(request);
             return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
-        } catch (NullPointerException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
         } catch (ServiceException e) {
-            throw new RuntimeException(e);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
         }
     }
 
@@ -78,10 +74,8 @@ public class TeacherController {
         try {
             String dataResponse = teacherService.editTeacher(request);
             return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
-        } catch (NullPointerException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
         } catch (ServiceException e) {
-            throw new RuntimeException(e);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
         }
     }
 
@@ -99,7 +93,7 @@ public class TeacherController {
         try {
             GetTeacherByIdResponse dataResponse = teacherService.getTeacherById(request);
             return new ResponseEntity<>(dataResponse, HttpStatus.SC_OK);
-        } catch (NullPointerException | ServiceException e) {
+        } catch (ServiceException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
         }
     }

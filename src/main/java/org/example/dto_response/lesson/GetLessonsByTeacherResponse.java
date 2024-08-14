@@ -2,6 +2,7 @@ package org.example.dto_response.lesson;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.Objects;
 @Setter
 @Getter
 @Component
+@Scope("prototype")
 public class GetLessonsByTeacherResponse {
     private ArrayList<String> listLessons;
 

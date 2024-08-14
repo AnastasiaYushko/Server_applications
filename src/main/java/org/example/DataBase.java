@@ -7,6 +7,33 @@ import java.util.*;
 
 import static java.util.Objects.isNull;
 
+/*
+ -- ADD
+ ---- Нельзя добавить, которые уже имеются (кроме посещаемости);
+ -- GET
+ ---- BY ID
+ ------ Нельзя получить то, чего нет;
+ ---- LIST ( студентов группы, учителей, предметов)
+ ------ Можно получить пустой;
+ -- EDIT
+ ---- Нельзя изменить то, чего нет;
+ ---- Нельзя внести изменения, которые не отличаются от имеющихся значений;
+ ---- Нельзя внести такие изменения,которые будут совпадать в другими данными по другому ID(кроме посещаемости);
+ -- DELETE
+ ---- Нельзя удалить, то чего нет
+
+
+-- ГЛУБОКОЕ УДАЛЕНИЕ
+----
+-- Посещаемость
+-- Урок -> Посещаемость
+-- Студент -> Уроки -> Посещаемости
+-- Группа -> Студенты -> Уроки -> Посещаемости
+-- Учитель -> Уроки -> Посещаемости
+ */
+
+// Отловить 500
+
 @Component
 public class DataBase {
 
@@ -73,10 +100,8 @@ public class DataBase {
     //Student
 
     public synchronized int addStudent(Student student) {
-
         synchronized (listStudents) {
-            for (int i = 1; i < keyStudent; i++) {
-                Student s = listStudents.get(i);
+            for (Student s : listStudents.values()) {
                 if (s.equals(student)) {
                     throw new NullPointerException("Такой студент уже есть в системе");
                 }
@@ -92,8 +117,7 @@ public class DataBase {
         getStudentGroupById(id);
         ArrayList<Student> result = new ArrayList<>();
         synchronized (listStudents) {
-            for (int i = 1; i < keyStudent; i++) {
-                Student s = listStudents.get(i);
+            for (Student s : listStudents.values()) {
                 if ((s.getGroup().getId()) == id) {
                     result.add(s);
                 }
@@ -105,19 +129,18 @@ public class DataBase {
     public Student getStudentById(int id) {
         Student student = listStudents.get(id);
         if (isNull(student)) {
-            throw new NullPointerException("Такого студента нет в системе");
+            throw new NullPointerException("Такого студента нет в базе данных");
         }
         return student;
     }
 
     public String editStudent(Student student) {
-        Student student1 = getStudentById(student.getId());
-        if (student.equals(student1)) {
-            throw new NullPointerException("Новые данные, которые вы хотите внести, совпадают с имеющимися");
-        }
         synchronized (listStudents) {
-            for (int i = 1; i < keyStudent; i++) {
-                Student s = listStudents.get(i);
+            Student student1 = getStudentById(student.getId());
+            if (student.equals(student1)) {
+                throw new NullPointerException("Новые данные, которые вы хотите внести, совпадают с имеющимися");
+            }
+            for (Student s : listStudents.values()) {
                 if (s.equals(student)) {
                     throw new NullPointerException("Новые данные, которые вы хотите внести совпадают с другим студентом");
                 }
@@ -144,17 +167,15 @@ public class DataBase {
     }
 
     public ArrayList<Lesson> getLessonsByGroup(Date startDate, Date endDate, int groupId) {
-
         StudentGroup group = getStudentGroupById(groupId);
         if (isNull(group)) {
-            throw new NullPointerException("Такой группы нет в системе");
+            throw new NullPointerException("Такой группы нет в базе данных");
         }
 
         ArrayList<Lesson> lessonsList = new ArrayList<>();
 
         synchronized (listLesson) {
-            for (int i = 1; i < keyLesson; i++) {
-                Lesson l = listLesson.get(i);
+            for (Lesson l : listLesson.values()) {
                 if ((endDate.after(l.getDate()) || endDate.equals(l.getDate())) && (startDate.before(l.getDate()) || endDate.equals(l.getDate()) && (l.getGroup().equals(group)))) {
                     lessonsList.add(l);
                 }
@@ -165,17 +186,15 @@ public class DataBase {
     }
 
     public ArrayList<Lesson> getLessonsByTeacher(Date startDate, Date endDate, int teacherId) {
-
         Teacher teacher = getTeacherById(teacherId);
         if (isNull(teacher)) {
-            throw new NullPointerException("Такого учителя нет в системе");
+            throw new NullPointerException("Такого учителя нет в базе данных");
         }
 
         ArrayList<Lesson> lessonsList = new ArrayList<>();
 
         synchronized (listLesson) {
-            for (int i = 1; i < keyLesson; i++) {
-                Lesson l = listLesson.get(i);
+            for (Lesson l : listLesson.values()) {
                 if ((endDate.after(l.getDate())) && (startDate.before(l.getDate())) && (l.getTeacher().equals(teacher))) {
                     lessonsList.add(l);
                 }
@@ -188,11 +207,14 @@ public class DataBase {
 
     public String EditLesson(Lesson lesson) {
         synchronized (listLesson) {
-            getLessonById(lesson.getId());
-            for (int i = 1; i < keyLesson; i++) {
-                Lesson lesson0 = listLesson.get(i);
-                if (lesson.equals(lesson0)) {
-                    throw new NullPointerException("Такой урок уже есть в системе");
+            Lesson lesson1 = getLessonById(lesson.getId());
+            if (lesson.equals(lesson1)) {
+                throw new NullPointerException("Новые данные, которые вы хотите внести, совпадают с имеющимися");
+            }
+
+            for (Lesson l : listLesson.values()) {
+                if (lesson.equals(l)) {
+                    throw new NullPointerException("Новые данные, которые вы хотите внести совпадают с другим уроком");
                 }
             }
             listLesson.put(lesson.getId(), lesson);
@@ -202,10 +224,9 @@ public class DataBase {
 
     public synchronized int AddLesson(Lesson lesson) {
         synchronized (listLesson) {
-            for (int i = 1; i < keyLesson; i++) {
-                Lesson lesson0 = listLesson.get(i);
-                if (lesson.equals(lesson0)) {
-                    throw new NullPointerException("Такой урок уже есть в системе");
+            for (Lesson l : listLesson.values()) {
+                if (lesson.equals(l)) {
+                    throw new NullPointerException("Такой урок уже есть в базе данных");
                 }
             }
             lesson.setId(keyLesson);
@@ -218,12 +239,11 @@ public class DataBase {
     public synchronized String DeleteLessonsByGroup(int groupId) {
         synchronized (listLesson) {
             getStudentGroupById(groupId);
-            for (int i = 1; i < keyLesson; i++) {
-                Lesson lesson = listLesson.get(i);
-                if (lesson.getGroup().getId() == groupId) {
-                    listLesson.remove(lesson.getId());
-                    if (getLessonVisitingByLessonId(lesson.getId()) != null) {
-                        deleteLessonVisitingByLessonId(lesson.getId());
+            for (Lesson l : listLesson.values()) {
+                if (l.getGroup().getId() == groupId) {
+                    listLesson.remove(l.getId());
+                    if (!isNull(getLessonVisitingByLessonId(l.getId()))) {
+                        deleteLessonVisitingByLessonId(l.getId());
                     }
                 }
             }
@@ -237,7 +257,7 @@ public class DataBase {
             listLesson.remove(lessonId);
         }
 
-        if (getLessonVisitingByLessonId(lessonId) != null) {
+        if (!isNull(getLessonVisitingByLessonId(lessonId))) {
             deleteLessonVisitingByLessonId(lessonId);
         }
         return "Урок удален";
@@ -246,12 +266,11 @@ public class DataBase {
     public synchronized String DeleteLessonsByTeacher(int teacherId) {
         synchronized (listLesson) {
             getTeacherById(teacherId);
-            for (int i = 1; i < keyLesson; i++) {
-                Lesson lesson = listLesson.get(i);
-                if (lesson.getTeacher().getId() == teacherId) {
-                    listLesson.remove(lesson.getId());
-                    if (getLessonVisitingByLessonId(lesson.getId()) != null) {
-                        deleteLessonVisitingByLessonId(lesson.getId());
+            for (Lesson l : listLesson.values()) {
+                if (l.getTeacher().getId() == teacherId) {
+                    listLesson.remove(l.getId());
+                    if (!isNull(getLessonVisitingByLessonId(l.getId()))) {
+                        deleteLessonVisitingByLessonId(l.getId());
                     }
                 }
             }
@@ -268,17 +287,16 @@ public class DataBase {
     public StudentGroup getStudentGroupById(int id) {
         StudentGroup group = listGroups.get(id);
         if (isNull(group)) {
-            throw new NullPointerException("Такой группы нет в системе");
+            throw new NullPointerException("Такой группы нет в базе данных");
         }
         return group;
     }
 
     public synchronized int addStudentGroup(StudentGroup group) {
         synchronized (listGroups) {
-            for (int i = 1; i < keyGroup; i++) {
-                StudentGroup group1 = listGroups.get(i);
-                if (group1.equals(group)) {
-                    throw new NullPointerException("Такая группа уже есть в системе");
+            for (StudentGroup studentGroup : listGroups.values()) {
+                if (studentGroup.equals(group)) {
+                    throw new NullPointerException("Такая группа уже есть в базе данных");
                 }
             }
             group.setId(keyGroup);
@@ -290,15 +308,14 @@ public class DataBase {
 
 
     public String editStudentGroup(StudentGroup group) {
-        StudentGroup group0 = getStudentGroupById(group.getId());
-        if (group.equals(group0)) {
-            throw new NullPointerException("Новые данные совпадают с имеющимися");
-        }
         synchronized (listGroups) {
-            for (int i = 1; i < keyGroup; i++) {
-                StudentGroup group1 = listGroups.get(i);
-                if (group1.equals(group)) {
-                    throw new NullPointerException("Такое название группы уже занято");
+            StudentGroup group0 = getStudentGroupById(group.getId());
+            if (group.equals(group0)) {
+                throw new NullPointerException("Новые данные, которые вы хотите внести, совпадают с имеющимися");
+            }
+            for (StudentGroup studentGroup : listGroups.values()) {
+                if (studentGroup.equals(group)) {
+                    throw new NullPointerException("Новые данные, которые вы хотите внести совпадают с другой группой");
                 }
             }
             listGroups.put(group.getId(), group);
@@ -317,7 +334,7 @@ public class DataBase {
     public Teacher getTeacherById(int id) {
         Teacher teacher = listTeachers.get(id);
         if (isNull(teacher)) {
-            throw new NullPointerException("Такого учителя нет в системе");
+            throw new NullPointerException("Такого преподавателя нет в базе данных");
         }
         return teacher;
     }
@@ -328,13 +345,10 @@ public class DataBase {
 
 
     public synchronized int addTeacher(Teacher teacher) {
-
         synchronized (listTeachers) {
-            for (int i = 1; i < keyTeacher; i++) {
-                Teacher teacher0 = listTeachers.get(i);
-                if (Objects.equals(teacher.getFirstName(), teacher0.getFirstName()) && (Objects.equals(teacher.getLastName(), teacher0.getLastName()))
-                        && Objects.equals(teacher.getMiddleName(), teacher0.getMiddleName())) {
-                    throw new NullPointerException("Такой учитель уже есть в системе");
+            for (Teacher teacher0 : listTeachers.values()) {
+                if (teacher0.equals(teacher)) {
+                    throw new NullPointerException("Такой преподаватель уже есть в базе данных");
                 }
             }
             teacher.setId(keyTeacher);
@@ -347,12 +361,22 @@ public class DataBase {
 
     public String editTeacher(Teacher teacher) {
         synchronized (listTeachers) {
+            Teacher teacher0 = getTeacherById(teacher.getId());
+            if (teacher0.equals(teacher)) {
+                throw new NullPointerException("Новые данные, которые вы хотите внести, совпадают с имеющимися");
+            }
+            for (Teacher t : listTeachers.values()) {
+                if (t.equals(teacher)) {
+                    throw new NullPointerException("Новые данные, которые вы хотите внести, совпадают с другим преподавателем");
+                }
+            }
             listTeachers.put(teacher.getId(), teacher);
         }
         return "Преподаватель изменен";
     }
 
     public synchronized String deleteTeacher(int id) {
+        getTeacherById(id);
         listTeachers.remove(id);
         return "Преподаватель удален";
     }
@@ -367,17 +391,16 @@ public class DataBase {
     public Subject getSubjectById(int subjectId) {
         Subject subject = listSubjects.get(subjectId);
         if (isNull(subject)) {
-            throw new NullPointerException("Такого урока нет в системе");
+            throw new NullPointerException("Такого урока нет в базе данных");
         }
         return subject;
     }
 
     public synchronized int addSubject(Subject subject) {
         synchronized (listSubjects) {
-            for (int i = 1; i < keySubject; i++) {
-                Subject s = listSubjects.get(i);
+            for (Subject s : listSubjects.values()) {
                 if (Objects.equals(s.getName(), subject.getName())) {
-                    throw new NullPointerException("Такой предмет уже есть в системе");
+                    throw new NullPointerException("Такой предмет уже есть в базе данных");
                 }
             }
             subject.setId(keySubject);
@@ -389,8 +412,16 @@ public class DataBase {
 
 
     public String editSubject(Subject subject) {
-        getSubjectById(subject.getId());
         synchronized (listSubjects) {
+            Subject subject1 = getSubjectById(subject.getId());
+            if (subject1.equals(subject)) {
+                throw new NullPointerException("Новые данные, которые вы хотите внести, совпадают с имеющимися");
+            }
+            for (Subject s : listSubjects.values()) {
+                if (s.equals(subject)) {
+                    throw new NullPointerException("Новые данные, которые вы хотите внести совпадают с другим предметом");
+                }
+            }
             listSubjects.put(subject.getId(), subject);
         }
         return "Предмет изменен";
@@ -409,7 +440,7 @@ public class DataBase {
     public synchronized int addLessonVisiting(LessonVisiting lessonVisiting) {
         try {
             getLessonVisitingByLessonId(lessonVisiting.getLessonId());
-            throw new NullPointerException("Данные о посещаемости данного урока уже есть в системе");
+            throw new NullPointerException("Данные о посещаемости данного урока уже есть в базе данных");
         } catch (NullPointerException e) {
             lessonVisiting.setId(keyLessonVisiting_Id);
             synchronized (listLessonVisiting_Id) {
@@ -454,23 +485,19 @@ public class DataBase {
     }
 
     public synchronized String deleteLessonVisitingById(int lessonVisitingId) {
-
-        getLessonVisitingById(lessonVisitingId);
-
-        listLessonVisiting_LessonId.remove(listLessonVisiting_Id.get(lessonVisitingId).getLessonId());
-        listLessonVisiting_Id.remove(lessonVisitingId);
-
+        //
+        synchronized (listLessonVisiting_LessonId) {
+            LessonVisiting lessonVisiting = getLessonVisitingById(lessonVisitingId);
+            int id = lessonVisiting.getLessonId();
+            if (!isNull(getLessonVisitingByLessonId(id))) {
+                listLessonVisiting_LessonId.remove(id);
+            }
+            listLessonVisiting_Id.remove(lessonVisitingId);
+        }
         return "Посещаемость удалена";
     }
 
     public synchronized String deleteLessonVisitingByLessonId(int lessonId) {
-
-        getLessonById(lessonId);
-        getLessonVisitingByLessonId(lessonId);
-
-        listLessonVisiting_Id.remove(listLessonVisiting_LessonId.get(lessonId).getId());
-        listLessonVisiting_LessonId.remove(lessonId);
-
-        return "Посещаемость удалена";
+        return deleteLessonVisitingById(listLessonVisiting_LessonId.get(lessonId).getId());
     }
 }

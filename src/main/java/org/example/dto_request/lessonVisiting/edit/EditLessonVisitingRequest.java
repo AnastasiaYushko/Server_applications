@@ -2,6 +2,7 @@ package org.example.dto_request.lessonVisiting.edit;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 @Getter
 @Setter
 @Component
+@Scope("prototype")
 public class EditLessonVisitingRequest {
     private int lessonVisitingId;
     private int lessonId;

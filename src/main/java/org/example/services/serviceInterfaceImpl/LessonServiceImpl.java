@@ -94,7 +94,7 @@ public class LessonServiceImpl implements LessonService {
         try {
             lessons = lessonDAO.getLessonsByGroup(request.getStartDate(), request.getEndDate(), request.getGroupId());
         } catch (RepositoryException e) {
-            throw new ServiceException(e);
+            throw new ServiceException(e.getMessage());
         }
         ArrayList<String> newList = new ArrayList<>();
 

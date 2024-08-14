@@ -2,6 +2,7 @@ package org.example.dto_response.lesson;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
@@ -9,6 +10,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @Component
+@Scope("prototype")
 public class GetLessonByIdResponse {
     private String date;
     private int number;

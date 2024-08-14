@@ -45,8 +45,11 @@ public class studentGroup_controller {
     }
 
     @DeleteMapping("/delete")
-    public String DeleteStudentGroup(@RequestBody DeleteStudentGroupRequest jsonRequest) throws ParseException, JsonProcessingException {
+    public String DeleteStudentGroup(@RequestParam("id") int id) throws ParseException, JsonProcessingException {
+        DeleteStudentGroupRequest deleteStudentGroupRequest =  SpringConfig.getContext().getBean("deleteStudentGroupRequest",DeleteStudentGroupRequest.class);
+        deleteStudentGroupRequest.setId(id);
+
         classHandler = SpringConfig.getContext().getBean("deleteStudentGroupHandler", DeleteStudentGroupHandler.class);
-        return classHandler.handler(jsonRequest);
+        return classHandler.handler(deleteStudentGroupRequest);
     }
 }

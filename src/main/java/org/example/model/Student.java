@@ -3,15 +3,16 @@ package org.example.model;
 import lombok.Getter;
 import lombok.Setter;
 import org.example.enums.StatusStudent;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 
 @Getter
 @Setter
-@Component("student")
+@Component
+@Scope("prototype")
 public class Student {
-
     private int id;
     private String lastName;
     private String firstName;

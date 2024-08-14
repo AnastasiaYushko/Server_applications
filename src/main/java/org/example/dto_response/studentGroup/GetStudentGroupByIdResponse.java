@@ -2,6 +2,7 @@ package org.example.dto_response.studentGroup;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
@@ -9,6 +10,7 @@ import java.util.Objects;
 @Setter
 @Getter
 @Component
+@Scope("prototype")
 public class GetStudentGroupByIdResponse {
     private String name;
 

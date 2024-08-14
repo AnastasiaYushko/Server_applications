@@ -34,21 +34,30 @@ public class lesson_controller {
     }
 
     @DeleteMapping("/deleteById")
-    public String DeleteLessonById(@RequestBody DeleteLessonByIdRequest jsonRequest) throws ParseException, JsonProcessingException {
+    public String DeleteLessonById(@RequestParam("id") int id) throws ParseException, JsonProcessingException {
+        DeleteLessonByIdRequest deleteTeacherRequest = SpringConfig.getContext().getBean("deleteLessonByIdRequest", DeleteLessonByIdRequest.class);
+        deleteTeacherRequest.setLessonId(id);
+
         classHandler = SpringConfig.getContext().getBean("deleteLessonByIdHandler", DeleteLessonByIdHandler.class);
-        return classHandler.handler(jsonRequest);
+        return classHandler.handler(deleteTeacherRequest);
     }
 
     @DeleteMapping("/deleteByGroup")
-    public String DeleteLessonByGroup(@RequestBody DeleteLessonsByGroupRequest jsonRequest) throws ParseException, JsonProcessingException {
+    public String DeleteLessonByGroup(@RequestParam("id") int id) throws ParseException, JsonProcessingException {
+        DeleteLessonsByGroupRequest deleteLessonsByGroupRequest = SpringConfig.getContext().getBean("deleteLessonsByGroupRequest", DeleteLessonsByGroupRequest.class);
+        deleteLessonsByGroupRequest.setGroupId(id);
+
         classHandler = SpringConfig.getContext().getBean("deleteLessonsByGroupHandler", DeleteLessonsByGroupHandler.class);
-        return classHandler.handler(jsonRequest);
+        return classHandler.handler(deleteLessonsByGroupRequest);
     }
 
     @DeleteMapping("/deleteByTeacher")
-    public String DeleteLessonByTeacher(@RequestBody DeleteLessonsByTeacherRequest jsonRequest) throws ParseException, JsonProcessingException {
+    public String DeleteLessonByTeacher(@RequestParam("id") int id) throws ParseException, JsonProcessingException {
+        DeleteLessonsByTeacherRequest deleteLessonsByTeacherRequest = SpringConfig.getContext().getBean("deleteLessonsByTeacherRequest", DeleteLessonsByTeacherRequest.class);
+        deleteLessonsByTeacherRequest.setTeacherId(id);
+
         classHandler = SpringConfig.getContext().getBean("deleteLessonsByTeacherHandler", DeleteLessonsByTeacherHandler.class);
-        return classHandler.handler(jsonRequest);
+        return classHandler.handler(deleteLessonsByTeacherRequest);
     }
 
     @GetMapping("/getByTeacher")

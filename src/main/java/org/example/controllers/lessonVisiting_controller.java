@@ -32,15 +32,21 @@ public class lessonVisiting_controller {
     }
 
     @DeleteMapping("/deleteById")
-    public String DeleteLessonVisitingById(@RequestBody DeleteLessonVisitingByIdRequest jsonRequest) throws ParseException, JsonProcessingException {
+    public String DeleteLessonVisitingById(@RequestParam("id") int id) throws ParseException, JsonProcessingException {
+        DeleteLessonVisitingByIdRequest deleteLessonVisitingByIdRequest = SpringConfig.getContext().getBean("deleteLessonVisitingByIdRequest", DeleteLessonVisitingByIdRequest.class);
+        deleteLessonVisitingByIdRequest.setLessonVisitingId(id);
+
         classHandler = SpringConfig.getContext().getBean("deleteLessonVisitingByIdHandler", DeleteLessonVisitingByIdHandler.class);
-        return classHandler.handler(jsonRequest);
+        return classHandler.handler(deleteLessonVisitingByIdRequest);
     }
 
     @DeleteMapping("/deleteByLessonId")
-    public String DeleteLessonVisitingByLessonId(@RequestBody DeleteLessonVisitingByLessonIdRequest jsonRequest) throws ParseException, JsonProcessingException {
+    public String DeleteLessonVisitingByLessonId(@RequestParam("id") int id) throws ParseException, JsonProcessingException {
+        DeleteLessonVisitingByLessonIdRequest deleteLessonVisitingByLessonIdRequest = SpringConfig.getContext().getBean("deleteLessonVisitingByLessonIdRequest", DeleteLessonVisitingByLessonIdRequest.class);
+        deleteLessonVisitingByLessonIdRequest.setLessonId(id);
+
         classHandler = SpringConfig.getContext().getBean("deleteLessonVisitingByLessonIdHandler", DeleteLessonVisitingByLessonIdHandler.class);
-        return classHandler.handler(jsonRequest);
+        return classHandler.handler(deleteLessonVisitingByLessonIdRequest);
     }
 
     @GetMapping("/getById")

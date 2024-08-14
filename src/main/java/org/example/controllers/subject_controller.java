@@ -45,8 +45,11 @@ public class subject_controller {
     }
 
     @DeleteMapping("/delete")
-    public String DeleteSubject(@RequestBody DeleteSubjectRequest jsonRequest) throws ParseException, JsonProcessingException {
+    public String DeleteSubject(@RequestParam("id") int id) throws ParseException, JsonProcessingException {
+        DeleteSubjectRequest deleteSubjectRequest = SpringConfig.getContext().getBean("deleteSubjectRequest",DeleteSubjectRequest.class);
+        deleteSubjectRequest.setId(id);
+
         classHandler = SpringConfig.getContext().getBean("deleteSubjectHandler", DeleteSubjectHandler.class);
-        return classHandler.handler(jsonRequest);
+        return classHandler.handler(deleteSubjectRequest);
     }
 }

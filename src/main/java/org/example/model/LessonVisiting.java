@@ -2,6 +2,7 @@ package org.example.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -9,7 +10,8 @@ import java.util.Objects;
 
 @Setter
 @Getter
-@Component("lessonVisiting")
+@Component
+@Scope("prototype")
 public class LessonVisiting {
     private int id;
     private int lessonId;

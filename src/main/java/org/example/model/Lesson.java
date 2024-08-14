@@ -2,6 +2,7 @@ package org.example.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -9,7 +10,8 @@ import java.util.Objects;
 
 @Getter
 @Setter
-@Component("lesson")
+@Component
+@Scope("prototype")
 public class Lesson {
     private int id;
     private Date date;
