@@ -438,6 +438,7 @@ public class DataBase {
     // LessonVisiting
 
     public synchronized int addLessonVisiting(LessonVisiting lessonVisiting) {
+        getLessonById(lessonVisiting.getLessonId());
         try {
             getLessonVisitingByLessonId(lessonVisiting.getLessonId());
             throw new NullPointerException("Данные о посещаемости данного урока уже есть в базе данных");

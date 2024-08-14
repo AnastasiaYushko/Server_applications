@@ -21,7 +21,7 @@ public class StudentGroupDAOImpl implements StudentGroupDAO {
     @Override
     public StudentGroup getStudentGroupById(int id) throws RepositoryException {
         try {
-            DataBase dataBase = SpringConfig.getContext().getBean("data_base", DataBase.class);
+            DataBase dataBase = SpringConfig.getContext().getBean("dataBase", DataBase.class);
             return dataBase.getStudentGroupById(id);
         } catch (NullPointerException e) {
             throw new RepositoryException(e.getMessage());

@@ -28,7 +28,7 @@ public class studentGroup_controller {
         GetStudentGroupByIdRequest getStudentGroupByIdRequest = SpringConfig.getContext().getBean("getStudentGroupByIdRequest", GetStudentGroupByIdRequest.class);
         getStudentGroupByIdRequest.setId(id);
 
-        classHandler = SpringConfig.getContext().getBean("getStudentGroupBydHandler", GetStudentGroupByIdHandler.class);
+        classHandler = SpringConfig.getContext().getBean("getStudentGroupByIdHandler", GetStudentGroupByIdHandler.class);
         return classHandler.handler(getStudentGroupByIdRequest);
     }
 

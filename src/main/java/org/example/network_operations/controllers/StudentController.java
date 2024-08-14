@@ -37,7 +37,7 @@ public class StudentController {
         StudentServiceImpl studentService = SpringConfig.getContext().getBean("studentServiceImpl", StudentServiceImpl.class);
         try {
             GetStudentByIdResponse studentResponse = studentService.getStudentById(request);
-            return new ResponseEntity<>(studentResponse, HttpStatus.SC_ACCEPTED);
+            return new ResponseEntity<>(studentResponse, HttpStatus.SC_OK);
         } catch (ServiceException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.SC_NOT_FOUND);
         }
