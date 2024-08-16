@@ -84,6 +84,8 @@ public class SubjectServiceImpl implements SubjectService {
             newListSubject.add(subject.toString());
         }
 
-        return new GetSubjectsResponse(newListSubject);
+        GetSubjectsResponse getSubjectsResponse = SpringConfig.getContext().getBean("getSubjectsResponse",GetSubjectsResponse.class);
+        getSubjectsResponse.setListSubjects(newListSubject);
+        return getSubjectsResponse;
     }
 }

@@ -3,9 +3,7 @@ package org.example.network_operations.controllers;
 import org.apache.http.HttpStatus;
 import org.example.SpringConfig;
 import org.example.dto_request.teacher.add.AddTeacherRequest;
-import org.example.dto_request.teacher.add.AddTeacherValidator;
 import org.example.dto_request.teacher.delete.DeleteTeacherRequest;
-import org.example.dto_request.teacher.delete.DeleteTeacherValidator;
 import org.example.dto_request.teacher.edit.EditTeacherRequest;
 import org.example.dto_request.teacher.edit.EditTeacherValidator;
 import org.example.dto_request.teacher.get.GetTeacherByIdRequest;
@@ -23,13 +21,13 @@ import java.util.List;
 public class TeacherController {
 
     public static ResponseEntity<?> deleteTeacher(DeleteTeacherRequest request) {
-        DeleteTeacherValidator validator = new DeleteTeacherValidator();
-        List<String> errors = new ArrayList<>();
-        validator.validate(request, errors);
+        //DeleteTeacherValidator validator = new DeleteTeacherValidator();
+        //List<String> errors = new ArrayList<>();
+        //validator.validate(request, errors);
 
-        if (!errors.isEmpty()) {
-            return new ResponseEntity<>(errors, HttpStatus.SC_BAD_REQUEST);
-        }
+        //if (!errors.isEmpty()) {
+        //    return new ResponseEntity<>(errors, HttpStatus.SC_BAD_REQUEST);
+        //}
 
         TeacherServiceImpl teacherService = SpringConfig.getContext().getBean("teacherServiceImpl", TeacherServiceImpl.class);
 
@@ -42,13 +40,13 @@ public class TeacherController {
     }
 
     public static ResponseEntity<?> addTeacher(AddTeacherRequest request) {
-        AddTeacherValidator validator = new AddTeacherValidator();
-        List<String> errors = new ArrayList<>();
-        validator.validate(request, errors);
+        //AddTeacherValidator validator = new AddTeacherValidator();
+        //List<String> errors = new ArrayList<>();
+       // validator.validate(request, errors);
 
-        if (!errors.isEmpty()) {
-            return new ResponseEntity<>(errors, HttpStatus.SC_BAD_REQUEST);
-        }
+        //if (!errors.isEmpty()) {
+        //    return new ResponseEntity<>(errors, HttpStatus.SC_BAD_REQUEST);
+       // }
 
         TeacherServiceImpl teacherService = SpringConfig.getContext().getBean("teacherServiceImpl", TeacherServiceImpl.class);
 

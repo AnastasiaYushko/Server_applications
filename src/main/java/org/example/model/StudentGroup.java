@@ -1,35 +1,27 @@
 package org.example.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 
 @Getter
 @Setter
 @Component
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 @Scope("prototype")
 public class StudentGroup {
+    @Min(1)
     private int id;
+    @NotBlank
+    @Length(max = 50)
     private String name;
-
-    public StudentGroup(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public StudentGroup() {
-    }
-
-    @Override
-    public String toString() {
-        return "GroupOfStudents{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
-    }
 
     @Override
     public boolean equals(Object o) {

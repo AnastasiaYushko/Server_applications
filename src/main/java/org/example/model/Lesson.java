@@ -1,36 +1,31 @@
 package org.example.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
 import java.util.Date;
 import java.util.Objects;
 
 @Getter
 @Setter
 @Component
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 @Scope("prototype")
 public class Lesson {
+    @Min(1)
     private int id;
+    @Pattern(regexp = "((0?[1-9]|[12][0-9]|3[01])-(0?[1-9]|1[012])-((19|20|21)\\d\\d))")
     private Date date;
+    @Min(1)
     private int number;
     private Subject subject;
     private Teacher teacher;
     private StudentGroup group;
-
-    public Lesson(int id, Date date, int number, Teacher teacher, Subject subject, StudentGroup group) {
-        this.id = id;
-        this.date = date;
-        this.number = number;
-        this.teacher = teacher;
-        this.subject = subject;
-        this.group = group;
-    }
-
-    public Lesson() {
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -45,15 +40,4 @@ public class Lesson {
         return Objects.hash(date, number, subject, teacher, group);
     }
 
-    @Override
-    public String toString() {
-        return "Lesson{" +
-                "id=" + id +
-                ", date=" + date +
-                ", number=" + number +
-                ", subject=" + subject +
-                ", teacher=" + teacher +
-                ", group=" + group +
-                '}';
-    }
 }

@@ -7,6 +7,10 @@ import org.example.model.Lesson;
 import org.example.model.StudentGroup;
 import org.example.model.Subject;
 import org.example.model.Teacher;
+import org.example.myExceptions.AddEntityMatchData;
+import org.example.myExceptions.ChangesEntityLeadToConflict;
+import org.example.myExceptions.EntityNotFoundInDataBase;
+import org.example.myExceptions.StupidChanges;
 import org.springframework.stereotype.Repository;
 
 import javax.jcr.RepositoryException;
@@ -24,7 +28,7 @@ public class LessonDAOImpl implements LessonDAO {
         DataBase dataBase = SpringConfig.getContext().getBean("dataBase", DataBase.class);
         try {
             return dataBase.getLessonById(id);
-        } catch (NullPointerException e) {
+        } catch (EntityNotFoundInDataBase e) {
             throw new RepositoryException(e.getMessage());
         }
     }
@@ -36,7 +40,7 @@ public class LessonDAOImpl implements LessonDAO {
         Date dateEndTrue = new SimpleDateFormat("dd-MM-yyyy").parse(endDate);
         try {
             return dataBase.getLessonsByGroup(dateStartTrue, dateEndTrue, groupId);
-        } catch (NullPointerException e) {
+        } catch (EntityNotFoundInDataBase e) {
             throw new RepositoryException(e.getMessage());
         }
     }
@@ -48,7 +52,7 @@ public class LessonDAOImpl implements LessonDAO {
         Date dateEndTrue = new SimpleDateFormat("dd-MM-yyyy").parse(endDate);
         try {
             return dataBase.getLessonsByTeacher(dateStartTrue, dateEndTrue, teacherId);
-        } catch (NullPointerException e) {
+        } catch (EntityNotFoundInDataBase e) {
             throw new RepositoryException(e.getMessage());
         }
     }
@@ -73,7 +77,7 @@ public class LessonDAOImpl implements LessonDAO {
             lesson.setNumber(number);
 
             return dataBase.editLesson(lesson);
-        } catch (NullPointerException e) {
+        } catch (EntityNotFoundInDataBase | StupidChanges | ChangesEntityLeadToConflict e) {
             throw new RepositoryException(e.getMessage());
         }
     }
@@ -83,7 +87,7 @@ public class LessonDAOImpl implements LessonDAO {
         DataBase dataBase = SpringConfig.getContext().getBean("dataBase", DataBase.class);
         try {
             return dataBase.deleteLessonsByGroup(groupId);
-        } catch (NullPointerException e) {
+        } catch (EntityNotFoundInDataBase e) {
             throw new RepositoryException(e.getMessage());
         }
     }
@@ -93,7 +97,7 @@ public class LessonDAOImpl implements LessonDAO {
         DataBase dataBase = SpringConfig.getContext().getBean("dataBase", DataBase.class);
         try {
             return dataBase.deleteLessonById(lessonId);
-        } catch (NullPointerException e) {
+        } catch (EntityNotFoundInDataBase e) {
             throw new RepositoryException(e.getMessage());
         }
     }
@@ -103,7 +107,7 @@ public class LessonDAOImpl implements LessonDAO {
         DataBase dataBase = SpringConfig.getContext().getBean("dataBase", DataBase.class);
         try {
             return dataBase.deleteLessonsByTeacher(teacherId);
-        } catch (NullPointerException e) {
+        } catch (EntityNotFoundInDataBase e) {
             throw new RepositoryException(e.getMessage());
         }
     }
@@ -126,7 +130,7 @@ public class LessonDAOImpl implements LessonDAO {
             lesson.setNumber(number);
 
             return dataBase.addLesson(lesson);
-        } catch (NullPointerException e) {
+        } catch (AddEntityMatchData | EntityNotFoundInDataBase e) {
             throw new RepositoryException(e.getMessage());
         }
     }

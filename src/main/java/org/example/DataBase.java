@@ -1,6 +1,10 @@
 package org.example;
 
 import org.example.model.*;
+import org.example.myExceptions.AddEntityMatchData;
+import org.example.myExceptions.ChangesEntityLeadToConflict;
+import org.example.myExceptions.EntityNotFoundInDataBase;
+import org.example.myExceptions.StupidChanges;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -100,11 +104,11 @@ public class DataBase {
 
     //Student
 
-    public synchronized int addStudent(Student student) {
+    public synchronized int addStudent(Student student) throws AddEntityMatchData {
         synchronized (listStudents) {
             for (Student s : listStudents.values()) {
                 if (s.equals(student)) {
-                    throw new NullPointerException("Такой студент уже есть в системе");
+                    throw new AddEntityMatchData("Такой студент уже есть в системе");
                 }
             }
             student.setId(keyStudent);
@@ -114,7 +118,7 @@ public class DataBase {
         return keyStudent - 1;
     }
 
-    public ArrayList<Student> getStudentsByGroup(int id) {
+    public ArrayList<Student> getStudentsByGroup(int id) throws EntityNotFoundInDataBase {
         getStudentGroupById(id);
         ArrayList<Student> result = new ArrayList<>();
         synchronized (listStudents) {
@@ -127,23 +131,23 @@ public class DataBase {
         return result;
     }
 
-    public Student getStudentById(int id) {
+    public Student getStudentById(int id) throws EntityNotFoundInDataBase {
         Student student = listStudents.get(id);
         if (isNull(student)) {
-            throw new NullPointerException("Такого студента нет в базе данных");
+            throw new EntityNotFoundInDataBase("Такого студента нет в базе данных");
         }
         return student;
     }
 
-    public String editStudent(Student student) {
+    public String editStudent(Student student) throws EntityNotFoundInDataBase, StupidChanges, ChangesEntityLeadToConflict {
         synchronized (listStudents) {
             Student student1 = getStudentById(student.getId());
             if (student.equals(student1)) {
-                throw new NullPointerException("Новые данные, которые вы хотите внести, совпадают с имеющимися");
+                throw new StupidChanges("Новые данные, которые вы хотите внести, совпадают с имеющимися");
             }
             for (Student s : listStudents.values()) {
                 if (s.equals(student)) {
-                    throw new NullPointerException("Новые данные, которые вы хотите внести совпадают с другим студентом");
+                    throw new ChangesEntityLeadToConflict("Новые данные, которые вы хотите внести совпадают с другим студентом");
                 }
             }
             listStudents.put(student.getId(), student);
@@ -151,14 +155,14 @@ public class DataBase {
         return "Данные студента изменены";
     }
 
-    public synchronized String deleteStudent(int id) {
+    public synchronized String deleteStudent(int id) throws EntityNotFoundInDataBase {
         getStudentById(id);
         deleteLessonVisitingByStudent(id);
         listStudents.remove(id);
         return "Студент удален";
     }
 
-    public void deleteStudentByGroup(int id) {
+    public void deleteStudentByGroup(int id) throws EntityNotFoundInDataBase {
         getStudentGroupById(id);
 
         for (Student student : listStudents.values()) {
@@ -170,18 +174,18 @@ public class DataBase {
     //
 
     //Lesson
-    public Lesson getLessonById(int id) {
+    public Lesson getLessonById(int id) throws EntityNotFoundInDataBase {
         Lesson lesson = listLesson.get(id);
         if (isNull(lesson)) {
-            throw new NullPointerException("Такого урока нет в базе данных");
+            throw new EntityNotFoundInDataBase("Такого урока нет в базе данных");
         }
         return lesson;
     }
 
-    public ArrayList<Lesson> getLessonsByGroup(Date startDate, Date endDate, int groupId) {
+    public ArrayList<Lesson> getLessonsByGroup(Date startDate, Date endDate, int groupId) throws EntityNotFoundInDataBase {
         StudentGroup group = getStudentGroupById(groupId);
         if (isNull(group)) {
-            throw new NullPointerException("Такой группы нет в базе данных");
+            throw new EntityNotFoundInDataBase("Такой группы нет в базе данных");
         }
 
         ArrayList<Lesson> lessonsList = new ArrayList<>();
@@ -197,10 +201,10 @@ public class DataBase {
         return lessonsList;
     }
 
-    public ArrayList<Lesson> getLessonsByTeacher(Date startDate, Date endDate, int teacherId) {
+    public ArrayList<Lesson> getLessonsByTeacher(Date startDate, Date endDate, int teacherId) throws EntityNotFoundInDataBase {
         Teacher teacher = getTeacherById(teacherId);
         if (isNull(teacher)) {
-            throw new NullPointerException("Такого учителя нет в базе данных");
+            throw new EntityNotFoundInDataBase("Такого учителя нет в базе данных");
         }
 
         ArrayList<Lesson> lessonsList = new ArrayList<>();
@@ -217,16 +221,16 @@ public class DataBase {
     }
 
 
-    public String editLesson(Lesson lesson) {
+    public String editLesson(Lesson lesson) throws EntityNotFoundInDataBase, StupidChanges, ChangesEntityLeadToConflict {
         synchronized (listLesson) {
             Lesson lesson1 = getLessonById(lesson.getId());
             if (lesson.equals(lesson1)) {
-                throw new NullPointerException("Новые данные, которые вы хотите внести, совпадают с имеющимися");
+                throw new StupidChanges("Новые данные, которые вы хотите внести, совпадают с имеющимися");
             }
 
             for (Lesson l : listLesson.values()) {
                 if (lesson.equals(l)) {
-                    throw new NullPointerException("Новые данные, которые вы хотите внести совпадают с другим уроком");
+                    throw new ChangesEntityLeadToConflict("Новые данные, которые вы хотите внести совпадают с другим уроком");
                 }
             }
             listLesson.put(lesson.getId(), lesson);
@@ -234,11 +238,11 @@ public class DataBase {
         return "Данные урока изменены!";
     }
 
-    public synchronized int addLesson(Lesson lesson) {
+    public synchronized int addLesson(Lesson lesson) throws AddEntityMatchData {
         synchronized (listLesson) {
             for (Lesson l : listLesson.values()) {
                 if (lesson.equals(l)) {
-                    throw new NullPointerException("Такой урок уже есть в базе данных");
+                    throw new AddEntityMatchData("Такой урок уже есть в базе данных");
                 }
             }
             lesson.setId(keyLesson);
@@ -248,7 +252,7 @@ public class DataBase {
         return keyLesson - 1;
     }
 
-    public synchronized String deleteLessonsByGroup(int groupId) {
+    public synchronized String deleteLessonsByGroup(int groupId) throws EntityNotFoundInDataBase {
         synchronized (listLesson) {
             getStudentGroupById(groupId);
             for (Lesson l : listLesson.values()) {
@@ -263,7 +267,7 @@ public class DataBase {
         return "Уроки у группы удалены!";
     }
 
-    public synchronized String deleteLessonById(int lessonId) {
+    public synchronized String deleteLessonById(int lessonId) throws EntityNotFoundInDataBase {
         synchronized (listLesson) {
             getLessonById(lessonId);
             listLesson.remove(lessonId);
@@ -275,7 +279,7 @@ public class DataBase {
         return "Урок удален";
     }
 
-    public synchronized String deleteLessonsByTeacher(int teacherId) {
+    public synchronized String deleteLessonsByTeacher(int teacherId) throws EntityNotFoundInDataBase {
         synchronized (listLesson) {
             getTeacherById(teacherId);
             for (Lesson l : listLesson.values()) {
@@ -290,7 +294,7 @@ public class DataBase {
         return "Уроки учителя удалены";
     }
 
-    public synchronized void deleteLessonsBySubject(int subjectId) {
+    public synchronized void deleteLessonsBySubject(int subjectId) throws EntityNotFoundInDataBase {
         synchronized (listLesson) {
             getSubjectById(subjectId);
             for (Lesson l : listLesson.values()) {
@@ -310,19 +314,19 @@ public class DataBase {
         return new ArrayList<>(listGroups.values());
     }
 
-    public StudentGroup getStudentGroupById(int id) {
+    public StudentGroup getStudentGroupById(int id) throws EntityNotFoundInDataBase {
         StudentGroup group = listGroups.get(id);
         if (isNull(group)) {
-            throw new NullPointerException("Такой группы нет в базе данных");
+            throw new EntityNotFoundInDataBase("Такой группы нет в базе данных");
         }
         return group;
     }
 
-    public synchronized int addStudentGroup(StudentGroup group) {
+    public synchronized int addStudentGroup(StudentGroup group) throws AddEntityMatchData {
         synchronized (listGroups) {
             for (StudentGroup studentGroup : listGroups.values()) {
                 if (studentGroup.equals(group)) {
-                    throw new NullPointerException("Такая группа уже есть в базе данных");
+                    throw new AddEntityMatchData("Такая группа уже есть в базе данных");
                 }
             }
             group.setId(keyGroup);
@@ -333,15 +337,15 @@ public class DataBase {
     }
 
 
-    public String editStudentGroup(StudentGroup group) {
+    public String editStudentGroup(StudentGroup group) throws EntityNotFoundInDataBase, StupidChanges, ChangesEntityLeadToConflict {
         synchronized (listGroups) {
             StudentGroup group0 = getStudentGroupById(group.getId());
             if (group.equals(group0)) {
-                throw new NullPointerException("Новые данные, которые вы хотите внести, совпадают с имеющимися");
+                throw new StupidChanges("Новые данные, которые вы хотите внести, совпадают с имеющимися");
             }
             for (StudentGroup studentGroup : listGroups.values()) {
                 if (studentGroup.equals(group)) {
-                    throw new NullPointerException("Новые данные, которые вы хотите внести совпадают с другой группой");
+                    throw new ChangesEntityLeadToConflict("Новые данные, которые вы хотите внести совпадают с другой группой");
                 }
             }
             listGroups.put(group.getId(), group);
@@ -349,7 +353,7 @@ public class DataBase {
         }
     }
 
-    public synchronized String deleteStudentGroup(int id) {
+    public synchronized String deleteStudentGroup(int id) throws EntityNotFoundInDataBase {
         getStudentGroupById(id);
         deleteStudentByGroup(id);
         deleteLessonsByGroup(id);
@@ -359,10 +363,10 @@ public class DataBase {
     //
 
     //Teacher
-    public Teacher getTeacherById(int id) {
+    public Teacher getTeacherById(int id) throws EntityNotFoundInDataBase {
         Teacher teacher = listTeachers.get(id);
         if (isNull(teacher)) {
-            throw new NullPointerException("Такого преподавателя нет в базе данных");
+            throw new EntityNotFoundInDataBase("Такого преподавателя нет в базе данных");
         }
         return teacher;
     }
@@ -372,11 +376,11 @@ public class DataBase {
     }
 
 
-    public synchronized int addTeacher(Teacher teacher) {
+    public synchronized int addTeacher(Teacher teacher) throws AddEntityMatchData {
         synchronized (listTeachers) {
             for (Teacher teacher0 : listTeachers.values()) {
                 if (teacher0.equals(teacher)) {
-                    throw new NullPointerException("Такой преподаватель уже есть в базе данных");
+                    throw new AddEntityMatchData("Такой преподаватель уже есть в базе данных");
                 }
             }
             teacher.setId(keyTeacher);
@@ -387,15 +391,15 @@ public class DataBase {
     }
 
 
-    public String editTeacher(Teacher teacher) {
+    public String editTeacher(Teacher teacher) throws EntityNotFoundInDataBase, StupidChanges, ChangesEntityLeadToConflict {
         synchronized (listTeachers) {
             Teacher teacher0 = getTeacherById(teacher.getId());
             if (teacher0.equals(teacher)) {
-                throw new NullPointerException("Новые данные, которые вы хотите внести, совпадают с имеющимися");
+                throw new StupidChanges("Новые данные, которые вы хотите внести, совпадают с имеющимися");
             }
             for (Teacher t : listTeachers.values()) {
                 if (t.equals(teacher)) {
-                    throw new NullPointerException("Новые данные, которые вы хотите внести, совпадают с другим преподавателем");
+                    throw new ChangesEntityLeadToConflict("Новые данные, которые вы хотите внести, совпадают с другим преподавателем");
                 }
             }
             listTeachers.put(teacher.getId(), teacher);
@@ -403,7 +407,7 @@ public class DataBase {
         return "Преподаватель изменен";
     }
 
-    public synchronized String deleteTeacher(int id) {
+    public synchronized String deleteTeacher(int id) throws EntityNotFoundInDataBase {
         getTeacherById(id);
         deleteLessonsByTeacher(id);
         listTeachers.remove(id);
@@ -417,19 +421,19 @@ public class DataBase {
         return new ArrayList<>(listSubjects.values());
     }
 
-    public Subject getSubjectById(int subjectId) {
+    public Subject getSubjectById(int subjectId) throws EntityNotFoundInDataBase {
         Subject subject = listSubjects.get(subjectId);
         if (isNull(subject)) {
-            throw new NullPointerException("Такого урока нет в базе данных");
+            throw new EntityNotFoundInDataBase("Такого урока нет в базе данных");
         }
         return subject;
     }
 
-    public synchronized int addSubject(Subject subject) {
+    public synchronized int addSubject(Subject subject) throws AddEntityMatchData {
         synchronized (listSubjects) {
             for (Subject s : listSubjects.values()) {
                 if (Objects.equals(s.getName(), subject.getName())) {
-                    throw new NullPointerException("Такой предмет уже есть в базе данных");
+                    throw new AddEntityMatchData("Такой предмет уже есть в базе данных");
                 }
             }
             subject.setId(keySubject);
@@ -440,15 +444,15 @@ public class DataBase {
     }
 
 
-    public String editSubject(Subject subject) {
+    public String editSubject(Subject subject) throws EntityNotFoundInDataBase, StupidChanges, ChangesEntityLeadToConflict {
         synchronized (listSubjects) {
             Subject subject1 = getSubjectById(subject.getId());
             if (subject1.equals(subject)) {
-                throw new NullPointerException("Новые данные, которые вы хотите внести, совпадают с имеющимися");
+                throw new StupidChanges("Новые данные, которые вы хотите внести, совпадают с имеющимися");
             }
             for (Subject s : listSubjects.values()) {
                 if (s.equals(subject)) {
-                    throw new NullPointerException("Новые данные, которые вы хотите внести совпадают с другим предметом");
+                    throw new ChangesEntityLeadToConflict("Новые данные, которые вы хотите внести совпадают с другим предметом");
                 }
             }
             listSubjects.put(subject.getId(), subject);
@@ -456,7 +460,7 @@ public class DataBase {
         return "Предмет изменен";
     }
 
-    public synchronized String deleteSubject(int id) {
+    public synchronized String deleteSubject(int id) throws EntityNotFoundInDataBase {
         getSubjectById(id);
         deleteLessonsBySubject(id);
         listSubjects.remove(id);
@@ -467,7 +471,7 @@ public class DataBase {
 
     // LessonVisiting
 
-    public synchronized int addLessonVisiting(LessonVisiting lessonVisiting) {
+    public synchronized int addLessonVisiting(LessonVisiting lessonVisiting) throws EntityNotFoundInDataBase {
         getLessonById(lessonVisiting.getLessonId());
 
         try {
@@ -486,24 +490,24 @@ public class DataBase {
         }
     }
 
-    public LessonVisiting getLessonVisitingById(int lessonVisitingId) {
+    public LessonVisiting getLessonVisitingById(int lessonVisitingId) throws EntityNotFoundInDataBase {
         LessonVisiting lessonVisiting = listLessonVisiting_Id.get(lessonVisitingId);
         if (isNull(lessonVisiting)) {
-            throw new NullPointerException("Данных о такой посещаемости нет в базе данных");
+            throw new EntityNotFoundInDataBase("Данных о такой посещаемости нет в базе данных");
         }
         return lessonVisiting;
     }
 
-    public LessonVisiting getLessonVisitingByLessonId(int lessonId) {
+    public LessonVisiting getLessonVisitingByLessonId(int lessonId) throws EntityNotFoundInDataBase {
         LessonVisiting lessonVisiting = listLessonVisiting_LessonId.get(lessonId);
         if (isNull(lessonVisiting)) {
-            throw new NullPointerException("Данных о такой посещаемости нет в базе данных");
+            throw new EntityNotFoundInDataBase("Данных о такой посещаемости нет в базе данных");
         }
         return lessonVisiting;
     }
 
 
-    public synchronized String editLessonVisiting(LessonVisiting lessonVisiting) {
+    public synchronized String editLessonVisiting(LessonVisiting lessonVisiting) throws EntityNotFoundInDataBase, StupidChanges {
         synchronized (listLessonVisiting_Id) {
             synchronized (listLessonVisiting_LessonId) {
                 getLessonById(lessonVisiting.getLessonId());
@@ -511,7 +515,7 @@ public class DataBase {
                 LessonVisiting lv = getLessonVisitingById(lessonVisiting.getId());
 
                 if (lessonVisiting.equals(lv)) {
-                    throw new NullPointerException("Данные о посещаемости совпадают с имеющимися");
+                    throw new StupidChanges("Данные о посещаемости совпадают с имеющимися");
                 }
 
                 listLessonVisiting_Id.put(lessonVisiting.getId(), lessonVisiting);
@@ -522,7 +526,7 @@ public class DataBase {
         }
     }
 
-    public synchronized String deleteLessonVisitingById(int lessonVisitingId) {
+    public synchronized String deleteLessonVisitingById(int lessonVisitingId) throws EntityNotFoundInDataBase {
         synchronized (listLessonVisiting_Id) {
             synchronized (listLessonVisiting_LessonId) {
                 LessonVisiting lessonVisiting = getLessonVisitingById(lessonVisitingId);
@@ -537,7 +541,7 @@ public class DataBase {
         }
     }
 
-    public synchronized String deleteLessonVisitingByLessonId(int lessonId) {
+    public synchronized String deleteLessonVisitingByLessonId(int lessonId) throws EntityNotFoundInDataBase {
         getLessonById(lessonId);
         LessonVisiting lessonVisiting = getLessonVisitingByLessonId(lessonId);
         return deleteLessonVisitingById(lessonVisiting.getId());

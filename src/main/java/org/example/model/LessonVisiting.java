@@ -1,39 +1,25 @@
 package org.example.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-
+import javax.validation.constraints.Min;
 import java.util.ArrayList;
 import java.util.Objects;
 
 @Setter
 @Getter
 @Component
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 @Scope("prototype")
 public class LessonVisiting {
+    @Min(1)
     private int id;
+    @Min(1)
     private int lessonId;
     private ArrayList<Student> listStudent;
-
-    public LessonVisiting(int id, int lessonId, ArrayList<Student> listStudent) {
-        this.id = id;
-        this.lessonId = lessonId;
-        this.listStudent = new ArrayList<>(listStudent);
-    }
-
-    public LessonVisiting() {
-    }
-
-    @Override
-    public String toString() {
-        return "LessonVisiting{" +
-                "id=" + id +
-                ", lessonId=" + lessonId +
-                ", listStudent=" + listStudent +
-                '}';
-    }
 
     @Override
     public boolean equals(Object o) {

@@ -10,29 +10,34 @@ import org.example.dto_request.lessonVisiting.get.byILessonId.GetLessonVisitingB
 import org.example.dto_request.lessonVisiting.get.byId.GetLessonVisitingByIdRequest;
 import org.example.handler.IHandler;
 import org.example.handler.lessonVisiting.*;
+import org.springframework.http.MediaType;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Positive;
 import java.text.ParseException;
 
 @RestController
-@RequestMapping("/lessonVisiting")
+@RequestMapping(value = "/lessonVisiting", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+@Validated
 public class lessonVisiting_controller {
     IHandler classHandler;
 
     @PostMapping("/add")
-    public String AddLessonVisiting(@RequestBody AddLessonVisitingRequest jsonRequest) throws ParseException, JsonProcessingException {
+    public String AddLessonVisiting(@Valid @RequestBody AddLessonVisitingRequest jsonRequest) throws ParseException, JsonProcessingException {
         classHandler = SpringConfig.getContext().getBean("addLessonVisitingHandler", AddLessonVisitingHandler.class);
         return classHandler.handler(jsonRequest);
     }
 
     @PostMapping("/edit")
-    public String EditLessonVisiting(@RequestBody EditLessonVisitingRequest jsonRequest) throws ParseException, JsonProcessingException {
+    public String EditLessonVisiting(@Valid @RequestBody EditLessonVisitingRequest jsonRequest) throws ParseException, JsonProcessingException {
         classHandler = SpringConfig.getContext().getBean("editLessonVisitingHandler", EditLessonVisitingHandler.class);
         return classHandler.handler(jsonRequest);
     }
 
     @DeleteMapping("/deleteById")
-    public String DeleteLessonVisitingById(@RequestParam("id") int id) throws ParseException, JsonProcessingException {
+    public String DeleteLessonVisitingById(@Valid @RequestParam("id") @Positive int id) throws ParseException, JsonProcessingException {
         DeleteLessonVisitingByIdRequest deleteLessonVisitingByIdRequest = SpringConfig.getContext().getBean("deleteLessonVisitingByIdRequest", DeleteLessonVisitingByIdRequest.class);
         deleteLessonVisitingByIdRequest.setLessonVisitingId(id);
 
@@ -41,7 +46,7 @@ public class lessonVisiting_controller {
     }
 
     @DeleteMapping("/deleteByLessonId")
-    public String DeleteLessonVisitingByLessonId(@RequestParam("id") int id) throws ParseException, JsonProcessingException {
+    public String DeleteLessonVisitingByLessonId(@Valid @RequestParam("id") @Positive int id) throws ParseException, JsonProcessingException {
         DeleteLessonVisitingByLessonIdRequest deleteLessonVisitingByLessonIdRequest = SpringConfig.getContext().getBean("deleteLessonVisitingByLessonIdRequest", DeleteLessonVisitingByLessonIdRequest.class);
         deleteLessonVisitingByLessonIdRequest.setLessonId(id);
 
@@ -50,7 +55,7 @@ public class lessonVisiting_controller {
     }
 
     @GetMapping("/getById")
-    public String GetLessonVisitingById(@RequestParam("id") int id) throws ParseException, JsonProcessingException {
+    public String GetLessonVisitingById(@Valid @RequestParam("id") @Positive int id) throws ParseException, JsonProcessingException {
         GetLessonVisitingByIdRequest getLessonVisitingByIdRequest = SpringConfig.getContext().getBean("getLessonVisitingByIdRequest", GetLessonVisitingByIdRequest.class);
         getLessonVisitingByIdRequest.setLessonVisitingId(id);
 
@@ -59,7 +64,7 @@ public class lessonVisiting_controller {
     }
 
     @GetMapping("/getByLessonId")
-    public String GetLessonVisitingByLessonId(@RequestParam("id") int id) throws ParseException, JsonProcessingException {
+    public String GetLessonVisitingByLessonId(@Valid @RequestParam("id") @Positive int id) throws ParseException, JsonProcessingException {
         GetLessonVisitingByLessonIdRequest getLessonVisitingByLessonIdRequest = SpringConfig.getContext().getBean("getLessonVisitingByLessonIdRequest", GetLessonVisitingByLessonIdRequest.class);
         getLessonVisitingByLessonIdRequest.setLessonId(id);
 

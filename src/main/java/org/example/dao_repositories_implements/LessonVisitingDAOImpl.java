@@ -7,6 +7,8 @@ import org.example.enums.StatusStudent;
 import org.example.model.LessonVisiting;
 import org.example.model.Student;
 import org.example.model.StudentGroup;
+import org.example.myExceptions.EntityNotFoundInDataBase;
+import org.example.myExceptions.StupidChanges;
 import org.springframework.stereotype.Repository;
 
 import javax.jcr.RepositoryException;
@@ -20,7 +22,7 @@ public class LessonVisitingDAOImpl implements LessonVisitingDAO {
         DataBase dataBase = SpringConfig.getContext().getBean("dataBase", DataBase.class);
         try {
             return dataBase.getLessonVisitingByLessonId(lessonId);
-        } catch (NullPointerException e) {
+        } catch (EntityNotFoundInDataBase e) {
             throw new RepositoryException(e.getMessage());
         }
     }
@@ -30,7 +32,7 @@ public class LessonVisitingDAOImpl implements LessonVisitingDAO {
         DataBase dataBase = SpringConfig.getContext().getBean("dataBase", DataBase.class);
         try {
             return dataBase.getLessonVisitingById(lessonVisitingById);
-        } catch (NullPointerException e) {
+        } catch (EntityNotFoundInDataBase e) {
             throw new RepositoryException(e.getMessage());
         }
     }
@@ -52,7 +54,7 @@ public class LessonVisitingDAOImpl implements LessonVisitingDAO {
 
         try {
             return dataBase.addLessonVisiting(lessonVisiting);
-        } catch (NullPointerException e) {
+        } catch (EntityNotFoundInDataBase e) {
             throw new RepositoryException(e.getMessage());
         }
     }
@@ -74,7 +76,7 @@ public class LessonVisitingDAOImpl implements LessonVisitingDAO {
         lessonVisiting.setListStudent(students);
         try {
             return dataBase.editLessonVisiting(lessonVisiting);
-        } catch (NullPointerException e) {
+        } catch (EntityNotFoundInDataBase | StupidChanges e) {
             throw new RepositoryException(e.getMessage());
         }
     }
@@ -85,7 +87,7 @@ public class LessonVisitingDAOImpl implements LessonVisitingDAO {
 
         try {
             return dataBase.deleteLessonVisitingById(lessonVisitingId);
-        } catch (NullPointerException e) {
+        } catch (EntityNotFoundInDataBase e) {
             throw new RepositoryException(e.getMessage());
         }
     }
@@ -96,7 +98,7 @@ public class LessonVisitingDAOImpl implements LessonVisitingDAO {
 
         try {
             return dataBase.deleteLessonVisitingByLessonId(lessonId);
-        } catch (NullPointerException e) {
+        } catch (EntityNotFoundInDataBase e) {
             throw new RepositoryException(e.getMessage());
         }
     }

@@ -12,29 +12,35 @@ import org.example.dto_request.lesson.get.byId.GetLessonByIdRequest;
 import org.example.dto_request.lesson.get.byTeacher.GetLessonsByTeacherRequest;
 import org.example.handler.IHandler;
 import org.example.handler.lesson.*;
+import org.springframework.http.MediaType;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Positive;
 import java.text.ParseException;
 
 @RestController
-@RequestMapping("/lesson")
+@RequestMapping(value = "/lesson", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+@Validated
 public class lesson_controller {
     IHandler classHandler;
 
     @PostMapping("/add")
-    public String AddLesson(@RequestBody AddLessonRequest jsonRequest) throws ParseException, JsonProcessingException {
+    public String AddLesson(@Valid @RequestBody AddLessonRequest jsonRequest) throws ParseException, JsonProcessingException {
         classHandler = SpringConfig.getContext().getBean("addLessonHandler", AddLessonHandler.class);
         return classHandler.handler(jsonRequest);
     }
 
     @PostMapping("/edit")
-    public String EditLesson(@RequestBody EditLessonRequest jsonRequest) throws ParseException, JsonProcessingException {
+    public String EditLesson(@Valid @RequestBody EditLessonRequest jsonRequest) throws ParseException, JsonProcessingException {
         classHandler = SpringConfig.getContext().getBean("editLessonHandler", EditLessonHandler.class);
         return classHandler.handler(jsonRequest);
     }
 
     @DeleteMapping("/deleteById")
-    public String DeleteLessonById(@RequestParam("id") int id) throws ParseException, JsonProcessingException {
+    public String DeleteLessonById(@Valid @RequestParam("id") @Positive int id) throws ParseException, JsonProcessingException {
         DeleteLessonByIdRequest deleteTeacherRequest = SpringConfig.getContext().getBean("deleteLessonByIdRequest", DeleteLessonByIdRequest.class);
         deleteTeacherRequest.setLessonId(id);
 
@@ -43,7 +49,7 @@ public class lesson_controller {
     }
 
     @DeleteMapping("/deleteByGroup")
-    public String DeleteLessonByGroup(@RequestParam("id") int id) throws ParseException, JsonProcessingException {
+    public String DeleteLessonByGroup(@Valid @RequestParam("id") @Positive int id) throws ParseException, JsonProcessingException {
         DeleteLessonsByGroupRequest deleteLessonsByGroupRequest = SpringConfig.getContext().getBean("deleteLessonsByGroupRequest", DeleteLessonsByGroupRequest.class);
         deleteLessonsByGroupRequest.setGroupId(id);
 
@@ -52,7 +58,7 @@ public class lesson_controller {
     }
 
     @DeleteMapping("/deleteByTeacher")
-    public String DeleteLessonByTeacher(@RequestParam("id") int id) throws ParseException, JsonProcessingException {
+    public String DeleteLessonByTeacher(@Valid @RequestParam("id") @Positive int id) throws ParseException, JsonProcessingException {
         DeleteLessonsByTeacherRequest deleteLessonsByTeacherRequest = SpringConfig.getContext().getBean("deleteLessonsByTeacherRequest", DeleteLessonsByTeacherRequest.class);
         deleteLessonsByTeacherRequest.setTeacherId(id);
 
@@ -61,7 +67,8 @@ public class lesson_controller {
     }
 
     @GetMapping("/getByTeacher")
-    public String GetLessonByTeacher(@RequestParam("id") int id, @RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate) throws ParseException, JsonProcessingException {
+    public String GetLessonByTeacher(@Valid @RequestParam("id") @Positive int id, @Valid @RequestParam("startDate") @Pattern(regexp = "((0?[1-9]|[12][0-9]|3[01])-(0?[1-9]|1[012])-((19|20|21)\\d\\d))") String startDate,
+                                     @Valid @RequestParam("endDate") @Pattern(regexp = "((0?[1-9]|[12][0-9]|3[01])-(0?[1-9]|1[012])-((19|20|21)\\d\\d))") String endDate) throws ParseException, JsonProcessingException {
         GetLessonsByTeacherRequest getLessonsByTeacherRequest = SpringConfig.getContext().getBean("getLessonsByTeacherRequest", GetLessonsByTeacherRequest.class);
         getLessonsByTeacherRequest.setTeacherId(id);
         getLessonsByTeacherRequest.setEndDate(endDate);
@@ -72,7 +79,8 @@ public class lesson_controller {
     }
 
     @GetMapping("/getByGroup")
-    public String GetLessonByGroup(@RequestParam("id") int id, @RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate) throws ParseException, JsonProcessingException {
+    public String GetLessonByGroup(@Valid @RequestParam("id") @Positive int id, @Valid @RequestParam("startDate") @Pattern(regexp = "((0?[1-9]|[12][0-9]|3[01])-(0?[1-9]|1[012])-((19|20|21)\\d\\d))") String startDate,
+                                   @Valid @RequestParam("endDate") @Pattern(regexp = "((0?[1-9]|[12][0-9]|3[01])-(0?[1-9]|1[012])-((19|20|21)\\d\\d))") String endDate) throws ParseException, JsonProcessingException {
         GetLessonsByGroupRequest getLessonsByGroupRequest = SpringConfig.getContext().getBean("getLessonsByGroupRequest", GetLessonsByGroupRequest.class);
         getLessonsByGroupRequest.setStartDate(startDate);
         getLessonsByGroupRequest.setEndDate(endDate);
@@ -83,7 +91,7 @@ public class lesson_controller {
     }
 
     @GetMapping("/getById")
-    public String GetLessonById(@RequestParam("id") int id) throws ParseException, JsonProcessingException {
+    public String GetLessonById(@Valid @RequestParam("id") @Positive int id) throws ParseException, JsonProcessingException {
         GetLessonByIdRequest getLessonByIdRequest = SpringConfig.getContext().getBean("getLessonByIdRequest", GetLessonByIdRequest.class);
         getLessonByIdRequest.setLessonId(id);
 

@@ -4,6 +4,10 @@ import org.example.DataBase;
 import org.example.SpringConfig;
 import org.example.dao_repositories.SubjectDAO;
 import org.example.model.Subject;
+import org.example.myExceptions.AddEntityMatchData;
+import org.example.myExceptions.ChangesEntityLeadToConflict;
+import org.example.myExceptions.EntityNotFoundInDataBase;
+import org.example.myExceptions.StupidChanges;
 import org.springframework.stereotype.Repository;
 
 import javax.jcr.RepositoryException;
@@ -23,7 +27,7 @@ public class SubjectDAOImpl implements SubjectDAO {
         DataBase dataBase = SpringConfig.getContext().getBean("dataBase", DataBase.class);
         try {
             return dataBase.getSubjectById(id);
-        } catch (NullPointerException e) {
+        } catch (EntityNotFoundInDataBase e) {
             throw new RepositoryException(e.getMessage());
         }
     }
@@ -35,7 +39,7 @@ public class SubjectDAOImpl implements SubjectDAO {
         subject.setName(name);
         try {
             return dataBase.addSubject(subject);
-        } catch (NullPointerException e) {
+        } catch (AddEntityMatchData e) {
             throw new RepositoryException(e.getMessage());
         }
     }
@@ -49,7 +53,7 @@ public class SubjectDAOImpl implements SubjectDAO {
 
         try {
             return dataBase.editSubject(newDataSubject);
-        } catch (NullPointerException e) {
+        } catch (EntityNotFoundInDataBase |StupidChanges | ChangesEntityLeadToConflict e) {
             throw new RepositoryException(e.getMessage());
         }
     }
@@ -59,7 +63,7 @@ public class SubjectDAOImpl implements SubjectDAO {
         DataBase dataBase = SpringConfig.getContext().getBean("dataBase", DataBase.class);
         try {
             return dataBase.deleteSubject(id);
-        } catch (NullPointerException e) {
+        } catch (EntityNotFoundInDataBase e) {
             throw new RepositoryException(e.getMessage());
         }
     }

@@ -4,6 +4,10 @@ import org.example.DataBase;
 import org.example.SpringConfig;
 import org.example.dao_repositories.TeacherDAO;
 import org.example.model.Teacher;
+import org.example.myExceptions.AddEntityMatchData;
+import org.example.myExceptions.ChangesEntityLeadToConflict;
+import org.example.myExceptions.EntityNotFoundInDataBase;
+import org.example.myExceptions.StupidChanges;
 import org.springframework.stereotype.Repository;
 
 import javax.jcr.RepositoryException;
@@ -23,7 +27,7 @@ public class TeacherDAOImpl implements TeacherDAO {
         DataBase dataBase = SpringConfig.getContext().getBean("dataBase", DataBase.class);
         try {
             return dataBase.getTeacherById(id);
-        } catch (NullPointerException e) {
+        } catch (EntityNotFoundInDataBase e) {
             throw new RepositoryException(e.getMessage());
         }
     }
@@ -38,7 +42,7 @@ public class TeacherDAOImpl implements TeacherDAO {
 
         try {
             return dataBase.addTeacher(teacher);
-        } catch (NullPointerException e) {
+        } catch (AddEntityMatchData e) {
             throw new RepositoryException(e.getMessage());
         }
     }
@@ -55,7 +59,7 @@ public class TeacherDAOImpl implements TeacherDAO {
 
         try {
             return dataBase.editTeacher(teacher);
-        } catch (NullPointerException e) {
+        } catch (EntityNotFoundInDataBase | StupidChanges | ChangesEntityLeadToConflict e) {
             throw new RepositoryException(e.getMessage());
         }
 
@@ -67,7 +71,7 @@ public class TeacherDAOImpl implements TeacherDAO {
 
         try {
             return dataBase.deleteTeacher(id);
-        } catch (NullPointerException e) {
+        } catch (EntityNotFoundInDataBase e) {
             throw new RepositoryException(e.getMessage());
         }
     }

@@ -1,41 +1,33 @@
 package org.example.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 
 @Getter
 @Setter
 @Component
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 @Scope("prototype")
 public class Teacher {
+    @Min(1)
     private int id;
+    @NotBlank
+    @Length(max = 50)
     private String firstName;
+    @NotBlank
+    @Length(max = 50)
     private String lastName;
+    @NotBlank
+    @Length(max = 50)
     private String middleName;
-
-    public Teacher(int id, String firstName, String middleName, String lastName) {
-        this.id = id;
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.lastName = lastName;
-    }
-
-    public Teacher() {
-    }
-
-    @Override
-    public String toString() {
-        return "Teacher{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", middleName='" + middleName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                '}';
-    }
 
     @Override
     public boolean equals(Object o) {

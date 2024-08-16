@@ -9,12 +9,16 @@ import org.example.dto_request.teacher.get.GetTeacherByIdRequest;
 import org.example.handler.IHandler;
 import org.example.handler.teacher.*;
 import org.springframework.http.MediaType;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Positive;
 import java.text.ParseException;
 
 @RestController
-@RequestMapping(value = "/teacher", consumes = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/teacher", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+@Validated
 public class teacher_controller {
     IHandler classHandler;
 
@@ -25,7 +29,7 @@ public class teacher_controller {
     }
 
     @GetMapping("/getById")
-    public String GetTeacherById(@RequestParam("id") int id) throws JsonProcessingException, ParseException {
+    public String GetTeacherById(@Valid @RequestParam("id") @Positive int id) throws JsonProcessingException, ParseException {
         classHandler = SpringConfig.getContext().getBean("getTeacherByIdHandler", GetTeacherByIdHandler.class);
         GetTeacherByIdRequest getTeacherByIdRequest = SpringConfig.getContext().getBean("getTeacherByIdRequest", GetTeacherByIdRequest.class);
         getTeacherByIdRequest.setId(id);
@@ -33,19 +37,19 @@ public class teacher_controller {
     }
 
     @PostMapping("/add")
-    public String AddTeacher(@RequestBody AddTeacherRequest jsonRequest) throws ParseException, JsonProcessingException {
+    public String AddTeacher(@Valid @RequestBody AddTeacherRequest jsonRequest) throws ParseException, JsonProcessingException {
         classHandler = SpringConfig.getContext().getBean("addTeacherHandler", AddTeacherHandler.class);
         return classHandler.handler(jsonRequest);
     }
 
     @PostMapping("/edit")
-    public String EditTeacher(@RequestBody EditTeacherRequest jsonRequest) throws ParseException, JsonProcessingException {
+    public String EditTeacher(@Valid @RequestBody EditTeacherRequest jsonRequest) throws ParseException, JsonProcessingException {
         classHandler = SpringConfig.getContext().getBean("editTeacherHandler", EditTeacherHandler.class);
         return classHandler.handler(jsonRequest);
     }
 
     @DeleteMapping("/delete")
-    public String deleteTeacher(@RequestParam("id") int id) throws ParseException, JsonProcessingException {
+    public String deleteTeacher(@Valid @RequestParam("id") @Positive int id) throws ParseException, JsonProcessingException {
         DeleteTeacherRequest deleteTeacherRequest = SpringConfig.getContext().getBean("deleteTeacherRequest", DeleteTeacherRequest.class);
         deleteTeacherRequest.setId(id);
 

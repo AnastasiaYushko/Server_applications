@@ -6,6 +6,10 @@ import org.example.dao_repositories.StudentDAO;
 import org.example.enums.StatusStudent;
 import org.example.model.Student;
 import org.example.model.StudentGroup;
+import org.example.myExceptions.AddEntityMatchData;
+import org.example.myExceptions.ChangesEntityLeadToConflict;
+import org.example.myExceptions.EntityNotFoundInDataBase;
+import org.example.myExceptions.StupidChanges;
 import org.springframework.stereotype.Repository;
 
 import javax.jcr.RepositoryException;
@@ -20,7 +24,7 @@ public class StudentDAOImpl implements StudentDAO {
         DataBase dataBase = SpringConfig.getContext().getBean("dataBase", DataBase.class);
         try {
             return dataBase.getStudentsByGroup(id);
-        } catch (NullPointerException e) {
+        } catch (EntityNotFoundInDataBase e) {
             throw new RepositoryException(e.getMessage());
         }
     }
@@ -30,7 +34,7 @@ public class StudentDAOImpl implements StudentDAO {
         DataBase dataBase = SpringConfig.getContext().getBean("dataBase", DataBase.class);
         try {
             return dataBase.getStudentById(id);
-        } catch (NullPointerException e) {
+        } catch (EntityNotFoundInDataBase e) {
             throw new RepositoryException(e.getMessage());
         }
     }
@@ -51,7 +55,7 @@ public class StudentDAOImpl implements StudentDAO {
             student.setStatus(getStudentStatus(status));
 
             return dataBase.addStudent(student);
-        } catch (NullPointerException e) {
+        } catch (AddEntityMatchData | EntityNotFoundInDataBase e) {
             throw new RepositoryException(e.getMessage());
         }
     }
@@ -72,7 +76,7 @@ public class StudentDAOImpl implements StudentDAO {
             student.setStatus(getStudentStatus(status));
 
             return dataBase.editStudent(student);
-        } catch (NullPointerException e) {
+        } catch (EntityNotFoundInDataBase | StupidChanges | ChangesEntityLeadToConflict e) {
             throw new RepositoryException(e.getMessage());
         }
     }
@@ -82,7 +86,7 @@ public class StudentDAOImpl implements StudentDAO {
         DataBase dataBase = SpringConfig.getContext().getBean("dataBase", DataBase.class);
         try {
             return dataBase.deleteStudent(id);
-        } catch (NullPointerException e) {
+        } catch (EntityNotFoundInDataBase e) {
             throw new RepositoryException(e.getMessage());
         }
     }
