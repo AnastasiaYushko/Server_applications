@@ -72,7 +72,7 @@ public class LessonDAOImpl implements LessonDAO {
             lesson.setSubject(subject);
             lesson.setNumber(number);
 
-            return dataBase.EditLesson(lesson);
+            return dataBase.editLesson(lesson);
         } catch (NullPointerException e) {
             throw new RepositoryException(e.getMessage());
         }
@@ -82,7 +82,7 @@ public class LessonDAOImpl implements LessonDAO {
     public String DeleteLessonsByGroup(int groupId) throws RepositoryException {
         DataBase dataBase = SpringConfig.getContext().getBean("dataBase", DataBase.class);
         try {
-            return dataBase.DeleteLessonsByGroup(groupId);
+            return dataBase.deleteLessonsByGroup(groupId);
         } catch (NullPointerException e) {
             throw new RepositoryException(e.getMessage());
         }
@@ -92,7 +92,7 @@ public class LessonDAOImpl implements LessonDAO {
     public String DeleteLessonById(int lessonId) throws RepositoryException {
         DataBase dataBase = SpringConfig.getContext().getBean("dataBase", DataBase.class);
         try {
-            return dataBase.DeleteLessonById(lessonId);
+            return dataBase.deleteLessonById(lessonId);
         } catch (NullPointerException e) {
             throw new RepositoryException(e.getMessage());
         }
@@ -102,7 +102,7 @@ public class LessonDAOImpl implements LessonDAO {
     public String DeleteLessonsByTeacher(int teacherId) throws RepositoryException {
         DataBase dataBase = SpringConfig.getContext().getBean("dataBase", DataBase.class);
         try {
-            return dataBase.DeleteLessonsByTeacher(teacherId);
+            return dataBase.deleteLessonsByTeacher(teacherId);
         } catch (NullPointerException e) {
             throw new RepositoryException(e.getMessage());
         }
@@ -125,7 +125,7 @@ public class LessonDAOImpl implements LessonDAO {
             lesson.setSubject(subject);
             lesson.setNumber(number);
 
-            return dataBase.AddLesson(lesson);
+            return dataBase.addLesson(lesson);
         } catch (NullPointerException e) {
             throw new RepositoryException(e.getMessage());
         }

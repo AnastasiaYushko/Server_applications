@@ -24,12 +24,13 @@ import static java.util.Objects.isNull;
 
 
 -- ГЛУБОКОЕ УДАЛЕНИЕ
-----
--- Посещаемость
--- Урок -> Посещаемость
--- Студент -> Уроки -> Посещаемости
--- Группа -> Студенты -> Уроки -> Посещаемости
--- Учитель -> Уроки -> Посещаемости
+--
+-- + Посещаемость (вся)
+-- +  Урок -> Посещаемость (вся)
+-- Студент -> Посещаемость (в списках студентов)
+-- + Группа -> Студенты и Уроки -> Посещаемость (вся)
+-- + Учитель -> Уроки -> Посещаемости (вся)
+-- + Предмет -> Уроки -> Посещаемости (вся)
  */
 
 // Отловить 500
@@ -152,8 +153,19 @@ public class DataBase {
 
     public synchronized String deleteStudent(int id) {
         getStudentById(id);
+        deleteLessonVisitingByStudent(id);
         listStudents.remove(id);
         return "Студент удален";
+    }
+
+    public void deleteStudentByGroup(int id) {
+        getStudentGroupById(id);
+
+        for (Student student : listStudents.values()) {
+            if (student.getGroup().getId() == id) {
+                listStudents.remove(student.getId());
+            }
+        }
     }
     //
 
@@ -205,7 +217,7 @@ public class DataBase {
     }
 
 
-    public String EditLesson(Lesson lesson) {
+    public String editLesson(Lesson lesson) {
         synchronized (listLesson) {
             Lesson lesson1 = getLessonById(lesson.getId());
             if (lesson.equals(lesson1)) {
@@ -222,7 +234,7 @@ public class DataBase {
         return "Данные урока изменены!";
     }
 
-    public synchronized int AddLesson(Lesson lesson) {
+    public synchronized int addLesson(Lesson lesson) {
         synchronized (listLesson) {
             for (Lesson l : listLesson.values()) {
                 if (lesson.equals(l)) {
@@ -236,7 +248,7 @@ public class DataBase {
         return keyLesson - 1;
     }
 
-    public synchronized String DeleteLessonsByGroup(int groupId) {
+    public synchronized String deleteLessonsByGroup(int groupId) {
         synchronized (listLesson) {
             getStudentGroupById(groupId);
             for (Lesson l : listLesson.values()) {
@@ -251,7 +263,7 @@ public class DataBase {
         return "Уроки у группы удалены!";
     }
 
-    public synchronized String DeleteLessonById(int lessonId) {
+    public synchronized String deleteLessonById(int lessonId) {
         synchronized (listLesson) {
             getLessonById(lessonId);
             listLesson.remove(lessonId);
@@ -263,7 +275,7 @@ public class DataBase {
         return "Урок удален";
     }
 
-    public synchronized String DeleteLessonsByTeacher(int teacherId) {
+    public synchronized String deleteLessonsByTeacher(int teacherId) {
         synchronized (listLesson) {
             getTeacherById(teacherId);
             for (Lesson l : listLesson.values()) {
@@ -275,7 +287,21 @@ public class DataBase {
                 }
             }
         }
-        return "Урок удален";
+        return "Уроки учителя удалены";
+    }
+
+    public synchronized void deleteLessonsBySubject(int subjectId) {
+        synchronized (listLesson) {
+            getSubjectById(subjectId);
+            for (Lesson l : listLesson.values()) {
+                if (l.getSubject().getId() == subjectId) {
+                    listLesson.remove(l.getId());
+                    if (!isNull(getLessonVisitingByLessonId(l.getId()))) {
+                        deleteLessonVisitingByLessonId(l.getId());
+                    }
+                }
+            }
+        }
     }
     //
 
@@ -325,6 +351,8 @@ public class DataBase {
 
     public synchronized String deleteStudentGroup(int id) {
         getStudentGroupById(id);
+        deleteStudentByGroup(id);
+        deleteLessonsByGroup(id);
         listGroups.remove(id);
         return "Группа удалена";
     }
@@ -377,6 +405,7 @@ public class DataBase {
 
     public synchronized String deleteTeacher(int id) {
         getTeacherById(id);
+        deleteLessonsByTeacher(id);
         listTeachers.remove(id);
         return "Преподаватель удален";
     }
@@ -429,6 +458,7 @@ public class DataBase {
 
     public synchronized String deleteSubject(int id) {
         getSubjectById(id);
+        deleteLessonsBySubject(id);
         listSubjects.remove(id);
         return "Предмет удален";
     }
@@ -439,6 +469,7 @@ public class DataBase {
 
     public synchronized int addLessonVisiting(LessonVisiting lessonVisiting) {
         getLessonById(lessonVisiting.getLessonId());
+
         try {
             getLessonVisitingByLessonId(lessonVisiting.getLessonId());
             throw new NullPointerException("Данные о посещаемости данного урока уже есть в базе данных");
@@ -458,7 +489,7 @@ public class DataBase {
     public LessonVisiting getLessonVisitingById(int lessonVisitingId) {
         LessonVisiting lessonVisiting = listLessonVisiting_Id.get(lessonVisitingId);
         if (isNull(lessonVisiting)) {
-            throw new NullPointerException("Данных о посещаемость данного урока нет в системе");
+            throw new NullPointerException("Данных о такой посещаемости нет в базе данных");
         }
         return lessonVisiting;
     }
@@ -466,39 +497,72 @@ public class DataBase {
     public LessonVisiting getLessonVisitingByLessonId(int lessonId) {
         LessonVisiting lessonVisiting = listLessonVisiting_LessonId.get(lessonId);
         if (isNull(lessonVisiting)) {
-            throw new NullPointerException("Данных о посещаемость данного урока нет в системе");
+            throw new NullPointerException("Данных о такой посещаемости нет в базе данных");
         }
         return lessonVisiting;
     }
 
 
     public synchronized String editLessonVisiting(LessonVisiting lessonVisiting) {
-        LessonVisiting lv = getLessonVisitingById(lessonVisiting.getId());
-        getLessonById(lessonVisiting.getLessonId());
+        synchronized (listLessonVisiting_Id) {
+            synchronized (listLessonVisiting_LessonId) {
+                getLessonById(lessonVisiting.getLessonId());
 
-        if (lessonVisiting.equals(lv)) {
-            throw new NullPointerException("Данные о посещаемости совпадают с имеющимися");
+                LessonVisiting lv = getLessonVisitingById(lessonVisiting.getId());
+
+                if (lessonVisiting.equals(lv)) {
+                    throw new NullPointerException("Данные о посещаемости совпадают с имеющимися");
+                }
+
+                listLessonVisiting_Id.put(lessonVisiting.getId(), lessonVisiting);
+
+                listLessonVisiting_LessonId.put(lessonVisiting.getLessonId(), lessonVisiting);
+            }
+            return "Посещаемость изменена";
         }
-
-        listLessonVisiting_Id.put(lessonVisiting.getId(), lessonVisiting);
-        listLessonVisiting_LessonId.put(lessonVisiting.getLessonId(), lessonVisiting);
-        return "Посещаемость изменена";
     }
 
     public synchronized String deleteLessonVisitingById(int lessonVisitingId) {
-        //
-        synchronized (listLessonVisiting_LessonId) {
-            LessonVisiting lessonVisiting = getLessonVisitingById(lessonVisitingId);
-            int id = lessonVisiting.getLessonId();
-            if (!isNull(getLessonVisitingByLessonId(id))) {
-                listLessonVisiting_LessonId.remove(id);
+        synchronized (listLessonVisiting_Id) {
+            synchronized (listLessonVisiting_LessonId) {
+                LessonVisiting lessonVisiting = getLessonVisitingById(lessonVisitingId);
+                getLessonById(lessonVisiting.getLessonId());
+                int id = lessonVisiting.getLessonId();
+                if (!isNull(getLessonVisitingByLessonId(id))) {
+                    listLessonVisiting_LessonId.remove(id);
+                }
+                listLessonVisiting_Id.remove(lessonVisitingId);
             }
-            listLessonVisiting_Id.remove(lessonVisitingId);
+            return "Посещаемость удалена";
         }
-        return "Посещаемость удалена";
     }
 
     public synchronized String deleteLessonVisitingByLessonId(int lessonId) {
-        return deleteLessonVisitingById(listLessonVisiting_LessonId.get(lessonId).getId());
+        getLessonById(lessonId);
+        LessonVisiting lessonVisiting = getLessonVisitingByLessonId(lessonId);
+        return deleteLessonVisitingById(lessonVisiting.getId());
+    }
+
+    public synchronized void deleteLessonVisitingByStudent(int id) {
+        synchronized (listLessonVisiting_Id) {
+            synchronized (listLessonVisiting_LessonId) {
+                for (LessonVisiting lessonVisiting : listLessonVisiting_Id.values()) {
+                    ArrayList<Student> list = lessonVisiting.getListStudent();
+                    boolean flag = false;
+                    for (Student student : lessonVisiting.getListStudent()) {
+                        if (student.getId() == id) {
+                            list.remove(student);
+                            flag = true;
+                        }
+                    }
+                    if (flag) {
+                        lessonVisiting.setListStudent(list);
+                        listLessonVisiting_Id.put(lessonVisiting.getId(), lessonVisiting);
+                        listLessonVisiting_LessonId.put(lessonVisiting.getLessonId(), lessonVisiting);
+                    }
+                }
+            }
+        }
     }
 }
+
