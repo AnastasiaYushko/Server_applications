@@ -1,11 +1,11 @@
 package org.example.model;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Pattern;
 import lombok.*;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.Pattern;
 import java.util.Date;
 import java.util.Objects;
 

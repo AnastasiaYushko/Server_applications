@@ -1,24 +1,24 @@
 package org.example.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Positive;
 import org.example.SpringConfig;
-import org.example.dto_request.lesson.add.AddLessonRequest;
-import org.example.dto_request.lesson.delete.byGroup.DeleteLessonsByGroupRequest;
-import org.example.dto_request.lesson.delete.byId.DeleteLessonByIdRequest;
-import org.example.dto_request.lesson.delete.byTeacher.DeleteLessonsByTeacherRequest;
-import org.example.dto_request.lesson.edit.EditLessonRequest;
-import org.example.dto_request.lesson.get.byGroup.GetLessonsByGroupRequest;
-import org.example.dto_request.lesson.get.byId.GetLessonByIdRequest;
-import org.example.dto_request.lesson.get.byTeacher.GetLessonsByTeacherRequest;
+import org.example.dto_request.lesson.AddLessonRequest;
+import org.example.dto_request.lesson.DeleteLessonsByGroupRequest;
+import org.example.dto_request.lesson.DeleteLessonByIdRequest;
+import org.example.dto_request.lesson.DeleteLessonsByTeacherRequest;
+import org.example.dto_request.lesson.EditLessonRequest;
+import org.example.dto_request.lesson.GetLessonsByGroupRequest;
+import org.example.dto_request.lesson.GetLessonByIdRequest;
+import org.example.dto_request.lesson.GetLessonsByTeacherRequest;
 import org.example.handler.IHandler;
 import org.example.handler.lesson.*;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Positive;
 import java.text.ParseException;
 
 @RestController

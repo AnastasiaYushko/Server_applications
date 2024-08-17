@@ -1,10 +1,10 @@
 package org.example.services.serviceInterface;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import org.example.dto_request.studentGroup.add.AddStudentGroupRequest;
-import org.example.dto_request.studentGroup.delete.DeleteStudentGroupRequest;
-import org.example.dto_request.studentGroup.edit.EditStudentGroupRequest;
-import org.example.dto_request.studentGroup.get.GetStudentGroupByIdRequest;
+import org.example.dto_request.studentGroup.AddStudentGroupRequest;
+import org.example.dto_request.studentGroup.DeleteStudentGroupRequest;
+import org.example.dto_request.studentGroup.EditStudentGroupRequest;
+import org.example.dto_request.studentGroup.GetStudentGroupByIdRequest;
 import org.example.dto_response.studentGroup.AddStudentGroupResponse;
 import org.example.dto_response.studentGroup.GetStudentGroupByIdResponse;
 import org.example.dto_response.studentGroup.GetStudentGroupsResponse;

@@ -1,13 +1,13 @@
 package org.example.model;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.example.enums.StatusStudent;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 
 @Getter
@@ -31,7 +31,6 @@ public class Student {
     private String middleName;
     private StatusStudent status;
     private StudentGroup group;
-
 
     @Override
     public boolean equals(Object o) {

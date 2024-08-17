@@ -1,9 +1,10 @@
 package org.example.model;
 
+import jakarta.validation.constraints.Min;
 import lombok.*;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import javax.validation.constraints.Min;
+
 import java.util.ArrayList;
 import java.util.Objects;
 

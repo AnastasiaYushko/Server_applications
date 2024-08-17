@@ -1,19 +1,19 @@
 package org.example.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
 import org.example.SpringConfig;
-import org.example.dto_request.studentGroup.add.AddStudentGroupRequest;
-import org.example.dto_request.studentGroup.delete.DeleteStudentGroupRequest;
-import org.example.dto_request.studentGroup.edit.EditStudentGroupRequest;
-import org.example.dto_request.studentGroup.get.GetStudentGroupByIdRequest;
+import org.example.dto_request.studentGroup.AddStudentGroupRequest;
+import org.example.dto_request.studentGroup.DeleteStudentGroupRequest;
+import org.example.dto_request.studentGroup.EditStudentGroupRequest;
+import org.example.dto_request.studentGroup.GetStudentGroupByIdRequest;
 import org.example.handler.IHandler;
 import org.example.handler.studentGroup.*;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import javax.validation.constraints.Positive;
 import java.text.ParseException;
 
 @RestController

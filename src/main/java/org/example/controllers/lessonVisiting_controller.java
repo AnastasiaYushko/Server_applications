@@ -1,21 +1,21 @@
 package org.example.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
 import org.example.SpringConfig;
-import org.example.dto_request.lessonVisiting.add.AddLessonVisitingRequest;
-import org.example.dto_request.lessonVisiting.delete.byId.DeleteLessonVisitingByIdRequest;
-import org.example.dto_request.lessonVisiting.delete.byLessonId.DeleteLessonVisitingByLessonIdRequest;
-import org.example.dto_request.lessonVisiting.edit.EditLessonVisitingRequest;
-import org.example.dto_request.lessonVisiting.get.byILessonId.GetLessonVisitingByLessonIdRequest;
-import org.example.dto_request.lessonVisiting.get.byId.GetLessonVisitingByIdRequest;
+import org.example.dto_request.lessonVisiting.AddLessonVisitingRequest;
+import org.example.dto_request.lessonVisiting.DeleteLessonVisitingByIdRequest;
+import org.example.dto_request.lessonVisiting.DeleteLessonVisitingByLessonIdRequest;
+import org.example.dto_request.lessonVisiting.EditLessonVisitingRequest;
+import org.example.dto_request.lessonVisiting.GetLessonVisitingByLessonIdRequest;
+import org.example.dto_request.lessonVisiting.GetLessonVisitingByIdRequest;
 import org.example.handler.IHandler;
 import org.example.handler.lessonVisiting.*;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import javax.validation.constraints.Positive;
 import java.text.ParseException;
 
 @RestController

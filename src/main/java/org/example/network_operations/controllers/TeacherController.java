@@ -2,12 +2,12 @@ package org.example.network_operations.controllers;
 
 import org.apache.http.HttpStatus;
 import org.example.SpringConfig;
-import org.example.dto_request.teacher.add.AddTeacherRequest;
-import org.example.dto_request.teacher.delete.DeleteTeacherRequest;
-import org.example.dto_request.teacher.edit.EditTeacherRequest;
-import org.example.dto_request.teacher.edit.EditTeacherValidator;
-import org.example.dto_request.teacher.get.GetTeacherByIdRequest;
-import org.example.dto_request.teacher.get.GetTeacherByIdValidator;
+import org.example.dto_request.teacher.AddTeacherRequest;
+import org.example.dto_request.teacher.DeleteTeacherRequest;
+import org.example.dto_request.teacher.EditTeacherRequest;
+import org.example.dto_request.teacher.validation.EditTeacherValidator;
+import org.example.dto_request.teacher.GetTeacherByIdRequest;
+import org.example.dto_request.teacher.validation.GetTeacherByIdValidator;
 import org.example.dto_response.teacher.AddTeacherResponse;
 import org.example.dto_response.teacher.GetTeacherByIdResponse;
 import org.example.dto_response.teacher.GetTeachersResponse;

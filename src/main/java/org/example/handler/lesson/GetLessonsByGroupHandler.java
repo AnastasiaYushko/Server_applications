@@ -3,7 +3,7 @@ package org.example.handler.lesson;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import org.example.dto_request.lesson.get.byGroup.GetLessonsByGroupRequest;
+import org.example.dto_request.lesson.GetLessonsByGroupRequest;
 import org.example.handler.IHandler;
 import org.example.network_operations.ResponseEntity;
 import org.example.network_operations.controllers.LessonController;

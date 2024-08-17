@@ -2,10 +2,10 @@ package org.example.services.serviceInterfaceImpl;
 
 import org.example.SpringConfig;
 import org.example.dao_repositories_implements.TeacherDAOImpl;
-import org.example.dto_request.teacher.add.AddTeacherRequest;
-import org.example.dto_request.teacher.delete.DeleteTeacherRequest;
-import org.example.dto_request.teacher.edit.EditTeacherRequest;
-import org.example.dto_request.teacher.get.GetTeacherByIdRequest;
+import org.example.dto_request.teacher.AddTeacherRequest;
+import org.example.dto_request.teacher.DeleteTeacherRequest;
+import org.example.dto_request.teacher.EditTeacherRequest;
+import org.example.dto_request.teacher.GetTeacherByIdRequest;
 import org.example.dto_response.teacher.AddTeacherResponse;
 import org.example.dto_response.teacher.GetTeacherByIdResponse;
 import org.example.dto_response.teacher.GetTeachersResponse;

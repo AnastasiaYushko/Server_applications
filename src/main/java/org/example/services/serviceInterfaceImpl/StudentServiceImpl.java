@@ -2,11 +2,11 @@ package org.example.services.serviceInterfaceImpl;
 
 import org.example.SpringConfig;
 import org.example.dao_repositories_implements.StudentDAOImpl;
-import org.example.dto_request.student.add.AddStudentRequest;
-import org.example.dto_request.student.delete.DeleteStudentRequest;
-import org.example.dto_request.student.edit.EditStudentRequest;
-import org.example.dto_request.student.get.byGroup.GetStudentsByGroupRequest;
-import org.example.dto_request.student.get.byId.GetStudentByIdRequest;
+import org.example.dto_request.student.AddStudentRequest;
+import org.example.dto_request.student.DeleteStudentRequest;
+import org.example.dto_request.student.EditStudentRequest;
+import org.example.dto_request.student.GetStudentsByGroupRequest;
+import org.example.dto_request.student.GetStudentByIdRequest;
 import org.example.dto_response.student.AddStudentResponse;
 import org.example.dto_response.student.GetStudentByIdResponse;
 import org.example.dto_response.student.GetStudentsByGroupResponse;

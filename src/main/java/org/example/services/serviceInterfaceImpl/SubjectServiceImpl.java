@@ -2,10 +2,10 @@ package org.example.services.serviceInterfaceImpl;
 
 import org.example.SpringConfig;
 import org.example.dao_repositories_implements.SubjectDAOImpl;
-import org.example.dto_request.subject.add.AddSubjectRequest;
-import org.example.dto_request.subject.delete.DeleteSubjectRequest;
-import org.example.dto_request.subject.edit.EditSubjectRequest;
-import org.example.dto_request.subject.get.GetSubjectByIdRequest;
+import org.example.dto_request.subject.AddSubjectRequest;
+import org.example.dto_request.subject.DeleteSubjectRequest;
+import org.example.dto_request.subject.EditSubjectRequest;
+import org.example.dto_request.subject.GetSubjectByIdRequest;
 import org.example.dto_response.subject.AddSubjectResponse;
 import org.example.dto_response.subject.GetSubjectByIdResponse;
 import org.example.dto_response.subject.GetSubjectsResponse;

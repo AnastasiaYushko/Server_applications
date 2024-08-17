@@ -1,19 +1,19 @@
 package org.example.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
 import org.example.SpringConfig;
-import org.example.dto_request.subject.add.AddSubjectRequest;
-import org.example.dto_request.subject.delete.DeleteSubjectRequest;
-import org.example.dto_request.subject.edit.EditSubjectRequest;
-import org.example.dto_request.subject.get.GetSubjectByIdRequest;
+import org.example.dto_request.subject.AddSubjectRequest;
+import org.example.dto_request.subject.DeleteSubjectRequest;
+import org.example.dto_request.subject.EditSubjectRequest;
+import org.example.dto_request.subject.GetSubjectByIdRequest;
 import org.example.handler.IHandler;
 import org.example.handler.subject.*;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import javax.validation.constraints.Positive;
 import java.text.ParseException;
 
 @RestController
