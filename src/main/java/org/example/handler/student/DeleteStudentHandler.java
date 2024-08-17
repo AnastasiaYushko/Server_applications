@@ -1,12 +1,13 @@
+/*
 package org.example.handler.student;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import org.example.network_operations.controllers.StudentController;
-import org.example.dto_request.student.DeleteStudentRequest;
+import org.example.networkOperations.controllers.StudentController;
+import org.example.dtoRequest.student.DeleteStudentRequest;
 import org.example.handler.IHandler;
-import org.example.network_operations.ResponseEntity;
+import org.example.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -22,3 +23,4 @@ public class DeleteStudentHandler implements IHandler {
         return gson.toJson(deleteStudentResponse);
     }
 }
+ */

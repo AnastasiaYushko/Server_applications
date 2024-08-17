@@ -1,22 +1,23 @@
 package org.example.services.serviceInterfaceImpl;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.example.SpringConfig;
-import org.example.dao_repositories_implements.StudentGroupDAOImpl;
-import org.example.dto_request.studentGroup.AddStudentGroupRequest;
-import org.example.dto_request.studentGroup.DeleteStudentGroupRequest;
-import org.example.dto_request.studentGroup.EditStudentGroupRequest;
-import org.example.dto_request.studentGroup.GetStudentGroupByIdRequest;
-import org.example.dto_response.studentGroup.AddStudentGroupResponse;
-import org.example.dto_response.studentGroup.GetStudentGroupByIdResponse;
-import org.example.dto_response.studentGroup.GetStudentGroupsResponse;
+import org.example.daoRepositoriesImplements.StudentGroupDAOImpl;
+import org.example.dtoRequest.studentGroup.AddStudentGroupRequest;
+import org.example.dtoRequest.studentGroup.DeleteStudentGroupRequest;
+import org.example.dtoRequest.studentGroup.EditStudentGroupRequest;
+import org.example.dtoRequest.studentGroup.GetStudentGroupByIdRequest;
+import org.example.dtoResponse.studentGroup.AddStudentGroupResponse;
+import org.example.dtoResponse.studentGroup.GetStudentGroupByIdResponse;
+import org.example.dtoResponse.studentGroup.GetStudentGroupsResponse;
 import org.example.model.StudentGroup;
 import org.example.services.serviceInterface.GroupStudentsService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.jcr.RepositoryException;
 import javax.xml.rpc.ServiceException;
+
 import java.util.ArrayList;
 
 @Service
@@ -30,7 +31,7 @@ public class GroupStudentServiceImpl implements GroupStudentsService {
     }
 
     @Override
-    public GetStudentGroupByIdResponse getStudentGroupById(GetStudentGroupByIdRequest request) throws JsonProcessingException, ServiceException {
+    public GetStudentGroupByIdResponse getStudentGroupById(GetStudentGroupByIdRequest request) throws ServiceException {
         StudentGroup group;
         try {
             group = studentGroupDAO.getStudentGroupById(request.getId());

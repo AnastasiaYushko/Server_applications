@@ -1,12 +1,13 @@
+/*
 package org.example.handler.lesson;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import org.example.dto_request.lesson.DeleteLessonsByGroupRequest;
+import org.example.dtoRequest.lesson.DeleteLessonsByGroupRequest;
 import org.example.handler.IHandler;
-import org.example.network_operations.ResponseEntity;
-import org.example.network_operations.controllers.LessonController;
+import org.example.ResponseEntity;
+import org.example.networkOperations.controllers.LessonController;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -22,3 +23,4 @@ public class DeleteLessonsByGroupHandler implements IHandler {
         return gson.toJson(deleteLessonResponse);
     }
 }
+ */

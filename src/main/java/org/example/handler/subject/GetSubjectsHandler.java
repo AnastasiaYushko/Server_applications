@@ -1,12 +1,13 @@
+/*
 package org.example.handler.subject;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import org.example.dto_response.subject.GetSubjectsResponse;
+import org.example.dtoResponse.subject.GetSubjectsResponse;
 import org.example.handler.IHandler;
-import org.example.network_operations.ResponseEntity;
-import org.example.network_operations.controllers.SubjectController;
+import org.example.ResponseEntity;
+import org.example.networkOperations.controllers.SubjectController;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -22,3 +23,4 @@ public class GetSubjectsHandler implements IHandler {
         return gson.toJson(getSubjectsResponse);
     }
 }
+ */

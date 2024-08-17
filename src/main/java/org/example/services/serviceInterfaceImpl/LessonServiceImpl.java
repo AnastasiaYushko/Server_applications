@@ -1,26 +1,28 @@
 package org.example.services.serviceInterfaceImpl;
 
 import org.example.SpringConfig;
-import org.example.dao_repositories_implements.LessonDAOImpl;
-import org.example.dto_request.lesson.AddLessonRequest;
-import org.example.dto_request.lesson.DeleteLessonsByGroupRequest;
-import org.example.dto_request.lesson.DeleteLessonByIdRequest;
-import org.example.dto_request.lesson.DeleteLessonsByTeacherRequest;
-import org.example.dto_request.lesson.EditLessonRequest;
-import org.example.dto_request.lesson.GetLessonsByGroupRequest;
-import org.example.dto_request.lesson.GetLessonByIdRequest;
-import org.example.dto_request.lesson.GetLessonsByTeacherRequest;
-import org.example.dto_response.lesson.AddLessonResponse;
-import org.example.dto_response.lesson.GetLessonByIdResponse;
-import org.example.dto_response.lesson.GetLessonsByGroupResponse;
-import org.example.dto_response.lesson.GetLessonsByTeacherResponse;
+import org.example.daoRepositoriesImplements.LessonDAOImpl;
+import org.example.dtoRequest.lesson.AddLessonRequest;
+import org.example.dtoRequest.lesson.DeleteLessonsByGroupRequest;
+import org.example.dtoRequest.lesson.DeleteLessonByIdRequest;
+import org.example.dtoRequest.lesson.DeleteLessonsByTeacherRequest;
+import org.example.dtoRequest.lesson.EditLessonRequest;
+import org.example.dtoRequest.lesson.GetLessonsByGroupRequest;
+import org.example.dtoRequest.lesson.GetLessonByIdRequest;
+import org.example.dtoRequest.lesson.GetLessonsByTeacherRequest;
+import org.example.dtoResponse.lesson.AddLessonResponse;
+import org.example.dtoResponse.lesson.GetLessonByIdResponse;
+import org.example.dtoResponse.lesson.GetLessonsByGroupResponse;
+import org.example.dtoResponse.lesson.GetLessonsByTeacherResponse;
 import org.example.model.Lesson;
 import org.example.services.serviceInterface.LessonService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.jcr.RepositoryException;
 import javax.xml.rpc.ServiceException;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

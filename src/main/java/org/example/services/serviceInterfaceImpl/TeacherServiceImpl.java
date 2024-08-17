@@ -1,21 +1,23 @@
 package org.example.services.serviceInterfaceImpl;
 
 import org.example.SpringConfig;
-import org.example.dao_repositories_implements.TeacherDAOImpl;
-import org.example.dto_request.teacher.AddTeacherRequest;
-import org.example.dto_request.teacher.DeleteTeacherRequest;
-import org.example.dto_request.teacher.EditTeacherRequest;
-import org.example.dto_request.teacher.GetTeacherByIdRequest;
-import org.example.dto_response.teacher.AddTeacherResponse;
-import org.example.dto_response.teacher.GetTeacherByIdResponse;
-import org.example.dto_response.teacher.GetTeachersResponse;
+import org.example.daoRepositoriesImplements.TeacherDAOImpl;
+import org.example.dtoRequest.teacher.AddTeacherRequest;
+import org.example.dtoRequest.teacher.DeleteTeacherRequest;
+import org.example.dtoRequest.teacher.EditTeacherRequest;
+import org.example.dtoRequest.teacher.GetTeacherByIdRequest;
+import org.example.dtoResponse.teacher.AddTeacherResponse;
+import org.example.dtoResponse.teacher.GetTeacherByIdResponse;
+import org.example.dtoResponse.teacher.GetTeachersResponse;
 import org.example.model.Teacher;
 import org.example.services.serviceInterface.TeacherService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.jcr.RepositoryException;
 import javax.xml.rpc.ServiceException;
+
 import java.util.ArrayList;
 
 @Service

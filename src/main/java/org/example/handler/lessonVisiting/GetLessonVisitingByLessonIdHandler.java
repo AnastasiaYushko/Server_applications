@@ -1,12 +1,13 @@
+/*
 package org.example.handler.lessonVisiting;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import org.example.dto_request.lessonVisiting.GetLessonVisitingByLessonIdRequest;
+import org.example.dtoRequest.lessonVisiting.GetLessonVisitingByLessonIdRequest;
 import org.example.handler.IHandler;
-import org.example.network_operations.ResponseEntity;
-import org.example.network_operations.controllers.LessonVisitingController;
+import org.example.ResponseEntity;
+import org.example.networkOperations.controllers.LessonVisitingController;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -22,3 +23,4 @@ public class GetLessonVisitingByLessonIdHandler implements IHandler {
         return gson.toJson(getLessonVisitingResponse);
     }
 }
+ */

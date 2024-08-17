@@ -1,13 +1,13 @@
 package org.example.services.serviceInterface;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import org.example.dto_request.studentGroup.AddStudentGroupRequest;
-import org.example.dto_request.studentGroup.DeleteStudentGroupRequest;
-import org.example.dto_request.studentGroup.EditStudentGroupRequest;
-import org.example.dto_request.studentGroup.GetStudentGroupByIdRequest;
-import org.example.dto_response.studentGroup.AddStudentGroupResponse;
-import org.example.dto_response.studentGroup.GetStudentGroupByIdResponse;
-import org.example.dto_response.studentGroup.GetStudentGroupsResponse;
+import org.example.dtoRequest.studentGroup.AddStudentGroupRequest;
+import org.example.dtoRequest.studentGroup.DeleteStudentGroupRequest;
+import org.example.dtoRequest.studentGroup.EditStudentGroupRequest;
+import org.example.dtoRequest.studentGroup.GetStudentGroupByIdRequest;
+import org.example.dtoResponse.studentGroup.AddStudentGroupResponse;
+import org.example.dtoResponse.studentGroup.GetStudentGroupByIdResponse;
+import org.example.dtoResponse.studentGroup.GetStudentGroupsResponse;
 
 import javax.xml.rpc.ServiceException;
 

@@ -5,11 +5,13 @@ import org.example.myExceptions.AddEntityMatchData;
 import org.example.myExceptions.ChangesEntityLeadToConflict;
 import org.example.myExceptions.EntityNotFoundInDataBase;
 import org.example.myExceptions.StupidChanges;
+
 import org.springframework.stereotype.Component;
 
 import java.util.*;
 
 import static java.util.Objects.isNull;
+
 
 /*
  -- ADD
@@ -29,12 +31,12 @@ import static java.util.Objects.isNull;
 
 -- ГЛУБОКОЕ УДАЛЕНИЕ
 --
--- + Посещаемость (вся)
--- +  Урок -> Посещаемость (вся)
+-- Посещаемость (вся)
+-- Урок -> Посещаемость (вся)
 -- Студент -> Посещаемость (в списках студентов)
--- + Группа -> Студенты и Уроки -> Посещаемость (вся)
--- + Учитель -> Уроки -> Посещаемости (вся)
--- + Предмет -> Уроки -> Посещаемости (вся)
+-- Группа -> Студенты и Уроки -> Посещаемость (вся)
+-- Учитель -> Уроки -> Посещаемости (вся)
+-- Предмет -> Уроки -> Посещаемости (вся)
  */
 
 // Отловить 500
@@ -75,32 +77,6 @@ public class DataBase {
         listLessonVisiting_Id = new HashMap<>();
         listLessonVisiting_LessonId = new HashMap<>();
     }
-
-//    public static DataBase getDataBase() {
-//        if (dataBase == null) {
-//            dataBase = new DataBase();
-//        }
-//        return dataBase;
-//    }
-//
-//    public void clear() {
-//        dataBase.listTeachers.clear();
-//        dataBase.listStudents.clear();
-//        dataBase.listGroups.clear();
-//        dataBase.listSubjects.clear();
-//        dataBase.listLesson.clear();
-//        dataBase.listLessonVisiting_LessonId.clear();
-//        dataBase.listLessonVisiting_Id.clear();
-//
-//        keyStudent = 1;
-//        keyGroup = 1;
-//        keyTeacher = 1;
-//        keySubject = 1;
-//        keyLesson = 1;
-//        keyLessonVisiting_Id = 1;
-//
-//        dataBase = null;
-//    }
 
     //Student
 
@@ -471,13 +447,13 @@ public class DataBase {
 
     // LessonVisiting
 
-    public synchronized int addLessonVisiting(LessonVisiting lessonVisiting) throws EntityNotFoundInDataBase {
+    public synchronized int addLessonVisiting(LessonVisiting lessonVisiting) throws EntityNotFoundInDataBase,AddEntityMatchData {
         getLessonById(lessonVisiting.getLessonId());
 
         try {
             getLessonVisitingByLessonId(lessonVisiting.getLessonId());
-            throw new NullPointerException("Данные о посещаемости данного урока уже есть в базе данных");
-        } catch (NullPointerException e) {
+            throw new AddEntityMatchData("Данные о посещаемости данного урока уже есть в базе данных");
+        } catch (EntityNotFoundInDataBase e) {
             lessonVisiting.setId(keyLessonVisiting_Id);
             synchronized (listLessonVisiting_Id) {
                 listLessonVisiting_Id.put(keyLessonVisiting_Id, lessonVisiting);

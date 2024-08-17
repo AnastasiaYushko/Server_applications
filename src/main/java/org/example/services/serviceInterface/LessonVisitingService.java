@@ -1,14 +1,14 @@
 package org.example.services.serviceInterface;
 
-import org.example.dto_request.lessonVisiting.AddLessonVisitingRequest;
-import org.example.dto_request.lessonVisiting.DeleteLessonVisitingByIdRequest;
-import org.example.dto_request.lessonVisiting.DeleteLessonVisitingByLessonIdRequest;
-import org.example.dto_request.lessonVisiting.EditLessonVisitingRequest;
-import org.example.dto_request.lessonVisiting.GetLessonVisitingByLessonIdRequest;
-import org.example.dto_request.lessonVisiting.GetLessonVisitingByIdRequest;
-import org.example.dto_response.lessonVisiting.AddLessonVisitingResponse;
-import org.example.dto_response.lessonVisiting.GetLessonVisitingByIdResponse;
-import org.example.dto_response.lessonVisiting.GetLessonVisitingByLessonIdResponse;
+import org.example.dtoRequest.lessonVisiting.AddLessonVisitingRequest;
+import org.example.dtoRequest.lessonVisiting.DeleteLessonVisitingByIdRequest;
+import org.example.dtoRequest.lessonVisiting.DeleteLessonVisitingByLessonIdRequest;
+import org.example.dtoRequest.lessonVisiting.EditLessonVisitingRequest;
+import org.example.dtoRequest.lessonVisiting.GetLessonVisitingByLessonIdRequest;
+import org.example.dtoRequest.lessonVisiting.GetLessonVisitingByIdRequest;
+import org.example.dtoResponse.lessonVisiting.AddLessonVisitingResponse;
+import org.example.dtoResponse.lessonVisiting.GetLessonVisitingByIdResponse;
+import org.example.dtoResponse.lessonVisiting.GetLessonVisitingByLessonIdResponse;
 
 import javax.jcr.RepositoryException;
 import javax.xml.rpc.ServiceException;

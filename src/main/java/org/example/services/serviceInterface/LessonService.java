@@ -1,18 +1,18 @@
 package org.example.services.serviceInterface;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import org.example.dto_request.lesson.AddLessonRequest;
-import org.example.dto_request.lesson.DeleteLessonsByGroupRequest;
-import org.example.dto_request.lesson.DeleteLessonByIdRequest;
-import org.example.dto_request.lesson.DeleteLessonsByTeacherRequest;
-import org.example.dto_request.lesson.EditLessonRequest;
-import org.example.dto_request.lesson.GetLessonsByGroupRequest;
-import org.example.dto_request.lesson.GetLessonByIdRequest;
-import org.example.dto_request.lesson.GetLessonsByTeacherRequest;
-import org.example.dto_response.lesson.AddLessonResponse;
-import org.example.dto_response.lesson.GetLessonByIdResponse;
-import org.example.dto_response.lesson.GetLessonsByGroupResponse;
-import org.example.dto_response.lesson.GetLessonsByTeacherResponse;
+import org.example.dtoRequest.lesson.AddLessonRequest;
+import org.example.dtoRequest.lesson.DeleteLessonsByGroupRequest;
+import org.example.dtoRequest.lesson.DeleteLessonByIdRequest;
+import org.example.dtoRequest.lesson.DeleteLessonsByTeacherRequest;
+import org.example.dtoRequest.lesson.EditLessonRequest;
+import org.example.dtoRequest.lesson.GetLessonsByGroupRequest;
+import org.example.dtoRequest.lesson.GetLessonByIdRequest;
+import org.example.dtoRequest.lesson.GetLessonsByTeacherRequest;
+import org.example.dtoResponse.lesson.AddLessonResponse;
+import org.example.dtoResponse.lesson.GetLessonByIdResponse;
+import org.example.dtoResponse.lesson.GetLessonsByGroupResponse;
+import org.example.dtoResponse.lesson.GetLessonsByTeacherResponse;
 
 import javax.jcr.RepositoryException;
 import javax.xml.rpc.ServiceException;

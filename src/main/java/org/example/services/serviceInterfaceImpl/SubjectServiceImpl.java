@@ -1,21 +1,23 @@
 package org.example.services.serviceInterfaceImpl;
 
 import org.example.SpringConfig;
-import org.example.dao_repositories_implements.SubjectDAOImpl;
-import org.example.dto_request.subject.AddSubjectRequest;
-import org.example.dto_request.subject.DeleteSubjectRequest;
-import org.example.dto_request.subject.EditSubjectRequest;
-import org.example.dto_request.subject.GetSubjectByIdRequest;
-import org.example.dto_response.subject.AddSubjectResponse;
-import org.example.dto_response.subject.GetSubjectByIdResponse;
-import org.example.dto_response.subject.GetSubjectsResponse;
+import org.example.daoRepositoriesImplements.SubjectDAOImpl;
+import org.example.dtoRequest.subject.AddSubjectRequest;
+import org.example.dtoRequest.subject.DeleteSubjectRequest;
+import org.example.dtoRequest.subject.EditSubjectRequest;
+import org.example.dtoRequest.subject.GetSubjectByIdRequest;
+import org.example.dtoResponse.subject.AddSubjectResponse;
+import org.example.dtoResponse.subject.GetSubjectByIdResponse;
+import org.example.dtoResponse.subject.GetSubjectsResponse;
 import org.example.model.Subject;
 import org.example.services.serviceInterface.SubjectService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.jcr.RepositoryException;
 import javax.xml.rpc.ServiceException;
+
 import java.util.ArrayList;
 
 @Service
