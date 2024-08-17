@@ -1,6 +1,6 @@
 package org.example.model;
 
-import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Positive;
 import lombok.*;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -16,9 +16,9 @@ import java.util.Objects;
 @ToString
 @Scope("prototype")
 public class LessonVisiting {
-    @Min(1)
+    @Positive
     private int id;
-    @Min(1)
+    @Positive
     private int lessonId;
     private ArrayList<Student> listStudent;
 

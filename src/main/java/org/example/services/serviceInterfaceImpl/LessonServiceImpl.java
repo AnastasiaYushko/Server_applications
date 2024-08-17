@@ -1,19 +1,19 @@
 package org.example.services.serviceInterfaceImpl;
 
 import org.example.SpringConfig;
-import org.example.daoRepositoriesImplements.LessonDAOImpl;
-import org.example.dtoRequest.lesson.AddLessonRequest;
-import org.example.dtoRequest.lesson.DeleteLessonsByGroupRequest;
-import org.example.dtoRequest.lesson.DeleteLessonByIdRequest;
-import org.example.dtoRequest.lesson.DeleteLessonsByTeacherRequest;
-import org.example.dtoRequest.lesson.EditLessonRequest;
-import org.example.dtoRequest.lesson.GetLessonsByGroupRequest;
-import org.example.dtoRequest.lesson.GetLessonByIdRequest;
-import org.example.dtoRequest.lesson.GetLessonsByTeacherRequest;
-import org.example.dtoResponse.lesson.AddLessonResponse;
-import org.example.dtoResponse.lesson.GetLessonByIdResponse;
-import org.example.dtoResponse.lesson.GetLessonsByGroupResponse;
-import org.example.dtoResponse.lesson.GetLessonsByTeacherResponse;
+import org.example.dao.daoRepositoriesImplements.LessonDAOImpl;
+import org.example.dto.dtoRequest.lesson.AddLessonRequest;
+import org.example.dto.dtoRequest.lesson.DeleteLessonsByGroupRequest;
+import org.example.dto.dtoRequest.lesson.DeleteLessonByIdRequest;
+import org.example.dto.dtoRequest.lesson.DeleteLessonsByTeacherRequest;
+import org.example.dto.dtoRequest.lesson.EditLessonRequest;
+import org.example.dto.dtoRequest.lesson.GetLessonsByGroupRequest;
+import org.example.dto.dtoRequest.lesson.GetLessonByIdRequest;
+import org.example.dto.dtoRequest.lesson.GetLessonsByTeacherRequest;
+import org.example.dto.dtoResponse.lesson.AddLessonResponse;
+import org.example.dto.dtoResponse.lesson.GetLessonByIdResponse;
+import org.example.dto.dtoResponse.lesson.GetLessonsByGroupResponse;
+import org.example.dto.dtoResponse.lesson.GetLessonsByTeacherResponse;
 import org.example.model.Lesson;
 import org.example.services.serviceInterface.LessonService;
 

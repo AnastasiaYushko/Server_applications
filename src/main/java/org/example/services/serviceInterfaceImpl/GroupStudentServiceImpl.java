@@ -1,14 +1,14 @@
 package org.example.services.serviceInterfaceImpl;
 
 import org.example.SpringConfig;
-import org.example.daoRepositoriesImplements.StudentGroupDAOImpl;
-import org.example.dtoRequest.studentGroup.AddStudentGroupRequest;
-import org.example.dtoRequest.studentGroup.DeleteStudentGroupRequest;
-import org.example.dtoRequest.studentGroup.EditStudentGroupRequest;
-import org.example.dtoRequest.studentGroup.GetStudentGroupByIdRequest;
-import org.example.dtoResponse.studentGroup.AddStudentGroupResponse;
-import org.example.dtoResponse.studentGroup.GetStudentGroupByIdResponse;
-import org.example.dtoResponse.studentGroup.GetStudentGroupsResponse;
+import org.example.dao.daoRepositoriesImplements.StudentGroupDAOImpl;
+import org.example.dto.dtoRequest.studentGroup.AddStudentGroupRequest;
+import org.example.dto.dtoRequest.studentGroup.DeleteStudentGroupRequest;
+import org.example.dto.dtoRequest.studentGroup.EditStudentGroupRequest;
+import org.example.dto.dtoRequest.studentGroup.GetStudentGroupByIdRequest;
+import org.example.dto.dtoResponse.studentGroup.AddStudentGroupResponse;
+import org.example.dto.dtoResponse.studentGroup.GetStudentGroupByIdResponse;
+import org.example.dto.dtoResponse.studentGroup.GetStudentGroupsResponse;
 import org.example.model.StudentGroup;
 import org.example.services.serviceInterface.GroupStudentsService;
 

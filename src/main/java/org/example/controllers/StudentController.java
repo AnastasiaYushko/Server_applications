@@ -4,10 +4,10 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 
 import org.example.SpringConfig;
-import org.example.dtoRequest.student.*;
-import org.example.dtoResponse.student.AddStudentResponse;
-import org.example.dtoResponse.student.GetStudentByIdResponse;
-import org.example.dtoResponse.student.GetStudentsByGroupResponse;
+import org.example.dto.dtoRequest.student.*;
+import org.example.dto.dtoResponse.student.AddStudentResponse;
+import org.example.dto.dtoResponse.student.GetStudentByIdResponse;
+import org.example.dto.dtoResponse.student.GetStudentsByGroupResponse;
 import org.example.ResponseEntity;
 import org.example.services.serviceInterfaceImpl.StudentServiceImpl;
 

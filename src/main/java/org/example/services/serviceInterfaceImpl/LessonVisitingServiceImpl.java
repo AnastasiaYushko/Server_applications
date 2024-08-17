@@ -1,16 +1,16 @@
 package org.example.services.serviceInterfaceImpl;
 
 import org.example.SpringConfig;
-import org.example.daoRepositoriesImplements.LessonVisitingDAOImpl;
-import org.example.dtoRequest.lessonVisiting.AddLessonVisitingRequest;
-import org.example.dtoRequest.lessonVisiting.DeleteLessonVisitingByIdRequest;
-import org.example.dtoRequest.lessonVisiting.DeleteLessonVisitingByLessonIdRequest;
-import org.example.dtoRequest.lessonVisiting.EditLessonVisitingRequest;
-import org.example.dtoRequest.lessonVisiting.GetLessonVisitingByLessonIdRequest;
-import org.example.dtoRequest.lessonVisiting.GetLessonVisitingByIdRequest;
-import org.example.dtoResponse.lessonVisiting.AddLessonVisitingResponse;
-import org.example.dtoResponse.lessonVisiting.GetLessonVisitingByIdResponse;
-import org.example.dtoResponse.lessonVisiting.GetLessonVisitingByLessonIdResponse;
+import org.example.dao.daoRepositoriesImplements.LessonVisitingDAOImpl;
+import org.example.dto.dtoRequest.lessonVisiting.AddLessonVisitingRequest;
+import org.example.dto.dtoRequest.lessonVisiting.DeleteLessonVisitingByIdRequest;
+import org.example.dto.dtoRequest.lessonVisiting.DeleteLessonVisitingByLessonIdRequest;
+import org.example.dto.dtoRequest.lessonVisiting.EditLessonVisitingRequest;
+import org.example.dto.dtoRequest.lessonVisiting.GetLessonVisitingByLessonIdRequest;
+import org.example.dto.dtoRequest.lessonVisiting.GetLessonVisitingByIdRequest;
+import org.example.dto.dtoResponse.lessonVisiting.AddLessonVisitingResponse;
+import org.example.dto.dtoResponse.lessonVisiting.GetLessonVisitingByIdResponse;
+import org.example.dto.dtoResponse.lessonVisiting.GetLessonVisitingByLessonIdResponse;
 import org.example.services.serviceInterface.LessonVisitingService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,8 +85,7 @@ public class LessonVisitingServiceImpl implements LessonVisitingService {
     public String deleteLessonVisitingByLessonId(DeleteLessonVisitingByLessonIdRequest request) throws ServiceException {
         try {
             return lessonVisitingDAO.DeleteLessonVisitingByLessonId(request.getLessonId());
-        }
-        catch (RepositoryException e) {
+        } catch (RepositoryException e) {
             throw new ServiceException(e.getMessage());
         }
     }
@@ -95,8 +94,7 @@ public class LessonVisitingServiceImpl implements LessonVisitingService {
     public String editLessonVisiting(EditLessonVisitingRequest request) throws ServiceException {
         try {
             return lessonVisitingDAO.EditLessonVisiting(request.getLessonVisitingId(), request.getLessonId(), request.getListStudent());
-        }
-        catch (RepositoryException e) {
+        } catch (RepositoryException e) {
             throw new ServiceException(e.getMessage());
         }
     }

@@ -1,9 +1,9 @@
 package org.example.model;
 
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 import lombok.*;
-import org.hibernate.validator.constraints.Length;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -17,10 +17,10 @@ import java.util.Objects;
 @ToString
 @Scope("prototype")
 public class Subject {
-    @Min(1)
+    @Positive
     private int id;
     @NotBlank
-    @Length(max = 50)
+    @Size(max = 50)
     private String name;
 
     @Override

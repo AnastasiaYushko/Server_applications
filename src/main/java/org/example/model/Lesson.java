@@ -1,7 +1,7 @@
 package org.example.model;
 
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Positive;
 import lombok.*;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -17,11 +17,11 @@ import java.util.Objects;
 @ToString
 @Scope("prototype")
 public class Lesson {
-    @Min(1)
+    @Positive
     private int id;
     @Pattern(regexp = "((0?[1-9]|[12][0-9]|3[01])-(0?[1-9]|1[012])-((19|20|21)\\d\\d))")
     private Date date;
-    @Min(1)
+    @Positive
     private int number;
     private Subject subject;
     private Teacher teacher;

@@ -1,4 +1,4 @@
-package org.example.validators;
+/*package org.example.validators;
 
 import java.util.List;
 
@@ -21,3 +21,4 @@ public class ValidatorString {
         }
     }
 }
+ */

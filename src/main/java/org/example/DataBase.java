@@ -447,7 +447,7 @@ public class DataBase {
 
     // LessonVisiting
 
-    public synchronized int addLessonVisiting(LessonVisiting lessonVisiting) throws EntityNotFoundInDataBase,AddEntityMatchData {
+    public synchronized int addLessonVisiting(LessonVisiting lessonVisiting) throws EntityNotFoundInDataBase, AddEntityMatchData {
         getLessonById(lessonVisiting.getLessonId());
 
         try {

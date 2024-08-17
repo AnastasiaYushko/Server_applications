@@ -4,10 +4,10 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 
 import org.example.SpringConfig;
-import org.example.dtoRequest.lessonVisiting.*;
-import org.example.dtoResponse.lessonVisiting.AddLessonVisitingResponse;
-import org.example.dtoResponse.lessonVisiting.GetLessonVisitingByIdResponse;
-import org.example.dtoResponse.lessonVisiting.GetLessonVisitingByLessonIdResponse;
+import org.example.dto.dtoRequest.lessonVisiting.*;
+import org.example.dto.dtoResponse.lessonVisiting.AddLessonVisitingResponse;
+import org.example.dto.dtoResponse.lessonVisiting.GetLessonVisitingByIdResponse;
+import org.example.dto.dtoResponse.lessonVisiting.GetLessonVisitingByLessonIdResponse;
 import org.example.ResponseEntity;
 import org.example.services.serviceInterfaceImpl.LessonVisitingServiceImpl;
 
