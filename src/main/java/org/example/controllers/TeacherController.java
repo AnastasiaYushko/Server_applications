@@ -40,8 +40,10 @@ public class TeacherController {
         return new ResponseEntity<>(dataResponse, HttpStatus.OK);
     }
 
-    @GetMapping("/getById/{id}")
-    public ResponseEntity<?> GetTeacherById(@Valid @PathVariable("id") GetTeacherByIdRequest getTeacherByIdRequest) {
+    @GetMapping("/getById")
+    public ResponseEntity<?> GetTeacherById(@Valid @RequestParam("id") int id) {
+        GetTeacherByIdRequest getTeacherByIdRequest = SpringConfig.getContext().getBean("getTeacherByIdRequest",GetTeacherByIdRequest.class);
+        getTeacherByIdRequest.setId(id);
         try {
             GetTeacherByIdResponse dataResponse = teacherService.getTeacherById(getTeacherByIdRequest);
             return new ResponseEntity<>(dataResponse, HttpStatus.OK);
@@ -60,7 +62,7 @@ public class TeacherController {
         }
     }
 
-    @PostMapping("/edit")
+    @PutMapping("/edit")
     public ResponseEntity<String> EditTeacher(@Valid @RequestBody EditTeacherRequest jsonRequest) {
         try {
             String dataResponse = teacherService.editTeacher(jsonRequest);

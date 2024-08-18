@@ -62,7 +62,7 @@ public class StudentGroupController {
         }
     }
 
-    @PostMapping("/edit")
+    @PutMapping("/edit")
     public ResponseEntity<?> EditStudentGroup(@Valid @RequestBody EditStudentGroupRequest jsonRequest) {
         try {
             String editStudentGroupResponse = groupStudentService.editStudentGroup(jsonRequest);

@@ -62,7 +62,7 @@ public class SubjectController {
         }
     }
 
-    @PostMapping("/edit")
+    @PutMapping("/edit")
     public ResponseEntity<?> EditSubject(@Valid @RequestBody EditSubjectRequest jsonRequest) {
         try {
             String editSubjectResponse = subjectService.editSubject(jsonRequest);

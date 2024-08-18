@@ -41,7 +41,7 @@ public class LessonVisitingController {
         }
     }
 
-    @PostMapping("/edit")
+    @PutMapping("/edit")
     public ResponseEntity<?> EditLessonVisiting(@Valid @RequestBody EditLessonVisitingRequest jsonRequest) {
         try {
             String dataResponse = lessonVisitingService.editLessonVisiting(jsonRequest);

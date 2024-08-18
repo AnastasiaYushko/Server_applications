@@ -65,7 +65,7 @@ public class StudentController {
         }
     }
 
-    @PostMapping("/edit")
+    @PutMapping("/edit")
     public ResponseEntity<?> EditStudent(@Valid @RequestBody EditStudentRequest jsonRequest) {
         try {
             String editStudentResponse = studentService.editStudent(jsonRequest);

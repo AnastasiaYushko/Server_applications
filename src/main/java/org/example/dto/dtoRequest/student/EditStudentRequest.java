@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import org.example.myAnnotations.checkStatus.CheckStatus;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -31,6 +32,7 @@ public class EditStudentRequest {
     @Size(max = 50)
     private String middleName;
     @NotBlank
+    @CheckStatus
     private String status;
     @Positive
     private int groupId;
