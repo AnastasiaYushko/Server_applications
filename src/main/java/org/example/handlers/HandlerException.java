@@ -1,11 +1,11 @@
 package org.example.handlers;
 
-import org.example.ResponseEntity;
 import org.example.myExceptions.AddEntityMatchData;
 import org.example.myExceptions.ChangesEntityLeadToConflict;
 import org.example.myExceptions.EntityNotFoundInDataBase;
 import org.example.myExceptions.StupidChanges;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -19,6 +19,7 @@ import java.util.Map;
 
 @RestControllerAdvice
 public class HandlerException {
+    // @Valid на аргументах
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleValidationExceptions_ArgumentNotValid(MethodArgumentNotValidException ex) {
         HashMap<String, String> result = new HashMap<>();
@@ -29,9 +30,10 @@ public class HandlerException {
             String errorMessage = error.getDefaultMessage();
             result.put(fieldName, errorMessage);
         }
-        return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(result, HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
+    // Например id = абвг
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity<HashMap<String, String>> handleValidationExceptions_(MethodArgumentTypeMismatchException ex) {
         HashMap<String, String> errors = new HashMap<>();

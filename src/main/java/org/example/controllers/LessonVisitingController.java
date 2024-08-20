@@ -2,7 +2,6 @@ package org.example.controllers;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
-import org.example.ResponseEntity;
 import org.example.SpringConfig;
 import org.example.dto.dtoRequest.lessonVisiting.*;
 import org.example.dto.dtoResponse.lessonVisiting.AddLessonVisitingResponse;
@@ -14,6 +13,7 @@ import org.example.myExceptions.StupidChanges;
 import org.example.services.serviceInterfaceImpl.LessonVisitingServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
