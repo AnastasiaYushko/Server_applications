@@ -13,6 +13,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CheckStatus {
     String message() default "Неверный статус";
+
     Class<?>[] groups() default {};
+
     Class<? extends Payload>[] payload() default {};
 }

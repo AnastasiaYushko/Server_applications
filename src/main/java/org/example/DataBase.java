@@ -448,7 +448,7 @@ public class DataBase {
     // LessonVisiting
 
     public synchronized int addLessonVisiting(LessonVisiting lessonVisiting) throws EntityNotFoundInDataBase, AddEntityMatchData {
-        for (Student student: lessonVisiting.getListStudent()){
+        for (Student student : lessonVisiting.getListStudent()) {
             getStudentById(student.getId());
         }
         getLessonById(lessonVisiting.getLessonId());
@@ -487,7 +487,7 @@ public class DataBase {
 
 
     public synchronized String editLessonVisiting(LessonVisiting lessonVisiting) throws EntityNotFoundInDataBase, StupidChanges {
-        for (Student student: lessonVisiting.getListStudent()){
+        for (Student student : lessonVisiting.getListStudent()) {
             getStudentById(student.getId());
         }
         synchronized (listLessonVisiting_Id) {

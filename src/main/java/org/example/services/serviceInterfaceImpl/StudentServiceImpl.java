@@ -29,7 +29,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public GetStudentByIdResponse getStudentById(GetStudentByIdRequest request) throws EntityNotFoundInDataBase {
-        Student student= studentDAO.getStudentById(request.getStudentId());
+        Student student = studentDAO.getStudentById(request.getStudentId());
 
         GetStudentByIdResponse getStudentByIdResponse = SpringConfig.getContext().getBean("getStudentByIdResponse", GetStudentByIdResponse.class);
         getStudentByIdResponse.setFirstName(student.getFirstName());

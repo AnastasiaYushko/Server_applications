@@ -11,9 +11,9 @@ public class StatusValidator implements ConstraintValidator<CheckStatus, String>
 
     @Override
     public void initialize(CheckStatus constraintAnnotation) {
-       validStatus.add(StatusStudent.STUDIES.toString().toLowerCase());
-       validStatus.add(StatusStudent.EXPELLED.toString().toLowerCase());
-       validStatus.add(StatusStudent.ACADEMIC_LEAVE.toString().toLowerCase());
+        validStatus.add(StatusStudent.STUDIES.toString().toLowerCase());
+        validStatus.add(StatusStudent.EXPELLED.toString().toLowerCase());
+        validStatus.add(StatusStudent.ACADEMIC_LEAVE.toString().toLowerCase());
     }
 
     @Override

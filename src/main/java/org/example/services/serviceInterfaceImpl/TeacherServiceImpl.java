@@ -51,9 +51,9 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public GetTeacherByIdResponse getTeacherById(GetTeacherByIdRequest request) throws EntityNotFoundInDataBase {
-        Teacher teacher= teacherDAO.getTeacherById(request.getId());
+        Teacher teacher = teacherDAO.getTeacherById(request.getId());
 
-        GetTeacherByIdResponse getTeacherByIdResponse = SpringConfig.getContext().getBean("getTeacherByIdResponse",GetTeacherByIdResponse.class);
+        GetTeacherByIdResponse getTeacherByIdResponse = SpringConfig.getContext().getBean("getTeacherByIdResponse", GetTeacherByIdResponse.class);
         getTeacherByIdResponse.setFirstName(teacher.getFirstName());
         getTeacherByIdResponse.setLastName(teacher.getLastName());
         getTeacherByIdResponse.setMiddleName(teacher.getMiddleName());
@@ -70,7 +70,7 @@ public class TeacherServiceImpl implements TeacherService {
             newListTeachers.add(teacher.toString());
         }
 
-        GetTeachersResponse getTeachersResponse = SpringConfig.getContext().getBean("getTeachersResponse",GetTeachersResponse.class);
+        GetTeachersResponse getTeachersResponse = SpringConfig.getContext().getBean("getTeachersResponse", GetTeachersResponse.class);
         getTeachersResponse.setListTeachers(newListTeachers);
         return getTeachersResponse;
     }

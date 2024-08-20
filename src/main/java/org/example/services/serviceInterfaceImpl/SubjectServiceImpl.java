@@ -52,7 +52,7 @@ public class SubjectServiceImpl implements SubjectService {
     @Override
     public GetSubjectByIdResponse getSubjectById(GetSubjectByIdRequest request) throws EntityNotFoundInDataBase {
         Subject subject = subjectDAO.getSubjectById(request.getId());
-        GetSubjectByIdResponse getSubjectByIdResponse = SpringConfig.getContext().getBean("getSubjectByIdResponse",GetSubjectByIdResponse.class);
+        GetSubjectByIdResponse getSubjectByIdResponse = SpringConfig.getContext().getBean("getSubjectByIdResponse", GetSubjectByIdResponse.class);
         getSubjectByIdResponse.setName(subject.getName());
         return getSubjectByIdResponse;
     }
@@ -66,7 +66,7 @@ public class SubjectServiceImpl implements SubjectService {
             newListSubject.add(subject.toString());
         }
 
-        GetSubjectsResponse getSubjectsResponse = SpringConfig.getContext().getBean("getSubjectsResponse",GetSubjectsResponse.class);
+        GetSubjectsResponse getSubjectsResponse = SpringConfig.getContext().getBean("getSubjectsResponse", GetSubjectsResponse.class);
         getSubjectsResponse.setListSubjects(newListSubject);
         return getSubjectsResponse;
     }
