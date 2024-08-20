@@ -2,7 +2,7 @@ package org.example.controllers;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
-
+import org.example.ResponseEntity;
 import org.example.SpringConfig;
 import org.example.dto.dtoRequest.teacher.AddTeacherRequest;
 import org.example.dto.dtoRequest.teacher.DeleteTeacherRequest;
@@ -11,19 +11,18 @@ import org.example.dto.dtoRequest.teacher.GetTeacherByIdRequest;
 import org.example.dto.dtoResponse.teacher.AddTeacherResponse;
 import org.example.dto.dtoResponse.teacher.GetTeacherByIdResponse;
 import org.example.dto.dtoResponse.teacher.GetTeachersResponse;
-import org.example.ResponseEntity;
+import org.example.myExceptions.AddEntityMatchData;
+import org.example.myExceptions.ChangesEntityLeadToConflict;
+import org.example.myExceptions.EntityNotFoundInDataBase;
+import org.example.myExceptions.StupidChanges;
 import org.example.services.serviceInterfaceImpl.TeacherServiceImpl;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.xml.rpc.ServiceException;
-
 @RestController
-@RequestMapping(value = "/teacher", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/teacher")
 @Validated
 public class TeacherController {
 
@@ -41,46 +40,33 @@ public class TeacherController {
     }
 
     @GetMapping("/getById")
-    public ResponseEntity<?> GetTeacherById(@Valid @RequestParam("id") int id) {
-        GetTeacherByIdRequest getTeacherByIdRequest = SpringConfig.getContext().getBean("getTeacherByIdRequest",GetTeacherByIdRequest.class);
+    public ResponseEntity<GetTeacherByIdResponse> GetTeacherById(@Valid @RequestParam("id") int id) throws EntityNotFoundInDataBase {
+        GetTeacherByIdRequest getTeacherByIdRequest = SpringConfig.getContext().getBean("getTeacherByIdRequest", GetTeacherByIdRequest.class);
         getTeacherByIdRequest.setId(id);
-        try {
-            GetTeacherByIdResponse dataResponse = teacherService.getTeacherById(getTeacherByIdRequest);
-            return new ResponseEntity<>(dataResponse, HttpStatus.OK);
-        } catch (ServiceException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-        }
+
+        GetTeacherByIdResponse dataResponse = teacherService.getTeacherById(getTeacherByIdRequest);
+        return new ResponseEntity<>(dataResponse, HttpStatus.OK);
+
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> AddTeacher(@Valid @RequestBody AddTeacherRequest jsonRequest) {
-        try {
-            AddTeacherResponse dataResponse = teacherService.addTeacher(jsonRequest);
-            return new ResponseEntity<>(dataResponse, HttpStatus.OK);
-        } catch (ServiceException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<AddTeacherResponse> AddTeacher(@Valid @RequestBody AddTeacherRequest jsonRequest) throws AddEntityMatchData {
+        AddTeacherResponse dataResponse = teacherService.addTeacher(jsonRequest);
+        return new ResponseEntity<>(dataResponse, HttpStatus.OK);
     }
 
     @PutMapping("/edit")
-    public ResponseEntity<String> EditTeacher(@Valid @RequestBody EditTeacherRequest jsonRequest) {
-        try {
-            String dataResponse = teacherService.editTeacher(jsonRequest);
-            return new ResponseEntity<>(dataResponse, HttpStatus.OK);
-        } catch (ServiceException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<String> EditTeacher(@Valid @RequestBody EditTeacherRequest jsonRequest) throws StupidChanges, ChangesEntityLeadToConflict, EntityNotFoundInDataBase {
+        String dataResponse = teacherService.editTeacher(jsonRequest);
+        return new ResponseEntity<>(dataResponse, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<String> deleteTeacher(@Valid @RequestParam("id") @Positive int id) {
+    public ResponseEntity<String> deleteTeacher(@Valid @RequestParam("id") @Positive int id) throws EntityNotFoundInDataBase {
         DeleteTeacherRequest deleteTeacherRequest = SpringConfig.getContext().getBean("deleteTeacherRequest", DeleteTeacherRequest.class);
         deleteTeacherRequest.setId(id);
-        try {
-            String dataResponse = teacherService.deleteTeacher(deleteTeacherRequest);
-            return new ResponseEntity<>(dataResponse, HttpStatus.OK);
-        } catch (ServiceException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-        }
+
+        String dataResponse = teacherService.deleteTeacher(deleteTeacherRequest);
+        return new ResponseEntity<>(dataResponse, HttpStatus.OK);
     }
 }

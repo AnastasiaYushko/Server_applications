@@ -1,7 +1,14 @@
 package org.example.myExceptions;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@Getter
+@NoArgsConstructor
 public class EntityNotFoundInDataBase extends Exception {
-    public EntityNotFoundInDataBase(String message) {
-        super(message);
+    private  String classError;
+
+    public EntityNotFoundInDataBase(String classError) {
+        this.classError = classError;
     }
 }

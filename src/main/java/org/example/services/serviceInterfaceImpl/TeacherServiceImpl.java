@@ -10,13 +10,13 @@ import org.example.dto.dtoResponse.teacher.AddTeacherResponse;
 import org.example.dto.dtoResponse.teacher.GetTeacherByIdResponse;
 import org.example.dto.dtoResponse.teacher.GetTeachersResponse;
 import org.example.model.Teacher;
+import org.example.myExceptions.AddEntityMatchData;
+import org.example.myExceptions.ChangesEntityLeadToConflict;
+import org.example.myExceptions.EntityNotFoundInDataBase;
+import org.example.myExceptions.StupidChanges;
 import org.example.services.serviceInterface.TeacherService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.jcr.RepositoryException;
-import javax.xml.rpc.ServiceException;
 
 import java.util.ArrayList;
 
@@ -30,47 +30,29 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public AddTeacherResponse addTeacher(AddTeacherRequest request) throws ServiceException {
-        int result;
-        try {
-            result = teacherDAO.addTeacher(request.getFirstName(), request.getMiddleName(), request.getLastName());
-        } catch (RepositoryException e) {
-            throw new ServiceException(e.getMessage());
-        }
+    public AddTeacherResponse addTeacher(AddTeacherRequest request) throws AddEntityMatchData {
+        int id = teacherDAO.addTeacher(request.getFirstName(), request.getMiddleName(), request.getLastName());
 
         AddTeacherResponse addTeacherResponse = SpringConfig.getContext().getBean("addTeacherResponse", AddTeacherResponse.class);
-        addTeacherResponse.setId(result);
+        addTeacherResponse.setId(id);
         return addTeacherResponse;
     }
 
     @Override
-    public String deleteTeacher(DeleteTeacherRequest request) throws ServiceException {
-        try {
-            return teacherDAO.deleteTeacher(request.getId());
-        } catch (RepositoryException e) {
-            throw new ServiceException(e.getMessage());
-        }
+    public String deleteTeacher(DeleteTeacherRequest request) throws EntityNotFoundInDataBase {
+        return teacherDAO.deleteTeacher(request.getId());
     }
 
     @Override
-    public String editTeacher(EditTeacherRequest request) throws ServiceException {
-        try {
-            return teacherDAO.editTeacher(request.getId(), request.getFirstName(), request.getMiddleName(), request.getLastName());
-        } catch (RepositoryException e) {
-            throw new ServiceException(e.getMessage());
-        }
+    public String editTeacher(EditTeacherRequest request) throws StupidChanges, ChangesEntityLeadToConflict, EntityNotFoundInDataBase {
+        return teacherDAO.editTeacher(request.getId(), request.getFirstName(), request.getMiddleName(), request.getLastName());
     }
 
 
     @Override
-    public GetTeacherByIdResponse getTeacherById(GetTeacherByIdRequest request) throws ServiceException {
-        Teacher teacher;
-        try {
-            teacher = teacherDAO.getTeacherById(request.getId());
-        }
-        catch (RepositoryException e) {
-            throw new ServiceException(e.getMessage());
-        }
+    public GetTeacherByIdResponse getTeacherById(GetTeacherByIdRequest request) throws EntityNotFoundInDataBase {
+        Teacher teacher= teacherDAO.getTeacherById(request.getId());
+
         GetTeacherByIdResponse getTeacherByIdResponse = SpringConfig.getContext().getBean("getTeacherByIdResponse",GetTeacherByIdResponse.class);
         getTeacherByIdResponse.setFirstName(teacher.getFirstName());
         getTeacherByIdResponse.setLastName(teacher.getLastName());

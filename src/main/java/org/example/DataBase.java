@@ -84,7 +84,7 @@ public class DataBase {
         synchronized (listStudents) {
             for (Student s : listStudents.values()) {
                 if (s.equals(student)) {
-                    throw new AddEntityMatchData("Такой студент уже есть в системе");
+                    throw new AddEntityMatchData();
                 }
             }
             student.setId(keyStudent);
@@ -110,7 +110,7 @@ public class DataBase {
     public Student getStudentById(int id) throws EntityNotFoundInDataBase {
         Student student = listStudents.get(id);
         if (isNull(student)) {
-            throw new EntityNotFoundInDataBase("Такого студента нет в базе данных");
+            throw new EntityNotFoundInDataBase("Student");
         }
         return student;
     }
@@ -119,11 +119,11 @@ public class DataBase {
         synchronized (listStudents) {
             Student student1 = getStudentById(student.getId());
             if (student.equals(student1)) {
-                throw new StupidChanges("Новые данные, которые вы хотите внести, совпадают с имеющимися");
+                throw new StupidChanges();
             }
             for (Student s : listStudents.values()) {
                 if (s.equals(student)) {
-                    throw new ChangesEntityLeadToConflict("Новые данные, которые вы хотите внести совпадают с другим студентом");
+                    throw new ChangesEntityLeadToConflict();
                 }
             }
             listStudents.put(student.getId(), student);
@@ -153,7 +153,7 @@ public class DataBase {
     public Lesson getLessonById(int id) throws EntityNotFoundInDataBase {
         Lesson lesson = listLesson.get(id);
         if (isNull(lesson)) {
-            throw new EntityNotFoundInDataBase("Такого урока нет в базе данных");
+            throw new EntityNotFoundInDataBase("Lesson");
         }
         return lesson;
     }
@@ -161,7 +161,7 @@ public class DataBase {
     public ArrayList<Lesson> getLessonsByGroup(Date startDate, Date endDate, int groupId) throws EntityNotFoundInDataBase {
         StudentGroup group = getStudentGroupById(groupId);
         if (isNull(group)) {
-            throw new EntityNotFoundInDataBase("Такой группы нет в базе данных");
+            throw new EntityNotFoundInDataBase("StudentGroup");
         }
 
         ArrayList<Lesson> lessonsList = new ArrayList<>();
@@ -180,7 +180,7 @@ public class DataBase {
     public ArrayList<Lesson> getLessonsByTeacher(Date startDate, Date endDate, int teacherId) throws EntityNotFoundInDataBase {
         Teacher teacher = getTeacherById(teacherId);
         if (isNull(teacher)) {
-            throw new EntityNotFoundInDataBase("Такого учителя нет в базе данных");
+            throw new EntityNotFoundInDataBase("Teacher");
         }
 
         ArrayList<Lesson> lessonsList = new ArrayList<>();
@@ -201,12 +201,12 @@ public class DataBase {
         synchronized (listLesson) {
             Lesson lesson1 = getLessonById(lesson.getId());
             if (lesson.equals(lesson1)) {
-                throw new StupidChanges("Новые данные, которые вы хотите внести, совпадают с имеющимися");
+                throw new StupidChanges();
             }
 
             for (Lesson l : listLesson.values()) {
                 if (lesson.equals(l)) {
-                    throw new ChangesEntityLeadToConflict("Новые данные, которые вы хотите внести совпадают с другим уроком");
+                    throw new ChangesEntityLeadToConflict();
                 }
             }
             listLesson.put(lesson.getId(), lesson);
@@ -218,7 +218,7 @@ public class DataBase {
         synchronized (listLesson) {
             for (Lesson l : listLesson.values()) {
                 if (lesson.equals(l)) {
-                    throw new AddEntityMatchData("Такой урок уже есть в базе данных");
+                    throw new AddEntityMatchData();
                 }
             }
             lesson.setId(keyLesson);
@@ -293,7 +293,7 @@ public class DataBase {
     public StudentGroup getStudentGroupById(int id) throws EntityNotFoundInDataBase {
         StudentGroup group = listGroups.get(id);
         if (isNull(group)) {
-            throw new EntityNotFoundInDataBase("Такой группы нет в базе данных");
+            throw new EntityNotFoundInDataBase("StudentGroup");
         }
         return group;
     }
@@ -302,7 +302,7 @@ public class DataBase {
         synchronized (listGroups) {
             for (StudentGroup studentGroup : listGroups.values()) {
                 if (studentGroup.equals(group)) {
-                    throw new AddEntityMatchData("Такая группа уже есть в базе данных");
+                    throw new AddEntityMatchData();
                 }
             }
             group.setId(keyGroup);
@@ -317,11 +317,11 @@ public class DataBase {
         synchronized (listGroups) {
             StudentGroup group0 = getStudentGroupById(group.getId());
             if (group.equals(group0)) {
-                throw new StupidChanges("Новые данные, которые вы хотите внести, совпадают с имеющимися");
+                throw new StupidChanges();
             }
             for (StudentGroup studentGroup : listGroups.values()) {
                 if (studentGroup.equals(group)) {
-                    throw new ChangesEntityLeadToConflict("Новые данные, которые вы хотите внести совпадают с другой группой");
+                    throw new ChangesEntityLeadToConflict();
                 }
             }
             listGroups.put(group.getId(), group);
@@ -342,7 +342,7 @@ public class DataBase {
     public Teacher getTeacherById(int id) throws EntityNotFoundInDataBase {
         Teacher teacher = listTeachers.get(id);
         if (isNull(teacher)) {
-            throw new EntityNotFoundInDataBase("Такого преподавателя нет в базе данных");
+            throw new EntityNotFoundInDataBase("Teacher");
         }
         return teacher;
     }
@@ -356,7 +356,7 @@ public class DataBase {
         synchronized (listTeachers) {
             for (Teacher teacher0 : listTeachers.values()) {
                 if (teacher0.equals(teacher)) {
-                    throw new AddEntityMatchData("Такой преподаватель уже есть в базе данных");
+                    throw new AddEntityMatchData();
                 }
             }
             teacher.setId(keyTeacher);
@@ -371,11 +371,11 @@ public class DataBase {
         synchronized (listTeachers) {
             Teacher teacher0 = getTeacherById(teacher.getId());
             if (teacher0.equals(teacher)) {
-                throw new StupidChanges("Новые данные, которые вы хотите внести, совпадают с имеющимися");
+                throw new StupidChanges();
             }
             for (Teacher t : listTeachers.values()) {
                 if (t.equals(teacher)) {
-                    throw new ChangesEntityLeadToConflict("Новые данные, которые вы хотите внести, совпадают с другим преподавателем");
+                    throw new ChangesEntityLeadToConflict();
                 }
             }
             listTeachers.put(teacher.getId(), teacher);
@@ -400,7 +400,7 @@ public class DataBase {
     public Subject getSubjectById(int subjectId) throws EntityNotFoundInDataBase {
         Subject subject = listSubjects.get(subjectId);
         if (isNull(subject)) {
-            throw new EntityNotFoundInDataBase("Такого урока нет в базе данных");
+            throw new EntityNotFoundInDataBase("Subject");
         }
         return subject;
     }
@@ -409,7 +409,7 @@ public class DataBase {
         synchronized (listSubjects) {
             for (Subject s : listSubjects.values()) {
                 if (Objects.equals(s.getName(), subject.getName())) {
-                    throw new AddEntityMatchData("Такой предмет уже есть в базе данных");
+                    throw new AddEntityMatchData();
                 }
             }
             subject.setId(keySubject);
@@ -424,11 +424,11 @@ public class DataBase {
         synchronized (listSubjects) {
             Subject subject1 = getSubjectById(subject.getId());
             if (subject1.equals(subject)) {
-                throw new StupidChanges("Новые данные, которые вы хотите внести, совпадают с имеющимися");
+                throw new StupidChanges();
             }
             for (Subject s : listSubjects.values()) {
                 if (s.equals(subject)) {
-                    throw new ChangesEntityLeadToConflict("Новые данные, которые вы хотите внести совпадают с другим предметом");
+                    throw new ChangesEntityLeadToConflict();
                 }
             }
             listSubjects.put(subject.getId(), subject);
@@ -448,11 +448,14 @@ public class DataBase {
     // LessonVisiting
 
     public synchronized int addLessonVisiting(LessonVisiting lessonVisiting) throws EntityNotFoundInDataBase, AddEntityMatchData {
+        for (Student student: lessonVisiting.getListStudent()){
+            getStudentById(student.getId());
+        }
         getLessonById(lessonVisiting.getLessonId());
 
         try {
             getLessonVisitingByLessonId(lessonVisiting.getLessonId());
-            throw new AddEntityMatchData("Данные о посещаемости данного урока уже есть в базе данных");
+            throw new AddEntityMatchData();
         } catch (EntityNotFoundInDataBase e) {
             lessonVisiting.setId(keyLessonVisiting_Id);
             synchronized (listLessonVisiting_Id) {
@@ -469,7 +472,7 @@ public class DataBase {
     public LessonVisiting getLessonVisitingById(int lessonVisitingId) throws EntityNotFoundInDataBase {
         LessonVisiting lessonVisiting = listLessonVisiting_Id.get(lessonVisitingId);
         if (isNull(lessonVisiting)) {
-            throw new EntityNotFoundInDataBase("Данных о такой посещаемости нет в базе данных");
+            throw new EntityNotFoundInDataBase("LessonVisiting");
         }
         return lessonVisiting;
     }
@@ -477,13 +480,16 @@ public class DataBase {
     public LessonVisiting getLessonVisitingByLessonId(int lessonId) throws EntityNotFoundInDataBase {
         LessonVisiting lessonVisiting = listLessonVisiting_LessonId.get(lessonId);
         if (isNull(lessonVisiting)) {
-            throw new EntityNotFoundInDataBase("Данных о такой посещаемости нет в базе данных");
+            throw new EntityNotFoundInDataBase("LessonVisiting");
         }
         return lessonVisiting;
     }
 
 
     public synchronized String editLessonVisiting(LessonVisiting lessonVisiting) throws EntityNotFoundInDataBase, StupidChanges {
+        for (Student student: lessonVisiting.getListStudent()){
+            getStudentById(student.getId());
+        }
         synchronized (listLessonVisiting_Id) {
             synchronized (listLessonVisiting_LessonId) {
                 getLessonById(lessonVisiting.getLessonId());
@@ -491,7 +497,7 @@ public class DataBase {
                 LessonVisiting lv = getLessonVisitingById(lessonVisiting.getId());
 
                 if (lessonVisiting.equals(lv)) {
-                    throw new StupidChanges("Данные о посещаемости совпадают с имеющимися");
+                    throw new StupidChanges();
                 }
 
                 listLessonVisiting_Id.put(lessonVisiting.getId(), lessonVisiting);

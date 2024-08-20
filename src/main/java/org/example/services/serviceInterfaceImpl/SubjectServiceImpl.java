@@ -10,13 +10,13 @@ import org.example.dto.dtoResponse.subject.AddSubjectResponse;
 import org.example.dto.dtoResponse.subject.GetSubjectByIdResponse;
 import org.example.dto.dtoResponse.subject.GetSubjectsResponse;
 import org.example.model.Subject;
+import org.example.myExceptions.AddEntityMatchData;
+import org.example.myExceptions.ChangesEntityLeadToConflict;
+import org.example.myExceptions.EntityNotFoundInDataBase;
+import org.example.myExceptions.StupidChanges;
 import org.example.services.serviceInterface.SubjectService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.jcr.RepositoryException;
-import javax.xml.rpc.ServiceException;
 
 import java.util.ArrayList;
 
@@ -31,13 +31,8 @@ public class SubjectServiceImpl implements SubjectService {
     }
 
     @Override
-    public AddSubjectResponse addSubject(AddSubjectRequest request) throws ServiceException {
-        int result;
-        try {
-            result = subjectDAO.addSubject(request.getName());
-        } catch (RepositoryException e) {
-            throw new ServiceException(e.getMessage());
-        }
+    public AddSubjectResponse addSubject(AddSubjectRequest request) throws AddEntityMatchData {
+        int result = subjectDAO.addSubject(request.getName());
         AddSubjectResponse addSubjectResponse = SpringConfig.getContext().getBean("addSubjectResponse", AddSubjectResponse.class);
         addSubjectResponse.setId(result);
         return addSubjectResponse;
@@ -45,33 +40,18 @@ public class SubjectServiceImpl implements SubjectService {
 
 
     @Override
-    public String deleteSubject(DeleteSubjectRequest request) throws ServiceException {
-        try {
-            return subjectDAO.deleteSubject(request.getId());
-        } catch (RepositoryException e) {
-            throw new ServiceException(e.getMessage());
-        }
-
+    public String deleteSubject(DeleteSubjectRequest request) throws EntityNotFoundInDataBase {
+        return subjectDAO.deleteSubject(request.getId());
     }
 
     @Override
-    public String editSubject(EditSubjectRequest request) throws ServiceException {
-        try {
-            return subjectDAO.editSubject(request.getId(), request.getName());
-        }catch (RepositoryException e){
-            throw new ServiceException(e.getMessage());
-        }
+    public String editSubject(EditSubjectRequest request) throws StupidChanges, ChangesEntityLeadToConflict, EntityNotFoundInDataBase {
+        return subjectDAO.editSubject(request.getId(), request.getName());
     }
 
     @Override
-    public GetSubjectByIdResponse getSubjectById(GetSubjectByIdRequest request) throws ServiceException {
-        Subject subject;
-        try {
-            subject = subjectDAO.getSubjectById(request.getId());
-        }catch (RepositoryException e){
-            throw new ServiceException(e.getMessage());
-        }
-
+    public GetSubjectByIdResponse getSubjectById(GetSubjectByIdRequest request) throws EntityNotFoundInDataBase {
+        Subject subject = subjectDAO.getSubjectById(request.getId());
         GetSubjectByIdResponse getSubjectByIdResponse = SpringConfig.getContext().getBean("getSubjectByIdResponse",GetSubjectByIdResponse.class);
         getSubjectByIdResponse.setName(subject.getName());
         return getSubjectByIdResponse;

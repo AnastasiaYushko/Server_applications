@@ -8,11 +8,8 @@ import org.example.myExceptions.AddEntityMatchData;
 import org.example.myExceptions.ChangesEntityLeadToConflict;
 import org.example.myExceptions.EntityNotFoundInDataBase;
 import org.example.myExceptions.StupidChanges;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import javax.jcr.RepositoryException;
 
 import java.util.ArrayList;
 
@@ -31,44 +28,28 @@ public class SubjectDAOImpl implements SubjectDAO {
     }
 
     @Override
-    public Subject getSubjectById(int id) throws RepositoryException {
-        try {
-            return dataBase.getSubjectById(id);
-        } catch (EntityNotFoundInDataBase e) {
-            throw new RepositoryException(e.getMessage());
-        }
+    public Subject getSubjectById(int id) throws EntityNotFoundInDataBase {
+        return dataBase.getSubjectById(id);
     }
 
     @Override
-    public int addSubject(String name) throws RepositoryException {
+    public int addSubject(String name) throws AddEntityMatchData {
         Subject subject = SpringConfig.getContext().getBean("subject", Subject.class);
         subject.setName(name);
-        try {
-            return dataBase.addSubject(subject);
-        } catch (AddEntityMatchData e) {
-            throw new RepositoryException(e.getMessage());
-        }
+        return dataBase.addSubject(subject);
     }
 
     @Override
-    public String editSubject(int id, String name) throws RepositoryException {
+    public String editSubject(int id, String name) throws StupidChanges, ChangesEntityLeadToConflict, EntityNotFoundInDataBase {
         Subject newDataSubject = SpringConfig.getContext().getBean("subject", Subject.class);
         newDataSubject.setId(id);
         newDataSubject.setName(name);
 
-        try {
-            return dataBase.editSubject(newDataSubject);
-        } catch (EntityNotFoundInDataBase | StupidChanges | ChangesEntityLeadToConflict e) {
-            throw new RepositoryException(e.getMessage());
-        }
+        return dataBase.editSubject(newDataSubject);
     }
 
     @Override
-    public String deleteSubject(int id) throws RepositoryException {
-        try {
-            return dataBase.deleteSubject(id);
-        } catch (EntityNotFoundInDataBase e) {
-            throw new RepositoryException(e.getMessage());
-        }
+    public String deleteSubject(int id) throws EntityNotFoundInDataBase {
+        return dataBase.deleteSubject(id);
     }
 }

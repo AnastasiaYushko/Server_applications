@@ -1,7 +1,6 @@
 package org.example.myExceptions;
 
-public class ChangesEntityLeadToConflict extends Exception {
-    public ChangesEntityLeadToConflict(String message) {
-        super(message);
-    }
-}
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+public class ChangesEntityLeadToConflict extends Exception {}

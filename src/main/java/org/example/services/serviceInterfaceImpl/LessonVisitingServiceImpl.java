@@ -2,22 +2,16 @@ package org.example.services.serviceInterfaceImpl;
 
 import org.example.SpringConfig;
 import org.example.dao.daoRepositoriesImplements.LessonVisitingDAOImpl;
-import org.example.dto.dtoRequest.lessonVisiting.AddLessonVisitingRequest;
-import org.example.dto.dtoRequest.lessonVisiting.DeleteLessonVisitingByIdRequest;
-import org.example.dto.dtoRequest.lessonVisiting.DeleteLessonVisitingByLessonIdRequest;
-import org.example.dto.dtoRequest.lessonVisiting.EditLessonVisitingRequest;
-import org.example.dto.dtoRequest.lessonVisiting.GetLessonVisitingByLessonIdRequest;
-import org.example.dto.dtoRequest.lessonVisiting.GetLessonVisitingByIdRequest;
+import org.example.dto.dtoRequest.lessonVisiting.*;
 import org.example.dto.dtoResponse.lessonVisiting.AddLessonVisitingResponse;
 import org.example.dto.dtoResponse.lessonVisiting.GetLessonVisitingByIdResponse;
 import org.example.dto.dtoResponse.lessonVisiting.GetLessonVisitingByLessonIdResponse;
+import org.example.myExceptions.AddEntityMatchData;
+import org.example.myExceptions.EntityNotFoundInDataBase;
+import org.example.myExceptions.StupidChanges;
 import org.example.services.serviceInterface.LessonVisitingService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.jcr.RepositoryException;
-import javax.xml.rpc.ServiceException;
 
 @Service
 public class LessonVisitingServiceImpl implements LessonVisitingService {
@@ -30,13 +24,9 @@ public class LessonVisitingServiceImpl implements LessonVisitingService {
     }
 
     @Override
-    public AddLessonVisitingResponse addLessonVisiting(AddLessonVisitingRequest request) throws ServiceException {
-        int result;
-        try {
-            result = lessonVisitingDAO.AddLessonVisiting(request.getLessonId(), request.getListStudent());
-        } catch (RepositoryException e) {
-            throw new ServiceException(e.getMessage());
-        }
+    public AddLessonVisitingResponse addLessonVisiting(AddLessonVisitingRequest request) throws EntityNotFoundInDataBase, AddEntityMatchData {
+        int result = lessonVisitingDAO.AddLessonVisiting(request.getLessonId(), request.getListStudent());
+
         AddLessonVisitingResponse addLessonVisitingResponse = SpringConfig.getContext().getBean("addLessonVisitingResponse", AddLessonVisitingResponse.class);
         addLessonVisitingResponse.setId(result);
 
@@ -44,22 +34,13 @@ public class LessonVisitingServiceImpl implements LessonVisitingService {
     }
 
     @Override
-    public String deleteLessonVisitingById(DeleteLessonVisitingByIdRequest request) throws ServiceException {
-        try {
-            return lessonVisitingDAO.DeleteLessonVisitingById(request.getLessonVisitingId());
-        } catch (RepositoryException e) {
-            throw new ServiceException(e.getMessage());
-        }
+    public String deleteLessonVisitingById(DeleteLessonVisitingByIdRequest request) throws EntityNotFoundInDataBase {
+        return lessonVisitingDAO.DeleteLessonVisitingById(request.getLessonVisitingId());
     }
 
     @Override
-    public GetLessonVisitingByIdResponse getLessonVisitingById(GetLessonVisitingByIdRequest request) throws ServiceException {
-        String result;
-        try {
-            result = lessonVisitingDAO.GetLessonVisitingById(request.getLessonVisitingId()).toString();
-        } catch (RepositoryException e) {
-            throw new ServiceException(e.getMessage());
-        }
+    public GetLessonVisitingByIdResponse getLessonVisitingById(GetLessonVisitingByIdRequest request) throws EntityNotFoundInDataBase {
+        String result = lessonVisitingDAO.GetLessonVisitingById(request.getLessonVisitingId()).toString();
 
         GetLessonVisitingByIdResponse getLessonVisitingByIdResponse = SpringConfig.getContext().getBean("getLessonVisitingByIdResponse", GetLessonVisitingByIdResponse.class);
         getLessonVisitingByIdResponse.setLessonVisiting(result);
@@ -67,13 +48,8 @@ public class LessonVisitingServiceImpl implements LessonVisitingService {
     }
 
     @Override
-    public GetLessonVisitingByLessonIdResponse getLessonVisitingByLessonId(GetLessonVisitingByLessonIdRequest request) throws ServiceException {
-        String result;
-        try {
-            result = lessonVisitingDAO.GetLessonVisitingByLessonId(request.getLessonId()).toString();
-        } catch (RepositoryException e) {
-            throw new ServiceException(e.getMessage());
-        }
+    public GetLessonVisitingByLessonIdResponse getLessonVisitingByLessonId(GetLessonVisitingByLessonIdRequest request) throws EntityNotFoundInDataBase {
+        String result = lessonVisitingDAO.GetLessonVisitingByLessonId(request.getLessonId()).toString();
 
         GetLessonVisitingByLessonIdResponse getLessonVisitingByLessonIdResponse = SpringConfig.getContext().getBean("getLessonVisitingByLessonIdResponse", GetLessonVisitingByLessonIdResponse.class);
         getLessonVisitingByLessonIdResponse.setLessonVisiting(result);
@@ -82,20 +58,12 @@ public class LessonVisitingServiceImpl implements LessonVisitingService {
     }
 
     @Override
-    public String deleteLessonVisitingByLessonId(DeleteLessonVisitingByLessonIdRequest request) throws ServiceException {
-        try {
-            return lessonVisitingDAO.DeleteLessonVisitingByLessonId(request.getLessonId());
-        } catch (RepositoryException e) {
-            throw new ServiceException(e.getMessage());
-        }
+    public String deleteLessonVisitingByLessonId(DeleteLessonVisitingByLessonIdRequest request) throws EntityNotFoundInDataBase {
+        return lessonVisitingDAO.DeleteLessonVisitingByLessonId(request.getLessonId());
     }
 
     @Override
-    public String editLessonVisiting(EditLessonVisitingRequest request) throws ServiceException {
-        try {
-            return lessonVisitingDAO.EditLessonVisiting(request.getLessonVisitingId(), request.getLessonId(), request.getListStudent());
-        } catch (RepositoryException e) {
-            throw new ServiceException(e.getMessage());
-        }
+    public String editLessonVisiting(EditLessonVisitingRequest request) throws StupidChanges, EntityNotFoundInDataBase {
+        return lessonVisitingDAO.EditLessonVisiting(request.getLessonVisitingId(), request.getLessonId(), request.getListStudent());
     }
 }

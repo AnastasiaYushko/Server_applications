@@ -39,5 +39,4 @@ public class Lesson {
     public int hashCode() {
         return Objects.hash(date, number, subject, teacher, group);
     }
-
 }

@@ -2,22 +2,18 @@ package org.example.services.serviceInterfaceImpl;
 
 import org.example.SpringConfig;
 import org.example.dao.daoRepositoriesImplements.StudentDAOImpl;
-import org.example.dto.dtoRequest.student.AddStudentRequest;
-import org.example.dto.dtoRequest.student.DeleteStudentRequest;
-import org.example.dto.dtoRequest.student.EditStudentRequest;
-import org.example.dto.dtoRequest.student.GetStudentsByGroupRequest;
-import org.example.dto.dtoRequest.student.GetStudentByIdRequest;
+import org.example.dto.dtoRequest.student.*;
 import org.example.dto.dtoResponse.student.AddStudentResponse;
 import org.example.dto.dtoResponse.student.GetStudentByIdResponse;
 import org.example.dto.dtoResponse.student.GetStudentsByGroupResponse;
 import org.example.model.Student;
+import org.example.myExceptions.AddEntityMatchData;
+import org.example.myExceptions.ChangesEntityLeadToConflict;
+import org.example.myExceptions.EntityNotFoundInDataBase;
+import org.example.myExceptions.StupidChanges;
 import org.example.services.serviceInterface.StudentService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.jcr.RepositoryException;
-import javax.xml.rpc.ServiceException;
 
 import java.util.ArrayList;
 
@@ -32,13 +28,8 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public GetStudentByIdResponse getStudentById(GetStudentByIdRequest request) throws ServiceException {
-        Student student;
-        try {
-            student = studentDAO.getStudentById(request.getStudentId());
-        } catch (RepositoryException e) {
-            throw new ServiceException(e.getMessage());
-        }
+    public GetStudentByIdResponse getStudentById(GetStudentByIdRequest request) throws EntityNotFoundInDataBase {
+        Student student= studentDAO.getStudentById(request.getStudentId());
 
         GetStudentByIdResponse getStudentByIdResponse = SpringConfig.getContext().getBean("getStudentByIdResponse", GetStudentByIdResponse.class);
         getStudentByIdResponse.setFirstName(student.getFirstName());
@@ -51,15 +42,10 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public GetStudentsByGroupResponse getStudentsByGroup(GetStudentsByGroupRequest request) throws ServiceException {
+    public GetStudentsByGroupResponse getStudentsByGroup(GetStudentsByGroupRequest request) throws EntityNotFoundInDataBase {
 
-        ArrayList<Student> listStudents;
+        ArrayList<Student> listStudents = studentDAO.getStudentsByGroup(request.getGroupId());
 
-        try {
-            listStudents = studentDAO.getStudentsByGroup(request.getGroupId());
-        } catch (RepositoryException e) {
-            throw new ServiceException(e.getMessage());
-        }
         ArrayList<String> newListStudents = new ArrayList<>();
 
         for (Student student : listStudents) {
@@ -72,33 +58,21 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public String editStudent(EditStudentRequest request) throws ServiceException {
-        try {
-            return studentDAO.editStudent(request.getId(), request.getLastName(), request.getFirstName(), request.getMiddleName(), request.getGroupId(), request.getStatus());
-        } catch (RepositoryException e) {
-            throw new ServiceException(e.getMessage());
-        }
+    public String editStudent(EditStudentRequest request) throws StupidChanges, ChangesEntityLeadToConflict, EntityNotFoundInDataBase {
+        return studentDAO.editStudent(request.getId(), request.getLastName(), request.getFirstName(), request.getMiddleName(), request.getGroupId(), request.getStatus());
     }
 
     @Override
-    public AddStudentResponse addStudent(AddStudentRequest request) throws ServiceException {
-        int result;
-        try {
-            result = studentDAO.addStudent(request.getLastName(), request.getFirstName(), request.getMiddleName(), request.getGroupId(), request.getStatus());
-        } catch (RepositoryException e) {
-            throw new ServiceException(e.getMessage());
-        }
+    public AddStudentResponse addStudent(AddStudentRequest request) throws EntityNotFoundInDataBase, AddEntityMatchData {
+        int result = studentDAO.addStudent(request.getLastName(), request.getFirstName(), request.getMiddleName(), request.getGroupId(), request.getStatus());
+
         AddStudentResponse addStudentResponse = SpringConfig.getContext().getBean("addStudentResponse", AddStudentResponse.class);
         addStudentResponse.setId(result);
         return addStudentResponse;
     }
 
     @Override
-    public String deleteStudent(DeleteStudentRequest request) throws ServiceException {
-        try {
-            return studentDAO.deleteStudent(request.getStudentId());
-        } catch (RepositoryException e) {
-            throw new ServiceException(e.getMessage());
-        }
+    public String deleteStudent(DeleteStudentRequest request) throws EntityNotFoundInDataBase {
+        return studentDAO.deleteStudent(request.getStudentId());
     }
 }

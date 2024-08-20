@@ -10,13 +10,13 @@ import org.example.dto.dtoResponse.studentGroup.AddStudentGroupResponse;
 import org.example.dto.dtoResponse.studentGroup.GetStudentGroupByIdResponse;
 import org.example.dto.dtoResponse.studentGroup.GetStudentGroupsResponse;
 import org.example.model.StudentGroup;
+import org.example.myExceptions.AddEntityMatchData;
+import org.example.myExceptions.ChangesEntityLeadToConflict;
+import org.example.myExceptions.EntityNotFoundInDataBase;
+import org.example.myExceptions.StupidChanges;
 import org.example.services.serviceInterface.GroupStudentsService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.jcr.RepositoryException;
-import javax.xml.rpc.ServiceException;
 
 import java.util.ArrayList;
 
@@ -31,13 +31,11 @@ public class GroupStudentServiceImpl implements GroupStudentsService {
     }
 
     @Override
-    public GetStudentGroupByIdResponse getStudentGroupById(GetStudentGroupByIdRequest request) throws ServiceException {
+    public GetStudentGroupByIdResponse getStudentGroupById(GetStudentGroupByIdRequest request) throws EntityNotFoundInDataBase {
         StudentGroup group;
-        try {
-            group = studentGroupDAO.getStudentGroupById(request.getId());
-        } catch (RepositoryException e) {
-            throw new ServiceException(e.getMessage());
-        }
+
+        group = studentGroupDAO.getStudentGroupById(request.getId());
+
         GetStudentGroupByIdResponse getStudentGroupByIdResponse = SpringConfig.getContext().getBean("getStudentGroupByIdResponse", GetStudentGroupByIdResponse.class);
         getStudentGroupByIdResponse.setName(group.getName());
         return getStudentGroupByIdResponse;
@@ -59,33 +57,20 @@ public class GroupStudentServiceImpl implements GroupStudentsService {
     }
 
     @Override
-    public String editStudentGroup(EditStudentGroupRequest request) throws ServiceException {
-        try {
-            return studentGroupDAO.editStudentGroup(request.getId(), request.getName());
-        } catch (RepositoryException e) {
-            throw new ServiceException(e.getMessage());
-        }
+    public String editStudentGroup(EditStudentGroupRequest request) throws StupidChanges, ChangesEntityLeadToConflict, EntityNotFoundInDataBase {
+        return studentGroupDAO.editStudentGroup(request.getId(), request.getName());
     }
 
     @Override
-    public AddStudentGroupResponse addStudentGroup(AddStudentGroupRequest request) throws ServiceException {
-        int result;
-        try {
-            result = studentGroupDAO.addStudentGroup(request.getName());
-        } catch (RepositoryException e) {
-            throw new ServiceException(e.getMessage());
-        }
+    public AddStudentGroupResponse addStudentGroup(AddStudentGroupRequest request) throws AddEntityMatchData {
+        int result = studentGroupDAO.addStudentGroup(request.getName());
         AddStudentGroupResponse AddStudentGroupResponse = SpringConfig.getContext().getBean("addStudentGroupResponse", AddStudentGroupResponse.class);
         AddStudentGroupResponse.setId(result);
         return AddStudentGroupResponse;
     }
 
     @Override
-    public String deleteStudentGroup(DeleteStudentGroupRequest request) throws ServiceException {
-        try {
-            return studentGroupDAO.deleteStudentGroup(request.getId());
-        } catch (RepositoryException e) {
-            throw new ServiceException(e.getMessage());
-        }
+    public String deleteStudentGroup(DeleteStudentGroupRequest request) throws EntityNotFoundInDataBase {
+        return studentGroupDAO.deleteStudentGroup(request.getId());
     }
 }

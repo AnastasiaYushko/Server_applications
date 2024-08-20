@@ -2,7 +2,7 @@ package org.example.controllers;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
-
+import org.example.ResponseEntity;
 import org.example.SpringConfig;
 import org.example.dto.dtoRequest.studentGroup.AddStudentGroupRequest;
 import org.example.dto.dtoRequest.studentGroup.DeleteStudentGroupRequest;
@@ -11,19 +11,18 @@ import org.example.dto.dtoRequest.studentGroup.GetStudentGroupByIdRequest;
 import org.example.dto.dtoResponse.studentGroup.AddStudentGroupResponse;
 import org.example.dto.dtoResponse.studentGroup.GetStudentGroupByIdResponse;
 import org.example.dto.dtoResponse.studentGroup.GetStudentGroupsResponse;
-import org.example.ResponseEntity;
+import org.example.myExceptions.AddEntityMatchData;
+import org.example.myExceptions.ChangesEntityLeadToConflict;
+import org.example.myExceptions.EntityNotFoundInDataBase;
+import org.example.myExceptions.StupidChanges;
 import org.example.services.serviceInterfaceImpl.GroupStudentServiceImpl;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.http.HttpStatus;
-
-import javax.xml.rpc.ServiceException;
 
 @RestController
-@RequestMapping(value = "/studentGroup", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/studentGroup")
 @Validated
 public class StudentGroupController {
 
@@ -41,46 +40,32 @@ public class StudentGroupController {
     }
 
     @GetMapping("/getGyId")
-    public ResponseEntity<?> GetStudentGroupById(@Valid @RequestParam("id") @Positive int id) {
+    public ResponseEntity<GetStudentGroupByIdResponse> GetStudentGroupById(@Valid @RequestParam("id") @Positive int id) throws EntityNotFoundInDataBase {
         GetStudentGroupByIdRequest getStudentGroupByIdRequest = SpringConfig.getContext().getBean("getStudentGroupByIdRequest", GetStudentGroupByIdRequest.class);
         getStudentGroupByIdRequest.setId(id);
-        try {
-            GetStudentGroupByIdResponse getStudentGroupByIdResponse = groupStudentService.getStudentGroupById(getStudentGroupByIdRequest);
-            return new ResponseEntity<>(getStudentGroupByIdResponse, HttpStatus.OK);
-        } catch (ServiceException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-        }
+
+        GetStudentGroupByIdResponse getStudentGroupByIdResponse = groupStudentService.getStudentGroupById(getStudentGroupByIdRequest);
+        return new ResponseEntity<>(getStudentGroupByIdResponse, HttpStatus.OK);
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> AddStudentGroup(@Valid @RequestBody AddStudentGroupRequest jsonRequest) {
-        try {
-            AddStudentGroupResponse addStudentGroupResponse = groupStudentService.addStudentGroup(jsonRequest);
-            return new ResponseEntity<>(addStudentGroupResponse, HttpStatus.OK);
-        } catch (ServiceException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<AddStudentGroupResponse> AddStudentGroup(@Valid @RequestBody AddStudentGroupRequest jsonRequest) throws AddEntityMatchData {
+        AddStudentGroupResponse addStudentGroupResponse = groupStudentService.addStudentGroup(jsonRequest);
+        return new ResponseEntity<>(addStudentGroupResponse, HttpStatus.OK);
     }
 
     @PutMapping("/edit")
-    public ResponseEntity<?> EditStudentGroup(@Valid @RequestBody EditStudentGroupRequest jsonRequest) {
-        try {
-            String editStudentGroupResponse = groupStudentService.editStudentGroup(jsonRequest);
-            return new ResponseEntity<>(editStudentGroupResponse, HttpStatus.OK);
-        } catch (ServiceException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<String> EditStudentGroup(@Valid @RequestBody EditStudentGroupRequest jsonRequest) throws StupidChanges, ChangesEntityLeadToConflict, EntityNotFoundInDataBase {
+        String editStudentGroupResponse = groupStudentService.editStudentGroup(jsonRequest);
+        return new ResponseEntity<>(editStudentGroupResponse, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<String> DeleteStudentGroup(@Valid @RequestParam("id") @Positive int id) {
+    public ResponseEntity<String> DeleteStudentGroup(@Valid @RequestParam("id") @Positive int id) throws EntityNotFoundInDataBase {
         DeleteStudentGroupRequest deleteStudentGroupRequest = SpringConfig.getContext().getBean("deleteStudentGroupRequest", DeleteStudentGroupRequest.class);
         deleteStudentGroupRequest.setId(id);
-        try {
-            String dataResponse = groupStudentService.deleteStudentGroup(deleteStudentGroupRequest);
-            return new ResponseEntity<>(dataResponse, HttpStatus.OK);
-        } catch (ServiceException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-        }
+
+        String dataResponse = groupStudentService.deleteStudentGroup(deleteStudentGroupRequest);
+        return new ResponseEntity<>(dataResponse, HttpStatus.OK);
     }
 }
