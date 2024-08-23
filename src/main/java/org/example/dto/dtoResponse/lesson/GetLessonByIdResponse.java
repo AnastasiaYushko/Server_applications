@@ -12,4 +12,5 @@ public class GetLessonByIdResponse {
     private int number;
     private int teacherId;
     private int groupId;
+    private int subjectId;
 }

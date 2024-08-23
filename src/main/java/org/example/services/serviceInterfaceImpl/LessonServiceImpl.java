@@ -86,6 +86,7 @@ public class LessonServiceImpl implements LessonService {
         getLessonByIdResponse.setNumber(lesson.getNumber());
         getLessonByIdResponse.setTeacherId(lesson.getTeacher().getId());
         getLessonByIdResponse.setGroupId(lesson.getGroup().getId());
+        getLessonByIdResponse.setSubjectId(lesson.getSubject().getId());
 
         return getLessonByIdResponse;
 

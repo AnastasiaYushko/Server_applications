@@ -20,7 +20,7 @@ import java.util.Map;
 public class HandlerException {
     // (@Valid @RequestBody AddLessonRequest jsonRequest)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Map<String, String>> handleValidationExceptions_ArgumentNotValid(MethodArgumentNotValidException ex) {
+    public ResponseEntity<Map<String, String>> handleValidationExceptions_1(MethodArgumentNotValidException ex) {
         HashMap<String, String> result = new HashMap<>();
         List<ObjectError> errors = ex.getBindingResult().getAllErrors();
 
@@ -34,7 +34,7 @@ public class HandlerException {
 
     // Например id = абвг
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
-    public ResponseEntity<HashMap<String, String>> handleValidationExceptions_1(MethodArgumentTypeMismatchException ex) {
+    public ResponseEntity<HashMap<String, String>> handleValidationExceptions_2(MethodArgumentTypeMismatchException ex) {
         HashMap<String, String> errors = new HashMap<>();
         String error = " тип параметра неверен";
         errors.put(ex.getName(), error);
@@ -61,7 +61,7 @@ public class HandlerException {
 
     //(@Valid @RequestParam("id") @Positive int id)
     @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<Map<String, String>> handleConstraintViolationException(ConstraintViolationException ex) {
+    public ResponseEntity<Map<String, String>> handleValidationExceptions_6(ConstraintViolationException ex) {
         Map<String, String> errors = new HashMap<>();
         for (ConstraintViolation<?> violation : ex.getConstraintViolations()) {
             String fieldName = violation.getPropertyPath().toString();
@@ -82,7 +82,7 @@ public class HandlerException {
     // Либо добавление студентов с неверными данными
     @ExceptionHandler(ConflictingData.class)
     public ResponseEntity<String> handleValidationExceptions_8(ConflictingData ex){
-        String error = "В запросе переданы противоречивые данные";
+        String error = "В запросе переданы противоречивые данные : " + ex.getMessage();
         return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
     }
 

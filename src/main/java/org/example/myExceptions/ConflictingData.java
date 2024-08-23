@@ -1,7 +1,12 @@
 package org.example.myExceptions;
 
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
-@NoArgsConstructor
+@Getter
+@Setter
 public class ConflictingData extends Exception{
+    public ConflictingData(String message){
+        super(message);
+    }
 }
