@@ -7,6 +7,7 @@ import org.example.dto.dtoResponse.lessonVisiting.AddLessonVisitingResponse;
 import org.example.dto.dtoResponse.lessonVisiting.GetLessonVisitingByIdResponse;
 import org.example.dto.dtoResponse.lessonVisiting.GetLessonVisitingByLessonIdResponse;
 import org.example.myExceptions.AddEntityMatchData;
+import org.example.myExceptions.ConflictingData;
 import org.example.myExceptions.EntityNotFoundInDataBase;
 import org.example.myExceptions.StupidChanges;
 import org.example.services.serviceInterface.LessonVisitingService;
@@ -24,7 +25,7 @@ public class LessonVisitingServiceImpl implements LessonVisitingService {
     }
 
     @Override
-    public AddLessonVisitingResponse addLessonVisiting(AddLessonVisitingRequest request) throws EntityNotFoundInDataBase, AddEntityMatchData {
+    public AddLessonVisitingResponse addLessonVisiting(AddLessonVisitingRequest request) throws EntityNotFoundInDataBase, AddEntityMatchData, ConflictingData {
         int result = lessonVisitingDAO.AddLessonVisiting(request.getLessonId(), request.getListStudent());
 
         AddLessonVisitingResponse addLessonVisitingResponse = SpringConfig.getContext().getBean("addLessonVisitingResponse", AddLessonVisitingResponse.class);
@@ -63,7 +64,7 @@ public class LessonVisitingServiceImpl implements LessonVisitingService {
     }
 
     @Override
-    public String editLessonVisiting(EditLessonVisitingRequest request) throws StupidChanges, EntityNotFoundInDataBase {
+    public String editLessonVisiting(EditLessonVisitingRequest request) throws StupidChanges, EntityNotFoundInDataBase, ConflictingData {
         return lessonVisitingDAO.EditLessonVisiting(request.getLessonVisitingId(), request.getLessonId(), request.getListStudent());
     }
 }

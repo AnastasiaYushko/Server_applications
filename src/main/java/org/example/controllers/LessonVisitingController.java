@@ -8,6 +8,7 @@ import org.example.dto.dtoResponse.lessonVisiting.AddLessonVisitingResponse;
 import org.example.dto.dtoResponse.lessonVisiting.GetLessonVisitingByIdResponse;
 import org.example.dto.dtoResponse.lessonVisiting.GetLessonVisitingByLessonIdResponse;
 import org.example.myExceptions.AddEntityMatchData;
+import org.example.myExceptions.ConflictingData;
 import org.example.myExceptions.EntityNotFoundInDataBase;
 import org.example.myExceptions.StupidChanges;
 import org.example.services.serviceInterfaceImpl.LessonVisitingServiceImpl;
@@ -30,13 +31,13 @@ public class LessonVisitingController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<AddLessonVisitingResponse> AddLessonVisiting(@Valid @RequestBody AddLessonVisitingRequest jsonRequest) throws EntityNotFoundInDataBase, AddEntityMatchData {
+    public ResponseEntity<AddLessonVisitingResponse> AddLessonVisiting(@Valid @RequestBody AddLessonVisitingRequest jsonRequest) throws EntityNotFoundInDataBase, AddEntityMatchData, ConflictingData {
         AddLessonVisitingResponse dataResponse = lessonVisitingService.addLessonVisiting(jsonRequest);
         return new ResponseEntity<>(dataResponse, HttpStatus.OK);
     }
 
     @PutMapping("/edit")
-    public ResponseEntity<String> EditLessonVisiting(@Valid @RequestBody EditLessonVisitingRequest jsonRequest) throws StupidChanges, EntityNotFoundInDataBase {
+    public ResponseEntity<String> EditLessonVisiting(@Valid @RequestBody EditLessonVisitingRequest jsonRequest) throws StupidChanges, EntityNotFoundInDataBase, ConflictingData {
         String dataResponse = lessonVisitingService.editLessonVisiting(jsonRequest);
         return new ResponseEntity<>(dataResponse, HttpStatus.OK);
     }

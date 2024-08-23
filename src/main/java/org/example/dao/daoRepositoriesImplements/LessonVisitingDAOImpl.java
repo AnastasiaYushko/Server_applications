@@ -6,6 +6,7 @@ import org.example.dao.daoRepositories.LessonVisitingDAO;
 import org.example.model.LessonVisiting;
 import org.example.model.Student;
 import org.example.myExceptions.AddEntityMatchData;
+import org.example.myExceptions.ConflictingData;
 import org.example.myExceptions.EntityNotFoundInDataBase;
 import org.example.myExceptions.StupidChanges;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class LessonVisitingDAOImpl implements LessonVisitingDAO {
     }
 
     @Override
-    public int AddLessonVisiting(int lessonId, ArrayList<String> students1) throws EntityNotFoundInDataBase, AddEntityMatchData {
+    public int AddLessonVisiting(int lessonId, ArrayList<String> students1) throws EntityNotFoundInDataBase, AddEntityMatchData, ConflictingData {
         LessonVisiting lessonVisiting = SpringConfig.getContext().getBean("lessonVisiting", LessonVisiting.class);
         lessonVisiting.setLessonId(lessonId);
 
@@ -49,7 +50,7 @@ public class LessonVisitingDAOImpl implements LessonVisitingDAO {
     }
 
     @Override
-    public String EditLessonVisiting(int lessonVisitingId, int lessonId, ArrayList<String> students1) throws StupidChanges, EntityNotFoundInDataBase {
+    public String EditLessonVisiting(int lessonVisitingId, int lessonId, ArrayList<String> students1) throws StupidChanges, EntityNotFoundInDataBase, ConflictingData {
         LessonVisiting lessonVisiting = SpringConfig.getContext().getBean("lessonVisiting", LessonVisiting.class);
         lessonVisiting.setId(lessonVisitingId);
         lessonVisiting.setLessonId(lessonId);

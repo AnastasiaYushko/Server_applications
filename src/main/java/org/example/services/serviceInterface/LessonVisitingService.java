@@ -10,6 +10,7 @@ import org.example.dto.dtoResponse.lessonVisiting.AddLessonVisitingResponse;
 import org.example.dto.dtoResponse.lessonVisiting.GetLessonVisitingByIdResponse;
 import org.example.dto.dtoResponse.lessonVisiting.GetLessonVisitingByLessonIdResponse;
 import org.example.myExceptions.AddEntityMatchData;
+import org.example.myExceptions.ConflictingData;
 import org.example.myExceptions.EntityNotFoundInDataBase;
 import org.example.myExceptions.StupidChanges;
 
@@ -17,7 +18,7 @@ import javax.jcr.RepositoryException;
 import javax.xml.rpc.ServiceException;
 
 public interface LessonVisitingService {
-    AddLessonVisitingResponse addLessonVisiting(AddLessonVisitingRequest request) throws RepositoryException, ServiceException, EntityNotFoundInDataBase, AddEntityMatchData;
+    AddLessonVisitingResponse addLessonVisiting(AddLessonVisitingRequest request) throws RepositoryException, ServiceException, EntityNotFoundInDataBase, AddEntityMatchData, ConflictingData;
 
     String deleteLessonVisitingById(DeleteLessonVisitingByIdRequest request) throws RepositoryException, ServiceException, EntityNotFoundInDataBase;
 
@@ -27,5 +28,5 @@ public interface LessonVisitingService {
 
     GetLessonVisitingByLessonIdResponse getLessonVisitingByLessonId(GetLessonVisitingByLessonIdRequest request) throws RepositoryException, ServiceException, EntityNotFoundInDataBase;
 
-    String editLessonVisiting(EditLessonVisitingRequest request) throws RepositoryException, ServiceException, StupidChanges, EntityNotFoundInDataBase;
+    String editLessonVisiting(EditLessonVisitingRequest request) throws RepositoryException, ServiceException, StupidChanges, EntityNotFoundInDataBase, ConflictingData;
 }

@@ -40,7 +40,7 @@ public class TeacherController {
     }
 
     @GetMapping("/getById")
-    public ResponseEntity<GetTeacherByIdResponse> GetTeacherById(@Valid @RequestParam("id") int id) throws EntityNotFoundInDataBase {
+    public ResponseEntity<GetTeacherByIdResponse> GetTeacherById(@Valid @RequestParam("id") @Positive int id) throws EntityNotFoundInDataBase {
         GetTeacherByIdRequest getTeacherByIdRequest = SpringConfig.getContext().getBean("getTeacherByIdRequest", GetTeacherByIdRequest.class);
         getTeacherByIdRequest.setId(id);
 

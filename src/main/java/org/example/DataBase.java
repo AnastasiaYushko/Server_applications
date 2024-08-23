@@ -1,10 +1,7 @@
 package org.example;
 
 import org.example.model.*;
-import org.example.myExceptions.AddEntityMatchData;
-import org.example.myExceptions.ChangesEntityLeadToConflict;
-import org.example.myExceptions.EntityNotFoundInDataBase;
-import org.example.myExceptions.StupidChanges;
+import org.example.myExceptions.*;
 
 import org.springframework.stereotype.Component;
 
@@ -234,7 +231,7 @@ public class DataBase {
             for (Lesson l : listLesson.values()) {
                 if (l.getGroup().getId() == groupId) {
                     listLesson.remove(l.getId());
-                    if (!isNull(getLessonVisitingByLessonId(l.getId()))) {
+                    if (!isNull(listLessonVisiting_LessonId.get(l.getId()))) {
                         deleteLessonVisitingByLessonId(l.getId());
                     }
                 }
@@ -249,7 +246,7 @@ public class DataBase {
             listLesson.remove(lessonId);
         }
 
-        if (!isNull(getLessonVisitingByLessonId(lessonId))) {
+        if (!isNull(listLessonVisiting_LessonId.get(lessonId))) {
             deleteLessonVisitingByLessonId(lessonId);
         }
         return "Урок удален";
@@ -261,7 +258,7 @@ public class DataBase {
             for (Lesson l : listLesson.values()) {
                 if (l.getTeacher().getId() == teacherId) {
                     listLesson.remove(l.getId());
-                    if (!isNull(getLessonVisitingByLessonId(l.getId()))) {
+                    if (!isNull(listLessonVisiting_LessonId.get(l.getId()))) {
                         deleteLessonVisitingByLessonId(l.getId());
                     }
                 }
@@ -447,9 +444,13 @@ public class DataBase {
 
     // LessonVisiting
 
-    public synchronized int addLessonVisiting(LessonVisiting lessonVisiting) throws EntityNotFoundInDataBase, AddEntityMatchData {
-        for (Student student : lessonVisiting.getListStudent()) {
-            getStudentById(student.getId());
+    public synchronized int addLessonVisiting(LessonVisiting lessonVisiting) throws EntityNotFoundInDataBase, AddEntityMatchData, ConflictingData {
+        synchronized (listStudents) {
+            for (Student student : lessonVisiting.getListStudent()) {
+               if (!getStudentById(student.getId()).equals(student)){
+                   throw new ConflictingData();
+               }
+            }
         }
         getLessonById(lessonVisiting.getLessonId());
 
@@ -486,7 +487,20 @@ public class DataBase {
     }
 
 
-    public synchronized String editLessonVisiting(LessonVisiting lessonVisiting) throws EntityNotFoundInDataBase, StupidChanges {
+    public synchronized String editLessonVisiting(LessonVisiting lessonVisiting) throws EntityNotFoundInDataBase, StupidChanges, ConflictingData {
+        synchronized (listStudents) {
+            for (Student student : lessonVisiting.getListStudent()) {
+                if (!getStudentById(student.getId()).equals(student)){
+                    throw new ConflictingData();
+                }
+            }
+        }
+
+        if (getLessonById(lessonVisiting.getId()).getId() != lessonVisiting.getLessonId()){
+            throw new ConflictingData();
+        }
+
+
         for (Student student : lessonVisiting.getListStudent()) {
             getStudentById(student.getId());
         }

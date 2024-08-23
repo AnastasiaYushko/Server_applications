@@ -52,15 +52,15 @@ public class Student {
         String[] groupData = new String[2];
 
         // Извлечение данных о студенте
-        studentData[0] = extractValue(input, "id=", ",");
-        studentData[1] = extractValue(input, "lastName='", "',");
-        studentData[2] = extractValue(input, "firstName='", "',");
-        studentData[3] = extractValue(input, "middleName='", "',");
+        studentData[0] = extractValue(input, "Student(id=", ",");
+        studentData[1] = extractValue(input, "lastName=", ",");
+        studentData[2] = extractValue(input, "firstName=", ",");
+        studentData[3] = extractValue(input, "middleName=", ",");
         studentData[4] = extractValue(input, "status=", ",");
 
         // Извлечение данных о группе
-        groupData[0] = extractValue(input, "group=GroupOfStudents{id=", ",");
-        groupData[1] = extractValue(input, "name='", "'}");
+        groupData[0] = extractValue(input, "group=StudentGroup(id=", ",");
+        groupData[1] = extractValue(input, "name=", "))");
 
         StudentGroup studentGroup = SpringConfig.getContext().getBean("studentGroup", StudentGroup.class);
         studentGroup.setId(Integer.parseInt(groupData[0]));
@@ -78,8 +78,21 @@ public class Student {
     }
 
     private static String extractValue(String input, String prefix, String suffix) {
-        int startIndex = input.indexOf(prefix) + prefix.length();
+        int startIndex = input.indexOf(prefix);
+
+        // Проверка на наличие префикса
+        if (startIndex == -1) {
+            throw new IllegalArgumentException("Ошибка в переданный строке");
+        }
+
+        startIndex += prefix.length();
         int endIndex = input.indexOf(suffix, startIndex);
+
+        // Проверка на наличие суффикса
+        if (endIndex == -1) {
+            throw new IllegalArgumentException("Ошибка в переданный строке");
+        }
+
         return input.substring(startIndex, endIndex).trim();
     }
 }

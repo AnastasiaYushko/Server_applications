@@ -1,9 +1,8 @@
 package org.example.handlers;
 
-import org.example.myExceptions.AddEntityMatchData;
-import org.example.myExceptions.ChangesEntityLeadToConflict;
-import org.example.myExceptions.EntityNotFoundInDataBase;
-import org.example.myExceptions.StupidChanges;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
+import org.example.myExceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -19,7 +18,7 @@ import java.util.Map;
 
 @RestControllerAdvice
 public class HandlerException {
-    // @Valid на аргументах
+    // (@Valid @RequestBody AddLessonRequest jsonRequest)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleValidationExceptions_ArgumentNotValid(MethodArgumentNotValidException ex) {
         HashMap<String, String> result = new HashMap<>();
@@ -35,7 +34,7 @@ public class HandlerException {
 
     // Например id = абвг
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
-    public ResponseEntity<HashMap<String, String>> handleValidationExceptions_(MethodArgumentTypeMismatchException ex) {
+    public ResponseEntity<HashMap<String, String>> handleValidationExceptions_1(MethodArgumentTypeMismatchException ex) {
         HashMap<String, String> errors = new HashMap<>();
         String error = " тип параметра неверен";
         errors.put(ex.getName(), error);
@@ -43,26 +42,52 @@ public class HandlerException {
     }
 
     @ExceptionHandler(AddEntityMatchData.class)
-    public ResponseEntity<String> handleValidationExceptions_(AddEntityMatchData ex) {
+    public ResponseEntity<String> handleValidationExceptions_3(AddEntityMatchData ex) {
         String error = "Такой объект уже есть в базе данных";
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(StupidChanges.class)
-    public ResponseEntity<String> handleValidationExceptions_(StupidChanges ex) {
+    public ResponseEntity<String> handleValidationExceptions_4(StupidChanges ex) {
         String error = "Новые данные, которые вы хотите внести, сопадают с имеющимися у этого объекта";
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(ChangesEntityLeadToConflict.class)
-    public ResponseEntity<String> handleValidationExceptions_(ChangesEntityLeadToConflict ex) {
+    public ResponseEntity<String> handleValidationExceptions_5(ChangesEntityLeadToConflict ex) {
         String error = "Изменения совпадают с другим объектом в базе данных";
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
+    //(@Valid @RequestParam("id") @Positive int id)
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<Map<String, String>> handleConstraintViolationException(ConstraintViolationException ex) {
+        Map<String, String> errors = new HashMap<>();
+        for (ConstraintViolation<?> violation : ex.getConstraintViolations()) {
+            String fieldName = violation.getPropertyPath().toString();
+            String errorMessage = violation.getMessage();
+            errors.put(fieldName, errorMessage);
+        }
+        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(EntityNotFoundInDataBase.class)
-    public ResponseEntity<String> handleValidationExceptions_(EntityNotFoundInDataBase ex) {
+    public ResponseEntity<String> handleValidationExceptions_7(EntityNotFoundInDataBase ex) {
         String error = "Объект класса " + ex.getClassError() + " не найден в базе данных";
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
+    // например при edit LessonVisiting
+    // Там привязка LessonId к LessonVisitingId, а при запросе передаются оба ID
+    // Либо добавление студентов с неверными данными
+    @ExceptionHandler(ConflictingData.class)
+    public ResponseEntity<String> handleValidationExceptions_8(ConflictingData ex){
+        String error = "В запросе переданы противоречивые данные";
+        return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<String> handleValidationExceptions_9(IllegalArgumentException ex){
+        return new ResponseEntity<>(ex.getMessage(),HttpStatus.BAD_REQUEST);
     }
 }
